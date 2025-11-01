@@ -83,9 +83,9 @@ export default function MemberListSection({ members }: MemberListSectionProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
           {members.map((member, index) => (
             <Link
-              href={`/member/${member.id}`}
+              href={`/member/${member.slug}`}
               key={member.id}
-              className="member-card bg-white overflow-hidden transition-shadow duration-300 cursor-pointer hover:shadow-lg"
+              className="member-card bg-white overflow-hidden transition-shadow duration-300 cursor-pointer"
             >
               {/* Mobile Layout */}
               <div className="block lg:hidden">

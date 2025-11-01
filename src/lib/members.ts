@@ -21,6 +21,17 @@ function getImageUrl(imageUrl: string): string {
 }
 
 /**
+ * 英語名からスラッグを生成
+ * 例: "Yuto Ogata" → "yuto-ogata"
+ */
+export function createSlugFromEnglishName(englishName: string): string {
+  return englishName
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '')
+}
+
+/**
  * メンバー一覧を取得
  *
  * @returns メンバー一覧（ID昇順）
@@ -31,19 +42,23 @@ export async function getAllMembersForList(): Promise<MemberListItem[]> {
       sorts: getDefaultSorts(memberConfig),
     })
 
-    return pages.map((page) => ({
-      id: extractors.id(page),
-      name: extractors.name(page),
-      englishName: extractors.englishName(page),
-      position: extractors.position(page),
-      description: extractors.description(page),
-      imageUrl: getImageUrl(extractors.image(page)),
-      socialLinks: {
-        twitter: extractors.twitter(page) || undefined,
-        facebook: extractors.facebook(page) || undefined,
-        linkedin: extractors.linkedin(page) || undefined,
-      },
-    }))
+    return pages.map((page) => {
+      const englishName = extractors.englishName(page)
+      return {
+        id: extractors.id(page),
+        name: extractors.name(page),
+        englishName: englishName,
+        slug: createSlugFromEnglishName(englishName),
+        position: extractors.position(page),
+        description: extractors.description(page),
+        imageUrl: getImageUrl(extractors.image(page)),
+        socialLinks: {
+          twitter: extractors.twitter(page) || undefined,
+          facebook: extractors.facebook(page) || undefined,
+          linkedin: extractors.linkedin(page) || undefined,
+        },
+      }
+    })
   } catch (error) {
     console.error('Error fetching members list:', error)
     throw error
@@ -51,33 +66,31 @@ export async function getAllMembersForList(): Promise<MemberListItem[]> {
 }
 
 /**
- * IDでメンバーを取得
+ * スラッグでメンバーを取得
  *
- * @param id - メンバーID（unique_id.number）
+ * @param slug - メンバースラッグ（英語名から生成）
  * @returns メンバー情報、見つからない場合はnull
  */
-export async function getMemberById(id: string): Promise<MemberPost | null> {
+export async function getMemberBySlug(slug: string): Promise<MemberPost | null> {
   try {
     const pages = await queryDatabase(getDatabaseId(memberConfig))
-    const targetId = parseInt(id, 10)
-
-    if (isNaN(targetId)) {
-      return null
-    }
 
     const page = pages.find((p) => {
-      const pageId = extractors.id(p)
-      return pageId === String(targetId)
+      const englishName = extractors.englishName(p)
+      const pageSlug = createSlugFromEnglishName(englishName)
+      return pageSlug === slug
     })
 
     if (!page) {
       return null
     }
 
+    const englishName = extractors.englishName(page)
     return {
       id: extractors.id(page),
       name: extractors.name(page),
-      englishName: extractors.englishName(page),
+      englishName: englishName,
+      slug: createSlugFromEnglishName(englishName),
       position: extractors.position(page),
       description: extractors.description(page),
       image: getImageUrl(extractors.image(page)),
@@ -88,22 +101,27 @@ export async function getMemberById(id: string): Promise<MemberPost | null> {
       },
     }
   } catch (error) {
-    console.error(`Error fetching member by ID ${id}:`, error)
+    console.error(`Error fetching member by slug ${slug}:`, error)
     throw error
   }
 }
 
 /**
- * 全てのメンバーIDを取得（動的ルーティング用）
+ * 全てのメンバースラッグを取得（動的ルーティング用）
  *
- * @returns メンバーIDの配列
+ * @returns メンバースラッグの配列
  */
-export async function getAllMemberIds(): Promise<string[]> {
+export async function getAllMemberSlugs(): Promise<string[]> {
   try {
     const pages = await queryDatabase(getDatabaseId(memberConfig))
-    return pages.map((page) => extractors.id(page)).filter(Boolean)
+    return pages
+      .map((page) => {
+        const englishName = extractors.englishName(page)
+        return createSlugFromEnglishName(englishName)
+      })
+      .filter(Boolean)
   } catch (error) {
-    console.error('Error fetching all member IDs:', error)
+    console.error('Error fetching all member slugs:', error)
     throw error
   }
 }

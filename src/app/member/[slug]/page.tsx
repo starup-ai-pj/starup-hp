@@ -1,24 +1,24 @@
 import { notFound } from 'next/navigation'
-import { getAllMemberIds, getMemberById } from '@/lib/members'
+import { getAllMemberSlugs, getMemberBySlug } from '@/lib/members'
 import MemberDetailSection from '@/components/sections/member/MemberDetailSection'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 
 interface MemberDetailPageProps {
-  params: Promise<{ id: string }>
+  params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
-  const ids = await getAllMemberIds()
-  return ids.map((id) => ({
-    id: id, // Using numeric ID
+  const slugs = await getAllMemberSlugs()
+  return slugs.map((slug) => ({
+    slug: slug,
   }))
 }
 
 export default async function MemberDetailPage({ params }: MemberDetailPageProps) {
-  const { id } = await params
+  const { slug } = await params
 
-  const member = await getMemberById(id)
+  const member = await getMemberBySlug(slug)
 
   if (!member) {
     notFound()

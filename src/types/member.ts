@@ -14,6 +14,8 @@ export interface MemberPost {
   name: string
   /** メンバー名（英語） */
   englishName: string
+  /** URLスラッグ（英語名から生成） */
+  slug: string
   /** 役職 */
   position: string
   /** 説明文 */
@@ -39,6 +41,8 @@ export interface MemberListItem {
   name: string
   /** メンバー名（英語） */
   englishName: string
+  /** URLスラッグ（英語名から生成） */
+  slug: string
   /** 役職 */
   position: string
   /** 説明文 */
