@@ -52,7 +52,7 @@ async function checkMemberDatabase() {
     console.log('📋 データベースのプロパティ構造')
     console.log('='.repeat(80))
 
-    // @ts-ignore - Notion API の型定義の問題を回避
+    // @ts-expect-error - Notion API の型定義の問題を回避
     const properties = firstPage.properties
 
     for (const [propertyName, property] of Object.entries(properties)) {

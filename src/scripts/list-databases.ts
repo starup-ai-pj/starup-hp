@@ -41,7 +41,7 @@ async function listAllDatabases() {
     console.log('='.repeat(80))
 
     for (const db of response.results) {
-      // @ts-ignore
+      // @ts-expect-error - Notion API の型定義の問題を回避
       const title = db.title?.[0]?.plain_text || '(タイトルなし)'
       console.log(`\n📌 タイトル: "${title}"`)
       console.log(`   Object: ${db.object}`)
@@ -49,7 +49,7 @@ async function listAllDatabases() {
       console.log(`   URL: ${db.url}`)
 
       // プロパティ一覧を表示
-      // @ts-ignore
+      // @ts-expect-error - Notion API の型定義の問題を回避
       const properties = db.properties || {}
       const propNames = Object.keys(properties)
       if (propNames.length > 0) {
@@ -63,7 +63,7 @@ async function listAllDatabases() {
     console.log('\n🔍 "member" または "content" を含むデータベースを検索中...\n')
 
     const memberDatabases = response.results.filter(db => {
-      // @ts-ignore
+      // @ts-expect-error - Notion API の型定義の問題を回避
       const title = (db.title?.[0]?.plain_text || '').toLowerCase()
       return title.includes('member') || title.includes('content')
     })
@@ -71,7 +71,7 @@ async function listAllDatabases() {
     if (memberDatabases.length > 0) {
       console.log('✅ 該当するデータベース:')
       for (const db of memberDatabases) {
-        // @ts-ignore
+        // @ts-expect-error - Notion API の型定義の問題を回避
         const title = db.title?.[0]?.plain_text || '(タイトルなし)'
         console.log(`\n   📌 "${title}"`)
         console.log(`      ID: ${db.id}`)
