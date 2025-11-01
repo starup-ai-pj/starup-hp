@@ -20,6 +20,8 @@ export interface MemberPost {
   position: string
   /** 説明文 */
   description: string
+  /** プロフィール本文（Markdown） */
+  content: string
   /** プロフィール画像URL */
   image: string
   /** SNSリンク */
