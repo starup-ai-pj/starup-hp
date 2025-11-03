@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import './orbit-photo-gallery.css';
 import { GalleryImageSource } from '@/lib/image-gallery-map';
 
@@ -15,17 +15,16 @@ interface PhotoItem {
 
 interface OrbitPhotoGalleryProps {
   images?: GalleryImageSource[];
+  bgColor?: string;
 }
 
-const OrbitPhotoGallery: React.FC<OrbitPhotoGalleryProps> = ({ images }) => {
+const OrbitPhotoGallery: React.FC<OrbitPhotoGalleryProps> = ({ images, bgColor = 'rgb(235,235,235)' }) => {
   const MAX_POLAR_ROT_DEG = 3;
   const PAN_SENSITIVITY = 18;
   const TRANSITION_DUR_MS = 300;
 
   const sphereRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLElement>(null);
-  const frameRef = useRef<HTMLDivElement>(null);
-  const viewerRef = useRef<HTMLDivElement>(null);
   const scrimRef = useRef<HTMLDivElement>(null);
 
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
@@ -40,6 +39,16 @@ const OrbitPhotoGallery: React.FC<OrbitPhotoGalleryProps> = ({ images }) => {
   const velocityRef = useRef({ x: 0, y: 0 });
   const lastMoveTimeRef = useRef<number>(0);
   const lastMoveRef = useRef({ x: 0, y: 0 });
+
+  // Shuffle array using Fisher-Yates algorithm
+  const shuffleArray = <T,>(array: T[]): T[] => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
 
   // Generate photo items data
   const generatePhotoItems = (): PhotoItem[] => {
@@ -85,12 +94,15 @@ const OrbitPhotoGallery: React.FC<OrbitPhotoGalleryProps> = ({ images }) => {
       { x: 35, yRange: [-4, -2, 0, 2, 4] },
     ];
 
+    // Shuffle images if provided
+    const shuffledImages = images && images.length > 0 ? shuffleArray(images) : null;
+
     let imageIndex = 0;
     positions.forEach(({ x, yRange }) => {
       yRange.forEach((y) => {
-        // Use custom images if provided, otherwise fallback to Picsum
-        const imageUrl = images && images.length > 0
-          ? images[imageIndex % images.length].url
+        // Use shuffled custom images if provided, otherwise fallback to Picsum
+        const imageUrl = shuffledImages
+          ? shuffledImages[imageIndex % shuffledImages.length].url
           : `https://picsum.photos/seed/${imageIndex}/800/800`;
 
         items.push({
@@ -108,7 +120,8 @@ const OrbitPhotoGallery: React.FC<OrbitPhotoGalleryProps> = ({ images }) => {
     return items;
   };
 
-  const photoItems = generatePhotoItems();
+  // Memoize photo items to prevent re-shuffling on every render
+  const photoItems = useMemo(() => generatePhotoItems(), [images]);
 
   const clamp = (val: number, min: number, max: number) =>
     Math.min(Math.max(val, min), max);
@@ -171,7 +184,7 @@ const OrbitPhotoGallery: React.FC<OrbitPhotoGalleryProps> = ({ images }) => {
   // Mouse/Touch event handlers
   const handlePointerDown = (e: React.PointerEvent) => {
     e.preventDefault();
-    setCancelTap(true);
+    setCancelTap(false); // Initialize as false, will be set to true if dragging occurs
     stopInertia();
     setIsPanning(true);
     setStartPos({ x: e.clientX, y: e.clientY });
@@ -185,6 +198,12 @@ const OrbitPhotoGallery: React.FC<OrbitPhotoGalleryProps> = ({ images }) => {
 
     const deltaX = e.clientX - startPos.x;
     const deltaY = e.clientY - startPos.y;
+    const dragDistance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+    // If dragged more than 5 pixels, it's a drag, not a click
+    if (dragDistance > 5) {
+      setCancelTap(true);
+    }
 
     const proposedX = startRotation.x - deltaY / PAN_SENSITIVITY;
 
@@ -211,7 +230,6 @@ const OrbitPhotoGallery: React.FC<OrbitPhotoGalleryProps> = ({ images }) => {
     if (!isPanning) return;
 
     setIsPanning(false);
-    setTimeout(() => setCancelTap(false), 100);
 
     // Start inertia with calculated velocity
     startInertia(velocityRef.current.x, velocityRef.current.y);
@@ -226,129 +244,91 @@ const OrbitPhotoGallery: React.FC<OrbitPhotoGalleryProps> = ({ images }) => {
     const el = e.currentTarget as HTMLElement;
     const parentEl = el.parentElement as HTMLElement;
 
-    if (!sphereRef.current || !frameRef.current || !mainRef.current) return;
+    if (!sphereRef.current || !mainRef.current) return;
+
+    // Close any existing popup first
+    const existingEnlarge = document.querySelector('.enlarge');
+    if (existingEnlarge) {
+      existingEnlarge.remove();
+    }
 
     setFocusedItem(item.id);
 
-    // Get rotation values
-    const getTransformRotation = (element: HTMLElement) => {
-      const str = element.style.transform;
-      const matchX = str.match(/rotateX\((-?\d+(\.\d+)?)deg\)/);
-      const matchY = str.match(/rotateY\((-?\d+(\.\d+)?)deg\)/);
-
-      return {
-        rotateX: matchX ? parseFloat(matchX[1]) : 0,
-        rotateY: matchY ? parseFloat(matchY[1]) : 0,
-      };
-    };
-
-    const getRotationXY = (element: HTMLElement) => {
-      const style = window.getComputedStyle(element);
-      const transform = style.transform;
-
-      if (!transform || transform === 'none') {
-        return { rotateX: 0, rotateY: 0 };
-      }
-
-      if (!transform.startsWith('matrix3d')) {
-        return { rotateX: 0, rotateY: 0 };
-      }
-
-      const values = transform
-        .match(/matrix3d\((.+)\)/)![1]
-        .split(',')
-        .map(parseFloat);
-
-      const rotateX = Math.asin(-values[9]) * (180 / Math.PI);
-      const rotateY = Math.atan2(values[8], values[10]) * (180 / Math.PI);
-
-      return { rotateX, rotateY };
-    };
-
-    const parentRotation = getRotationXY(parentEl);
-    const globalRotation = getTransformRotation(sphereRef.current);
-
-    const normalizeDegrees = (deg: number) => ((deg % 360) + 360) % 360;
-    const parentY = normalizeDegrees(parentRotation.rotateY);
-    const globalY = normalizeDegrees(globalRotation.rotateY);
-
-    let rotY = -(parentY + globalY) % 360;
-    if (rotY < -180) rotY += 360;
-
-    parentEl.style.setProperty('--rot-y-delta', `${rotY}deg`);
-
-    const rotX = -parentRotation.rotateX - globalRotation.rotateX;
-    parentEl.style.setProperty('--rot-x-delta', `${rotX}deg`);
-
-    // Create reference div for positioning
-    const referenceDiv = document.createElement('div');
-    parentEl.appendChild(referenceDiv);
-    referenceDiv.style.opacity = '0';
-    referenceDiv.classList.add('item__image', 'item__image--reference');
-    referenceDiv.style.transform = `rotateX(${-parentRotation.rotateX}deg) rotateY(${-parentRotation.rotateY}deg)`;
-
-    const sourceRect = referenceDiv.getBoundingClientRect();
-    const targetRect = frameRef.current.getBoundingClientRect();
-    const deltaScaleX = targetRect.width / sourceRect.width;
-    const deltaScaleY = targetRect.height / sourceRect.height;
-    const deltaScale = Math.min(deltaScaleX, deltaScaleY);
-
-    el.style.transform = `scale(${deltaScale}) translateZ(30px)`;
+    // Smoothly bring card forward with scale
+    el.style.transition = `transform ${TRANSITION_DUR_MS}ms ease-out, z-index 0s`;
+    el.style.transform = `scale(1.1) translateZ(50px)`;
     el.style.zIndex = '3';
 
     setTimeout(() => {
-      const renderedRect = el.getBoundingClientRect();
+      // Create fullscreen popup
       const enlargementEl = document.createElement('div');
 
-      Object.assign(enlargementEl.style, {
-        top: renderedRect.top - mainRef.current!.getBoundingClientRect().top + 'px',
-        left: renderedRect.left + 'px',
-        width: renderedRect.width + 'px',
-        height: renderedRect.height + 'px',
-        opacity: '0',
-      });
+      enlargementEl.classList.add(
+        'enlarge',
+        'fixed',
+        'top-0',
+        'left-0',
+        'w-screen',
+        'h-screen',
+        'z-[100]',
+        'flex',
+        'items-center',
+        'justify-center',
+        'p-8',
+        'opacity-0',
+        'transition-opacity',
+        'duration-300',
+        'cursor-pointer'
+      );
 
-      setTimeout(() => {
-        enlargementEl.style.opacity = '1';
-        setIsEnlarging(true);
-      }, TRANSITION_DUR_MS);
+      // Click on popup to close
+      enlargementEl.addEventListener('click', handleScrimClick);
 
       const img = document.createElement('img');
-      // Use the same image as the item
       const imageUrl = parentEl.getAttribute('data-image-url') || '';
       img.src = imageUrl;
       img.alt = 'Enlarged photo';
-      img.className = 'w-full h-full object-cover';
+      img.className = 'max-w-[70vw] max-h-[70vh] object-contain rounded-[32px] shadow-2xl';
 
-      enlargementEl.classList.add('enlarge', 'absolute', 'z-[1]', 'rounded-[32px]', 'overflow-hidden', 'transition-opacity', 'duration-300');
       enlargementEl.appendChild(img);
-      viewerRef.current?.appendChild(enlargementEl);
+      document.body.appendChild(enlargementEl);
 
-      referenceDiv.remove();
+      // Show popup and scrim
+      requestAnimationFrame(() => {
+        enlargementEl.style.opacity = '1';
+        setIsEnlarging(true);
+        if (scrimRef.current) {
+          scrimRef.current.style.opacity = '1';
+          scrimRef.current.style.pointerEvents = 'auto';
+        }
+      });
     }, TRANSITION_DUR_MS);
   };
 
   // Handle scrim click to close enlarged photo
   const handleScrimClick = () => {
     const el = document.querySelector('[data-focused="true"]') as HTMLElement;
-    if (!el) return;
-
-    const parentEl = el.parentNode as HTMLElement;
-    const referenceDiv = document.querySelector('.item__image--reference');
-    referenceDiv?.remove();
 
     const enlargedImg = document.querySelector('.enlarge');
-    enlargedImg?.remove();
+    if (enlargedImg) {
+      (enlargedImg as HTMLElement).style.opacity = '0';
+      setTimeout(() => enlargedImg.remove(), TRANSITION_DUR_MS);
+    }
 
-    parentEl.style.setProperty('--rot-y-delta', '0deg');
-    parentEl.style.setProperty('--rot-x-delta', '0deg');
-    el.style.transform = '';
-    el.style.zIndex = '0';
+    if (scrimRef.current) {
+      scrimRef.current.style.opacity = '0';
+      scrimRef.current.style.pointerEvents = 'none';
+    }
 
-    setTimeout(() => {
-      setIsEnlarging(false);
-      setFocusedItem(null);
-    }, TRANSITION_DUR_MS);
+    // Reset card state
+    if (el) {
+      el.style.transition = `transform ${TRANSITION_DUR_MS}ms ease-in, z-index 0s ${TRANSITION_DUR_MS}ms`;
+      el.style.transform = '';
+      el.style.zIndex = '0';
+    }
+
+    setIsEnlarging(false);
+    setFocusedItem(null);
   };
 
   useEffect(() => {
@@ -357,11 +337,23 @@ const OrbitPhotoGallery: React.FC<OrbitPhotoGalleryProps> = ({ images }) => {
     };
   }, [stopInertia]);
 
+  // Handle ESC key to close popup
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isEnlarging) {
+        handleScrimClick();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isEnlarging]);
+
   return (
     <main
       ref={mainRef}
-      className="orbit-gallery-container fixed top-0 left-0 flex w-full h-screen justify-center items-center overflow-hidden touch-none bg-[rgb(235,235,235)] m-0 p-0 z-0"
-      style={{ transformStyle: 'flat' }}
+      className="orbit-gallery-container fixed top-0 left-0 flex w-full h-[70vh] justify-center items-center overflow-hidden touch-none m-0 p-0 z-0"
+      style={{ transformStyle: 'flat', backgroundColor: bgColor }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
@@ -399,12 +391,12 @@ const OrbitPhotoGallery: React.FC<OrbitPhotoGalleryProps> = ({ images }) => {
       <div className="overlay fixed inset-0 m-auto z-[3] pointer-events-none opacity-100"></div>
       <div className="overlay overlay--blur fixed inset-0 m-auto z-[3] opacity-100 pointer-events-none"></div>
 
-      <div className="viewer absolute inset-0 z-[9] pointer-events-none flex items-center justify-center p-[100px]" ref={viewerRef}>
-        <div className="scrim absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300" ref={scrimRef} onClick={handleScrimClick}></div>
-        <div className="frame h-full aspect-square rounded-[32px] flex" ref={frameRef}>
-          <div className="enlarged"></div>
-        </div>
-      </div>
+      {/* Scrim overlay for popup background */}
+      <div
+        className="scrim fixed top-0 left-0 w-screen h-screen bg-black/70 pointer-events-none opacity-0 transition-opacity duration-300 z-[99]"
+        ref={scrimRef}
+        onClick={handleScrimClick}
+      ></div>
     </main>
   );
 };

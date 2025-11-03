@@ -27,11 +27,11 @@ function convertMarkdownToHtml(markdown: string, variant: 'mobile' | 'desktop' =
     ? 'text-2xl font-bold text-gray-900 mt-6 mb-4'
     : 'text-3xl font-bold text-gray-900 mt-8 mb-6'
   const h2Class = isMobile
-    ? 'text-xl font-semibold text-gray-800 mt-6 mb-3'
-    : 'text-2xl font-semibold text-gray-800 mt-8 mb-4'
+    ? 'text-xl font-bold text-gray-800 mt-6 mb-3'
+    : 'text-2xl font-bold text-gray-800 mt-8 mb-4'
   const h3Class = isMobile
-    ? 'text-lg font-medium text-gray-800 mt-4 mb-2'
-    : 'text-xl font-medium text-gray-800 mt-6 mb-3'
+    ? 'text-lg font-bold text-gray-800 mt-4 mb-2'
+    : 'text-xl font-bold text-gray-800 mt-6 mb-3'
   const pClass = isMobile
     ? 'mb-4 text-gray-600 leading-relaxed text-sm'
     : 'mb-4 text-gray-600 leading-relaxed'

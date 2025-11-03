@@ -3,20 +3,23 @@
 import { MemberPost } from '@/types/member'
 import OrbitPhotoGallery from '@/components/animation/orbit-photo-gallery'
 import MarkdownContent from '@/components/ui/MarkdownContent'
-import { getMemberGalleryImages } from '@/lib/image-gallery-map'
+import { getMemberGalleryData } from '@/lib/image-gallery-map'
 
 interface MemberDetailSectionProps {
   member: MemberPost
 }
 
 export default function MemberDetailSection({ member }: MemberDetailSectionProps) {
-  // Get member-specific gallery images
-  const galleryImages = getMemberGalleryImages(member.slug)
+  // Get member-specific gallery configuration
+  const galleryData = getMemberGalleryData(member.slug)
 
   return (
     <div className="bg-white">
       {/* 最上部: Photo Gallery - Fixed Background */}
-      <OrbitPhotoGallery images={galleryImages || undefined} />
+      <OrbitPhotoGallery
+        images={galleryData?.images}
+        bgColor={galleryData?.bgColor}
+      />
 
       {/* Spacer to create scroll space for initial view */}
       <div className="h-[70vh]"></div>
