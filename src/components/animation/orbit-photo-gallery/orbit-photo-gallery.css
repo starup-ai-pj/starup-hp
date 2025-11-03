@@ -57,6 +57,10 @@
 
 * {
   box-sizing: border-box;
+}
+
+.orbit-gallery-container,
+.orbit-gallery-container * {
   transform-style: preserve-3d;
 }
 

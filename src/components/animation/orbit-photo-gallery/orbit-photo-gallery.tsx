@@ -360,7 +360,8 @@ const OrbitPhotoGallery: React.FC<OrbitPhotoGalleryProps> = ({ images }) => {
   return (
     <main
       ref={mainRef}
-      className="flex w-full h-[100vh] justify-center items-center overflow-hidden touch-none bg-[rgb(235,235,235)] m-0 p-0"
+      className="orbit-gallery-container fixed top-0 left-0 flex w-full h-screen justify-center items-center overflow-hidden touch-none bg-[rgb(235,235,235)] m-0 p-0 z-0"
+      style={{ transformStyle: 'flat' }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}

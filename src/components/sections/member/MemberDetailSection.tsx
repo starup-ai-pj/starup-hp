@@ -15,13 +15,14 @@ export default function MemberDetailSection({ member }: MemberDetailSectionProps
 
   return (
     <div className="bg-white">
-      {/* 最上部: Photo Gallery */}
-      <section className="w-full min-h-[100vh]">
-        <OrbitPhotoGallery images={galleryImages || undefined} />
-      </section>
+      {/* 最上部: Photo Gallery - Fixed Background */}
+      <OrbitPhotoGallery images={galleryImages || undefined} />
+
+      {/* Spacer to create scroll space for initial view */}
+      <div className="h-[70vh]"></div>
 
       {/* メインコンテンツ: 3カラム構造 */}
-      <section className="py-12 md:py-16">
+      <section className="relative z-10 py-12 md:py-16 bg-white">
         <div className="max-w-[1500px] mx-auto px-4">
           <div className="grid grid-cols-12 gap-8">
             {/* 左カラム: Position */}

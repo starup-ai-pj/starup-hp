@@ -1,6 +1,6 @@
 /**
- * Image gallery mapping for member pages
- * Maps member slugs to their personalized photo collections
+ * Image gallery configuration for member pages
+ * Maps member slugs to their personalized photo collections and settings
  */
 
 export interface GalleryImageSource {
@@ -8,11 +8,16 @@ export interface GalleryImageSource {
   url: string
 }
 
-type MemberGalleryMap = {
-  [slug: string]: GalleryImageSource[]
+export interface MemberGalleryData {
+  bgColor: string
+  images: GalleryImageSource[]
 }
 
-const memberGalleryImages: MemberGalleryMap = {
+type MemberGalleryConfig = {
+  [slug: string]: MemberGalleryData
+}
+
+const memberGalleryConfig: MemberGalleryConfig = {
   'daigo-fujii': [
     // Local images
     { type: 'local', url: '/images/member/daigo-fujii/B745B9C8-2A42-43B0-95CD-B7A31D95842F.jpg' },
@@ -47,6 +52,36 @@ const memberGalleryImages: MemberGalleryMap = {
     { type: 'unsplash', url: 'https://images.unsplash.com/photo-1495473351003-ba0a460f7961?w=800&q=80' }, // OKジェスチャーを手作業で行います
     { type: 'unsplash', url: 'https://images.unsplash.com/photo-1443706340763-4b60757a36ce?w=800&q=80' }, // 4棟の高層ビルのローアングル撮影
     { type: 'unsplash', url: 'https://images.unsplash.com/photo-1520454974749-611b7248ffdb?w=800&q=80' }, // 追加 (繰り返し)
+  ],
+  'yuki-tanaka': [
+    // Local images
+    { type: 'local', url: '/images/member/yuki-tanaka/8DA9839C-58EB-48E4-8E19-EF3B208A0B42.jpg' },
+    { type: 'local', url: '/images/member/yuki-tanaka/IMG_1107.jpg' },
+    { type: 'local', url: '/images/member/yuki-tanaka/IMG_1176.jpg' },
+    { type: 'local', url: '/images/member/yuki-tanaka/IMG_1384.jpg' },
+    { type: 'local', url: '/images/member/yuki-tanaka/IMG_3006.jpg' },
+    { type: 'local', url: '/images/member/yuki-tanaka/IMG_3217.jpg' },
+    { type: 'local', url: '/images/member/yuki-tanaka/IMG_5016.jpg' },
+    { type: 'local', url: '/images/member/yuki-tanaka/IMG_5740.jpg' },
+    { type: 'local', url: '/images/member/yuki-tanaka/IMG_6024.jpg' },
+    { type: 'local', url: '/images/member/yuki-tanaka/IMG_6077.png' },
+
+    // Unsplash images
+    { type: 'unsplash', url: 'https://images.unsplash.com/photo-1601113329251-0aebe217bdbe?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670' },
+    { type: 'unsplash', url: 'https://images.unsplash.com/photo-1621750627159-cf77b0b91aac?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=3131' },
+    { type: 'unsplash', url: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670' },
+    { type: 'unsplash', url: 'https://plus.unsplash.com/premium_photo-1661301057249-bd008eebd06a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670' },
+    { type: 'unsplash', url: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2275' },
+    { type: 'unsplash', url: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670' },
+    { type: 'unsplash', url: 'https://images.unsplash.com/photo-1605296867304-46d5465a13f1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670' },
+    { type: 'unsplash', url: 'https://images.unsplash.com/photo-1590487988256-9ed24133863e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1328' },
+    { type: 'unsplash', url: 'https://plus.unsplash.com/premium_photo-1670505062582-fdaa83c23c9e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2671' },
+    { type: 'unsplash', url: 'https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670' },
+    { type: 'unsplash', url: 'https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670' },
+    { type: 'unsplash', url: 'https://plus.unsplash.com/premium_photo-1663040543387-cb7c78c4f012?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670' },
+    { type: 'unsplash', url: 'https://images.unsplash.com/photo-1529078155058-5d716f45d604?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2669' },
+    { type: 'unsplash', url: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2670' },
+    { type: 'unsplash', url: 'https://images.unsplash.com/photo-1701523600650-007b393ed2fe?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=3132' },
   ],
 }
 
