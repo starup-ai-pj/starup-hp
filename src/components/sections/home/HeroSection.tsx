@@ -28,13 +28,16 @@ export default function HeroSection() {
                                 <span className="block h-[60px] md:h-[80px] leading-[60px] md:leading-[80px] text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Product</span>
                                 <span className="block h-[60px] md:h-[80px] leading-[60px] md:leading-[80px] text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Design</span>
                                 <span className="block h-[60px] md:h-[80px] leading-[60px] md:leading-[80px] text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">You</span>
+                                <span className="block h-[60px] md:h-[80px] leading-[60px] md:leading-[80px] text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Innovation</span>
+                                <span className="block h-[60px] md:h-[80px] leading-[60px] md:leading-[80px] text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Impact</span>
+                                <span className="block h-[60px] md:h-[80px] leading-[60px] md:leading-[80px] text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Dream</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Desktop Layout */}
-                <div className="hidden lg:flex items-center">
+                <div className="hidden lg:flex items-end">
                     <p className="text-8xl font-bold mr-6">STARUP</p>
                     <p className="text-6xl mr-6">with</p>
                     <div className="relative h-[100px] overflow-hidden">
@@ -44,6 +47,9 @@ export default function HeroSection() {
                             <span className="block h-[100px] leading-[100px] text-8xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Product</span>
                             <span className="block h-[100px] leading-[100px] text-8xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Design</span>
                             <span className="block h-[100px] leading-[100px] text-8xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">You</span>
+                            <span className="block h-[100px] leading-[100px] text-8xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Innovation</span>
+                            <span className="block h-[100px] leading-[100px] text-8xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Impact</span>
+                            <span className="block h-[100px] leading-[100px] text-8xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Dream</span>
                         </div>
                     </div>
                 </div>
@@ -53,52 +59,76 @@ export default function HeroSection() {
                 .word-carousel {
                     position: relative;
                     white-space: nowrap;
-                    animation: move 4s infinite ease-in-out;
+                    animation: move 16s infinite ease-in-out;
                     animation-delay: 0.5s;
                 }
-                
+
                 .word-carousel-mobile {
                     position: relative;
                     white-space: nowrap;
-                    animation: moveMobile 4s infinite ease-in-out;
+                    animation: moveMobile 16s infinite ease-in-out;
                     animation-delay: 0.5s;
                 }
-                
+
                 @keyframes move {
-                    0%   { transform: translateY(-300px); }
-                    24%  { transform: translateY(-300px); }
+                    0%   { transform: translateY(0); }
+                    11.9%  { transform: translateY(0); }
+                    12.5%  { transform: translateY(-100px); }
+                    24.4%  { transform: translateY(-100px); }
                     25%  { transform: translateY(-200px); }
-                    49%  { transform: translateY(-200px); }
-                    50%  { transform: translateY(-100px); }
-                    74%  { transform: translateY(-100px); }
-                    75%  { transform: translateY(0); }
-                    99%  { transform: translateY(0); }
-                    100% { transform: translateY(100px); }
+                    36.9%  { transform: translateY(-200px); }
+                    37.5%  { transform: translateY(-300px); }
+                    49.4%  { transform: translateY(-300px); }
+                    50%  { transform: translateY(-400px); }
+                    61.9%  { transform: translateY(-400px); }
+                    62.5%  { transform: translateY(-500px); }
+                    74.4%  { transform: translateY(-500px); }
+                    75%  { transform: translateY(-600px); }
+                    86.9%  { transform: translateY(-600px); }
+                    87.5%  { transform: translateY(-700px); }
+                    99.9%  { transform: translateY(-700px); }
+                    100% { transform: translateY(0); }
                 }
-                
+
                 @keyframes moveMobile {
-                    0%   { transform: translateY(-180px); }
-                    24%  { transform: translateY(-180px); }
+                    0%   { transform: translateY(0); }
+                    11.9%  { transform: translateY(0); }
+                    12.5%  { transform: translateY(-60px); }
+                    24.4%  { transform: translateY(-60px); }
                     25%  { transform: translateY(-120px); }
-                    49%  { transform: translateY(-120px); }
-                    50%  { transform: translateY(-60px); }
-                    74%  { transform: translateY(-60px); }
-                    75%  { transform: translateY(0); }
-                    99%  { transform: translateY(0); }
-                    100% { transform: translateY(60px); }
+                    36.9%  { transform: translateY(-120px); }
+                    37.5%  { transform: translateY(-180px); }
+                    49.4%  { transform: translateY(-180px); }
+                    50%  { transform: translateY(-240px); }
+                    61.9%  { transform: translateY(-240px); }
+                    62.5%  { transform: translateY(-300px); }
+                    74.4%  { transform: translateY(-300px); }
+                    75%  { transform: translateY(-360px); }
+                    86.9%  { transform: translateY(-360px); }
+                    87.5%  { transform: translateY(-420px); }
+                    99.9%  { transform: translateY(-420px); }
+                    100% { transform: translateY(0); }
                 }
-                
+
                 @media (min-width: 768px) and (max-width: 1023px) {
                     @keyframes moveMobile {
-                        0%   { transform: translateY(-240px); }
-                        24%  { transform: translateY(-240px); }
+                        0%   { transform: translateY(0); }
+                        11.9%  { transform: translateY(0); }
+                        12.5%  { transform: translateY(-80px); }
+                        24.4%  { transform: translateY(-80px); }
                         25%  { transform: translateY(-160px); }
-                        49%  { transform: translateY(-160px); }
-                        50%  { transform: translateY(-80px); }
-                        74%  { transform: translateY(-80px); }
-                        75%  { transform: translateY(0); }
-                        99%  { transform: translateY(0); }
-                        100% { transform: translateY(80px); }
+                        36.9%  { transform: translateY(-160px); }
+                        37.5%  { transform: translateY(-240px); }
+                        49.4%  { transform: translateY(-240px); }
+                        50%  { transform: translateY(-320px); }
+                        61.9%  { transform: translateY(-320px); }
+                        62.5%  { transform: translateY(-400px); }
+                        74.4%  { transform: translateY(-400px); }
+                        75%  { transform: translateY(-480px); }
+                        86.9%  { transform: translateY(-480px); }
+                        87.5%  { transform: translateY(-560px); }
+                        99.9%  { transform: translateY(-560px); }
+                        100% { transform: translateY(0); }
                     }
                 }
             `}</style>
