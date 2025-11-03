@@ -621,19 +621,6 @@ export default function ServiceSection() {
             })
         }, [], 0.5)
 
-        // 80-95%: コンテナクリッピング縮小 (100vw x 100vh → 80vw x 80vh)
-        // Three.jsのサイズは変わらず、コンテナがクリッピングマスクとして機能
-        tl.to(containerSize, {
-            width: 80,
-            height: 80,
-            duration: 0.15,
-            ease: "power2.in",
-            onUpdate: () => {
-                container.style.width = `${containerSize.width}vw`
-                container.style.height = `${containerSize.height}vh`
-            }
-        }, 0.8)
-
         return () => {
             ScrollTrigger.getAll().forEach(st => st.kill())
         }
@@ -645,54 +632,64 @@ export default function ServiceSection() {
 
             {/* Intro Text - 上部 (Desktop only) */}
             <div className="max-w-[1500px] mx-auto px-4">
-
                 <div ref={introTextRef} className="">
-                    <div className="my-6 md:my-8">
-                        <p className="text-sm lg:text-base text-gray-600">深く、強固な核を持つ。そこから無限のイノベーションが連鎖する。</p>
-                        <p className="text-3xl lg:text-6xl">Deep and powerful at the core. From here, innovation cascades infinitely.</p>
+                    <div className="my-6 lg:my-8 xl:my-10">
+                        <p className="text-xs lg:text-sm xl:text-base text-gray-600 mb-2">
+                            深く、強固な核を持つ。そこから無限のイノベーションが連鎖する。
+                        </p>
+                        <p className="text-2xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-medium leading-tight">
+                            Deep and powerful at the core. From here, innovation cascades infinitely.
+                        </p>
                     </div>
                 </div>
             </div>
 
-            {/* Desktop Layout - absolute配置 */}
-            <div className="hidden lg:block">
-                {/* 説明文 - 右上 */}
-                <div 
-                    ref={descriptionRef}
-                    className="absolute top-1/2 -translate-y-1/2 left-1/4 -translate-x-1/2 max-w-md text-white z-10 bg-blur-sm backdrop-blur-sm bg-opacity-50 p-4 rounded-lg"
-                >
-                    <span className="text-sm text-gray-300 leading-relaxed mb-6">Core</span>
-                    <h2 className="text-3xl font-bold mb-4 pb-2 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent border-b border-white">
-                        STAR UP.AI
-                    </h2>
-                    <p className="text-lg text-gray-300 leading-relaxed">
-                        経営、現場、研究の各部門をAIで統合し、データドリブンな意思決定を実現する包括的なAI開発プラットフォームです。
-                    </p>
+            {/* Desktop Layout - flexレイアウト */}
+            <div className="hidden lg:block h-full w-full absolute inset-0">
+                <div className="relative h-full w-full max-w-[1500px] mx-auto px-8">
+                    {/* 説明文 - 中央左 */}
+                    <div
+                        ref={descriptionRef}
+                        className="absolute top-1/2 left-8 -translate-y-1/2 max-w-md lg:max-w-lg xl:max-w-xl text-white z-10 backdrop-blur-sm bg-opacity-50 p-4 lg:p-6 rounded-lg"
+                    >
+                        <span className="text-xs lg:text-sm text-gray-300 leading-relaxed mb-4 block">Core</span>
+                        <h2 className="text-2xl lg:text-3xl xl:text-4xl font-bold mb-4 pb-2 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent border-b border-white">
+                            STAR UP.AI
+                        </h2>
+                        <p className="text-sm lg:text-base xl:text-lg text-gray-300 leading-relaxed">
+                            経営、現場、研究の各部門をAIで統合し、データドリブンな意思決定を実現する包括的なAI開発プラットフォームです。
+                        </p>
+                    </div>
+
+                    {/* サービスカード - 下部左揃え */}
+                    <div className="absolute bottom-16 left-8 right-8">
+                        <div className="grid grid-cols-3 gap-4 lg:gap-6 xl:gap-8 z-10">
+                            <ServiceCard
+                                ref={service1CardRef}
+                                label="Service 1"
+                                title="ARCHAIVE"
+                                description="社内に点在した図面データを一元管理し、AIによる類似図面検索とチャット型データ検索で業務効率を革新します。"
+                                className="flex-shrink-0"
+                            />
+
+                            <ServiceCard
+                                ref={service2CardRef}
+                                label="Service 2"
+                                title="Send AI"
+                                description="需要予測を起点として発注に関わるあらゆる指標を最適化し、在庫管理から売上分析までを統合的に支援します。"
+                                className="flex-shrink-0"
+                            />
+
+                            <ServiceCard
+                                ref={service3CardRef}
+                                label="Service 3"
+                                title="AI solutions"
+                                description="様々な業界に対応したAIソリューションを提供。お客様のニーズに合わせたカスタマイズ開発も承ります。"
+                                className="flex-shrink-0"
+                            />
+                        </div>
+                    </div>
                 </div>
-
-                <ServiceCard
-                    ref={service1CardRef}
-                    label="Service 1"
-                    title="ARCHAIVE"
-                    description="社内に点在した図面データを一元管理し、AIによる類似図面検索とチャット型データ検索で業務効率を革新します。"
-                    className="absolute bottom-20 left-1/4 -translate-x-1/2 z-10"
-                />
-
-                <ServiceCard
-                    ref={service2CardRef}
-                    label="Service 2"
-                    title="Send AI"
-                    description="需要予測を起点として発注に関わるあらゆる指標を最適化し、在庫管理から売上分析までを統合的に支援します。"
-                    className="absolute bottom-20 left-1/2 -translate-x-1/2 z-10"
-                />
-
-                <ServiceCard
-                    ref={service3CardRef}
-                    label="Service 3"
-                    title="AI solutions"
-                    description="様々な業界に対応したAIソリューションを提供。お客様のニーズに合わせたカスタマイズ開発も承ります。"
-                    className="absolute bottom-20 left-3/4 -translate-x-1/2 z-10"
-                />
             </div>
         </section>
     )
