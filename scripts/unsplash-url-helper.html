@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsplash URL Helper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+        }
+        .instructions {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .url-list {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .url-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 4px;
+            border-left: 4px solid #000;
+        }
+        .url-item h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        .url-item a {
+            color: #0066cc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .url-item a:hover {
+            text-decoration: underline;
+        }
+        .url-item input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .url-item button {
+            margin-top: 8px;
+            padding: 8px 16px;
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .url-item button:hover {
+            background: #333;
+        }
+        .output {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .output textarea {
+            width: 100%;
+            height: 400px;
+            font-family: monospace;
+            font-size: 12px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .copy-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .copy-button:hover {
+            background: #333;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <h1>Unsplash URL 取得ヘルパー</h1>
+
+    <div class="instructions">
+        <h2>使い方</h2>
+        <ol>
+            <li>各URLをクリックして、Unsplashページを開く</li>
+            <li>ページ上の画像を右クリック → 「画像のアドレスをコピー」</li>
+            <li>コピーしたURLを下の入力欄に貼り付け</li>
+            <li>全て入力したら、一番下の「TypeScriptコードを生成」ボタンをクリック</li>
+        </ol>
+    </div>
+
+    <div class="url-list">
+        <h2>画像URL入力</h2>
+
+        <div class="url-item">
+            <h3>1. 黄色とピンクの背景の絵</h3>
+            <a href="https://unsplash.com/ja/写真/黄色とピンクの背景の絵-PjVkPaKdp3M" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-1" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>2. 本を持つ手</h3>
+            <a href="https://unsplash.com/ja/写真/本を持つ手-7WGrC9J7skg" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-2" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>3. 昼間の川に浮かぶ白と青のボート</h3>
+            <a href="https://unsplash.com/ja/写真/昼間の川に浮かぶ白と青のボート--iXMoAUDX4o" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-3" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>4. 夜間の黒い高層ビル</h3>
+            <a href="https://unsplash.com/ja/写真/夜間の黒い高層ビル-sxnuzW9ZWu0" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-4" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>5. 緑の芝生の広角写真</h3>
+            <a href="https://unsplash.com/ja/写真/緑の芝生の広角写真-uBqykD-ejsY" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-5" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>6. アソートタイトルブックロット</h3>
+            <a href="https://unsplash.com/ja/写真/アソートタイトルブックロット-FDzRG30DeVM" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-6" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>7. 日中の雪に覆われた地面のホッキョクグマ</h3>
+            <a href="https://unsplash.com/ja/写真/日中の雪に覆われた地面のホッキョクグマ-qQWV91TTBrE" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-7" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>8. 砂浜の上でサーフボードに乗る男</h3>
+            <a href="https://unsplash.com/ja/写真/砂浜の上でサーフボードに乗る男-j6SMGak8v4A" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-8" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>9. 空を背景にした大きな空のスタジアム</h3>
+            <a href="https://unsplash.com/ja/写真/空を背景にした大きな空のスタジアム-Z6X0tpN9kQY" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-9" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>10. 夜間のライト付き店舗サイネージ</h3>
+            <a href="https://unsplash.com/ja/写真/夜間のライト付き店舗サイネージ-j50aeDzf92g" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-10" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>11. 茶色の木製棚の本</h3>
+            <a href="https://unsplash.com/ja/写真/茶色の木製棚の本-P8gLaJ-PZL0" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-11" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>12. 昼間白い雲の下の海岸近くの2本のココヤシの木</h3>
+            <a href="https://unsplash.com/ja/写真/昼間白い雲の下の海岸近くの2本のココヤシの木-AD6rn3vqG7o" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-12" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>13. 木々を背景にした雪の中の小道</h3>
+            <a href="https://unsplash.com/ja/写真/木々を背景にした雪の中の小道-zqWi0K5KoGs" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-13" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>14. ビール入り透明なグラス</h3>
+            <a href="https://unsplash.com/ja/写真/ビール入り透明なグラス-Qy2KMPRV3X4" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-14" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>15. 茶色の木製棚</h3>
+            <a href="https://unsplash.com/ja/写真/茶色の木製棚-ZEp1ekh2Mjw" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-15" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>16. 茶色の木製の床に茶色と白の羊</h3>
+            <a href="https://unsplash.com/ja/写真/茶色の木製の床に茶色と白の羊-2Af7POLf1Z4" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-16" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>17. OKジェスチャーを手作業で行います</h3>
+            <a href="https://unsplash.com/ja/イラスト/okジェスチャーを手作業で行います-P_omd-Xvn1M" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-17" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <div class="url-item">
+            <h3>18. 4棟の高層ビルのローアングル撮影</h3>
+            <a href="https://unsplash.com/ja/写真/4棟の高層ビルのローアングル撮影-Nl_FMFpXo2g" target="_blank">Unsplashページを開く</a>
+            <input type="text" id="url-18" placeholder="https://images.unsplash.com/photo-...">
+        </div>
+
+        <button onclick="generateCode()" style="width: 100%; padding: 15px; font-size: 16px; margin-top: 20px;">TypeScriptコードを生成</button>
+    </div>
+
+    <div class="output">
+        <h2>生成されたコード</h2>
+        <textarea id="output" readonly></textarea>
+        <button class="copy-button" onclick="copyCode()">コードをコピー</button>
+        <div id="status"></div>
+    </div>
+
+    <script>
+        const descriptions = [
+            '黄色とピンクの背景の絵',
+            '本を持つ手',
+            '昼間の川に浮かぶ白と青のボート',
+            '夜間の黒い高層ビル',
+            '緑の芝生の広角写真',
+            'アソートタイトルブックロット',
+            '日中の雪に覆われた地面のホッキョクグマ',
+            '砂浜の上でサーフボードに乗る男',
+            '空を背景にした大きな空のスタジアム',
+            '夜間のライト付き店舗サイネージ',
+            '茶色の木製棚の本',
+            '昼間白い雲の下の海岸近くの2本のココヤシの木',
+            '木々を背景にした雪の中の小道',
+            'ビール入り透明なグラス',
+            '茶色の木製棚',
+            '茶色の木製の床に茶色と白の羊',
+            'OKジェスチャーを手作業で行います',
+            '4棟の高層ビルのローアングル撮影',
+        ];
+
+        function normalizeUrl(url) {
+            if (!url) return '';
+            // Remove size parameters and use w=800
+            const urlObj = new URL(url);
+            urlObj.searchParams.set('w', '800');
+            urlObj.searchParams.set('q', '80');
+            urlObj.searchParams.delete('ixlib');
+            urlObj.searchParams.delete('ixid');
+            urlObj.searchParams.delete('fit');
+            urlObj.searchParams.delete('crop');
+            return urlObj.toString();
+        }
+
+        function generateCode() {
+            let code = "    // Unsplash images\n";
+            let missingCount = 0;
+
+            for (let i = 1; i <= 18; i++) {
+                const input = document.getElementById(`url-${i}`);
+                const url = input.value.trim();
+
+                if (url) {
+                    try {
+                        const normalized = normalizeUrl(url);
+                        code += `    { type: 'unsplash', url: '${normalized}' }, // ${descriptions[i-1]}\n`;
+                    } catch (e) {
+                        code += `    // INVALID URL for ${descriptions[i-1]}\n`;
+                        missingCount++;
+                    }
+                } else {
+                    code += `    // MISSING: ${descriptions[i-1]}\n`;
+                    missingCount++;
+                }
+            }
+
+            document.getElementById('output').value = code;
+
+            const status = document.getElementById('status');
+            if (missingCount === 0) {
+                status.className = 'status success';
+                status.textContent = '✓ すべてのURLが入力されました！';
+            } else {
+                status.className = 'status';
+                status.textContent = `⚠ ${missingCount}個のURLが未入力です`;
+            }
+        }
+
+        function copyCode() {
+            const output = document.getElementById('output');
+            output.select();
+            document.execCommand('copy');
+
+            const status = document.getElementById('status');
+            status.className = 'status success';
+            status.textContent = '✓ コードをコピーしました！';
+        }
+    </script>
+</body>
+</html>

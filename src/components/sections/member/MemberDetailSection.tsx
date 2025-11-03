@@ -3,17 +3,21 @@
 import { MemberPost } from '@/types/member'
 import OrbitPhotoGallery from '@/components/animation/orbit-photo-gallery'
 import MarkdownContent from '@/components/ui/MarkdownContent'
+import { getMemberGalleryImages } from '@/lib/image-gallery-map'
 
 interface MemberDetailSectionProps {
   member: MemberPost
 }
 
 export default function MemberDetailSection({ member }: MemberDetailSectionProps) {
+  // Get member-specific gallery images
+  const galleryImages = getMemberGalleryImages(member.slug)
+
   return (
     <div className="bg-white">
       {/* 最上部: Photo Gallery */}
-      <section className="w-full h-[60vh]">
-        <OrbitPhotoGallery />
+      <section className="w-full min-h-[100vh]">
+        <OrbitPhotoGallery images={galleryImages || undefined} />
       </section>
 
       {/* メインコンテンツ: 3カラム構造 */}

@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import './orbit-photo-gallery.css';
+import { GalleryImageSource } from '@/lib/image-gallery-map';
 
 interface PhotoItem {
   id: string;
@@ -9,9 +10,14 @@ interface PhotoItem {
   y: number;
   sizeX: number;
   sizeY: number;
+  imageUrl: string;
 }
 
-const OrbitPhotoGallery: React.FC = () => {
+interface OrbitPhotoGalleryProps {
+  images?: GalleryImageSource[];
+}
+
+const OrbitPhotoGallery: React.FC<OrbitPhotoGalleryProps> = ({ images }) => {
   const MAX_POLAR_ROT_DEG = 3;
   const PAN_SENSITIVITY = 18;
   const TRANSITION_DUR_MS = 300;
@@ -79,15 +85,23 @@ const OrbitPhotoGallery: React.FC = () => {
       { x: 35, yRange: [-4, -2, 0, 2, 4] },
     ];
 
+    let imageIndex = 0;
     positions.forEach(({ x, yRange }) => {
       yRange.forEach((y) => {
+        // Use custom images if provided, otherwise fallback to Picsum
+        const imageUrl = images && images.length > 0
+          ? images[imageIndex % images.length].url
+          : `https://picsum.photos/seed/${imageIndex}/800/800`;
+
         items.push({
           id: `photo-${x}-${y}`,
           x,
           y,
           sizeX: 2,
           sizeY: 2,
+          imageUrl,
         });
+        imageIndex++;
       });
     });
 
@@ -300,9 +314,9 @@ const OrbitPhotoGallery: React.FC = () => {
       }, TRANSITION_DUR_MS);
 
       const img = document.createElement('img');
-      // Use higher resolution image
-      const imageIndex = parentEl.getAttribute('data-index') || '0';
-      img.src = `https://picsum.photos/seed/${imageIndex}/1200/1200`;
+      // Use the same image as the item
+      const imageUrl = parentEl.getAttribute('data-image-url') || '';
+      img.src = imageUrl;
       img.alt = 'Enlarged photo';
       img.className = 'w-full h-full object-cover';
 
@@ -346,7 +360,7 @@ const OrbitPhotoGallery: React.FC = () => {
   return (
     <main
       ref={mainRef}
-      className="flex w-full h-[60vh] justify-center items-center overflow-hidden touch-none bg-[rgb(235,235,235)] m-0 p-0"
+      className="flex w-full h-[100vh] justify-center items-center overflow-hidden touch-none bg-[rgb(235,235,235)] m-0 p-0"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
@@ -361,7 +375,7 @@ const OrbitPhotoGallery: React.FC = () => {
               className="item"
               data-item={`${item.x},${item.y}`}
               data-item-size={`${item.sizeX},${item.sizeY}`}
-              data-src={`https://picsum.photos/seed/${index}/800/800`}
+              data-image-url={item.imageUrl}
               data-index={index}
             >
               <div
@@ -370,7 +384,7 @@ const OrbitPhotoGallery: React.FC = () => {
                 data-focused={focusedItem === item.id}
               >
                 <img
-                  src={`https://picsum.photos/seed/${index}/800/800`}
+                  src={item.imageUrl}
                   alt={`Photo ${item.id}`}
                   draggable="false"
                   className="object-cover w-full h-full pointer-events-none"
