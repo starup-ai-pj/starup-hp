@@ -7,7 +7,6 @@ import { RecruitPost, RecruitListItem } from '@/types/recruit'
 import { queryDatabase, getPageBlocks } from './notion/client'
 import { recruitConfig } from './notion/config/recruit-config'
 import { createExtractors, getDatabaseId, getDefaultSorts } from './notion/extractors'
-import { blocksToMarkdown } from './notion/blocks-to-markdown'
 
 // Recruitのextractorを自動生成
 const extractors = createExtractors(recruitConfig)
@@ -86,7 +85,6 @@ export async function getRecruitPostById(id: string): Promise<RecruitPost | null
 
     // ページのブロック（本文）を取得
     const blocks = await getPageBlocks(page.id)
-    const content = blocksToMarkdown(blocks)
 
     return {
       id: extractors.id(page),
@@ -98,7 +96,7 @@ export async function getRecruitPostById(id: string): Promise<RecruitPost | null
       location: extractors.location(page),
       employmentType: extractors.employmentType(page),
       thumbnail: getImageUrl(extractors.thumbnail(page)),
-      content,
+      blocks,
     }
   } catch (error) {
     console.error(`Error fetching recruit post by ID ${id}:`, error)

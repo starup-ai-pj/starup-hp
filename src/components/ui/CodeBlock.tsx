@@ -28,49 +28,53 @@ export default function CodeBlock({ code, language = 'plaintext', variant = 'des
 
   const isMobile = variant === 'mobile'
   const containerClass = isMobile
-    ? 'group relative bg-gray-50 rounded p-3 my-4 overflow-x-auto border border-gray-200'
-    : 'group relative bg-gray-50 rounded-lg p-4 my-6 overflow-x-auto border border-gray-200'
-  const codeClass = 'text-gray-800 font-mono text-sm block'
+    ? 'group relative bg-[#f7f6f3] rounded p-3 my-4 overflow-x-auto border border-gray-200'
+    : 'group relative bg-[#f7f6f3] rounded p-4 my-6 overflow-x-auto border border-gray-200'
+  const codeClass = 'text-gray-800 font-mono text-[13px] leading-relaxed block'
 
   return (
     <div className={containerClass}>
       {/* コピーボタン（ホバー時に表示） */}
       <button
         onClick={handleCopy}
-        className="absolute top-2 right-2 p-2 bg-white border border-gray-300 rounded opacity-0 group-hover:opacity-100 hover:bg-gray-100 transition-opacity duration-200 shadow-sm"
+        className="absolute top-2 right-2 px-2 py-1.5 bg-white/80 backdrop-blur-sm border border-gray-200 rounded text-xs text-gray-600 opacity-0 group-hover:opacity-100 hover:bg-white hover:text-gray-900 transition-all duration-200 shadow-sm font-medium"
         aria-label="Copy code"
         title={copied ? 'Copied!' : 'Copy code'}
       >
         {copied ? (
-          // チェックアイコン
-          <svg
-            className="w-4 h-4 text-green-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5 13l4 4L19 7"
-            />
-          </svg>
+          <span className="flex items-center gap-1">
+            <svg
+              className="w-3.5 h-3.5 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            <span className="text-green-600">Copied</span>
+          </span>
         ) : (
-          // コピーアイコン
-          <svg
-            className="w-4 h-4 text-gray-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-            />
-          </svg>
+          <span className="flex items-center gap-1">
+            <svg
+              className="w-3.5 h-3.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+              />
+            </svg>
+            <span>Copy</span>
+          </span>
         )}
       </button>
 

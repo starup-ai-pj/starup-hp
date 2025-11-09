@@ -4,6 +4,10 @@
  */
 
 import { Client } from '@notionhq/client'
+import {
+  BlockObjectResponse,
+  PartialBlockObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints'
 import { NotionPage, NotionBlock } from './types'
 
 /**
@@ -20,6 +24,27 @@ function getEnvVar(name: string): string {
     throw new Error(`${name} is not defined in environment variables`)
   }
   return value
+}
+
+/**
+ * NotionのIDをUUID形式に変換
+ * ハイフンなし32文字のIDを、UUID形式（8-4-4-4-12）に変換
+ * すでにUUID形式の場合はそのまま返す
+ *
+ * @param id - NotionのID（ハイフンありまたはなし）
+ * @returns UUID形式のID
+ */
+function normalizeNotionId(id: string): string {
+  // ハイフンを削除して32文字の文字列にする
+  const cleanId = id.replace(/-/g, '')
+
+  // 32文字でない場合はそのまま返す（エラーはNotion APIに任せる）
+  if (cleanId.length !== 32) {
+    return id
+  }
+
+  // UUID形式（8-4-4-4-12）に変換
+  return `${cleanId.slice(0, 8)}-${cleanId.slice(8, 12)}-${cleanId.slice(12, 16)}-${cleanId.slice(16, 20)}-${cleanId.slice(20)}`
 }
 
 /**
@@ -57,7 +82,7 @@ export async function queryDatabase(
 
   try {
     const response = await notion.dataSources.query({
-      data_source_id: databaseId,
+      data_source_id: normalizeNotionId(databaseId),
       sorts: options?.sorts,
       filter: options?.filter,
     })
@@ -80,7 +105,7 @@ export async function getPageByPageId(pageId: string): Promise<NotionPage> {
 
   try {
     const response = await notion.pages.retrieve({
-      page_id: pageId,
+      page_id: normalizeNotionId(pageId),
     })
 
     return response as unknown as NotionPage
@@ -91,33 +116,67 @@ export async function getPageByPageId(pageId: string): Promise<NotionPage> {
 }
 
 /**
- * ページのブロック（本文）を取得
- *
- * @param pageId - NotionページID（UUID）
- * @returns ブロックの配列
+ * ブロックが完全なBlockObjectResponseかチェック
  */
-export async function getPageBlocks(pageId: string): Promise<NotionBlock[]> {
+function isBlockObject(
+  block: BlockObjectResponse | PartialBlockObjectResponse
+): block is BlockObjectResponse {
+  return block.object === 'block' && 'type' in block
+}
+
+/**
+ * ブロックの子要素を再帰的に取得
+ *
+ * @param blockId - NotionブロックID
+ * @returns ブロックの配列（子ブロックを含む）
+ */
+async function fetchBlockChildrenRecursive(
+  blockId: string
+): Promise<NotionBlock[]> {
   const notion = getNotionClient()
+  const blocks: NotionBlock[] = []
+  let cursor: string | undefined = undefined
 
   try {
-    const blocks: NotionBlock[] = []
-    let cursor: string | undefined = undefined
-    let hasMore = true
-
-    // ページネーション対応
-    while (hasMore) {
+    do {
       const response = await notion.blocks.children.list({
-        block_id: pageId,
-        page_size: 100,
+        block_id: normalizeNotionId(blockId),
         start_cursor: cursor,
+        page_size: 100,
       })
 
-      blocks.push(...(response.results as unknown as NotionBlock[]))
-      hasMore = response.has_more
-      cursor = response.next_cursor || undefined
-    }
+      for (const entry of response.results) {
+        if (!isBlockObject(entry)) continue
+
+        const block: NotionBlock = { ...entry } as NotionBlock
+
+        // 子要素がある場合は再帰的に取得
+        if (block.has_children) {
+          block.children = await fetchBlockChildrenRecursive(block.id)
+        }
+
+        blocks.push(block)
+      }
+
+      cursor = response.has_more ? (response.next_cursor ?? undefined) : undefined
+    } while (cursor)
 
     return blocks
+  } catch (error) {
+    console.error(`Error getting blocks for ${blockId}:`, error)
+    throw error
+  }
+}
+
+/**
+ * ページのブロック（本文）を取得（再帰的に子ブロックも取得）
+ *
+ * @param pageId - NotionページID（UUID）
+ * @returns ブロックの配列（子ブロックを含む）
+ */
+export async function getPageBlocks(pageId: string): Promise<NotionBlock[]> {
+  try {
+    return await fetchBlockChildrenRecursive(pageId)
   } catch (error) {
     console.error(`Error getting blocks for page ${pageId}:`, error)
     throw error
