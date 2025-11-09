@@ -3,6 +3,8 @@
  * アプリケーション全体で使用するニュース関連の型定義
  */
 
+import { NotionBlock } from '@/lib/notion/types'
+
 /**
  * ニュース記事の完全なデータ型
  * 詳細ページで使用
@@ -18,8 +20,8 @@ export interface NewsPost {
   tags: string[]
   /** 記事概要 */
   summary: string
-  /** 記事本文（Markdown） */
-  content: string
+  /** 記事本文（Notionブロック配列） */
+  blocks: NotionBlock[]
   /** サムネイル画像URL */
   thumbnail: string
 }
