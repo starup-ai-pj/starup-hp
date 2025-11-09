@@ -5,7 +5,16 @@
 
 import type { ReactNode } from 'react'
 import Image from 'next/image'
-import { NotionBlock, NotionRichText } from '@/lib/notion/types'
+import {
+  NotionBlock,
+  NotionRichText,
+  NotionParagraphBlock,
+  NotionHeadingBlock,
+  NotionListItemBlock,
+  NotionQuoteBlock,
+  NotionCodeBlock,
+  NotionImageBlock,
+} from '@/lib/notion/types'
 import CodeBlock from './CodeBlock'
 
 /**
@@ -120,7 +129,8 @@ function renderChildren(block: NotionBlock): ReactNode {
 function renderParagraph(block: NotionBlock): ReactNode {
   if (block.type !== 'paragraph') return null
 
-  const richText = block.paragraph.rich_text
+  const paragraphBlock = block as NotionParagraphBlock
+  const richText = paragraphBlock.paragraph.rich_text
 
   if (!richText?.length) {
     return <p key={block.id} className="mb-1 leading-[1.75]" />
@@ -137,23 +147,25 @@ function renderParagraph(block: NotionBlock): ReactNode {
  * 見出しブロックをレンダリング
  */
 function renderHeading(block: NotionBlock): ReactNode {
+  const headingBlock = block as NotionHeadingBlock
+
   switch (block.type) {
     case 'heading_1':
       return (
         <h1 key={block.id} className="text-4xl font-bold text-gray-900 mt-12 mb-2 leading-tight">
-          {renderRichText(block.heading_1.rich_text)}
+          {renderRichText(headingBlock.heading_1?.rich_text || [])}
         </h1>
       )
     case 'heading_2':
       return (
         <h2 key={block.id} className="text-3xl font-bold text-gray-900 mt-10 mb-2 leading-snug">
-          {renderRichText(block.heading_2.rich_text)}
+          {renderRichText(headingBlock.heading_2?.rich_text || [])}
         </h2>
       )
     case 'heading_3':
       return (
         <h3 key={block.id} className="text-2xl font-semibold text-gray-900 mt-8 mb-2 leading-normal">
-          {renderRichText(block.heading_3.rich_text)}
+          {renderRichText(headingBlock.heading_3?.rich_text || [])}
         </h3>
       )
     default:
@@ -171,14 +183,15 @@ function renderListItem(block: NotionBlock): ReactNode {
     return null
   }
 
+  const listBlock = block as NotionListItemBlock
   const payload =
     type === 'bulleted_list_item'
-      ? block.bulleted_list_item
-      : block.numbered_list_item
+      ? listBlock.bulleted_list_item
+      : listBlock.numbered_list_item
 
   return (
     <li key={id} className="mb-1 text-[#373530]">
-      <div className="leading-[1.75]">{renderRichText(payload.rich_text)}</div>
+      <div className="leading-[1.75]">{renderRichText(payload?.rich_text || [])}</div>
       {block.children?.length ? renderChildren(block) : null}
     </li>
   )
@@ -190,12 +203,14 @@ function renderListItem(block: NotionBlock): ReactNode {
 function renderQuote(block: NotionBlock): ReactNode {
   if (block.type !== 'quote') return null
 
+  const quoteBlock = block as NotionQuoteBlock
+
   return (
     <blockquote
       key={block.id}
       className="border-l-4 border-gray-900 pl-6 py-1 my-4 text-gray-700 text-base italic"
     >
-      {renderRichText(block.quote.rich_text)}
+      {renderRichText(quoteBlock.quote?.rich_text || [])}
     </blockquote>
   )
 }
@@ -206,8 +221,9 @@ function renderQuote(block: NotionBlock): ReactNode {
 function renderCode(block: NotionBlock): ReactNode {
   if (block.type !== 'code') return null
 
-  const code = block.code.rich_text.map((text) => text.plain_text).join('')
-  const language = block.code.language || 'plaintext'
+  const codeBlock = block as NotionCodeBlock
+  const code = (codeBlock.code?.rich_text || []).map((text) => text.plain_text).join('')
+  const language = codeBlock.code?.language || 'plaintext'
 
   return (
     <div key={block.id} className="my-6">
@@ -230,11 +246,12 @@ function renderDivider(block: NotionBlock): ReactNode {
 function renderImage(block: NotionBlock): ReactNode {
   if (block.type !== 'image') return null
 
+  const imageBlock = block as NotionImageBlock
   let url = ''
-  if (block.image.type === 'file' && block.image.file) {
-    url = block.image.file.url
-  } else if (block.image.type === 'external' && block.image.external) {
-    url = block.image.external.url
+  if (imageBlock.image.type === 'file' && imageBlock.image.file) {
+    url = imageBlock.image.file.url
+  } else if (imageBlock.image.type === 'external' && imageBlock.image.external) {
+    url = imageBlock.image.external.url
   }
 
   if (!url) return null
