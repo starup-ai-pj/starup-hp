@@ -7,7 +7,6 @@ import { MemberPost, MemberListItem } from '@/types/member'
 import { queryDatabase, getPageBlocks } from './notion/client'
 import { memberConfig } from './notion/config/member-config'
 import { createExtractors, getDatabaseId, getDefaultSorts } from './notion/extractors'
-import { blocksToMarkdown } from './notion/blocks-to-markdown'
 
 // Memberのextractorを自動生成
 const extractors = createExtractors(memberConfig)
@@ -88,7 +87,6 @@ export async function getMemberBySlug(slug: string): Promise<MemberPost | null> 
 
     // ページのブロック（本文）を取得
     const blocks = await getPageBlocks(page.id)
-    const content = blocksToMarkdown(blocks)
 
     const englishName = extractors.englishName(page)
     return {
@@ -98,7 +96,7 @@ export async function getMemberBySlug(slug: string): Promise<MemberPost | null> 
       slug: createSlugFromEnglishName(englishName),
       position: extractors.position(page),
       description: extractors.description(page),
-      content,
+      blocks,
       image: getImageUrl(extractors.image(page)),
       socialLinks: {
         twitter: extractors.twitter(page) || undefined,

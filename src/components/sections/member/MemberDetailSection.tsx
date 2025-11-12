@@ -2,7 +2,7 @@
 
 import { MemberPost } from '@/types/member'
 import OrbitPhotoGallery from '@/components/animation/orbit-photo-gallery'
-import MarkdownContent from '@/components/ui/MarkdownContent'
+import NotionBlockRenderer from '@/components/ui/NotionBlockRenderer'
 import { getMemberGalleryData } from '@/lib/image-gallery-map'
 
 interface MemberDetailSectionProps {
@@ -49,7 +49,7 @@ export default function MemberDetailSection({ member }: MemberDetailSectionProps
 
               {/* Profile */}
                 <div className="max-w-none prose prose-lg prose-gray">
-                  <MarkdownContent content={member.content} variant="desktop" />
+                  <NotionBlockRenderer blocks={member.blocks} />
                 </div>
               </div>
 

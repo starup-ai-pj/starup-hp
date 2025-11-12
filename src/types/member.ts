@@ -3,6 +3,8 @@
  * アプリケーション全体で使用するメンバー関連の型定義
  */
 
+import { NotionBlock } from '@/lib/notion/types'
+
 /**
  * メンバーの完全なデータ型
  * 詳細ページで使用
@@ -20,8 +22,8 @@ export interface MemberPost {
   position: string
   /** 説明文 */
   description: string
-  /** プロフィール本文（Markdown） */
-  content: string
+  /** プロフィール本文（Notionブロック配列） */
+  blocks: NotionBlock[]
   /** プロフィール画像URL */
   image: string
   /** SNSリンク */
