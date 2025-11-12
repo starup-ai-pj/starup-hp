@@ -8,13 +8,6 @@ interface RecruitPostPageProps {
   params: Promise<{ slug: string }>
 }
 
-export async function generateStaticParams() {
-  const ids = await getAllRecruitIds()
-  return ids.map((id) => ({
-    slug: id, // Using numeric ID as slug
-  }))
-}
-
 export default async function RecruitPostPage({ params }: RecruitPostPageProps) {
   const { slug } = await params
 
