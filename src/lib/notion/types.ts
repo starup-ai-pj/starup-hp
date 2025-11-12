@@ -224,9 +224,9 @@ export interface NotionImageBlock extends NotionBlockBase {
 }
 
 /**
- * Notion ブロックの統合型
+ * Notion ブロックの統合型（children プロパティ付き）
  */
-export type NotionBlock =
+export type NotionBlock = (
   | NotionHeadingBlock
   | NotionParagraphBlock
   | NotionListItemBlock
@@ -235,6 +235,9 @@ export type NotionBlock =
   | NotionDividerBlock
   | NotionImageBlock
   | NotionBlockBase // その他のブロックタイプ
+) & {
+  children?: NotionBlock[] // 再帰的な子ブロック
+}
 
 /**
  * Notionプロパティタイプ定義

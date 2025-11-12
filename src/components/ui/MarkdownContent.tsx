@@ -22,10 +22,10 @@ interface MarkdownContentProps {
 function convertMarkdownToHtml(markdown: string, variant: 'mobile' | 'desktop' = 'desktop'): string {
   const isMobile = variant === 'mobile'
 
-  // 見出しのスタイル
+  // Notionライクな見出しのスタイル
   const h1Class = isMobile
-    ? 'text-2xl font-bold text-gray-900 mt-6 mb-4'
-    : 'text-3xl font-bold text-gray-900 mt-8 mb-6'
+    ? 'text-3xl font-bold text-gray-900 mt-8 mb-2 leading-tight'
+    : 'text-4xl font-bold text-gray-900 mt-12 mb-2 leading-tight'
   const h2Class = isMobile
     ? 'text-xl font-bold text-gray-800 mt-6 mb-3'
     : 'text-2xl font-bold text-gray-800 mt-8 mb-4'
@@ -33,14 +33,14 @@ function convertMarkdownToHtml(markdown: string, variant: 'mobile' | 'desktop' =
     ? 'text-lg font-bold text-gray-800 mt-4 mb-2'
     : 'text-xl font-bold text-gray-800 mt-6 mb-3'
   const pClass = isMobile
-    ? 'mb-4 text-gray-600 leading-relaxed text-sm'
-    : 'mb-4 text-gray-600 leading-relaxed'
+    ? 'mb-1 text-gray-700 leading-[1.75] text-base'
+    : 'mb-1 text-gray-700 leading-[1.75] text-base'
   const hrClass = isMobile
-    ? 'my-6 border-gray-300'
-    : 'my-8 border-gray-300'
+    ? 'my-8 border-t border-gray-200'
+    : 'my-10 border-t border-gray-200'
   const blockquoteClass = isMobile
-    ? 'border-l-3 border-gray-400 pl-4 py-2 my-4 text-gray-800 text-sm'
-    : 'border-l-3 border-gray-400 pl-6 py-3 my-6 text-gray-800'
+    ? 'border-l-4 border-gray-900 pl-5 py-1 my-4 text-gray-700 text-base italic'
+    : 'border-l-4 border-gray-900 pl-6 py-1 my-4 text-gray-700 text-base italic'
   const codeBlockClass = isMobile
     ? 'bg-gray-100 rounded p-3 my-4 overflow-x-auto text-sm'
     : 'bg-gray-100 rounded-lg p-4 my-6 overflow-x-auto'
@@ -71,25 +71,27 @@ function convertMarkdownToHtml(markdown: string, variant: 'mobile' | 'desktop' =
     .replace(/^### (.+)$/gm, `<h3 class="${h3Class}">$1</h3>`)
     // 水平線
     .replace(/^---$/gm, `<hr class="${hrClass}" />`)
-    // 画像
+    // 画像 (Notionライクなスタイル)
     .replace(
       /!\[([^\]]*)\]\(([^)]+)\)/g,
-      '<img src="$2" alt="$1" class="w-full h-auto my-4 rounded-lg" loading="lazy" />'
+      '<img src="$2" alt="$1" class="w-full h-auto my-6 rounded-sm shadow-sm" loading="lazy" />'
     )
     // 太字
-    .replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold">$1</strong>')
-    // リンク
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
+    // インラインコード (Notionライクなスタイル)
+    .replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 bg-gray-100 text-red-600 rounded text-sm font-mono">$1</code>')
+    // リンク (Notionライクなスタイル)
     .replace(
       /\[([^\]]+)\]\(([^)]+)\)/g,
-      '<a href="$2" class="text-blue-600 hover:text-blue-800 underline" target="_blank" rel="noopener noreferrer">$1</a>'
+      '<a href="$2" class="text-blue-600 hover:text-blue-700 underline decoration-blue-300 underline-offset-2 transition-colors" target="_blank" rel="noopener noreferrer">$1</a>'
     )
     .replace(
       /<(https?:\/\/[^>]+)>/g,
-      '<a href="$1" class="text-blue-600 hover:text-blue-800 underline break-all" target="_blank" rel="noopener noreferrer">$1</a>'
+      '<a href="$1" class="text-blue-600 hover:text-blue-700 underline decoration-blue-300 underline-offset-2 break-all transition-colors" target="_blank" rel="noopener noreferrer">$1</a>'
     )
-    // リスト
-    .replace(/^- (.+)$/gm, '<li class="ml-4 mb-2">$1</li>')
-    .replace(/^(\d+)\. (.+)$/gm, '<li class="ml-4 mb-2 list-decimal">$2</li>')
+    // リスト (Notionライクなスタイル)
+    .replace(/^- (.+)$/gm, '<li class="ml-6 mb-1 text-gray-700 leading-[1.75] list-disc marker:text-gray-400">$1</li>')
+    .replace(/^(\d+)\. (.+)$/gm, '<li class="ml-6 mb-1 text-gray-700 leading-[1.75] list-decimal marker:text-gray-400">$2</li>')
 
   // ステップ3: 段落処理（ブロック要素ではない行のみ）
   result = result
@@ -129,13 +131,13 @@ export default function MarkdownContent({
           if (!src) return null
 
           return (
-            <div className="relative w-full my-4">
+            <div className="relative w-full my-6">
               <Image
                 src={src}
                 alt={alt || 'image'}
                 width={1200}
                 height={675}
-                className="w-full h-auto rounded-lg"
+                className="w-full h-auto rounded-sm shadow-sm"
                 style={{ objectFit: 'cover' }}
                 unoptimized // NotionのURLは外部URLなので最適化をスキップ
               />
@@ -163,7 +165,7 @@ export default function MarkdownContent({
   }
 
   return (
-    <div className={`leading-relaxed ${className}`}>
+    <div className={`notion-content max-w-full ${className}`}>
       {parse(html, options)}
     </div>
   )

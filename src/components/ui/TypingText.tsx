@@ -17,11 +17,24 @@ export default function TypingText({ text, className = "" }: TypingTextProps) {
   useEffect(() => {
     if (!typingTextRef.current) return
 
-    const chars = text.split('').map((char) =>
-      `<span class="char" style="opacity: 0; display: inline-block;">${char === ' ' ? '&nbsp;' : char}</span>`
-    ).join('')
+    // テキストを単語とスペースに分割
+    const words = text.split(/(\s+)/)
 
-    typingTextRef.current.innerHTML = chars
+    // 各単語を個別のspanでラップし、単語内の文字を分割
+    const wordsHtml = words.map((word) => {
+      if (word.match(/^\s+$/)) {
+        // スペースの場合はそのまま
+        return word.split('').map(() => '&nbsp;').join('')
+      } else {
+        // 単語の場合は、単語全体を1つのspanでラップし、内部の文字を分割
+        const chars = word.split('').map((char) =>
+          `<span class="char" style="opacity: 0;">${char}</span>`
+        ).join('')
+        return `<span class="word" style="display: inline-block; white-space: nowrap;">${chars}</span>`
+      }
+    }).join('')
+
+    typingTextRef.current.innerHTML = wordsHtml
     const charElements = typingTextRef.current.querySelectorAll('.char')
 
     gsap.timeline({

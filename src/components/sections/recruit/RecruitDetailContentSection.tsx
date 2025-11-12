@@ -3,7 +3,7 @@
 import { RecruitPost, RecruitListItem } from '@/types/recruit'
 import RecruitItem from '@/components/ui/RecruitItem'
 import TransitionLink from '@/components/ui/TransitionLink'
-import MarkdownContent from '@/components/ui/MarkdownContent'
+import NotionBlockRenderer from '@/components/ui/NotionBlockRenderer'
 import Image from 'next/image'
 
 interface RecruitDetailContentSectionProps {
@@ -90,6 +90,7 @@ export default function RecruitDetailContentSection({ post, allRecruits }: Recru
             className="object-cover"
             loading="lazy"
             quality={80}
+            unoptimized
           />
         </div>
       </section>
@@ -100,7 +101,7 @@ export default function RecruitDetailContentSection({ post, allRecruits }: Recru
           {/* Mobile Layout */}
           <div className="block lg:hidden">
             <div className="max-w-none prose prose-gray">
-              <MarkdownContent content={post.content} variant="mobile" />
+              <NotionBlockRenderer blocks={post.blocks} />
             </div>
 
             {/* Mobile Apply Section */}
@@ -121,7 +122,7 @@ export default function RecruitDetailContentSection({ post, allRecruits }: Recru
             <div className="col-span-2"></div>
             <div className="col-span-8 border-r border-gray-700 pr-8">
               <div className="max-w-none prose prose-lg prose-gray">
-                <MarkdownContent content={post.content} variant="desktop" />
+                <NotionBlockRenderer blocks={post.blocks} />
               </div>
             </div>
 

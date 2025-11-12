@@ -1,7 +1,7 @@
 'use client'
 
 import { NewsPost } from '@/types/news'
-import MarkdownContent from '@/components/ui/MarkdownContent'
+import NotionBlockRenderer from '@/components/ui/NotionBlockRenderer'
 import ShareButtons from '@/components/ui/ShareButtons'
 import Image from 'next/image'
 
@@ -98,6 +98,7 @@ export default function NewsDetailContentSection({ post }: NewsDetailContentSect
             className="object-cover"
             loading="lazy"
             quality={80}
+            unoptimized
           />
         </div>
       </section>
@@ -108,7 +109,7 @@ export default function NewsDetailContentSection({ post }: NewsDetailContentSect
           {/* Mobile Layout */}
           <div className="block lg:hidden">
             <div className="max-w-none prose prose-gray">
-              <MarkdownContent content={post.content} variant="mobile" />
+              <NotionBlockRenderer blocks={post.blocks} />
             </div>
             
             {/* Mobile Share Section */}
@@ -124,7 +125,7 @@ export default function NewsDetailContentSection({ post }: NewsDetailContentSect
             <div className="col-span-2"></div>
             <div className="col-span-8 border-r border-gray-700 pr-8">
               <div className="max-w-none prose prose-lg prose-gray">
-                <MarkdownContent content={post.content} variant="desktop" />
+                <NotionBlockRenderer blocks={post.blocks} />
               </div>
             </div>
 

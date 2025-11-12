@@ -67,6 +67,7 @@ export default function NewsItem({ item, showDivider = false }: NewsItemProps) {
               className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
               loading="lazy"
               quality={75}
+              unoptimized
             />
           </div>
 
@@ -105,6 +106,7 @@ export default function NewsItem({ item, showDivider = false }: NewsItemProps) {
               className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
               loading="lazy"
               quality={75}
+              unoptimized
             />
           </div>
 

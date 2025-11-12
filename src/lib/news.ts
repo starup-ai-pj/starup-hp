@@ -7,7 +7,6 @@ import { NewsPost, NewsListItem } from '@/types/news'
 import { queryDatabase, getPageBlocks } from './notion/client'
 import { newsConfig } from './notion/config/news-config'
 import { createExtractors, getDatabaseId, getDefaultSorts } from './notion/extractors'
-import { blocksToMarkdown } from './notion/blocks-to-markdown'
 
 // Newsのextractorを自動生成
 const extractors = createExtractors(newsConfig)
@@ -83,7 +82,6 @@ export async function getNewsPostById(id: string): Promise<NewsPost | null> {
 
     // ページのブロック（本文）を取得
     const blocks = await getPageBlocks(page.id)
-    const content = blocksToMarkdown(blocks)
 
     return {
       id: extractors.id(page),
@@ -91,7 +89,7 @@ export async function getNewsPostById(id: string): Promise<NewsPost | null> {
       date: extractors.date(page),
       tags: extractors.tags(page),
       summary: extractors.description(page),
-      content,
+      blocks,
       thumbnail: getImageUrl(extractors.thumbnail(page)),
     }
   } catch (error) {
