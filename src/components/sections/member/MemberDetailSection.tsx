@@ -4,6 +4,7 @@ import { MemberPost } from '@/types/member'
 import OrbitPhotoGallery from '@/components/animation/orbit-photo-gallery'
 import NotionBlockRenderer from '@/components/ui/NotionBlockRenderer'
 import { getMemberGalleryData } from '@/lib/image-gallery-map'
+import { useEffect, useState } from 'react'
 
 interface MemberDetailSectionProps {
   member: MemberPost
@@ -12,17 +13,50 @@ interface MemberDetailSectionProps {
 export default function MemberDetailSection({ member }: MemberDetailSectionProps) {
   // Get member-specific gallery configuration
   const galleryData = getMemberGalleryData(member.slug)
+  const [spacerHeight, setSpacerHeight] = useState(100) // Start at 100vh
+  const [showCaption, setShowCaption] = useState(false)
+
+  useEffect(() => {
+    // First show caption text
+    const captionTimer = setTimeout(() => {
+      setShowCaption(true)
+    }, 100)
+
+    // Then animate content up after caption appears
+    const contentTimer = setTimeout(() => {
+      setSpacerHeight(70) // Animate to 70vh
+    }, 2000) // Start content animation 2 seconds after caption
+
+    return () => {
+      clearTimeout(captionTimer)
+      clearTimeout(contentTimer)
+    }
+  }, [])
 
   return (
-    <div className="bg-white">
+    <div className="">
       {/* 最上部: Photo Gallery - Fixed Background */}
       <OrbitPhotoGallery
         images={galleryData?.images}
         bgColor={galleryData?.bgColor}
       />
 
+      {/* Caption text - positioned over the fixed gallery */}
+      <div
+        className={`absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none transition-opacity duration-1000 ${
+          showCaption ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        <p className="text-3xl md:text-5xl lg:text-7xl text-white text-shadow-lg" style={{ fontFamily: 'Lavishly Yours, cursive' }}>
+          Photos of things I love
+        </p>
+      </div>
+
       {/* Spacer to create scroll space for initial view */}
-      <div className="h-[70vh]"></div>
+      <div
+        style={{ height: `${spacerHeight}vh` }}
+        className="transition-all duration-[3000ms] ease-out"
+      ></div>
 
       {/* メインコンテンツ: 3カラム構造 */}
       <section className="relative z-10 py-12 md:py-16 bg-white">
