@@ -37,6 +37,7 @@ export default function RecruitItem({ item, showDivider = false }: RecruitItemPr
               className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
               loading="lazy"
               quality={75}
+              unoptimized
             />
           </div>
 
@@ -75,6 +76,7 @@ export default function RecruitItem({ item, showDivider = false }: RecruitItemPr
               className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
               loading="lazy"
               quality={75}
+              unoptimized
             />
           </div>
 
