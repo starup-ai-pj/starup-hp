@@ -97,7 +97,7 @@ export async function queryDatabase(
           sorts: options?.sorts,
           filter: options?.filter,
         }),
-        cache: 'no-store', // ★サンプルと同じ: 毎回新しいデータを取得
+        next: { revalidate: 3600 }, // ISR: 1時間ごとに再検証
       }
     )
 

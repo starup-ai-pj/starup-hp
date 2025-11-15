@@ -8,6 +8,10 @@ import ContactSection from "@/components/sections/home/ContactSection"
 import RectuitSection from "@/components/sections/home/RecruitSection"
 import MissionSection from "@/components/sections/home/MissionSection"
 import NewsSection from "@/components/sections/home/NewsSection"
+
+// ISR設定: 1時間ごとに再検証
+export const revalidate = 3600
+
 export default function Home() {
   return (
     <div className="relative">
