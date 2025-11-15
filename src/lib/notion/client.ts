@@ -62,6 +62,7 @@ export function getNotionClient(): Client {
 
 /**
  * データベースから全ページを取得（汎用）
+ * サンプルコードと同じfetch方式を使用してcache制御を明示
  *
  * @param databaseId - NotionデータベースID
  * @param options.sorts - ソート条件
@@ -78,16 +79,36 @@ export async function queryDatabase(
     filter?: any
   }
 ): Promise<NotionPage[]> {
-  const notion = getNotionClient()
+  const apiKey = getEnvVar('NOTION_API_KEY')
+  const NOTION_API_VERSION = '2022-06-28'
+  const NOTION_API_BASE_URL = 'https://api.notion.com/v1'
 
   try {
-    const response = await notion.dataSources.query({
-      data_source_id: normalizeNotionId(databaseId),
-      sorts: options?.sorts,
-      filter: options?.filter,
-    })
+    const response = await fetch(
+      `${NOTION_API_BASE_URL}/databases/${databaseId}/query`, // normalizeNotionIdを削除
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+          'Notion-Version': NOTION_API_VERSION,
+        },
+        body: JSON.stringify({
+          sorts: options?.sorts,
+          filter: options?.filter,
+        }),
+        cache: 'no-store', // ★サンプルと同じ: 毎回新しいデータを取得
+      }
+    )
 
-    return response.results as unknown as NotionPage[]
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error('Error querying Notion database:', errorText)
+      throw new Error(`Failed to query Notion database: ${response.status}`)
+    }
+
+    const data = await response.json()
+    return data.results as NotionPage[]
   } catch (error) {
     console.error('Error querying Notion database:', error)
     throw error
@@ -105,7 +126,7 @@ export async function getPageByPageId(pageId: string): Promise<NotionPage> {
 
   try {
     const response = await notion.pages.retrieve({
-      page_id: normalizeNotionId(pageId),
+      page_id: pageId, // normalizeNotionIdを削除
     })
 
     return response as unknown as NotionPage
@@ -140,7 +161,7 @@ async function fetchBlockChildrenRecursive(
   try {
     do {
       const response = await notion.blocks.children.list({
-        block_id: normalizeNotionId(blockId),
+        block_id: blockId, // normalizeNotionIdを削除
         start_cursor: cursor,
         page_size: 100,
       })

@@ -8,13 +8,6 @@ interface NewsPostPageProps {
   params: Promise<{ slug: string }>
 }
 
-export async function generateStaticParams() {
-  const ids = await getAllNewsIds()
-  return ids.map((id) => ({
-    slug: id, // Using numeric ID as slug
-  }))
-}
-
 export default async function NewsPostPage({ params }: NewsPostPageProps) {
   const { slug } = await params
 
