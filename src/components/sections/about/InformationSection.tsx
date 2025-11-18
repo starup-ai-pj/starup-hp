@@ -50,7 +50,7 @@ export default function InformationSection() {
       value: (
         <>
           EYストラテジー・アンド・コンサルティング株式会社<br />
-          株式会社NTTデータ<br />
+          {/* 株式会社NTTデータ<br /> */}
           株式会社NTTドコモ<br />
           株式会社クロステック<br />
           株式会社チャンピオンコーポレーション<br />
