@@ -283,6 +283,18 @@ export default function Footer() {
       <div className="w-full max-w-[1500px] mx-auto pt-16">
         <p ref={textRef} className="text-center text-gray-500 text-lg">Ready to make Impact?</p>
       </div>
+
+      {/* Legal Links */}
+      <div className="w-full max-w-[1500px] mx-auto px-4 pt-8 pb-4 border-t border-gray-300 mt-8">
+        <div className="flex justify-center">
+          <TransitionLink
+            href="/information-security-policy"
+            className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            情報セキュリティ基本方針
+          </TransitionLink>
+        </div>
+      </div>
     </footer>
   )
 }
