@@ -15,6 +15,67 @@ const colorPalettes = [
   [new THREE.Color(0x3B82F6), new THREE.Color(0x2563EB), new THREE.Color(0x1D4ED8), new THREE.Color(0x1E40AF), new THREE.Color(0x60A5FA)]
 ]
 
+// Performance settings based on device capability
+interface PerformanceConfig {
+  particleCount: { small: number; medium: number; large: number }
+  densityFactor: number
+  pixelRatio: number
+  enablePostProcessing: boolean
+  antialias: boolean
+  shadowsEnabled: boolean
+}
+
+const getDevicePerformanceConfig = (): PerformanceConfig => {
+  if (typeof window === 'undefined') {
+    return {
+      particleCount: { small: 1000, medium: 600, large: 250 },
+      densityFactor: 0.5,
+      pixelRatio: 1,
+      enablePostProcessing: false,
+      antialias: false,
+      shadowsEnabled: false
+    }
+  }
+
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+  const isTablet = /iPad|Android/i.test(navigator.userAgent) && window.innerWidth >= 768
+  const hasLowMemory = (navigator as any).deviceMemory && (navigator as any).deviceMemory < 4
+
+  // Mobile settings - lowest quality
+  if (isMobile && !isTablet) {
+    return {
+      particleCount: { small: 800, medium: 400, large: 150 },
+      densityFactor: 0.4,
+      pixelRatio: Math.min(window.devicePixelRatio, 1),
+      enablePostProcessing: false,
+      antialias: false,
+      shadowsEnabled: false
+    }
+  }
+
+  // Tablet settings - medium quality
+  if (isTablet || hasLowMemory) {
+    return {
+      particleCount: { small: 1500, medium: 800, large: 300 },
+      densityFactor: 0.6,
+      pixelRatio: Math.min(window.devicePixelRatio, 1.5),
+      enablePostProcessing: false,
+      antialias: true,
+      shadowsEnabled: false
+    }
+  }
+
+  // Desktop settings - high quality
+  return {
+    particleCount: { small: 2500, medium: 1400, large: 600 },
+    densityFactor: 0.8,
+    pixelRatio: Math.min(window.devicePixelRatio, 2),
+    enablePostProcessing: true,
+    antialias: true,
+    shadowsEnabled: false
+  }
+}
+
 interface Config {
   paused: boolean
   activePaletteIndex: number
@@ -292,12 +353,19 @@ export default function NetworkBackground({ className = '' }: NetworkBackgroundP
   const starsMediumRef = useRef<THREE.Points | null>(null)
   const starsLargeRef = useRef<THREE.Points | null>(null)
 
+  // Performance monitoring
+  const fpsRef = useRef<number>(60)
+  const frameTimesRef = useRef<number[]>([])
+  const lastFrameTimeRef = useRef<number>(performance.now())
+
+  const performanceConfig = useRef<PerformanceConfig>(getDevicePerformanceConfig())
+
   const [config, setConfig] = useState<Config>({
     paused: false,
     activePaletteIndex: 0,
     currentFormation: 0,
     numFormations: 4,
-    densityFactor: 1
+    densityFactor: performanceConfig.current.densityFactor
   })
 
   const pulseUniforms = {
@@ -652,7 +720,8 @@ export default function NetworkBackground({ className = '' }: NetworkBackgroundP
       fragmentShader: nodeShader.fragmentShader,
       transparent: true,
       depthWrite: false,
-      blending: THREE.AdditiveBlending
+      blending: THREE.AdditiveBlending,
+      precision: 'mediump'
     })
 
     nodesMeshRef.current = new THREE.Points(nodesGeometry, nodesMaterial)
@@ -724,7 +793,8 @@ export default function NetworkBackground({ className = '' }: NetworkBackgroundP
       fragmentShader: connectionShader.fragmentShader,
       transparent: true,
       depthWrite: false,
-      blending: THREE.AdditiveBlending
+      blending: THREE.AdditiveBlending,
+      precision: 'mediump'
     })
 
     connectionsMeshRef.current = new THREE.LineSegments(connectionsGeometry, connectionsMaterial)
@@ -790,9 +860,16 @@ export default function NetworkBackground({ className = '' }: NetworkBackgroundP
     camera.position.set(0, 5, 22)
     cameraRef.current = camera
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" })
+    const perfConfig = performanceConfig.current
+    const renderer = new THREE.WebGLRenderer({
+      antialias: perfConfig.antialias,
+      alpha: true,
+      powerPreference: "high-performance",
+      stencil: false,
+      depth: true
+    })
     renderer.setSize(mountRef.current.offsetWidth, mountRef.current.offsetHeight)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.setPixelRatio(perfConfig.pixelRatio)
     renderer.setClearColor(0x333333, 0)
     renderer.outputColorSpace = THREE.SRGBColorSpace
     rendererRef.current = renderer
@@ -808,16 +885,23 @@ export default function NetworkBackground({ className = '' }: NetworkBackgroundP
         positions[i + 2] = (Math.random() - 0.5) * spread
       }
       geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-      const material = new THREE.PointsMaterial({ color, size, sizeAttenuation: true })
+      const material = new THREE.PointsMaterial({
+        color,
+        size,
+        sizeAttenuation: true,
+        transparent: false,
+        depthWrite: true
+      })
       const points = new THREE.Points(geometry, material)
       scene.add(points)
       return points
     }
 
-    // small, medium, large
-    starsSmallRef.current = createStars(3500, 0.03, 220)
-    starsMediumRef.current = createStars(2000, 0.08, 200)
-    starsLargeRef.current = createStars(800, 0.18, 180)
+    // Adaptive particle counts based on device
+    const particleCounts = perfConfig.particleCount
+    starsSmallRef.current = createStars(particleCounts.small, 0.03, 220)
+    starsMediumRef.current = createStars(particleCounts.medium, 0.08, 200)
+    starsLargeRef.current = createStars(particleCounts.large, 0.18, 180)
 
     // Load OrbitControls - This will be async but should work
     import('three/examples/jsm/controls/OrbitControls.js').then(({ OrbitControls }) => {
@@ -835,36 +919,55 @@ export default function NetworkBackground({ className = '' }: NetworkBackgroundP
     })
 
 
-    // Load post-processing effects
-    Promise.all([
-      import('three/examples/jsm/postprocessing/EffectComposer.js'),
-      import('three/examples/jsm/postprocessing/RenderPass.js'),
-      import('three/examples/jsm/postprocessing/UnrealBloomPass.js'),
-      import('three/examples/jsm/postprocessing/FilmPass.js'),
-      import('three/examples/jsm/postprocessing/OutputPass.js')
-    ]).then(([
-      { EffectComposer },
-      { RenderPass },
-      { UnrealBloomPass },
-      { FilmPass },
-      { OutputPass }
-    ]) => {
-      const composer = new EffectComposer(renderer)
-      composer.addPass(new RenderPass(scene, camera))
+    // Load post-processing effects (only on high-performance devices)
+    if (perfConfig.enablePostProcessing) {
+      Promise.all([
+        import('three/examples/jsm/postprocessing/EffectComposer.js'),
+        import('three/examples/jsm/postprocessing/RenderPass.js'),
+        import('three/examples/jsm/postprocessing/UnrealBloomPass.js'),
+        import('three/examples/jsm/postprocessing/FilmPass.js'),
+        import('three/examples/jsm/postprocessing/OutputPass.js')
+      ]).then(([
+        { EffectComposer },
+        { RenderPass },
+        { UnrealBloomPass },
+        { FilmPass },
+        { OutputPass }
+      ]) => {
+        const composer = new EffectComposer(renderer)
+        composer.addPass(new RenderPass(scene, camera))
 
-      const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.68)
-      composer.addPass(bloomPass)
+        const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.2, 0.3, 0.7)
+        composer.addPass(bloomPass)
 
-      const filmPass = new FilmPass(0.35, false)
-      composer.addPass(filmPass)
+        const filmPass = new FilmPass(0.25, false)
+        composer.addPass(filmPass)
 
-      composer.addPass(new OutputPass())
-      composerRef.current = composer
-    })
+        composer.addPass(new OutputPass())
+        composerRef.current = composer
+      })
+    }
 
     createNetworkVisualization(config.currentFormation, config.densityFactor)
 
     const animate = () => {
+      // FPS monitoring
+      const now = performance.now()
+      const delta = now - lastFrameTimeRef.current
+      lastFrameTimeRef.current = now
+
+      frameTimesRef.current.push(delta)
+      if (frameTimesRef.current.length > 60) {
+        frameTimesRef.current.shift()
+        const avgDelta = frameTimesRef.current.reduce((a, b) => a + b, 0) / frameTimesRef.current.length
+        fpsRef.current = Math.round(1000 / avgDelta)
+
+        // Log performance issues in development
+        if (process.env.NODE_ENV === 'development' && fpsRef.current < 30) {
+          console.warn(`[NetworkBackground] Low FPS detected: ${fpsRef.current}`)
+        }
+      }
+
       const t = clockRef.current.getElapsedTime()
 
       if (!config.paused) {
@@ -902,7 +1005,7 @@ export default function NetworkBackground({ className = '' }: NetworkBackgroundP
       } else {
         renderer.render(scene, camera)
       }
-      
+
       animationIdRef.current = requestAnimationFrame(animate)
     }
 
