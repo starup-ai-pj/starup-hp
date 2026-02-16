@@ -61,6 +61,7 @@ export default function ServiceDetailSection() {
             title: "ARCHAIVE",
             description: "社内に点在した図面データを一元管理し、AIによる類似図面検索とチャット型データ検索で業務効率を革新します。",
             imageSrc: "/images/services/archaive.jpg",
+            link: "https://archaive.net",
             detailsContent: `
                 <div class="space-y-6">
                     <h3 class="text-xl font-bold text-gray-900 mb-4">AI図面データ活用プラットフォーム</h3>
@@ -298,7 +299,7 @@ export default function ServiceDetailSection() {
                             </p>
 
                             {/* サービス詳細 - ボタン */}
-                            <div className="flex mb-6 md:mb-8">
+                            <div className="flex items-center mb-6 md:mb-8">
                                 <button
                                     onClick={() => handleTabChange(sectionIndex, 0)}
                                     className={`px-4 md:px-6 py-2 text-sm font-medium rounded-l-lg ${
@@ -319,6 +320,19 @@ export default function ServiceDetailSection() {
                                 >
                                     Details
                                 </button>
+                                {section.link && (
+                                    <a
+                                        href={section.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="ml-auto inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-black transition-colors"
+                                    >
+                                        <span>サービスサイトへ</span>
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        </svg>
+                                    </a>
+                                )}
                             </div>
 
                             {/* サービス詳細 - コンテンツ */}
