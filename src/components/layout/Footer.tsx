@@ -286,12 +286,18 @@ export default function Footer() {
 
       {/* Legal Links */}
       <div className="w-full max-w-[1500px] mx-auto px-4 pt-8 pb-4 border-t border-gray-300 mt-8">
-        <div className="flex justify-center">
+        <div className="flex justify-center gap-6">
           <TransitionLink
             href="/information-security-policy"
             className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
           >
             情報セキュリティ基本方針
+          </TransitionLink>
+          <TransitionLink
+            href="/recruitment-disclosure"
+            className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            有料職業紹介事業に基づく情報公開
           </TransitionLink>
         </div>
       </div>
