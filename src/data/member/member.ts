@@ -77,7 +77,7 @@ export interface Member {
       id: "haruki-kimura",
       name: "木村遥輝",
       englishName: "Haruki Kimura",
-      position: "ARCHAIVE事業部 営業責任者",
+      position: "執行役員/ARCHAIVE事業CEO",
       description:
         "京都大学工学部出身。在学時には、新規事業開発、人材事業での営業・CSを経験。STARUPではSaaS事業の立ち上げを行い、現在は営業組織構築や販売戦略立案など営業の統括を担当。",
       image: "/images/member/kimura-haruki.png",
