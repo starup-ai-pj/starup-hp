@@ -31,7 +31,7 @@ export default function RecruitmentDisclosureSection() {
             </h2>
 
             {/* 取扱職種の範囲等 */}
-            <div className="border-b border-gray-200 pb-6 md:pb-8">
+            <div className="pb-6 md:pb-8">
               <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-4">
                 ■ 取扱職種の範囲等
               </h3>
@@ -46,7 +46,7 @@ export default function RecruitmentDisclosureSection() {
             </div>
 
             {/* 個人情報の保護に関する事項 */}
-            <div className="border-b border-gray-200 pb-6 md:pb-8">
+            <div className="pb-6 md:pb-8">
               <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-4">
                 ■ 個人情報の保護に関する事項
               </h3>
@@ -58,10 +58,32 @@ export default function RecruitmentDisclosureSection() {
                   ・当社は、求職者および求人者の個人情報を適切に管理し、本人の同意なく第三者に開示・提供することはありません。また、個人情報の開示、訂正、削除の求めには迅速に対応いたします。
                 </p>
               </div>
+              <div className="mt-6 pb-6 md:pb-8">
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-4">
+                  ■ 個人情報の利用目的について
+                </h3>
+                <p className="text-base md:text-lg text-gray-900 leading-relaxed mb-3 pl-4">
+                  当社は、職業紹介業務において取得した個人情報を以下の目的で利用いたします。
+                </p>
+                <div className="space-y-2 pl-4">
+                  <p className="text-base md:text-lg text-gray-900 leading-relaxed">
+                    ・求職者への最適な求人情報の提供および進捗管理
+                  </p>
+                  <p className="text-base md:text-lg text-gray-900 leading-relaxed">
+                    ・求人企業への紹介、選考の実施
+                  </p>
+                  <p className="text-base md:text-lg text-gray-900 leading-relaxed">
+                    ・就業後のアフターフォローおよびアンケート実施
+                  </p>
+                  <p className="text-base md:text-lg text-gray-900 leading-relaxed">
+                    ・法令（職業安定法等）に基づく情報の管理
+                  </p>
+                </div>
+              </div>
             </div>
 
             {/* 手数料の徴収に関する事項 */}
-            <div className="border-b border-gray-200 pb-6 md:pb-8">
+            <div className="pb-6 md:pb-8">
               <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-4">
                 ■ 手数料の徴収に関する事項
               </h3>
@@ -73,7 +95,7 @@ export default function RecruitmentDisclosureSection() {
             </div>
 
             {/* 苦情の処理に関する事項 */}
-            <div className="border-b border-gray-200 pb-6 md:pb-8">
+            <div className="pb-6 md:pb-8">
               <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-4">
                 ■ 苦情の処理に関する事項
               </h3>
@@ -88,7 +110,7 @@ export default function RecruitmentDisclosureSection() {
             </div>
 
             {/* 返礼金制度に関する事項 */}
-            <div className="border-b border-gray-200 pb-6 md:pb-8">
+            <div className="pb-6 md:pb-8">
               <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-4">
                 ■ 返礼金制度に関する事項
               </h3>
@@ -109,7 +131,7 @@ export default function RecruitmentDisclosureSection() {
               <p className="text-base md:text-lg text-gray-900 leading-relaxed mb-4">
                 当社が求人者（採用企業）より申し受ける手数料は、以下の通りです。
               </p>
-              <div className="border-b border-gray-200 pb-6 md:pb-8">
+              <div className="pb-6 md:pb-8">
                 <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-4">
                   ■ 届出制手数料
                 </h3>
@@ -121,6 +143,20 @@ export default function RecruitmentDisclosureSection() {
                     ※想定年収とは、本採用から1年間に支払われると見込まれる賃金（基本給、諸手当、賞与を含む）の合計額を指します。
                   </p>
                 </div>
+              </div>
+              <div className="pl-4 mt-4">
+                <a
+                  href="/docs/手数料表.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-base md:text-lg text-gray-900 hover:text-gray-600 transition-colors"
+                >
+                  ・手数料表の詳細はこちら
+                  <span className="text-sm text-gray-500">（PDF）</span>
+                  <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
