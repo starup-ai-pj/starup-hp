@@ -174,7 +174,7 @@ export default function ServiceSection() {
 
         for (let ring = 0; ring < 5; ring++) {
             const radius = 2 + ring * 0.8
-            const geo = new THREE.TorusGeometry(radius, 0.05, 16, 64)
+            const geo = new THREE.TorusGeometry(radius, 0.05, 16, 48)
             const mat = new THREE.MeshPhysicalMaterial({
                 color: new THREE.Color('#e8e8e8'),
                 transparent: true, 
@@ -200,7 +200,7 @@ export default function ServiceSection() {
         const streamCount = 8
         for (let i = 0; i < streamCount; i++) {
             const points = []
-            const segments = 120
+            const segments = 80
             
             for (let j = 0; j <= segments; j++) {
                 const t = j / segments
@@ -237,7 +237,7 @@ export default function ServiceSection() {
     const createEnergyParticles = useCallback(() => {
         if (!sceneRef.current) return
 
-        const count = 500
+        const count = 200
         const geo = new THREE.BufferGeometry()
         const positions = new Float32Array(count * 3)
         const velocities = new Float32Array(count * 3)
