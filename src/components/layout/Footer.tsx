@@ -132,11 +132,14 @@ export default function Footer() {
                 <TransitionLink href="/about" className="block text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   About
                 </TransitionLink>
-                <TransitionLink href="/member" className="block text-sm text-gray-600 hover:text-gray-900 transition-colors">
-                  Member
+                <TransitionLink href="/service" className="block text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  Service
                 </TransitionLink>
                 <TransitionLink href="/news" className="block text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   News
+                </TransitionLink>
+                <TransitionLink href="/member" className="block text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  Member
                 </TransitionLink>
                 <TransitionLink href="/recruit" className="block text-sm text-gray-600 hover:text-gray-900 transition-colors">
                   Career
@@ -183,11 +186,14 @@ export default function Footer() {
               <TransitionLink href="/about" className="block text-gray-600 hover:text-gray-900 transition-colors">
                 About
               </TransitionLink>
-              <TransitionLink href="/member" className="block text-gray-600 hover:text-gray-900 transition-colors">
-                Member
+              <TransitionLink href="/service" className="block text-gray-600 hover:text-gray-900 transition-colors">
+                Service
               </TransitionLink>
               <TransitionLink href="/news" className="block text-gray-600 hover:text-gray-900 transition-colors">
                 News
+              </TransitionLink>
+              <TransitionLink href="/member" className="block text-gray-600 hover:text-gray-900 transition-colors">
+                Member
               </TransitionLink>
               <TransitionLink href="/recruit" className="block text-gray-600 hover:text-gray-900 transition-colors">
                 Career
