@@ -1,5 +1,6 @@
 import VisionSection from '@/components/sections/about/VisionSection'
 import InformationSection from '@/components/sections/about/InformationSection'
+import HistorySection from '@/components/sections/about/HistorySection'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 
@@ -8,7 +9,8 @@ export default function About() {
     <div className="relative">
       <Header />
       <VisionSection />
-      <InformationSection />  
+      <InformationSection />
+      <HistorySection />
       <Footer />
     </div>
   );
