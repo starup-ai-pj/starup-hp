@@ -109,16 +109,30 @@ export default function RecruitmentDisclosureSection() {
               </div>
             </div>
 
-            {/* 返礼金制度に関する事項 */}
+            {/* 返戻金制度に関する事項 */}
             <div className="pb-6 md:pb-8">
               <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-4">
-                ■ 返礼金制度に関する事項
+                ■ 返戻金制度に関する事項
               </h3>
               <div className="pl-4">
                 <p className="text-base md:text-lg text-gray-900 leading-relaxed">
-                  ・紹介した労働者が早期に退職した場合、手数料を返還する制度を設けています。詳細は「3. 返礼金制度」をご参照ください。
+                  ・紹介した労働者が早期に退職した場合、手数料を返還する制度を設けています。詳細は「3. 返戻金制度」をご参照ください。
                 </p>
               </div>
+            </div>
+            <div className="pl-4 mt-4">
+              <a
+                href="/docs/業務の運営に関する規程.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-base md:text-lg text-gray-900 hover:text-gray-600 transition-colors"
+              >
+                ・業務の運営に関する規程の詳細はこちら
+                <span className="text-sm text-gray-500">（PDF）</span>
+                <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
             </div>
           </div>
 
@@ -161,10 +175,10 @@ export default function RecruitmentDisclosureSection() {
             </div>
           </div>
 
-          {/* 3. 返礼金制度に関する事項 */}
+          {/* 3. 返戻金制度に関する事項 */}
           <div className="space-y-8">
             <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 border-b border-gray-200 pb-4">
-              3. 返礼金制度に関する事項
+              3. 返戻金制度に関する事項
             </h2>
             <div>
               <p className="text-base md:text-lg text-gray-900 leading-relaxed mb-6">
