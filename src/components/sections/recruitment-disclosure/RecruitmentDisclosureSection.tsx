@@ -109,14 +109,14 @@ export default function RecruitmentDisclosureSection() {
               </div>
             </div>
 
-            {/* 返礼金制度に関する事項 */}
+            {/* 返戻金制度に関する事項 */}
             <div className="pb-6 md:pb-8">
               <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-4">
-                ■ 返礼金制度に関する事項
+                ■ 返戻金制度に関する事項
               </h3>
               <div className="pl-4">
                 <p className="text-base md:text-lg text-gray-900 leading-relaxed">
-                  ・紹介した労働者が早期に退職した場合、手数料を返還する制度を設けています。詳細は「3. 返礼金制度」をご参照ください。
+                  ・紹介した労働者が早期に退職した場合、手数料を返還する制度を設けています。詳細は「3. 返戻金制度」をご参照ください。
                 </p>
               </div>
             </div>
@@ -161,10 +161,10 @@ export default function RecruitmentDisclosureSection() {
             </div>
           </div>
 
-          {/* 3. 返礼金制度に関する事項 */}
+          {/* 3. 返戻金制度に関する事項 */}
           <div className="space-y-8">
             <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 border-b border-gray-200 pb-4">
-              3. 返礼金制度に関する事項
+              3. 返戻金制度に関する事項
             </h2>
             <div>
               <p className="text-base md:text-lg text-gray-900 leading-relaxed mb-6">
