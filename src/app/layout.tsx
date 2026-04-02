@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import PageTransition from "@/components/layout/PageTransition";
+import CustomCursor from "@/components/ui/CustomCursor";
 import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
@@ -102,6 +103,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${alliance.variable} antialiased`}
       >
+        <CustomCursor />
         <PageTransition>
           {children}
         </PageTransition>
