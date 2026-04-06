@@ -1,15 +1,12 @@
-import RecruitListSection from '@/components/sections/recruit/RecruitListSection'
+import CareerHubSection from '@/components/sections/recruit/CareerHubSection'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import { getAllRecruitsForList } from '@/lib/recruit'
 
-export default async function RecruitPage() {
-  const recruits = await getAllRecruitsForList()
-
+export default function RecruitPage() {
   return (
     <div className="min-h-screen">
       <Header />
-      <RecruitListSection recruits={recruits} />
+      <CareerHubSection />
       <Footer />
     </div>
   )
