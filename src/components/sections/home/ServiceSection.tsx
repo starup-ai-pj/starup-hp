@@ -670,6 +670,8 @@ export default function ServiceSection() {
                                 title="ARCHAIVE"
                                 description="社内に点在した図面データを一元管理し、AIによる類似図面検索とチャット型データ検索で業務効率を革新します。"
                                 className="flex-shrink-0"
+                                href="https://archaive.net"
+                                external
                             />
 
                             <ServiceCard
@@ -678,6 +680,8 @@ export default function ServiceSection() {
                                 title="Send AI"
                                 description="需要予測を起点として発注に関わるあらゆる指標を最適化し、在庫管理から売上分析までを統合的に支援します。"
                                 className="flex-shrink-0"
+                                href="https://send-ai.co.jp/"
+                                external
                             />
 
                             <ServiceCard
@@ -686,6 +690,7 @@ export default function ServiceSection() {
                                 title="AI solutions"
                                 description="様々な業界に対応したAIソリューションを提供。お客様のニーズに合わせたカスタマイズ開発も承ります。"
                                 className="flex-shrink-0"
+                                href="/service/ai"
                             />
                         </div>
                     </div>
