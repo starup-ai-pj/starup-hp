@@ -4,6 +4,8 @@ export interface Member {
     englishName?: string
     position: string
     description: string
+    comment?: string
+    hasInterview?: boolean
     image?: string
     socialLinks?: {
       twitter?: string
@@ -20,6 +22,8 @@ export interface Member {
       position: "代表取締役",
       description:
         "京都大学在学中に教育メディアの会社を大学1年時立ち上げ後、製造業の営業コンサル、商社の新規事業部でのPM、人材会社でのCSを経験。その後、昨年11月に株式会社STARUPを設立し、12ヶ月でメンバーも40名まで拡大させる。",
+      comment: "「それ、おもろくね？」を形にする",
+      hasInterview: true,
       image: "/images/member/ogata-yuto.png",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
@@ -30,6 +34,8 @@ export interface Member {
       position: "取締役",
       description:
         "データサイエンス系ベンチャーにて非財務情報の開示やバックオフィス改善業務に従事。また、大学別の環境報告書の作成や飲食店のGHG排出量の開示等のPJを行う。",
+      comment: "データで社会をよりよくする",
+      hasInterview: false,
       image: "/images/member/kikkawa-takehiro.png",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
@@ -40,6 +46,8 @@ export interface Member {
       position: "執行役員/最高技術責任者",
       description:
         "大手IT企業をはじめとする3社にてPM・リードエンジニアを経験した後フリーランスエンジニアとして数十件の案件に携わる。生成AIを活用した新規事業立ち上げ、業務効率化、システム開発などを経験する。",
+      comment: "技術で可能性を広げる",
+      hasInterview: true,
       image: "/images/member/tanaka-yuki.png",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
@@ -60,6 +68,8 @@ export interface Member {
       position: "執行役員",
       description:
         "京都大学経済学部出身。京都のスタートアップで事業開発を行ったのち、上場企業のM&A・アライアンス部署でソーシングや出資・協業検討を行う。STARUPでは、2度の銀行調達など経理・ファイナンスの統括を担当。",
+      comment: "経営基盤をつくる",
+      hasInterview: false,
       image: "/images/member/fuji-daigo.png",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
@@ -80,6 +90,8 @@ export interface Member {
       position: "執行役員/ARCHAIVE事業CEO",
       description:
         "京都大学工学部出身。在学時には、新規事業開発、人材事業での営業・CSを経験。STARUPではSaaS事業の立ち上げを行い、現在は営業組織構築や販売戦略立案など営業の統括を担当。",
+      comment: "事業を前に進める",
+      hasInterview: true,
       image: "/images/member/kimura-haruki.png",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
