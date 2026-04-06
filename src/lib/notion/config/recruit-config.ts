@@ -49,6 +49,22 @@ export const recruitConfig: DatabaseConfig = {
       name: 'EmploymentType',
       type: 'rich_text',
     },
+    salary: {
+      name: 'Salary',
+      type: 'rich_text',
+    },
+    workingHours: {
+      name: 'WorkingHours',
+      type: 'rich_text',
+    },
+    holidays: {
+      name: 'Holidays',
+      type: 'rich_text',
+    },
+    benefits: {
+      name: 'Benefits',
+      type: 'rich_text',
+    },
     thumbnail: {
       name: 'Thumbnail',
       type: 'files',

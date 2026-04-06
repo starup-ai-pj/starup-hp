@@ -17,6 +17,10 @@ export interface RecruitPost {
   jobType: string
   location: string
   employmentType: string
+  salary: string
+  workingHours: string
+  holidays: string
+  benefits: string
   thumbnail: string
 }
 

@@ -95,6 +95,10 @@ export async function getRecruitPostById(id: string): Promise<RecruitPost | null
       jobType: extractors.jobType(page),
       location: extractors.location(page),
       employmentType: extractors.employmentType(page),
+      salary: extractors.salary(page),
+      workingHours: extractors.workingHours(page),
+      holidays: extractors.holidays(page),
+      benefits: extractors.benefits(page),
       thumbnail: getImageUrl(extractors.thumbnail(page)),
       blocks,
     }
