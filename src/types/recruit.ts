@@ -16,7 +16,11 @@ export interface RecruitPost {
   blocks: NotionBlock[]
   jobType: string
   location: string
-  employmentType: string
+  employmentType: string[]
+  salary: string
+  workingHours: string
+  holidays: string
+  benefits: string
   thumbnail: string
 }
 
@@ -32,5 +36,6 @@ export interface RecruitListItem {
   summary: string
   jobType: string
   location: string
-  employmentType: string
+  employmentType: string[]
+  salary: string
 }

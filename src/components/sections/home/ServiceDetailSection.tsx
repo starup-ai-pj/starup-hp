@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import SeeMoreButton from "@/components/ui/SeeMoreButton"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -18,6 +19,8 @@ export default function ServiceDetailSection() {
             title: "STAR UP.AI",
             description: "経営、現場、研究の各部門をAIで統合し、データドリブンな意思決定を実現する包括的なAI開発プラットフォームです。",
             imageSrc: "/images/services/ai-solution.jpg",
+            href: "/service/ai",
+            external: false,
             detailsContent: `
                 <div class="space-y-6">
                     <h3 class="text-xl font-bold text-gray-900 mb-4">統合AIプラットフォームの特徴</h3>
@@ -61,7 +64,8 @@ export default function ServiceDetailSection() {
             title: "ARCHAIVE",
             description: "社内に点在した図面データを一元管理し、AIによる類似図面検索とチャット型データ検索で業務効率を革新します。",
             imageSrc: "/images/services/archaive.jpg",
-            link: "https://archaive.net",
+            href: "https://archaive.net",
+            external: true,
             detailsContent: `
                 <div class="space-y-6">
                     <h3 class="text-xl font-bold text-gray-900 mb-4">AI図面データ活用プラットフォーム</h3>
@@ -103,6 +107,8 @@ export default function ServiceDetailSection() {
             title: "SEND AI",
             description: "需要予測を起点として発注に関わるあらゆる指標を最適化し、在庫管理から売上分析までを統合的に支援します。",
             imageSrc: "/images/services/sendai.jpg",
+            href: "https://send-ai.co.jp/",
+            external: true,
             detailsContent: `
                 <div class="space-y-6">
                     <h3 class="text-xl font-bold text-gray-900 mb-4">サプライチェーン支援AIソリューション</h3>
@@ -320,19 +326,6 @@ export default function ServiceDetailSection() {
                                 >
                                     Details
                                 </button>
-                                {section.link && (
-                                    <a
-                                        href={section.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="ml-auto inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-black transition-colors"
-                                    >
-                                        <span>サービスサイトへ</span>
-                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                        </svg>
-                                    </a>
-                                )}
                             </div>
 
                             {/* サービス詳細 - コンテンツ */}
@@ -353,6 +346,10 @@ export default function ServiceDetailSection() {
                                         />
                                     </div>
                                 )}
+                            </div>
+
+                            <div className="mt-6 md:mt-8 flex justify-end">
+                                <SeeMoreButton href={section.href} external={section.external} />
                             </div>
                         </div>
                     </div>

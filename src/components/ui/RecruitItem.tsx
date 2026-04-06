@@ -50,9 +50,11 @@ export default function RecruitItem({ item, showDivider = false }: RecruitItemPr
               <span className="text-xs text-gray-500 font-medium">
                 #{item.location}
               </span>
-              <span className="text-xs text-gray-500 font-medium">
-                #{item.employmentType}
-              </span>
+              {item.employmentType.map(t => (
+                <span key={t} className="text-xs text-gray-500 font-medium">
+                  #{t}
+                </span>
+              ))}
             </div>
             <span className="text-xs text-gray-800 group-hover:text-black transition-all duration-300 font-medium flex items-center gap-1 whitespace-nowrap">
               READ MORE

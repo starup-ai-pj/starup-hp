@@ -814,10 +814,10 @@ export default function NetworkBackground({ className = '' }: NetworkBackgroundP
       return points
     }
 
-    // small, medium, large
-    starsSmallRef.current = createStars(3500, 0.03, 220)
-    starsMediumRef.current = createStars(2000, 0.08, 200)
-    starsLargeRef.current = createStars(800, 0.18, 180)
+    // small, medium, large (optimized)
+    starsSmallRef.current = createStars(1500, 0.03, 220)
+    starsMediumRef.current = createStars(800, 0.08, 200)
+    starsLargeRef.current = createStars(300, 0.18, 180)
 
     // Load OrbitControls - This will be async but should work
     import('three/examples/jsm/controls/OrbitControls.js').then(({ OrbitControls }) => {
@@ -862,7 +862,7 @@ export default function NetworkBackground({ className = '' }: NetworkBackgroundP
       composerRef.current = composer
     })
 
-    createNetworkVisualization(config.currentFormation, config.densityFactor)
+    createNetworkVisualization(config.currentFormation, 0.6)
 
     const animate = () => {
       const t = clockRef.current.getElapsedTime()

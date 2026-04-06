@@ -34,8 +34,14 @@ export default function Breadcrumb({ isDarkBackground = false }: BreadcrumbProps
         case 'about':
           label = '会社概要'
           break
+        case 'service':
+          label = 'サービス'
+          break
         case 'member':
           label = 'メンバー'
+          break
+        case 'recruit':
+          label = 'キャリア'
           break
         case 'contact':
           label = 'お問い合わせ'

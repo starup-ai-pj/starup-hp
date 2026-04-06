@@ -174,7 +174,7 @@ export default function ServiceSection() {
 
         for (let ring = 0; ring < 5; ring++) {
             const radius = 2 + ring * 0.8
-            const geo = new THREE.TorusGeometry(radius, 0.05, 16, 64)
+            const geo = new THREE.TorusGeometry(radius, 0.05, 16, 48)
             const mat = new THREE.MeshPhysicalMaterial({
                 color: new THREE.Color('#e8e8e8'),
                 transparent: true, 
@@ -200,7 +200,7 @@ export default function ServiceSection() {
         const streamCount = 8
         for (let i = 0; i < streamCount; i++) {
             const points = []
-            const segments = 120
+            const segments = 80
             
             for (let j = 0; j <= segments; j++) {
                 const t = j / segments
@@ -237,7 +237,7 @@ export default function ServiceSection() {
     const createEnergyParticles = useCallback(() => {
         if (!sceneRef.current) return
 
-        const count = 500
+        const count = 200
         const geo = new THREE.BufferGeometry()
         const positions = new Float32Array(count * 3)
         const velocities = new Float32Array(count * 3)
@@ -670,6 +670,8 @@ export default function ServiceSection() {
                                 title="ARCHAIVE"
                                 description="社内に点在した図面データを一元管理し、AIによる類似図面検索とチャット型データ検索で業務効率を革新します。"
                                 className="flex-shrink-0"
+                                href="https://archaive.net"
+                                external
                             />
 
                             <ServiceCard
@@ -678,6 +680,8 @@ export default function ServiceSection() {
                                 title="Send AI"
                                 description="需要予測を起点として発注に関わるあらゆる指標を最適化し、在庫管理から売上分析までを統合的に支援します。"
                                 className="flex-shrink-0"
+                                href="https://send-ai.co.jp/"
+                                external
                             />
 
                             <ServiceCard
@@ -686,6 +690,7 @@ export default function ServiceSection() {
                                 title="AI solutions"
                                 description="様々な業界に対応したAIソリューションを提供。お客様のニーズに合わせたカスタマイズ開発も承ります。"
                                 className="flex-shrink-0"
+                                href="/service/ai"
                             />
                         </div>
                     </div>
