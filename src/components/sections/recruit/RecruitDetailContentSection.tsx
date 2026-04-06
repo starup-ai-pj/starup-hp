@@ -25,13 +25,13 @@ export default function RecruitDetailContentSection({ post, allRecruits }: Recru
     .slice(0, 4)
 
   const badges = [
-    post.employmentType,
+    ...post.employmentType,
     post.location,
     post.salary,
   ].filter(Boolean)
 
   const requirementRows = [
-    { label: '雇用形態', value: post.employmentType },
+    { label: '雇用形態', value: post.employmentType.join(', ') },
     { label: '年収', value: post.salary },
     { label: '勤務地', value: post.location },
     { label: '勤務時間', value: post.workingHours },

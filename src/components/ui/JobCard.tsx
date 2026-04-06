@@ -10,7 +10,7 @@ interface JobCardProps {
 
 export default function JobCard({ item }: JobCardProps) {
   const badges = [
-    item.employmentType,
+    ...item.employmentType,
     item.location,
     item.salary,
   ].filter(Boolean)

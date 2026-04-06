@@ -47,7 +47,7 @@ export const recruitConfig: DatabaseConfig = {
     },
     employmentType: {
       name: 'EmploymentType',
-      type: 'rich_text',
+      type: 'multi_select',
     },
     salary: {
       name: 'Salary',
