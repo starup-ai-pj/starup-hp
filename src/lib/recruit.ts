@@ -40,6 +40,7 @@ export async function getAllRecruitsForList(): Promise<RecruitListItem[]> {
       jobType: extractors.jobType(page),
       location: extractors.location(page),
       employmentType: extractors.employmentType(page),
+      salary: extractors.salary(page),
       imageUrl: getImageUrl(extractors.thumbnail(page)),
     }))
   } catch (error) {

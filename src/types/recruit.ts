@@ -37,4 +37,5 @@ export interface RecruitListItem {
   jobType: string
   location: string
   employmentType: string
+  salary: string
 }
