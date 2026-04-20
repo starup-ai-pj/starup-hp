@@ -19,7 +19,7 @@ export default function ServiceDetailSection() {
             title: "STAR UP.AI",
             description: "経営、現場、研究の各部門をAIで統合し、データドリブンな意思決定を実現する包括的なAI開発プラットフォームです。",
             imageSrc: "/images/services/ai-solution.jpg",
-            href: "/service/ai",
+            href: "/service#starup-ai",
             external: false,
             detailsContent: `
                 <div class="space-y-6">
@@ -64,8 +64,8 @@ export default function ServiceDetailSection() {
             title: "ARCHAIVE",
             description: "社内に点在した図面データを一元管理し、AIによる類似図面検索とチャット型データ検索で業務効率を革新します。",
             imageSrc: "/images/services/archaive.jpg",
-            href: "https://archaive.net",
-            external: true,
+            href: "/service#archaive",
+            external: false,
             detailsContent: `
                 <div class="space-y-6">
                     <h3 class="text-xl font-bold text-gray-900 mb-4">AI図面データ活用プラットフォーム</h3>
@@ -107,8 +107,8 @@ export default function ServiceDetailSection() {
             title: "SEND AI",
             description: "需要予測を起点として発注に関わるあらゆる指標を最適化し、在庫管理から売上分析までを統合的に支援します。",
             imageSrc: "/images/services/sendai.jpg",
-            href: "https://send-ai.co.jp/",
-            external: true,
+            href: "/service#send-ai",
+            external: false,
             detailsContent: `
                 <div class="space-y-6">
                     <h3 class="text-xl font-bold text-gray-900 mb-4">サプライチェーン支援AIソリューション</h3>
