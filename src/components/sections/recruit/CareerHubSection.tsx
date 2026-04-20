@@ -4,6 +4,12 @@ import Image from 'next/image'
 import TransitionLink from '@/components/ui/TransitionLink'
 import { PhotoGalleryWall } from '@/components/animation/photo-wall/PhotoGalleryWall'
 import TypingText from '@/components/ui/TypingText'
+import JobCard from '@/components/ui/JobCard'
+import { RecruitListItem } from '@/types/recruit'
+
+interface CareerHubSectionProps {
+  jobPreviews?: RecruitListItem[]
+}
 
 const VALUES = [
   {
@@ -32,7 +38,7 @@ const VALUES = [
   },
 ]
 
-export default function CareerHubSection() {
+export default function CareerHubSection({ jobPreviews = [] }: CareerHubSectionProps) {
   return (
     <div className="bg-white">
 
@@ -151,6 +157,43 @@ export default function CareerHubSection() {
         </div>
       </section>
 
+      {/* ━━━ 募集職種プレビュー ━━━ */}
+      {jobPreviews.length > 0 && (
+        <section className="py-20 md:py-32 border-t border-gray-200">
+          <div className="max-w-[1500px] mx-auto px-4">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12 md:mb-16">
+              <div>
+                <span className="text-xs text-gray-400 uppercase tracking-widest">Jobs</span>
+                <h2 className="mt-2 text-3xl md:text-5xl font-medium text-gray-900 mb-4">
+                  現在募集中のポジション
+                </h2>
+                <p className="text-base text-gray-500">
+                  注目の求人を一部ご紹介します。
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8">
+              {jobPreviews.map((item) => (
+                <JobCard key={item.id} item={item} />
+              ))}
+            </div>
+
+            <div className="mt-12 md:mt-16 flex justify-end">
+              <TransitionLink
+                href="/recruit/jobs"
+                className="group inline-flex items-center gap-2 text-sm text-gray-900 border-b border-gray-900 pb-1 hover:gap-3 transition-all duration-300"
+              >
+                すべての求人を見る
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </TransitionLink>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ━━━ 導線カード: Culture / Member / Jobs ━━━ */}
       <section className="py-20 md:py-32">
         <div className="max-w-[1500px] mx-auto px-4">
@@ -227,34 +270,6 @@ export default function CareerHubSection() {
         </div>
       </section>
 
-      {/* ━━━ 応募CTA ━━━ */}
-      <section className="py-20 md:py-32 border-t border-gray-200">
-        <div className="max-w-[1500px] mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-2">
-              <span className="text-xs text-gray-400 uppercase tracking-widest">Apply</span>
-            </div>
-            <div className="lg:col-span-8">
-              <p className="text-4xl md:text-6xl lg:text-7xl font-medium text-gray-900 leading-[1.1] mb-8">
-                Ready to join?
-              </p>
-              <p className="text-base md:text-lg text-gray-500 max-w-2xl mb-12">
-                私たちは常に新しい仲間を探しています。あなたのスキルと情熱で、チームに新しい風を吹き込んでください。
-              </p>
-              <TransitionLink
-                href="/recruit/apply"
-                className="group inline-flex items-center gap-3 text-lg md:text-xl text-gray-900 border-b border-gray-900 pb-2 hover:gap-5 transition-all duration-300"
-              >
-                応募する
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </TransitionLink>
-            </div>
-            <div className="lg:col-span-2"></div>
-          </div>
-        </div>
-      </section>
 
       {/* ━━━ PhotoGalleryWall ━━━ */}
       <PhotoGalleryWall />
