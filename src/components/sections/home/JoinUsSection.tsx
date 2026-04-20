@@ -47,24 +47,12 @@ export default function JoinUsSection() {
       <div className="relative z-10 max-w-[1500px] mx-auto px-6 md:px-10">
         {/* Main area: title overlapping image */}
         <div className="relative mb-12 md:mb-16">
-          {/* Image — right-aligned, ~60% width */}
+          {/* Image frame — reserved for future image; kept for title positioning */}
           <div
             data-a="img"
-            className="ml-auto w-full md:w-[65%] aspect-[2/1] bg-gray-200 overflow-hidden opacity-0"
-          >
-            {/* Placeholder */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div
-                className="absolute inset-0 opacity-[0.04]"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)",
-                  backgroundSize: "32px 32px",
-                }}
-              />
-              <span className="text-sm text-black/10 font-mono tracking-widest">IMAGE</span>
-            </div>
-          </div>
+            aria-hidden="true"
+            className="ml-auto w-full md:w-[65%] aspect-[2/1] overflow-hidden opacity-0"
+          />
 
           {/* "Join Us" — overlaps image bottom-left */}
           <h2
