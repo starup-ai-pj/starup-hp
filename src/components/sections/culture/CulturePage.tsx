@@ -6,32 +6,33 @@ import { PhotoGalleryWall } from '@/components/animation/photo-wall/PhotoGallery
 import CultureMissionVisual from '@/components/animation/culture/CultureMissionVisual'
 import CultureVisionVisual from '@/components/animation/culture/CultureVisionVisual'
 
-const VALUES = [
-  {
-    num: '01',
-    title: 'Positive Contribution',
-    subtitle: 'ポジティブな貢献意欲',
-    body: '社内外、社会に対してポジティブな貢献意欲を持つこと。自分の仕事が誰かの役に立っているという実感を大切にし、周囲に良い影響を与え続ける。',
-  },
-  {
-    num: '02',
-    title: 'Ownership',
-    subtitle: 'オーナーシップ',
-    body: '常にオーナーシップを持って意思決定を行うこと。指示を待つのではなく、自ら課題を見つけ、解決に向けて主体的に動く。',
-  },
-  {
-    num: '03',
-    title: 'Authentic Value',
-    subtitle: '本質的価値の追求',
-    body: '真に世の中が求めているものを追求すること。表面的なトレンドに流されず、本質的な課題を見極め、長期的に価値あるソリューションを生み出す。',
-  },
-  {
-    num: '04',
-    title: 'Intellectual Curiosity',
-    subtitle: '高い知的好奇心',
-    body: '未知の領域に飛び込む勇気と、学び続ける姿勢がイノベーションの源泉になる。担当領域を超えて、構造を深く理解しようとする。',
-  },
-]
+// Valueセクション一時非表示のためコメントアウト
+// const VALUES = [
+//   {
+//     num: '01',
+//     title: 'Positive Contribution',
+//     subtitle: 'ポジティブな貢献意欲',
+//     body: '社内外、社会に対してポジティブな貢献意欲を持つこと。自分の仕事が誰かの役に立っているという実感を大切にし、周囲に良い影響を与え続ける。',
+//   },
+//   {
+//     num: '02',
+//     title: 'Ownership',
+//     subtitle: 'オーナーシップ',
+//     body: '常にオーナーシップを持って意思決定を行うこと。指示を待つのではなく、自ら課題を見つけ、解決に向けて主体的に動く。',
+//   },
+//   {
+//     num: '03',
+//     title: 'Authentic Value',
+//     subtitle: '本質的価値の追求',
+//     body: '真に世の中が求めているものを追求すること。表面的なトレンドに流されず、本質的な課題を見極め、長期的に価値あるソリューションを生み出す。',
+//   },
+//   {
+//     num: '04',
+//     title: 'Intellectual Curiosity',
+//     subtitle: '高い知的好奇心',
+//     body: '未知の領域に飛び込む勇気と、学び続ける姿勢がイノベーションの源泉になる。担当領域を超えて、構造を深く理解しようとする。',
+//   },
+// ]
 
 export default function CulturePage() {
   return (
@@ -126,7 +127,7 @@ export default function CulturePage() {
         </div>
       </section>
 
-      {/* ━━━ Value: 2列コンパクト ━━━ */}
+      {/* ━━━ Value: 2列コンパクト（一時的にコメントアウト） ━━━
       <section className="py-24 md:py-32 bg-gray-50">
         <div className="max-w-[1500px] mx-auto px-4">
           <p className="text-xs text-gray-400 uppercase tracking-widest mb-6">Value</p>
@@ -152,6 +153,7 @@ export default function CulturePage() {
           </div>
         </div>
       </section>
+      */}
 
       {/* ━━━ Work Style: 横3分割、ミニマル ━━━ */}
       <section className="py-24 md:py-40">

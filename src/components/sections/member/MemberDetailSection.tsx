@@ -292,7 +292,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
             <div className="col-span-2"></div>
             <div className="col-span-8 grid grid-cols-2 gap-6">
               <TransitionLink
-                href="/culture"
+                href="/recruit/culture"
                 className="group block border border-gray-200 p-8 hover:border-gray-400 transition-colors"
               >
                 <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">Culture</p>
@@ -334,7 +334,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
           {/* Mobile */}
           <div className="grid grid-cols-1 gap-4 lg:hidden">
             <TransitionLink
-              href="/culture"
+              href="/recruit/culture"
               className="group block border border-gray-200 p-6 hover:border-gray-400 transition-colors"
             >
               <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Culture</p>
