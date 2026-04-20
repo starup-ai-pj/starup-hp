@@ -7,6 +7,7 @@ export interface Member {
     comment?: string
     hasInterview?: boolean
     image?: string
+    heroImage?: string
     socialLinks?: {
       twitter?: string
       facebook?: string
@@ -31,11 +32,11 @@ export interface Member {
       id: "takehiro-kikkawa",
       name: "吉川岳宏",
       englishName: "Takehiro Kikkawa",
-      position: "取締役",
+      position: "取締役 CPO/CSO",
       description:
         "データサイエンス系ベンチャーにて非財務情報の開示やバックオフィス改善業務に従事。また、大学別の環境報告書の作成や飲食店のGHG排出量の開示等のPJを行う。",
       comment: "データで社会をよりよくする",
-      hasInterview: false,
+      hasInterview: true,
       image: "/images/member/kikkawa-takehiro.png",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
@@ -65,11 +66,11 @@ export interface Member {
       id: "daigo-fujii",
       name: "藤井大悟",
       englishName: "Daigo Fujii",
-      position: "執行役員",
+      position: "執行役員 コーポレート統括",
       description:
         "京都大学経済学部出身。京都のスタートアップで事業開発を行ったのち、上場企業のM&A・アライアンス部署でソーシングや出資・協業検討を行う。STARUPでは、2度の銀行調達など経理・ファイナンスの統括を担当。",
       comment: "経営基盤をつくる",
-      hasInterview: false,
+      hasInterview: true,
       image: "/images/member/fuji-daigo.png",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
@@ -93,6 +94,50 @@ export interface Member {
       comment: "事業を前に進める",
       hasInterview: true,
       image: "/images/member/kimura-haruki.png",
+      socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
+    },
+    {
+      id: "jiho-ryu",
+      name: "柳 智浩",
+      englishName: "Jiho Ryu",
+      position: "ARCHAIVE 開発統括",
+      description:
+        "京都大学工学部情報学科卒。ARCHAIVE開発統括として、プロダクト全体の要件定義からエンジニアへのタスク割り振り、高難度の実装までをリードする。",
+      comment: "大人の青春を全力で",
+      hasInterview: true,
+      socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
+    },
+    {
+      id: "shota-yamashita",
+      name: "山下 翔大",
+      englishName: "Shota Yamashita",
+      position: "フロントエンドエンジニア / UIデザイナー",
+      description:
+        "京都大学工学部建築学科卒。建築からエンジニアへ転身し、インドでの修行を経てSTARUPに参画。デザインと実装を一人で完結させるスピード感が強み。",
+      comment: "デザイン駆動で価値を届ける",
+      hasInterview: true,
+      socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
+    },
+    {
+      id: "shunsuke-kimura",
+      name: "木村 俊介",
+      englishName: "Shunsuke Kimura",
+      position: "PM / AIエンジニア",
+      description:
+        "京都大学工学部情報学科卒。2026年4月新卒入社。AIソリューション部のPMとして『SENDAI』（小売業界向け発注最適化AI）のプロダクト責任者を担当。",
+      comment: "Code The Culture",
+      hasInterview: true,
+      socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
+    },
+    {
+      id: "naoki-chikusa",
+      name: "千種 直幹",
+      englishName: "Naoki Chikusa",
+      position: "AIソリューション事業部 エンジニア",
+      description:
+        "京都大学工学部情報学科卒。2026年4月新卒入社。『SENDAI』（小売業界向け発注最適化AI）のバックエンド設計とAI実装を担当。",
+      comment: "理論をプロダクトの骨組みへ",
+      hasInterview: true,
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
     // {
