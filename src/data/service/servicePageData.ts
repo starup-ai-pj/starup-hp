@@ -25,57 +25,14 @@ export interface ServiceItem {
   previews: ServicePreview[]
   highlight: { label: string; value: string }
   image: string
-  href: string
+  href?: string
   externalLink?: string
 }
 
 export const servicePageData: ServiceItem[] = [
   {
-    id: "starup-ai",
-    number: "01",
-    category: "AI Platform",
-    title: "STAR UP.AI",
-    subtitle: "AI開発プラットフォーム",
-    catchphrase: "経営・現場・研究を、AIでひとつに。",
-    description:
-      "経営、現場、研究の各部門をAIで統合し、データドリブンな意思決定を実現する包括的なAI開発プラットフォームです。部署間の壁を取り払い、組織全体のデータを有機的に接続することで、従来は不可能だった横断的なインサイトを生み出します。",
-    pillars: [
-      {
-        label: "経営部門",
-        features: [
-          { title: "計画管理", description: "戦略的計画立案をAIでサポート。過去のデータパターンから最適な経営判断を提示" },
-          { title: "財務分析", description: "リアルタイム財務データの可視化。異常値検知とキャッシュフロー予測を自動化" },
-          { title: "需要予測", description: "LLMを活用した高精度予測。市場トレンドと自社データを統合的に分析" },
-        ],
-      },
-      {
-        label: "現場部門",
-        features: [
-          { title: "製造管理", description: "生産工程の最適化。ボトルネックの自動検出と改善提案をリアルタイムで実行" },
-          { title: "品質管理", description: "画像処理による自動検査。不良品検出率99%以上の精度を実現" },
-          { title: "工程管理", description: "BI機能でリアルタイム監視。現場の状況を一目で把握できるダッシュボード" },
-        ],
-      },
-      {
-        label: "研究部門",
-        features: [
-          { title: "試験・分析", description: "統計処理による高度なデータ分析。実験結果の自動評価と次の仮説を生成" },
-          { title: "実証実験", description: "最適化アルゴリズムによる効率化。実験パラメータの自動チューニング" },
-        ],
-      },
-    ],
-    previews: [
-      { label: "ダッシュボード", image: "" },
-      { label: "需要予測", image: "" },
-      { label: "分析レポート", image: "" },
-    ],
-    highlight: { label: "統合のメリット", value: "部署間の連携を強化し、組織全体の生産性向上を実現" },
-    image: "/images/services/ai-solution.jpg",
-    href: "/service/starup-ai",
-  },
-  {
     id: "archaive",
-    number: "02",
+    number: "01",
     category: "Data Platform",
     title: "ARCHAIVE",
     subtitle: "AIデータ活用プラットフォーム",
@@ -113,18 +70,17 @@ export const servicePageData: ServiceItem[] = [
     ],
     highlight: { label: "導入効果", value: "図面検索時間を90%短縮、部署間連携の効率化を実現" },
     image: "/images/services/archaive.jpg",
-    href: "/service/archaive",
-    externalLink: "https://archaive.net",
+    href: "https://archaive.net",
   },
   {
     id: "send-ai",
-    number: "03",
+    number: "02",
     category: "Supply Chain AI",
     title: "SEND AI",
     subtitle: "サプライチェーン支援AI",
-    catchphrase: "需要を読み、サプライチェーンを最適化する。",
+    catchphrase: "データをつなぎ、サプライチェーンを最適化する。",
     description:
-      "需要予測を起点として発注に関わるあらゆる指標を最適化し、在庫管理から売上分析までを統合的に支援します。業態ごとにオーダーメイドのアルゴリズムを開発し、PoCから本稼働、運用改善までワンストップで伴走します。",
+      "散在するデータを統合・可視化し、AIが最適なアクションを提案。在庫管理や販売管理から発注・配分まで、一気通貫で支援します。SaaS導入によるデータ統合から、業務モジュールの段階的な追加、固有のアルゴリズム開発へ。小さく始め成果を見ながら御社だけの意思決定基盤に育てます。",
     pillars: [
       {
         label: "予測・発注",
@@ -150,12 +106,49 @@ export const servicePageData: ServiceItem[] = [
       },
     ],
     previews: [
-      { label: "需要予測", image: "" },
-      { label: "在庫管理", image: "" },
-      { label: "売上分析", image: "" },
+      { label: "あらゆるデータを、ひとつのデータベースに。", image: "/images/services/sendai/product-master.png" },
+      { label: "見たいデータを、見たい時に、見たい形で。", image: "/images/services/sendai/dashboard.png" },
+      { label: "AIが最適な配分・発注を提案。人は承認するだけ。", image: "/images/services/sendai/ai-suggestion.png" },
     ],
     highlight: { label: "導入成果", value: "在庫最適化により売上最大化とコスト削減を同時実現" },
-    image: "/images/services/sendai.jpg",
-    href: "/service/send-ai",
+    image: "/images/services/sendai/hero.png",
+    href: "https://send-ai.co.jp/",
+  },
+  {
+    id: "flowerium",
+    number: "03",
+    category: "AI Workflow",
+    title: "Flowerium",
+    subtitle: "オントロジー基盤の業務AIシステム",
+    catchphrase: "意味をデータ化する。",
+    description:
+      "業務データを\"意味\"で統合するオントロジーを中心に、業務UIとAIエージェントの実行基盤までを一体で提供するプロダクトです。属人化した判断や手作業のオペレーションを、アクションとして定義し、エージェントが監査可能な形で実行します。データ基盤の上に、現場が使えるアプリを短期間で立ち上げ、継続改善を可能にします。今後のAIの成長に合わせて形を変え続けるシステムです。",
+    pillars: [
+      {
+        label: "データ基盤",
+        features: [
+          { title: "オントロジー統合", description: "業務データを\"意味\"で統合し、社内に散らばった知識を一元的に扱えるデータ基盤を構築" },
+        ],
+      },
+      {
+        label: "業務UI",
+        features: [
+          { title: "カスタムアプリ", description: "現場で使える業務アプリを短期間で立ち上げ、運用しながら継続的に改善できる基盤を提供" },
+        ],
+      },
+      {
+        label: "AIエージェント",
+        features: [
+          { title: "アクション実行", description: "属人化した判断や手作業をアクションとして定義し、監査可能な形でエージェントが実行" },
+        ],
+      },
+    ],
+    previews: [
+      { label: "ウィジェットとデータを組み合わせて、自分だけのアプリをノーコードで作成", image: "/images/services/flowerium/CustomAppBuilder.png" },
+      { label: "業務をノードの組み合わせでデジタル化し、AIエージェントと協業", image: "/images/services/flowerium/Workflow.png" },
+      { label: "業務上の概念をデジタルスキーマに変換し、意味論ベースでデータを統合・活用", image: "/images/services/flowerium/ERD.png" },
+    ],
+    highlight: { label: "プロダクト特性", value: "AIの成長に合わせて形を変え続ける、適応型の業務AIシステム基盤" },
+    image: "/images/services/flowerium/hero.png",
   },
 ]
