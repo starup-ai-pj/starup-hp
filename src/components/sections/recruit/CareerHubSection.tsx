@@ -14,27 +14,27 @@ interface CareerHubSectionProps {
 const VALUES = [
   {
     num: '01',
-    title: 'Positive Contribution',
-    subtitle: 'ポジティブな貢献意欲',
-    action: '社内外、社会に対してポジティブな貢献意欲があること',
+    title: 'Ownership',
+    subtitle: '当事者意識を持つ',
+    action: '顧客・プロダクト・事業・会社の成長を自分ごととして捉え、最後までやり切ること',
   },
   {
     num: '02',
-    title: 'Ownership',
-    subtitle: 'オーナーシップ',
-    action: '常にオーナーシップを持って意思決定を行うこと',
+    title: 'not cynical',
+    subtitle: '斜に構えない',
+    action: 'できない理由ではなく実現する方法を考え、素直に向き合うこと',
   },
   {
     num: '03',
-    title: 'Authentic Value',
-    subtitle: '本質的価値の追求',
-    action: '真に世の中が求めているものを追求すること',
+    title: 'stay curious, stay grounded',
+    subtitle: 'ワクワクと現場を大切に',
+    action: '最先端と現場を行き来し、顧客が「使える」価値に変えること',
   },
   {
     num: '04',
-    title: 'Intellectual Curiosity',
-    subtitle: '高い知的好奇心',
-    action: '高い知的好奇心を持っていること',
+    title: 'Be a multiplier',
+    subtitle: '三人寄れば文殊の知恵',
+    action: 'チームで知恵を出し合い、最善の答えを出すこと',
   },
 ]
 

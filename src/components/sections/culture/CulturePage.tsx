@@ -6,33 +6,32 @@ import { PhotoGalleryWall } from '@/components/animation/photo-wall/PhotoGallery
 import CultureMissionVisual from '@/components/animation/culture/CultureMissionVisual'
 import CultureVisionVisual from '@/components/animation/culture/CultureVisionVisual'
 
-// Valueセクション一時非表示のためコメントアウト
-// const VALUES = [
-//   {
-//     num: '01',
-//     title: 'Positive Contribution',
-//     subtitle: 'ポジティブな貢献意欲',
-//     body: '社内外、社会に対してポジティブな貢献意欲を持つこと。自分の仕事が誰かの役に立っているという実感を大切にし、周囲に良い影響を与え続ける。',
-//   },
-//   {
-//     num: '02',
-//     title: 'Ownership',
-//     subtitle: 'オーナーシップ',
-//     body: '常にオーナーシップを持って意思決定を行うこと。指示を待つのではなく、自ら課題を見つけ、解決に向けて主体的に動く。',
-//   },
-//   {
-//     num: '03',
-//     title: 'Authentic Value',
-//     subtitle: '本質的価値の追求',
-//     body: '真に世の中が求めているものを追求すること。表面的なトレンドに流されず、本質的な課題を見極め、長期的に価値あるソリューションを生み出す。',
-//   },
-//   {
-//     num: '04',
-//     title: 'Intellectual Curiosity',
-//     subtitle: '高い知的好奇心',
-//     body: '未知の領域に飛び込む勇気と、学び続ける姿勢がイノベーションの源泉になる。担当領域を超えて、構造を深く理解しようとする。',
-//   },
-// ]
+const VALUES = [
+  {
+    num: '01',
+    title: 'Ownership',
+    subtitle: '当事者意識を持つ',
+    body: '顧客・プロダクト・事業・会社の成長を自分ごととして捉え、評論ではなく実装で最後まで前に進める。',
+  },
+  {
+    num: '02',
+    title: 'not cynical',
+    subtitle: '斜に構えない',
+    body: 'できない理由ではなく実現する方法を考え、顧客・現場・仲間・外部の声に素直に向き合う。',
+  },
+  {
+    num: '03',
+    title: 'stay curious, stay grounded',
+    subtitle: 'ワクワクと現場を大切に',
+    body: 'ワクワクと現場への深い理解を行き来し、顧客が本当に使える価値に変える。',
+  },
+  {
+    num: '04',
+    title: 'Be a multiplier',
+    subtitle: '三人寄れば文殊の知恵',
+    body: 'チームで知恵を出し合い、最善の答えを出すことを意識する。',
+  },
+]
 
 export default function CulturePage() {
   return (
@@ -127,7 +126,7 @@ export default function CulturePage() {
         </div>
       </section>
 
-      {/* ━━━ Value: 2列コンパクト（一時的にコメントアウト） ━━━
+      {/* ━━━ Value: 2列コンパクト ━━━ */}
       <section className="py-24 md:py-32 bg-gray-50">
         <div className="max-w-[1500px] mx-auto px-4">
           <p className="text-xs text-gray-400 uppercase tracking-widest mb-6">Value</p>
@@ -153,7 +152,6 @@ export default function CulturePage() {
           </div>
         </div>
       </section>
-      */}
 
       {/* ━━━ Work Style: 横3分割、ミニマル ━━━ */}
       <section className="py-24 md:py-40">
