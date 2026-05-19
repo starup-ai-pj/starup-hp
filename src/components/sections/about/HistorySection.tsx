@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
+// import Image from 'next/image' // Historyの画像が揃うまで非表示
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -183,8 +183,8 @@ export default function HistorySection() {
 
           {historyData.map((event, index) => {
             const isEven = index % 2 === 0
-            // Image offset: how much it crosses the center line (in %)
-            const imageOverlap = [20, 25, 15, 22, 18, 28, 20][index % 7]
+            // Image offset: how much it crosses the center line (in %) — Historyの画像が揃うまで未使用
+            // const imageOverlap = [20, 25, 15, 22, 18, 28, 20][index % 7]
 
             return (
               <div
@@ -207,26 +207,27 @@ export default function HistorySection() {
                         <TimelineCard event={event} align="right" isHovered={hoveredIndex === index} />
                       </div>
                     ) : (
-                      /* Image on left (text is on right), crosses center line */
-                      <div className="relative w-full py-14 flex justify-center">
-                        <div
-                          ref={(el) => { imageRefs.current[index] = el }}
-                          className="relative z-0"
-                          style={{ marginRight: `-${imageOverlap}%` }}
-                        >
-                          <div className={`relative w-[520px] h-[170px] overflow-hidden transition-all duration-700 ${
-                            hoveredIndex === index ? 'opacity-40' : 'opacity-[0.12]'
-                          }`}>
-                            <Image
-                              src={event.image}
-                              alt=""
-                              fill
-                              className="object-cover grayscale"
-                              sizes="520px"
-                            />
-                          </div>
-                        </div>
-                      </div>
+                      /* Image on left — Historyの画像が揃うまで非表示 */
+                      <div className="w-full py-14" />
+                      // <div className="relative w-full py-14 flex justify-center">
+                      //   <div
+                      //     ref={(el) => { imageRefs.current[index] = el }}
+                      //     className="relative z-0"
+                      //     style={{ marginRight: `-${imageOverlap}%` }}
+                      //   >
+                      //     <div className={`relative w-[520px] h-[170px] overflow-hidden transition-all duration-700 ${
+                      //       hoveredIndex === index ? 'opacity-40' : 'opacity-[0.12]'
+                      //     }`}>
+                      //       <Image
+                      //         src={event.image}
+                      //         alt=""
+                      //         fill
+                      //         className="object-cover grayscale"
+                      //         sizes="520px"
+                      //       />
+                      //     </div>
+                      //   </div>
+                      // </div>
                     )}
                   </div>
 
@@ -256,26 +257,27 @@ export default function HistorySection() {
                         <TimelineCard event={event} align="left" isHovered={hoveredIndex === index} />
                       </div>
                     ) : (
-                      /* Image on right (text is on left), crosses center line */
-                      <div className="relative w-full py-14 flex justify-center">
-                        <div
-                          ref={(el) => { imageRefs.current[index] = el }}
-                          className="relative z-0"
-                          style={{ marginLeft: `-${imageOverlap}%` }}
-                        >
-                          <div className={`relative w-[520px] h-[170px] overflow-hidden transition-all duration-700 ${
-                            hoveredIndex === index ? 'opacity-40' : 'opacity-[0.12]'
-                          }`}>
-                            <Image
-                              src={event.image}
-                              alt=""
-                              fill
-                              className="object-cover grayscale"
-                              sizes="520px"
-                            />
-                          </div>
-                        </div>
-                      </div>
+                      /* Image on right — Historyの画像が揃うまで非表示 */
+                      <div className="w-full py-14" />
+                      // <div className="relative w-full py-14 flex justify-center">
+                      //   <div
+                      //     ref={(el) => { imageRefs.current[index] = el }}
+                      //     className="relative z-0"
+                      //     style={{ marginLeft: `-${imageOverlap}%` }}
+                      //   >
+                      //     <div className={`relative w-[520px] h-[170px] overflow-hidden transition-all duration-700 ${
+                      //       hoveredIndex === index ? 'opacity-40' : 'opacity-[0.12]'
+                      //     }`}>
+                      //       <Image
+                      //         src={event.image}
+                      //         alt=""
+                      //         fill
+                      //         className="object-cover grayscale"
+                      //         sizes="520px"
+                      //       />
+                      //     </div>
+                      //   </div>
+                      // </div>
                     )}
                   </div>
                 </div>
