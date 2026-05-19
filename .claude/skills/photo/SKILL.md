@@ -46,6 +46,12 @@ allowed-tools: Read, Edit, Bash, Glob, Grep, AskUserQuestion
    - `mv` で移動（**`cp` ではなく `mv`**。ユーザーは複製ではなく移動を望む）
    - `Edit` でコード参照を追加・更新
    - `image` / `heroImage` 既存値がある場合は src を差し替えるだけ。ない場合は `socialLinks` の前に追記する
+6. **旧画像のクリーンアップ**: 差し替え対象だった「古い方の画像ファイル」を消す。手順:
+   - 旧パス（例: 元の `member.image` / 元の Hero `<Image src=...>`）を控える
+   - `grep -rn "<旧ファイル名>" src public` で他に参照がないことを確認
+   - 参照ゼロなら `rm public/images/.../<旧ファイル名>` で削除
+   - **他で使われていれば削除しない**（例: `/images/recruit/office-1.jpg` は HistorySection や home の RecruitSection からも参照されている）
+   - 削除前にユーザーへ簡潔に報告（「旧ファイル X を削除します（他参照なし）」）。他参照ありの場合も「旧ファイル X は他から参照されているため残します」と明示。
 
 ## 注意事項
 
@@ -71,5 +77,7 @@ allowed-tools: Read, Edit, Bash, Glob, Grep, AskUserQuestion
 ### ケース2: 「cultureのhero写真をIMG_xxx.jpgに」
 
 1. `~/Downloads/IMG_xxx.jpg` の存在確認
-2. `mv ~/Downloads/IMG_xxx.jpg public/images/culture/culture-hero.jpg`（上書き）
-3. `CulturePage.tsx` の Hero `<Image src=...>` パスが既に `/images/culture/culture-hero.jpg` ならコード変更不要。違うなら更新。
+2. 旧 src（例: `/images/recruit/office-1.jpg`）を控える
+3. `mv ~/Downloads/IMG_xxx.jpg public/images/culture/culture-hero.jpg`（上書き）
+4. `CulturePage.tsx` の Hero `<Image src=...>` パスが既に `/images/culture/culture-hero.jpg` ならコード変更不要。違うなら更新。
+5. 旧 src を `grep -rn "office-1.jpg" src public` で確認 → 他参照あり（HistorySection等）なので残す

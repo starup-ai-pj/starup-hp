@@ -1,82 +1,181 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import Image from "next/image"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import SeeMoreButton from "@/components/ui/SeeMoreButton"
-import WaveCanvas from "@/components/animation/WaveCanvas"
+import TransitionLink from "@/components/ui/TransitionLink"
+
 gsap.registerPlugin(ScrollTrigger)
+
+type Tile = { src: string; aspect: string }
+
+// 4列 × 5枚 = 20枠。10枚を順序を変えて2周。各列の総高さがセクションの2.5倍以上になり、
+// パララックス中も常に写真が画面を埋めるよう設計。
+const COLUMNS: Tile[][] = [
+  [
+    { src: "/images/join-us/01.jpg", aspect: "3 / 4" },
+    { src: "/images/join-us/05.jpg", aspect: "4 / 5" },
+    { src: "/images/join-us/09.jpg", aspect: "4 / 3" },
+    { src: "/images/join-us/03.jpg", aspect: "3 / 4" },
+    { src: "/images/join-us/07.jpg", aspect: "4 / 5" },
+  ],
+  [
+    { src: "/images/join-us/02.jpg", aspect: "4 / 3" },
+    { src: "/images/join-us/06.jpg", aspect: "3 / 4" },
+    { src: "/images/join-us/10.jpg", aspect: "4 / 5" },
+    { src: "/images/join-us/04.jpg", aspect: "4 / 3" },
+    { src: "/images/join-us/08.jpg", aspect: "3 / 4" },
+  ],
+  [
+    { src: "/images/join-us/03.jpg", aspect: "4 / 5" },
+    { src: "/images/join-us/07.jpg", aspect: "4 / 3" },
+    { src: "/images/join-us/01.jpg", aspect: "3 / 4" },
+    { src: "/images/join-us/05.jpg", aspect: "4 / 3" },
+    { src: "/images/join-us/09.jpg", aspect: "3 / 4" },
+  ],
+  [
+    { src: "/images/join-us/04.jpg", aspect: "3 / 4" },
+    { src: "/images/join-us/08.jpg", aspect: "4 / 3" },
+    { src: "/images/join-us/02.jpg", aspect: "4 / 5" },
+    { src: "/images/join-us/06.jpg", aspect: "4 / 3" },
+    { src: "/images/join-us/10.jpg", aspect: "3 / 4" },
+  ],
+]
+
+// ピン中のスクロール進行に応じて各列のyPercentが [from, to] へ遷移。
+// 列ごとの差分が「列ごとにスピードが違う」感覚を生む。
+const COL_RANGE: [number, number][] = [
+  [0, -30],
+  [-5, -55],
+  [-2, -25],
+  [-8, -48],
+]
 
 export default function JoinUsSection() {
   const sectionRef = useRef<HTMLElement>(null)
+  const colRefs = useRef<(HTMLDivElement | null)[]>([])
 
   useEffect(() => {
-    const el = sectionRef.current
-    if (!el) return
+    const section = sectionRef.current
+    if (!section) return
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: el,
-        start: "top 60%",
-        toggleActions: "play none none reverse",
-      },
+    const triggers: ScrollTrigger[] = []
+
+    // セクションをピン留めし、その間に列をスクロールさせる
+    const pinST = ScrollTrigger.create({
+      trigger: section,
+      start: "top top",
+      end: "+=100%",
+      pin: true,
+      pinSpacing: true,
+      scrub: 1,
+    })
+    triggers.push(pinST)
+
+    colRefs.current.forEach((col, i) => {
+      if (!col) return
+      const [from, to] = COL_RANGE[i] ?? [0, 0]
+      const tween = gsap.fromTo(
+        col,
+        { yPercent: from },
+        {
+          yPercent: to,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "+=100%",
+            scrub: 1,
+          },
+        }
+      )
+      const st = tween.scrollTrigger
+      if (st) triggers.push(st)
     })
 
-    const title = el.querySelector("[data-a='title']")
-    const img = el.querySelector("[data-a='img']")
-    const foot = el.querySelector("[data-a='foot']")
-
-    if (title) tl.fromTo(title, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0)
-    if (img) tl.fromTo(img, { opacity: 0, scale: 1.02 }, { opacity: 1, scale: 1, duration: 1, ease: "power2.out" }, 0.1)
-    if (foot) tl.fromTo(foot, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.5)
-
-    return () => { ScrollTrigger.getAll().forEach((st) => st.kill()) }
+    return () => {
+      triggers.forEach((t) => t.kill())
+    }
   }, [])
 
   return (
     <section
       ref={sectionRef}
-      className="relative bg-gray-100 pt-16 md:pt-24 pb-12 md:pb-20 overflow-hidden"
-      data-bg="light"
+      className="relative h-screen bg-zinc-950 overflow-hidden"
+      data-bg="dark"
     >
-      {/* Wave background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <WaveCanvas hue={220} />
+      {/* ━━━ フォトグリッド (背面) ━━━ */}
+      <div className="absolute inset-0 w-[120vw] -ml-[10vw] grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
+        {COLUMNS.map((col, i) => (
+          <div
+            key={i}
+            ref={(el) => {
+              colRefs.current[i] = el
+            }}
+            className="flex flex-col gap-2 md:gap-3 will-change-transform"
+          >
+            {col.map((img, j) => (
+              <div
+                key={j}
+                className="relative w-full overflow-hidden bg-zinc-900"
+                style={{ aspectRatio: img.aspect }}
+              >
+                <Image
+                  src={img.src}
+                  alt=""
+                  fill
+                  sizes="(max-width: 768px) 50vw, 30vw"
+                  className="object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
 
-      <div className="relative z-10 max-w-[1500px] mx-auto px-6 md:px-10">
-        {/* Main area: title overlapping image */}
-        <div className="relative mb-12 md:mb-16">
-          {/* Image frame — reserved for future image; kept for title positioning */}
-          <div
-            data-a="img"
-            aria-hidden="true"
-            className="ml-auto w-full md:w-[65%] aspect-[2/1] overflow-hidden opacity-0"
-          />
+      {/* ━━━ 上下のグラデーション (テキスト可読性確保) ━━━ */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[45%] z-10 bg-gradient-to-b from-black/85 via-black/40 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%] z-10 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
 
-          {/* "Join Us" — overlaps image bottom-left */}
-          <h2
-            data-a="title"
-            className="absolute bottom-[15%] left-0 text-[clamp(3.5rem,10vw,9rem)] font-bold text-black leading-none tracking-tight opacity-0"
-          >
-            Join Us
-          </h2>
+      {/* ━━━ 前面コンテンツ: タイトル(上) と CTA(下) ━━━ */}
+      <div className="relative z-20 h-full flex flex-col justify-between pt-[14vh] md:pt-[16vh] pb-[8vh] md:pb-[10vh]">
+        {/* Title */}
+        <div className="max-w-[1500px] mx-auto w-full px-6 md:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+            <div className="md:col-span-2">
+              <span className="text-xs text-white/60 uppercase tracking-[0.3em]">Careers</span>
+            </div>
+            <div className="md:col-span-10">
+              <h2 className="text-[clamp(3.5rem,10vw,9rem)] font-bold text-white leading-[0.95] tracking-tight">
+                Join Us
+              </h2>
+              <p className="mt-4 md:mt-6 text-base md:text-lg text-white/80 max-w-xl">
+                「それ、おもろくね？」を形にする仲間を、私たちは探しています。
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* Footer row: line + label + description | CTA */}
-        <div
-          data-a="foot"
-          className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 opacity-0"
-        >
-          <div className="flex items-center gap-4 md:gap-6">
-            <span className="hidden md:block w-12 h-px bg-black/30" />
-            <span className="text-xs text-black/40 tracking-widest">採用情報</span>
-            <p className="text-sm md:text-base text-black/70">
-              STARUPでは、共に働く仲間を募集しています
-            </p>
+        {/* CTA */}
+        <div className="max-w-[1500px] mx-auto w-full px-6 md:px-10">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 border-t border-white/20 pt-6 md:pt-8">
+            <div>
+              <p className="text-xs text-white/50 uppercase tracking-[0.3em] mb-2">採用情報</p>
+              <p className="text-xl md:text-2xl text-white">
+                一緒に未来をつくる仲間を募集中。
+              </p>
+            </div>
+            <TransitionLink
+              href="/recruit/jobs"
+              className="group inline-flex items-center gap-3 text-base md:text-lg text-white border-b border-white pb-1.5 hover:gap-5 transition-all duration-300 self-start md:self-auto"
+            >
+              募集中のポジションを見る
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </TransitionLink>
           </div>
-
-          <SeeMoreButton href="/recruit" />
         </div>
       </div>
     </section>
