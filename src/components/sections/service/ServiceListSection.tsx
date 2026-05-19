@@ -48,7 +48,11 @@ function ServiceSpread({ service }: { service: ServiceItem }) {
   }, [])
 
   return (
-    <div ref={ref} className="relative pt-[6vh] md:pt-[10vh] pb-[6vh] md:pb-[10vh]">
+    <div
+      ref={ref}
+      id={service.id}
+      className="relative pt-[6vh] md:pt-[10vh] pb-[6vh] md:pb-[10vh] scroll-mt-28 md:scroll-mt-32"
+    >
       {/* ── Massive decorative number ── */}
       <span
         data-a="num"
@@ -93,9 +97,8 @@ function ServiceSpread({ service }: { service: ServiceItem }) {
           <img
             src={service.image}
             alt={service.title}
-            className="w-full h-full object-cover brightness-[0.88] grayscale-[35%]"
+            className="w-full h-full object-contain"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-transparent to-white/10" />
         </div>
 
         {/* Description */}
@@ -111,12 +114,12 @@ function ServiceSpread({ service }: { service: ServiceItem }) {
       <div data-a="feat" className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-8 md:mb-12 opacity-0">
         {service.previews.map((preview, pi) => (
           <div key={pi}>
-            <div className="aspect-[16/10] relative bg-gray-100 border border-gray-200 overflow-hidden group hover:border-gray-300 transition-colors">
+            <div className="aspect-[16/10] relative bg-white border border-gray-200 overflow-hidden group hover:border-gray-300 transition-colors">
               {preview.image ? (
                 <img
                   src={preview.image}
                   alt={preview.label}
-                  className="w-full h-full object-cover grayscale brightness-[0.92] group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-500"
+                  className="w-full h-full object-contain"
                 />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -149,13 +152,16 @@ function ServiceSpread({ service }: { service: ServiceItem }) {
         </p>
 
         <div className="flex items-center gap-5">
-          <TransitionLink
-            href={service.href}
-            className="group inline-flex items-center gap-2 text-sm font-medium text-black border-b border-black pb-0.5 hover:text-gray-500 hover:border-gray-500 transition-colors"
-          >
-            <span>詳細を見る</span>
-            <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-          </TransitionLink>
+          {service.href && (
+            <TransitionLink
+              href={service.href}
+              className="group inline-flex items-center gap-2 text-sm font-medium text-black border-b border-black pb-0.5 hover:text-gray-500 hover:border-gray-500 transition-colors"
+              {...(service.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+              <span>詳細を見る</span>
+              <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+            </TransitionLink>
+          )}
           {service.externalLink && (
             <a
               href={service.externalLink}

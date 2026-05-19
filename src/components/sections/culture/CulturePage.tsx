@@ -9,27 +9,27 @@ import CultureVisionVisual from '@/components/animation/culture/CultureVisionVis
 const VALUES = [
   {
     num: '01',
-    title: 'Positive Contribution',
-    subtitle: 'ポジティブな貢献意欲',
-    body: '社内外、社会に対してポジティブな貢献意欲を持つこと。自分の仕事が誰かの役に立っているという実感を大切にし、周囲に良い影響を与え続ける。',
+    title: 'Ownership',
+    subtitle: '当事者意識を持つ',
+    body: '顧客・プロダクト・事業・会社の成長を自分ごととして捉え、評論ではなく実装で最後まで前に進める。',
   },
   {
     num: '02',
-    title: 'Ownership',
-    subtitle: 'オーナーシップ',
-    body: '常にオーナーシップを持って意思決定を行うこと。指示を待つのではなく、自ら課題を見つけ、解決に向けて主体的に動く。',
+    title: 'not cynical',
+    subtitle: '斜に構えない',
+    body: 'できない理由ではなく実現する方法を考え、顧客・現場・仲間・外部の声に素直に向き合う。',
   },
   {
     num: '03',
-    title: 'Authentic Value',
-    subtitle: '本質的価値の追求',
-    body: '真に世の中が求めているものを追求すること。表面的なトレンドに流されず、本質的な課題を見極め、長期的に価値あるソリューションを生み出す。',
+    title: 'stay curious, stay grounded',
+    subtitle: 'ワクワクと現場を大切に',
+    body: 'ワクワクと現場への深い理解を行き来し、顧客が本当に使える価値に変える。',
   },
   {
     num: '04',
-    title: 'Intellectual Curiosity',
-    subtitle: '高い知的好奇心',
-    body: '未知の領域に飛び込む勇気と、学び続ける姿勢がイノベーションの源泉になる。担当領域を超えて、構造を深く理解しようとする。',
+    title: 'Be a multiplier',
+    subtitle: '三人寄れば文殊の知恵',
+    body: 'チームで知恵を出し合い、最善の答えを出すことを意識する。',
   },
 ]
 
@@ -40,7 +40,7 @@ export default function CulturePage() {
       {/* ━━━ Hero: フルブリード画像 + オーバーレイタイトル ━━━ */}
       <section className="relative h-[70vh] md:h-[85vh] overflow-hidden">
         <Image
-          src="/images/recruit/office-1.jpg"
+          src="/images/culture/culture-hero.jpg"
           alt="Culture"
           fill
           className="object-cover"
@@ -48,7 +48,7 @@ export default function CulturePage() {
           unoptimized
         />
         <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute bottom-12 md:bottom-20 left-0 w-full px-4">
+        <div className="absolute top-[28%] md:top-[30%] left-0 w-full px-4">
           <div className="max-w-[1500px] mx-auto">
             <p className="text-sm text-white/70 uppercase tracking-widest mb-4">Culture</p>
             <h1 className="text-5xl md:text-7xl lg:text-9xl font-medium text-white leading-[0.95]">

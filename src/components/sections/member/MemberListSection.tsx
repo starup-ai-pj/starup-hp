@@ -1,16 +1,40 @@
 'use client'
 
-import { memberData } from "@/data/member/member"
 import Image from "next/image"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import TypingText from "@/components/ui/TypingText"
 import TransitionLink from "@/components/ui/TransitionLink"
+import type { Member } from "@/data/member/member"
 
 gsap.registerPlugin(ScrollTrigger)
 
-export default function MemberListSection() {
+interface MemberListItem {
+  member: Member
+  preview: string | null
+}
+
+interface MemberListSectionProps {
+  members: MemberListItem[]
+}
+
+function shuffle<T>(arr: readonly T[]): T[] {
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
+
+export default function MemberListSection({ members }: MemberListSectionProps) {
+  const [ordered, setOrdered] = useState<MemberListItem[]>(members)
+
+  useEffect(() => {
+    setOrdered(shuffle(members))
+  }, [members])
+
   useEffect(() => {
     const cards = document.querySelectorAll('.member-card')
 
@@ -64,7 +88,7 @@ export default function MemberListSection() {
           {/* 左2col */}
           <div className="lg:col-span-2">
             <div className="sticky top-24">
-              <span className="text-3xl font-medium text-gray-900">{memberData.length}</span>
+              <span className="text-3xl font-medium text-gray-900">{ordered.length}</span>
               <p className="text-xs text-gray-500 mt-1">members</p>
             </div>
           </div>
@@ -73,7 +97,7 @@ export default function MemberListSection() {
           <div className="lg:col-span-10">
             {/* Mobile: 1列 / Desktop: 2列 */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-0">
-              {memberData.map((member) => (
+              {ordered.map(({ member, preview }) => (
                 <TransitionLink
                   key={member.id}
                   href={`/member/${member.id}`}
@@ -87,7 +111,7 @@ export default function MemberListSection() {
                           src={member.image}
                           alt={member.name}
                           fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                          className="object-cover transition-all duration-500"
                         />
                       ) : (
                         <div className="w-full h-full bg-gray-100 flex items-center justify-center">
@@ -98,9 +122,6 @@ export default function MemberListSection() {
                     <div className="member-content space-y-2">
                       <p className="text-xs text-gray-500">{member.position}</p>
                       <h3 className="text-xl font-medium text-gray-900">{member.name}</h3>
-                      {member.comment && (
-                        <p className="text-sm text-gray-700 italic">&ldquo;{member.comment}&rdquo;</p>
-                      )}
                       <p className="text-xs text-gray-500 leading-relaxed ">{member.description}</p>
                       <div className="flex items-center gap-3">
                         {member.hasInterview && (
@@ -124,7 +145,7 @@ export default function MemberListSection() {
                           src={member.image}
                           alt={member.name}
                           fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                          className="object-cover transition-all duration-500"
                         />
                       ) : (
                         <div className="w-full h-full bg-gray-100 flex items-center justify-center">
@@ -132,7 +153,7 @@ export default function MemberListSection() {
                         </div>
                       )}
                     </div>
-                    <div className="member-content flex flex-col justify-between">
+                    <div className="member-content flex flex-col">
                       <div>
                         <p className="text-xs text-gray-500 mb-1">{member.position}</p>
                         <h3 className="text-lg font-medium text-gray-900 group-hover:text-gray-600 transition-colors mb-1">
@@ -141,23 +162,38 @@ export default function MemberListSection() {
                         {member.englishName && (
                           <p className="text-xs text-gray-400 mb-2">{member.englishName}</p>
                         )}
-                        {member.comment && (
-                          <p className="text-sm text-gray-700 italic mb-2">&ldquo;{member.comment}&rdquo;</p>
-                        )}
                         <p className="text-xs text-gray-500 leading-relaxed ">
                           {member.description}
                         </p>
                       </div>
-                      <div className="flex items-center gap-3 mt-4">
-                        {member.hasInterview && (
-                          <span className="text-xs bg-gray-900 text-white px-2 py-0.5">Interview</span>
+
+                      <div className="mt-auto">
+                        {/* Hover preview */}
+                        {preview && (
+                          <div
+                            aria-hidden="true"
+                            className="overflow-hidden max-h-0 opacity-0 transition-all duration-500 ease-out group-hover:max-h-32 group-hover:opacity-100 mb-4"
+                          >
+                            <span className="block text-[10px] uppercase tracking-[0.18em] text-gray-400 mb-1.5">
+                              From the interview
+                            </span>
+                            <p className="text-xs text-gray-600 italic leading-relaxed line-clamp-3 pl-3 border-l border-gray-400">
+                              &ldquo;{preview}&rdquo;
+                            </p>
+                          </div>
                         )}
-                        <span className="inline-flex items-center gap-1 text-xs text-gray-900 border-b border-gray-900 pb-0.5 group-hover:gap-2 transition-all duration-300">
-                          View profile
-                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                          </svg>
-                        </span>
+
+                        <div className="flex items-center gap-3">
+                          {member.hasInterview && (
+                            <span className="text-xs bg-gray-900 text-white px-2 py-0.5">Interview</span>
+                          )}
+                          <span className="inline-flex items-center gap-1 text-xs text-gray-900 border-b border-gray-900 pb-0.5 group-hover:gap-2 transition-all duration-300">
+                            View profile
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>

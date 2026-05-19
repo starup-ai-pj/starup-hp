@@ -4,35 +4,42 @@ import Image from 'next/image'
 import TransitionLink from '@/components/ui/TransitionLink'
 import { PhotoGalleryWall } from '@/components/animation/photo-wall/PhotoGalleryWall'
 import TypingText from '@/components/ui/TypingText'
+import JobCard from '@/components/ui/JobCard'
+import ExploreLinks from '@/components/sections/shared/ExploreLinks'
+import { RecruitListItem } from '@/types/recruit'
+
+interface CareerHubSectionProps {
+  jobPreviews?: RecruitListItem[]
+}
 
 const VALUES = [
   {
     num: '01',
-    title: 'Positive Contribution',
-    subtitle: 'ポジティブな貢献意欲',
-    action: '社内外、社会に対してポジティブな貢献意欲があること',
+    title: 'Ownership',
+    subtitle: '当事者意識を持つ',
+    action: '顧客・プロダクト・事業・会社の成長を自分ごととして捉え、最後までやり切ること',
   },
   {
     num: '02',
-    title: 'Ownership',
-    subtitle: 'オーナーシップ',
-    action: '常にオーナーシップを持って意思決定を行うこと',
+    title: 'not cynical',
+    subtitle: '斜に構えない',
+    action: 'できない理由ではなく実現する方法を考え、素直に向き合うこと',
   },
   {
     num: '03',
-    title: 'Authentic Value',
-    subtitle: '本質的価値の追求',
-    action: '真に世の中が求めているものを追求すること',
+    title: 'stay curious, stay grounded',
+    subtitle: 'ワクワクと現場を大切に',
+    action: '最先端と現場を行き来し、顧客が「使える」価値に変えること',
   },
   {
     num: '04',
-    title: 'Intellectual Curiosity',
-    subtitle: '高い知的好奇心',
-    action: '高い知的好奇心を持っていること',
+    title: 'Be a multiplier',
+    subtitle: '三人寄れば文殊の知恵',
+    action: 'チームで知恵を出し合い、最善の答えを出すこと',
   },
 ]
 
-export default function CareerHubSection() {
+export default function CareerHubSection({ jobPreviews = [] }: CareerHubSectionProps) {
   return (
     <div className="bg-white">
 
@@ -151,110 +158,46 @@ export default function CareerHubSection() {
         </div>
       </section>
 
-      {/* ━━━ 導線カード: Culture / Member / Jobs ━━━ */}
-      <section className="py-20 md:py-32">
-        <div className="max-w-[1500px] mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 md:mb-16">
-            <div className="lg:col-span-2">
-              <span className="text-xs text-gray-400 uppercase tracking-widest">Explore</span>
+      {/* ━━━ 募集職種プレビュー ━━━ */}
+      {jobPreviews.length > 0 && (
+        <section className="py-20 md:py-32 border-t border-gray-200">
+          <div className="max-w-[1500px] mx-auto px-4">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12 md:mb-16">
+              <div>
+                <span className="text-xs text-gray-400 uppercase tracking-widest">Jobs</span>
+                <h2 className="mt-2 text-3xl md:text-5xl font-medium text-gray-900 mb-4">
+                  現在募集中のポジション
+                </h2>
+                <p className="text-base text-gray-500">
+                  注目の求人を一部ご紹介します。
+                </p>
+              </div>
             </div>
-            <div className="lg:col-span-8">
-              <h2 className="text-3xl md:text-5xl font-medium text-gray-900">
-                STAR UPをもっと知る
-              </h2>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8">
+              {jobPreviews.map((item) => (
+                <JobCard key={item.id} item={item} />
+              ))}
             </div>
-            <div className="lg:col-span-2"></div>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <TransitionLink
-              href="/recruit/culture"
-              className="group block border border-gray-200 p-8 md:p-10 hover:border-gray-400 transition-colors"
-            >
-              <p className="text-xs text-gray-400 uppercase tracking-widest mb-3">Culture</p>
-              <h3 className="text-xl font-medium text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
-                カルチャーを知る
-              </h3>
-              <p className="text-sm text-gray-500 mb-6">
-                Mission・Vision・Valueと、私たちの働き方をご紹介します。
-              </p>
-              <span className="inline-flex items-center gap-2 text-sm text-gray-900 border-b border-gray-900 pb-1 group-hover:gap-3 transition-all duration-300">
-                View more
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </span>
-            </TransitionLink>
-
-            <TransitionLink
-              href="/member"
-              className="group block border border-gray-200 p-8 md:p-10 hover:border-gray-400 transition-colors"
-            >
-              <p className="text-xs text-gray-400 uppercase tracking-widest mb-3">Member</p>
-              <h3 className="text-xl font-medium text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
-                メンバーを知る
-              </h3>
-              <p className="text-sm text-gray-500 mb-6">
-                一緒に働くチームメンバーとインタビュー記事をご覧ください。
-              </p>
-              <span className="inline-flex items-center gap-2 text-sm text-gray-900 border-b border-gray-900 pb-1 group-hover:gap-3 transition-all duration-300">
-                View more
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </span>
-            </TransitionLink>
-
-            <TransitionLink
-              href="/recruit/jobs"
-              className="group block border border-gray-200 p-8 md:p-10 hover:border-gray-400 transition-colors"
-            >
-              <p className="text-xs text-gray-400 uppercase tracking-widest mb-3">Jobs</p>
-              <h3 className="text-xl font-medium text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
-                募集職種を見る
-              </h3>
-              <p className="text-sm text-gray-500 mb-6">
-                現在募集中のポジションをご確認ください。
-              </p>
-              <span className="inline-flex items-center gap-2 text-sm text-gray-900 border-b border-gray-900 pb-1 group-hover:gap-3 transition-all duration-300">
-                View more
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </span>
-            </TransitionLink>
-          </div>
-        </div>
-      </section>
-
-      {/* ━━━ 応募CTA ━━━ */}
-      <section className="py-20 md:py-32 border-t border-gray-200">
-        <div className="max-w-[1500px] mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-2">
-              <span className="text-xs text-gray-400 uppercase tracking-widest">Apply</span>
-            </div>
-            <div className="lg:col-span-8">
-              <p className="text-4xl md:text-6xl lg:text-7xl font-medium text-gray-900 leading-[1.1] mb-8">
-                Ready to join?
-              </p>
-              <p className="text-base md:text-lg text-gray-500 max-w-2xl mb-12">
-                私たちは常に新しい仲間を探しています。あなたのスキルと情熱で、チームに新しい風を吹き込んでください。
-              </p>
+            <div className="mt-12 md:mt-16 flex justify-end">
               <TransitionLink
-                href="/recruit/apply"
-                className="group inline-flex items-center gap-3 text-lg md:text-xl text-gray-900 border-b border-gray-900 pb-2 hover:gap-5 transition-all duration-300"
+                href="/recruit/jobs"
+                className="group inline-flex items-center gap-2 text-sm text-gray-900 border-b border-gray-900 pb-1 hover:gap-3 transition-all duration-300"
               >
-                応募する
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                すべての求人を見る
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </TransitionLink>
             </div>
-            <div className="lg:col-span-2"></div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* ━━━ 導線カード: Culture / Member / Jobs ━━━ */}
+      <ExploreLinks />
+
 
       {/* ━━━ PhotoGalleryWall ━━━ */}
       <PhotoGalleryWall />

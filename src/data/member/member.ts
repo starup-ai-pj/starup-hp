@@ -7,6 +7,7 @@ export interface Member {
     comment?: string
     hasInterview?: boolean
     image?: string
+    heroImage?: string
     socialLinks?: {
       twitter?: string
       facebook?: string
@@ -31,11 +32,11 @@ export interface Member {
       id: "takehiro-kikkawa",
       name: "吉川岳宏",
       englishName: "Takehiro Kikkawa",
-      position: "取締役",
+      position: "取締役 CPO/CSO",
       description:
         "データサイエンス系ベンチャーにて非財務情報の開示やバックオフィス改善業務に従事。また、大学別の環境報告書の作成や飲食店のGHG排出量の開示等のPJを行う。",
       comment: "データで社会をよりよくする",
-      hasInterview: false,
+      hasInterview: true,
       image: "/images/member/kikkawa-takehiro.png",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
@@ -65,24 +66,26 @@ export interface Member {
       id: "daigo-fujii",
       name: "藤井大悟",
       englishName: "Daigo Fujii",
-      position: "執行役員",
+      position: "執行役員 コーポレート統括",
       description:
         "京都大学経済学部出身。京都のスタートアップで事業開発を行ったのち、上場企業のM&A・アライアンス部署でソーシングや出資・協業検討を行う。STARUPでは、2度の銀行調達など経理・ファイナンスの統括を担当。",
       comment: "経営基盤をつくる",
-      hasInterview: false,
+      hasInterview: true,
       image: "/images/member/fuji-daigo.png",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
-    // {
-    //   id: "naoki-kadokura",
-    //   name: "門倉尚紀",
-    //   englishName: "Naoki Kadokura",
-    //   position: "執行役員",
-    //   description:
-    //     "京都大学大学院出身。メガベンチャーのデータサイエンティストとして従事しつつ、京大在学中に京大エンジニアサークル5スキップを立ち上げメンバーを120人まで拡大させる。STAR UPではSaaSの立ち上げを行い、現在は受託開発部門の統括を担当。",
-    //   image: "/images/member/kadokura-naoki.png",
-    //   socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
-    // },
+    {
+      id: "naoki-kadokura",
+      name: "門倉尚紀",
+      englishName: "Naoki Kadokura",
+      position: "AIソリューション事業部 事業部長 兼 PM統括",
+      description:
+        "京都大学大学院情報学研究科卒。京大在学中にエンジニアサークルを立ち上げ後、STAR UP初期メンバーとして参画。一度リクルートにデータスペシャリストとして入社しデータ解析の力を磨いた後、STAR UPへ復帰。現在はAIソリューション事業部を統括し、製造業から行政まで多種多様な現場データの社会実装を推進。",
+      comment: "現場でデータを社会実装する",
+      hasInterview: true,
+      image: "/images/member/kadokura-naoki.png",
+      socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
+    },
     {
       id: "haruki-kimura",
       name: "木村遥輝",
@@ -93,6 +96,69 @@ export interface Member {
       comment: "事業を前に進める",
       hasInterview: true,
       image: "/images/member/kimura-haruki.png",
+      socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
+    },
+    {
+      id: "jiho-ryu",
+      name: "柳 智浩",
+      englishName: "Jiho Ryu",
+      position: "ARCHAIVE 開発統括",
+      description:
+        "京都大学工学部情報学科卒。ARCHAIVE開発統括として、プロダクト全体の要件定義からエンジニアへのタスク割り振り、高難度の実装までをリードする。",
+      comment: "大人の青春を全力で",
+      hasInterview: true,
+      image: "/images/member/ryu-jiho.jpg",
+      heroImage: "/images/member/ryu-jiho-hero.jpg",
+      socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
+    },
+    {
+      id: "shota-yamashita",
+      name: "山下 翔大",
+      englishName: "Shota Yamashita",
+      position: "ARCHAIVE プロダクトマネージャー",
+      description:
+        "京都大学工学部建築学科卒。建築からエンジニアへ転身し、インドでの修行を経てSTARUPに参画。デザインと実装を一人で完結させるスピード感が強み。",
+      comment: "デザイン駆動で価値を届ける",
+      hasInterview: true,
+      image: "/images/member/yamashita-shota.jpg",
+      heroImage: "/images/member/yamashita-shota-hero.jpg",
+      socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
+    },
+    {
+      id: "shunsuke-kimura",
+      name: "木村 俊介",
+      englishName: "Shunsuke Kimura",
+      position: "PM / AIエンジニア",
+      description:
+        "京都大学工学部情報学科卒。2026年4月新卒入社。AIソリューション部のPMとして『SENDAI』（小売業界向け発注最適化AI）のプロダクト責任者を担当。",
+      comment: "Code The Culture",
+      hasInterview: true,
+      image: "/images/member/kimura-shunsuke.jpg",
+      heroImage: "/images/member/kimura-shunsuke-hero.jpg",
+      socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
+    },
+    {
+      id: "namiki-chikusa",
+      name: "千種 直幹",
+      englishName: "Namiki Chikusa",
+      position: "AIソリューション事業部 エンジニア",
+      description:
+        "京都大学工学部情報学科卒。2026年4月新卒入社。『SENDAI』（小売業界向け発注最適化AI）のバックエンド設計とAI実装を担当。",
+      comment: "理論をプロダクトの骨組みへ",
+      hasInterview: true,
+      image: "/images/member/chikusa-namiki.jpg",
+      heroImage: "/images/member/chikusa-namiki-hero.jpg",
+      socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
+    },
+    {
+      id: "sota-nagai",
+      name: "永井 奏多",
+      englishName: "Sota Nagai",
+      position: "ARCHAIVE事業部 営業担当",
+      description:
+        "國學院大学卒。木村遥輝との再会をきっかけにSTAR UPへ参画し、ARCHAIVE（製造業向けAIプラットフォーム）の営業を担当。関西を中心に泥臭く現場へ足を運び続け、2026年度開設予定の東京オフィスを拠点に関東圏の市場開拓を進める。ニックネームは「ケヴィン」。",
+      comment: "課題に寄り添い、未来を売る",
+      hasInterview: true,
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
     // {
