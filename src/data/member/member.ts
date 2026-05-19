@@ -134,14 +134,16 @@ export interface Member {
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
     {
-      id: "naoki-chikusa",
+      id: "namiki-chikusa",
       name: "千種 直幹",
-      englishName: "Naoki Chikusa",
+      englishName: "Namiki Chikusa",
       position: "AIソリューション事業部 エンジニア",
       description:
         "京都大学工学部情報学科卒。2026年4月新卒入社。『SENDAI』（小売業界向け発注最適化AI）のバックエンド設計とAI実装を担当。",
       comment: "理論をプロダクトの骨組みへ",
       hasInterview: true,
+      image: "/images/member/chikusa-namiki.jpg",
+      heroImage: "/images/member/chikusa-namiki-hero.jpg",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
     {
