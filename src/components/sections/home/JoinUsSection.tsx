@@ -167,7 +167,7 @@ export default function JoinUsSection() {
               </p>
             </div>
             <TransitionLink
-              href="/recruit/jobs"
+              href="/recruit"
               className="group inline-flex items-center gap-3 text-base md:text-lg text-white border-b border-white pb-1.5 hover:gap-5 transition-all duration-300 self-start md:self-auto"
             >
               募集中のポジションを見る
