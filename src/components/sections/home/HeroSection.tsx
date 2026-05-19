@@ -1,12 +1,15 @@
 'use client'
-import NetworkBackground from "@/components/animation/network-background/NetworkBackground"
 
 export default function HeroSection() {
     return (
         <section className="relative h-screen min-h-[100dvh] overflow-hidden" data-bg="dark">
             {/* Background */}
             <div className="fixed inset-0">
-                <NetworkBackground className="w-full h-full"/>
+                <iframe
+                    src="/network-background.html"
+                    className="w-full h-full border-0"
+                    aria-hidden="true"
+                />
             </div>
 
             {/* 下半分のタッチイベントをブロックするオーバーレイ */}
