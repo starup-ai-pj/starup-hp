@@ -21,7 +21,7 @@ export default function VisionSection() {
         const scrollPrompt = scrollPromptRef.current
         if (!section || !container || !line || !cursor || !scrollPrompt) return
 
-        const text = "Code the Culture"
+        const text = "\"Code the Culture\""
         const cultureStart = text.indexOf("Culture")
 
         const charsHtml = text.split('').map((char, i) => {
@@ -114,7 +114,7 @@ export default function VisionSection() {
                 style={{ opacity: 0 }}
             >
                 <div className="text-2xl md:text-4xl lg:text-7xl font-bold text-black leading-tight inline-flex items-baseline">
-                    <span ref={lineRef}>Code the Culture</span>
+                    <span ref={lineRef}>&quot;Code the Culture&quot;</span>
                     <span
                         ref={cursorRef}
                         className="ml-1 inline-block w-[0.08em] h-[0.9em] bg-current translate-y-[0.05em]"

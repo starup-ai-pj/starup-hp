@@ -230,7 +230,6 @@ class CardStreamController {
     document.addEventListener("touchmove", (e) => this.onDrag(e.touches[0]), { passive: false });
     document.addEventListener("touchend", () => this.endDrag());
 
-    this.cardLine.addEventListener("wheel", (e) => this.onWheel(e));
     this.cardLine.addEventListener("selectstart", (e) => e.preventDefault());
     this.cardLine.addEventListener("dragstart", (e) => e.preventDefault());
 
@@ -323,14 +322,6 @@ class CardStreamController {
     this.updateCardClipping();
   }
 
-  onWheel(e) {
-    e.preventDefault();
-    const scrollSpeed = 20;
-    const delta = e.deltaY > 0 ? scrollSpeed : -scrollSpeed;
-    this.position += delta;
-    this.updateCardPosition();
-    this.updateCardClipping();
-  }
 
   generateCode(width, height) {
     const library = [
