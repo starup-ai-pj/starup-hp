@@ -115,7 +115,7 @@ export interface Member {
       id: "shota-yamashita",
       name: "山下 翔大",
       englishName: "Shota Yamashita",
-      position: "フロントエンドエンジニア / UIデザイナー",
+      position: "ARCHAIVE プロダクトマネージャー",
       description:
         "京都大学工学部建築学科卒。建築からエンジニアへ転身し、インドでの修行を経てSTARUPに参画。デザインと実装を一人で完結させるスピード感が強み。",
       comment: "デザイン駆動で価値を届ける",
