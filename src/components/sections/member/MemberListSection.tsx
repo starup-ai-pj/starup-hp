@@ -111,7 +111,7 @@ export default function MemberListSection({ members }: MemberListSectionProps) {
                           src={member.image}
                           alt={member.name}
                           fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                          className="object-cover transition-all duration-500"
                         />
                       ) : (
                         <div className="w-full h-full bg-gray-100 flex items-center justify-center">
@@ -145,7 +145,7 @@ export default function MemberListSection({ members }: MemberListSectionProps) {
                           src={member.image}
                           alt={member.name}
                           fill
-                          className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                          className="object-cover transition-all duration-500"
                         />
                       ) : (
                         <div className="w-full h-full bg-gray-100 flex items-center justify-center">

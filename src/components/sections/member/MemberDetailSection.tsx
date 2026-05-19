@@ -191,7 +191,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
                           src={member.image}
                           alt={member.name}
                           fill
-                          className="object-cover grayscale"
+                          className="object-cover"
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center">
@@ -376,7 +376,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
                         src={m.image}
                         alt={m.name}
                         fill
-                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                        className="object-cover transition-all duration-500"
                       />
                     ) : (
                       <div className="absolute inset-0 flex items-center justify-center">

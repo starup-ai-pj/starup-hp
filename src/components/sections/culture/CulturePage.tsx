@@ -40,7 +40,7 @@ export default function CulturePage() {
       {/* ━━━ Hero: フルブリード画像 + オーバーレイタイトル ━━━ */}
       <section className="relative h-[70vh] md:h-[85vh] overflow-hidden">
         <Image
-          src="/images/recruit/office-1.jpg"
+          src="/images/culture/culture-hero.jpg"
           alt="Culture"
           fill
           className="object-cover"
@@ -48,7 +48,7 @@ export default function CulturePage() {
           unoptimized
         />
         <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute bottom-12 md:bottom-20 left-0 w-full px-4">
+        <div className="absolute top-[28%] md:top-[30%] left-0 w-full px-4">
           <div className="max-w-[1500px] mx-auto">
             <p className="text-sm text-white/70 uppercase tracking-widest mb-4">Culture</p>
             <h1 className="text-5xl md:text-7xl lg:text-9xl font-medium text-white leading-[0.95]">
