@@ -107,6 +107,8 @@ export interface Member {
         "京都大学工学部情報学科卒。ARCHAIVE開発統括として、プロダクト全体の要件定義からエンジニアへのタスク割り振り、高難度の実装までをリードする。",
       comment: "大人の青春を全力で",
       hasInterview: true,
+      image: "/images/member/ryu-jiho.jpg",
+      heroImage: "/images/member/ryu-jiho-hero.jpg",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
     {
@@ -131,6 +133,8 @@ export interface Member {
         "京都大学工学部情報学科卒。2026年4月新卒入社。AIソリューション部のPMとして『SENDAI』（小売業界向け発注最適化AI）のプロダクト責任者を担当。",
       comment: "Code The Culture",
       hasInterview: true,
+      image: "/images/member/kimura-shunsuke.jpg",
+      heroImage: "/images/member/kimura-shunsuke-hero.jpg",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
     {
