@@ -71,11 +71,10 @@ export default function CulturePage() {
 
           {/* 巨大タイポ */}
           <h2 className="text-3xl md:text-5xl lg:text-7xl font-medium text-gray-900 leading-[1.15] max-w-[1200px] mb-6 md:mb-8">
-            思想をテクノロジーに変え、<br />
             産業と文化の構造を<br className="hidden md:inline" />再構築する。
           </h2>
           <p className="text-base md:text-xl text-gray-400 italic mb-20 md:mb-32">
-            Transform thought into technology,<br className="md:hidden" /> redesigning the structures of industry and culture.
+            Redesigning the structures of industry and culture.
           </p>
 
           {/* 解説文: 右下に配置 */}
