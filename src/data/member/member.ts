@@ -25,7 +25,8 @@ export interface Member {
         "京都大学在学中に教育メディアの会社を大学1年時立ち上げ後、製造業の営業コンサル、商社の新規事業部でのPM、人材会社でのCSを経験。その後、昨年11月に株式会社STARUPを設立し、12ヶ月でメンバーも40名まで拡大させる。",
       comment: "「それ、おもろくね？」を形にする",
       hasInterview: true,
-      image: "/images/member/ogata-yuto.png",
+      image: "/images/member/ogata-yuto.jpg",
+      heroImage: "/images/member/ogata-yuto-hero.jpg",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
     {

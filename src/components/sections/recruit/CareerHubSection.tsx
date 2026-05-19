@@ -100,7 +100,7 @@ export default function CareerHubSection({ jobPreviews = [] }: CareerHubSectionP
               <div className="mt-8 flex items-center gap-4">
                 <div className="w-12 h-12 bg-gray-200 overflow-hidden">
                   <Image
-                    src="/images/member/ogata-yuto.png"
+                    src="/images/member/ogata-yuto.jpg"
                     alt="緒方 勇斗"
                     width={48}
                     height={48}
