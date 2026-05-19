@@ -1,4 +1,3 @@
-import ScanLine from "@/components/animation/scan-line/ScanLine"
 import TransitionLink from "@/components/ui/TransitionLink"
 import TypingText from "@/components/ui/TypingText"
 
@@ -19,8 +18,13 @@ export default function MissionSection() {
           />
         </div>
       </div>
-        <div className="w-full mb-8 md:mb-16">
-            <ScanLine />
+        <div className="w-full mb-8 md:mb-16" style={{ height: 400 }}>
+            <iframe
+              src="/scan-line.html"
+              className="w-full h-full block"
+              style={{ border: 0 }}
+              aria-hidden="true"
+            />
         </div>
         <div className="flex justify-center">
           <TransitionLink

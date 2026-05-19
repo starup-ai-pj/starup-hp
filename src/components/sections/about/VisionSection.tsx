@@ -1,4 +1,3 @@
-import ScanLine from "@/components/animation/scan-line/ScanLine"
 import TypingText from "@/components/ui/TypingText"
 
 export default function VisionSection() {
@@ -14,8 +13,13 @@ export default function VisionSection() {
           />
         </div>
       </div>
-      <div className="w-full mb-12 md:mb-16">
-          <ScanLine />
+      <div className="w-full mb-12 md:mb-16" style={{ height: 400 }}>
+          <iframe
+            src="/scan-line.html"
+            className="w-full h-full block"
+            style={{ border: 0 }}
+            aria-hidden="true"
+          />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 lg:gap-32 max-w-[1500px] mx-auto px-4">
         <div className="text-sm md:text-base text-gray-900 leading-relaxed space-y-4 md:space-y-6">
