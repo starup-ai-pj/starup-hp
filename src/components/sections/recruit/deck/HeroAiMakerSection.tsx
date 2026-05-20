@@ -7,59 +7,49 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-type Tile = { src: string; aspect: string }
+type Tile = { src: string; aspect: string; focus?: string }
 
-// 18枚の画像を3列×12タイル(計36スロット)に2回ずつ均等配置。
-// 各画像のペアは「別の列」かつ「6行差」になるよう設計してあり、
-// 画面に同時表示される範囲(≒15タイル)では重複が出ないようになっている。
-// 配置: Col1 = [1..12], Col2 = [13..18, 1..6], Col3 = [7..12, 13..18]
-// 各行で3列が常に異なる画像 / アスペクト比は3パターンを散らしてPinterest的リズムを作る。
+// 画像ごとに「写真の中身を見て決めた」最適なクロップを定義する。
+// 同じ画像はどの列でも同じアスペクトで表示する(=二重人格を回避)。
+// focus は object-position 用。デフォルトは center で問題ない画像のみ省略。
+const TILES: Record<number, Pick<Tile, 'aspect' | 'focus'>> = {
+  1: { aspect: '3 / 2' },                            // 横長: オフィス+山並み (空気感そのまま)
+  2: { aspect: '3 / 4', focus: '30% center' },       // 縦長: 横顔タイピング - あえて右側を切って横顔に寄せる
+  3: { aspect: '4 / 5' },                            // 縦長ソフト: 3人で画面を見る瞬間
+  4: { aspect: '2 / 3' },                            // 縦長 native: 廊下の遠近感
+  5: { aspect: '3 / 2' },                            // 横長: 2人+逆光ドア
+  6: { aspect: '2 / 1', focus: 'center 60%' },       // シネマ横: 横断歩道 (車道の広がりを残す)
+  7: { aspect: '3 / 2' },                            // 横長: 木漏れ日の中の群像
+  8: { aspect: '4 / 5', focus: '50% 40%' },          // 縦長ソフト: 中央の笑顔フォーカス
+  9: { aspect: '3 / 2' },                            // 横長: ベンチ+芝生
+  10: { aspect: '2 / 1', focus: 'center 65%' },      // シネマ横: 土塀沿いの行列 (建物のリズム)
+  11: { aspect: '1 / 1', focus: '55% center' },      // スクエア: モニター対称構図
+  12: { aspect: '3 / 2' },                           // 横長: 3人横顔の流れ
+  13: { aspect: '2 / 3', focus: '50% 40%' },         // 縦長 (ドラマチック): 中央フォーカス+両端ブラー
+  14: { aspect: '3 / 2' },                           // 横長: 屋外を歩く群像
+  15: { aspect: '4 / 5', focus: '50% 45%' },         // 縦長ソフト: 笑顔の会話
+  16: { aspect: '2 / 3' },                           // 縦長 native: 木々のキャノピー
+  17: { aspect: '3 / 4', focus: '60% center' },     // 縦長: 会話の表情 (右の人物に寄せる)
+  18: { aspect: '2 / 1', focus: 'center 70%' },      // シネマ横: 壁沿いの行列
+}
+
+const tile = (n: number): Tile => ({
+  src: `/images/join-us/${String(n).padStart(2, '0')}.jpg`,
+  ...TILES[n],
+})
+
+// 18枚を3列に6枚ずつ排他的に割り当て、列内では2回ループして12タイル。
+// 列ごとに専用の画像セットなので、列をまたぐ重複は物理的に発生しない (= 同一画面ダブり0)。
+// 同じ列内の繰り返しは6行差なので、ビューポート(≒3-4行)内では同時表示されない。
+// 緑(屋外)もアスペクトも各列にバランス良く分散。
+const COL_1_SEQ = [7, 2, 6, 14, 11, 13] // 緑×2, 室内×2, 街×2
+const COL_2_SEQ = [8, 12, 15, 18, 17, 5] // 緑×3, 室内×2, 街×1
+const COL_3_SEQ = [9, 1, 16, 3, 10, 4]  // 緑×2, 室内×3, 街×1
+
 const GALLERY_COLUMNS: Tile[][] = [
-  // Col 1: images 1-12
-  [
-    { src: '/images/join-us/01.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/02.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/03.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/04.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/05.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/06.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/07.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/08.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/09.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/10.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/11.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/12.jpg', aspect: '4 / 3' },
-  ],
-  // Col 2: images 13-18 + 1-6 (1-6 と Col1 の同画像は 6行ズレ)
-  [
-    { src: '/images/join-us/13.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/14.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/15.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/16.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/17.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/18.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/01.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/02.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/03.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/04.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/05.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/06.jpg', aspect: '3 / 4' },
-  ],
-  // Col 3: images 7-12 + 13-18 (7-12 と Col1 / 13-18 と Col2 はそれぞれ 6行ズレ)
-  [
-    { src: '/images/join-us/07.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/08.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/09.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/10.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/11.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/12.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/13.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/14.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/15.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/16.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/17.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/18.jpg', aspect: '4 / 3' },
-  ],
+  [...COL_1_SEQ, ...COL_1_SEQ].map(tile),
+  [...COL_2_SEQ, ...COL_2_SEQ].map(tile),
+  [...COL_3_SEQ, ...COL_3_SEQ].map(tile),
 ]
 
 // 各列のスクロール量(yPercent)。スピードを少しずつズラして「列ごとに違う動き」を作る。
@@ -262,6 +252,7 @@ export default function HeroAiMakerSection() {
                         fill
                         sizes="(min-width: 1024px) 16vw, 50vw"
                         className="object-cover"
+                        style={img.focus ? { objectPosition: img.focus } : undefined}
                       />
                     </div>
                   ))}
