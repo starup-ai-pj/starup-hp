@@ -10,10 +10,10 @@ const ROLES = [
   },
   {
     num: '02',
-    name: 'AI Solution & FDE',
-    subtitle: 'Flowerium / Forward Deployed',
+    name: 'AI Solution',
+    subtitle: 'Flowerium / 現場とAIをつなぐ',
     body: '現場に入り、顧客のデータと業務を解きほぐしてAIにする。Flowerium基盤を使い、コンサルティングと開発の境目で動く仕事。',
-    roleNames: 'FDE / AI Engineer / Solution Architect',
+    roleNames: 'AI Engineer / Solution Architect',
   },
   {
     num: '03',
@@ -33,7 +33,7 @@ const PILLARS = [
   {
     num: '02',
     title: '現場 → プロダクト直結。',
-    body: 'FDEが現場で得た知見が、そのままプロダクトと基盤に還元される。隔たりのない現場と開発の往復。',
+    body: '現場に入り込んで得た知見が、そのままプロダクトと基盤に還元される。隔たりのない現場と開発の往復。',
   },
   {
     num: '03',
