@@ -47,9 +47,9 @@ export default function MessageSection() {
                   <p className="text-[10px] uppercase tracking-[0.4em] opacity-80 mb-3">
                     — Yuto Ogata, CEO
                   </p>
-                  <p className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.1]">
+                  <p className="text-xl md:text-2xl font-medium tracking-tight leading-[1.2]">
                     緒方 勇斗<br />
-                    代表取締役
+                    <span className="text-sm md:text-base text-white/80">代表取締役</span>
                   </p>
                 </div>
               </div>
