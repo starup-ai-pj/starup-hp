@@ -19,7 +19,6 @@ const CAREER_LINKS = [
 const SNS_LINKS = [
   { name: 'X (Twitter)', href: companySNS.twitter },
   { name: 'note', href: companySNS.note },
-  { name: 'Wantedly', href: companySNS.wantedly },
   { name: 'LinkedIn', href: companySNS.linkedin },
 ]
 
@@ -65,9 +64,6 @@ export default function Footer() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-12">
             {/* Headline */}
             <div className="lg:col-span-5">
-              <p className="text-[10px] text-gray-500 uppercase tracking-[0.4em] mb-4">
-                — Footer
-              </p>
               <h2 className="text-5xl md:text-7xl lg:text-[5.5rem] xl:text-9xl font-medium leading-[0.95] tracking-tight">
                 Ready to<br />
                 <span className="text-gray-500">make impact?</span>

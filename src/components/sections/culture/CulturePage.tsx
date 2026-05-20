@@ -16,13 +16,13 @@ const VALUES = [
   },
   {
     num: '02',
-    title: 'not cynical',
+    title: 'Not cynical',
     subtitle: '斜に構えない',
     body: 'できない理由ではなく実現する方法を考え、顧客・現場・仲間・外部の声に素直に向き合う。冷笑よりも、素直に試す方が答えに近い。',
   },
   {
     num: '03',
-    title: 'stay curious, stay grounded',
+    title: 'Stay curious, stay grounded',
     subtitle: 'ワクワクと現場を大切に',
     body: 'ワクワクと現場への深い理解を行き来し、顧客が本当に使える価値に変える。最先端の好奇心と、地に足のついた実装の両方を持つ。',
   },
@@ -43,7 +43,7 @@ const WORK_STYLES = [
   {
     num: '02',
     title: '現場 → プロダクト直結。',
-    body: 'FDEが現場で得た知見が、そのままプロダクトと基盤に還元される。隔たりのない現場と開発の往復。',
+    body: '現場に入り込んで得た知見が、そのままプロダクトと基盤に還元される。隔たりのない現場と開発の往復。',
   },
   {
     num: '03',

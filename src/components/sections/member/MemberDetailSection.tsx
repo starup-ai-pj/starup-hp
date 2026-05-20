@@ -392,7 +392,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
                         <p className="text-xs text-gray-400 mb-3">{m.englishName}</p>
                       )}
                       <span className="inline-flex items-center gap-1 text-xs text-gray-900 border-b border-gray-900 pb-0.5 transition-all duration-300">
-                        View profile
+                        Read more
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
