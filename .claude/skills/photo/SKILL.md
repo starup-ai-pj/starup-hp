@@ -1,6 +1,6 @@
 ---
 name: photo
-description: 画像の差し替え。メンバー写真（プロフィール画像 / インタビューhero画像）や、各ページのヒーロー画像をDownloads等から移動・リネームし、対応するコード参照も更新する。
+description: 画像の差し替え。メンバー写真（プロフィール画像 / インタビューhero画像）や、各ページのヒーロー画像をDownloads等から移動・リネームし、対応するコード参照も更新する。プロフィール画像のバストショット／ウエストアップへのクロップにも対応。
 allowed-tools: Read, Edit, Bash, Glob, Grep, AskUserQuestion
 ---
 
@@ -35,6 +35,59 @@ allowed-tools: Read, Edit, Bash, Glob, Grep, AskUserQuestion
 
 ファイル配置: `public/images/<section>/`
 命名規則: `<section>-hero.jpg` または既存ファイル名を踏襲
+
+### C. プロフィール画像のクロップ
+
+スタジオ／ロケで撮ったメンバー写真は 2732×4096（2:3 縦長）の全身ショットで届くことが多い。そのままだとメンバー一覧（`MemberListSection.tsx`）で `object-cover` 切り抜きが起きてバランスが悪いので、人物に寄せたクロップを行う。
+
+**前提（必ず守る）:**
+
+- **正方形（1:1）にしない**（過去にNG確定）
+- **アスペクト比は 3:4 縦長**で固定（デスクトップが `aspect-[3/4]`、モバイルが `aspect-[4/3]`。3:4 にしておけばモバイルでは object-cover で上下が切れるだけで顔は残る）
+- **バストショット（頭〜胸元）より少し引いた "ウエストアップ"** が好み。胸元で切るとキツすぎる
+- 元画像は `git checkout HEAD -- <path>` で戻せる前提で破壊的に上書きする。試行錯誤するときは戻してからやり直す
+- ImageMagick は無いので **Python3 + PIL** を使う（`python3 -c "from PIL import Image"` で確認）
+
+**推奨クロップ設定（2732×4096 ソース基準）:**
+
+- サイズ: `2000 × 2667`（3:4 縦長）
+- 顔の縦位置: クロップの上から **約 25%**（`crop_y = face_y - 667`）
+- 顔の横位置: 中心（`crop_x = face_center_x - 1000`）
+- 結果: 頭頂部に少し背景の余裕 → 頭〜腰元（ウエストアップ）まで入る
+
+**バストショットが欲しい場合**（よりタイト）:
+- サイズ: `1500 × 2000`
+- `crop_y = face_y - 500`、`crop_x = face_center_x - 750`
+
+**手順:**
+
+1. 対象画像を1枚ずつ `Read` ツールで表示してビジュアル確認
+2. 表示画像内で **顔の中心 Y**（目のあたり）と **被写体の横中心 X** を見積もる。`Read` の表示はソースの 1/4 スケール（683×1024）で出る — 4倍するとソース座標
+3. 各画像の `(crop_x, crop_y)` を計算し、Python スクリプトで一括クロップ
+4. クロップ後、再度 `Read` で結果確認。顔が高すぎ／低すぎ／オフセンターなら座標を微調整して再実行（元画像は `git checkout HEAD -- <files>` で戻す）
+
+**Pythonスクリプトのテンプレ:**
+
+```python
+from PIL import Image
+import os
+
+# (filename, crop_x, crop_y)
+crops = [
+    ("chikusa-namiki.jpg", 400, 613),
+    # ...
+]
+W, H = 2000, 2667  # 3:4 ウエストアップ
+base = "/Users/.../public/images/member"
+
+for name, x, y in crops:
+    path = os.path.join(base, name)
+    img = Image.open(path)
+    iw, ih = img.size
+    x = max(0, min(x, iw - W))
+    y = max(0, min(y, ih - H))
+    img.crop((x, y, x + W, y + H)).save(path, quality=92)
+```
 
 ## 手順
 
@@ -81,3 +134,12 @@ allowed-tools: Read, Edit, Bash, Glob, Grep, AskUserQuestion
 3. `mv ~/Downloads/IMG_xxx.jpg public/images/culture/culture-hero.jpg`（上書き）
 4. `CulturePage.tsx` の Hero `<Image src=...>` パスが既に `/images/culture/culture-hero.jpg` ならコード変更不要。違うなら更新。
 5. 旧 src を `grep -rn "office-1.jpg" src public` で確認 → 他参照あり（HistorySection等）なので残す
+
+### ケース3: 「全員のプロフ画像をバストショット/ウエストアップにクロップ」
+
+1. `sips -g pixelWidth -g pixelHeight public/images/member/*.jpg` で対象の jpg を洗い出し（2732×4096 のものが全身ショット候補）
+2. 各画像を `Read` で表示 → 顔中心 Y・横中心 X を見積もる（表示は1/4スケール）
+3. アスペクト比 3:4、サイズ 2000×2667（ウエストアップ）または 1500×2000（バストショット）で `(crop_x, crop_y)` を計算
+4. Python+PIL スクリプトで一括クロップ → `Read` で結果確認
+5. 寄りすぎ／引きすぎ／オフセンターなら `git checkout HEAD -- <files>` で元画像復元 → 座標調整して再実行
+6. 「正方形にしない」「ウエストアップ気味が好み」のフィードバックは過去に確定済み
