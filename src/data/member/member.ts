@@ -50,7 +50,8 @@ export interface Member {
         "大手IT企業をはじめとする3社にてPM・リードエンジニアを経験した後フリーランスエンジニアとして数十件の案件に携わる。生成AIを活用した新規事業立ち上げ、業務効率化、システム開発などを経験する。",
       comment: "技術で可能性を広げる",
       hasInterview: true,
-      image: "/images/member/tanaka-yuki.png",
+      image: "/images/member/tanaka-yuki.jpg",
+      heroImage: "/images/member/tanaka-yuki-hero.jpg",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
     // {
