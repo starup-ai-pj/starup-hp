@@ -112,9 +112,9 @@ export default function ServiceDetailSection() {
       <div className="flex">
         {/* ━━━ 左: sticky な iframe (PCのみ表示) ━━━ */}
         <div className="hidden lg:block w-[58%] xl:w-[60%] shrink-0">
-          <div className="sticky top-0 h-screen w-full">
-            {/* iframe は内側で自分のサイズを viewport として 3D を描画するので、
-                親に overflow を被せず、フル幅を渡してやればスラブ周囲のドットも収まる */}
+          <div className="sticky top-0 h-screen w-full bg-black">
+            {/* iframeはviewport分の3Dを描画するので、高さを少し短くして上に寄せると
+                スラブの中心が画面の上の方に来る。下の余白はbg-blackで馴染ませる */}
             <iframe
               ref={iframeRef}
               src="/network-background-4layer.html"
@@ -122,7 +122,7 @@ export default function ServiceDetailSection() {
               loading="lazy"
               scrolling="no"
               onLoad={handleIframeLoad}
-              className="block w-full h-full border-0 bg-black"
+              className="block w-full h-[90vh] border-0 bg-black"
             />
           </div>
         </div>
