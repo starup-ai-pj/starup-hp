@@ -1,0 +1,814 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+</style>
+
+<canvas id="neural-network-canvas"></canvas>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+    import * as THREE from 'three';
+    import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+    import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+    import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+    import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+    import { FilmPass } from 'three/addons/postprocessing/FilmPass.js';
+    import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+    const config = {
+        paused: false,
+        activePaletteIndex: 0,
+        currentFormation: 1,
+        densityFactor: 1
+    };
+
+    // 白系のモノクロパレット。明度だけ段階的に変える。
+    const colorPalettes = [
+        [
+            new THREE.Color(1.00, 1.00, 1.00),
+            new THREE.Color(0.85, 0.85, 0.85),
+            new THREE.Color(0.70, 0.70, 0.70),
+            new THREE.Color(0.55, 0.55, 0.55),
+            new THREE.Color(0.40, 0.40, 0.40)
+        ]
+    ];
+
+    function getViewportSize() {
+        const w = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0, 1);
+        const h = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0, 1);
+        return { width: w, height: h };
+    }
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x000000, 0.0015);
+
+    const initialSize = getViewportSize();
+    const camera = new THREE.PerspectiveCamera(60, initialSize.width / initialSize.height, 0.1, 1200);
+    // 3 層スタック（縦に 8 ユニット）を見下ろす構図
+    camera.position.set(0, 20, 36);
+    camera.lookAt(0, 0, 0);
+
+    const canvasElement = document.getElementById('neural-network-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas: canvasElement, antialias: true, powerPreference: "high-performance" });
+    renderer.setSize(initialSize.width, initialSize.height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    const composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene, camera));
+
+    const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.9, 0.4, 0.75);
+    composer.addPass(bloomPass);
+
+    const filmPass = new FilmPass(0.35, 0.55, 2048, false);
+    composer.addPass(filmPass);
+
+    composer.addPass(new OutputPass());
+
+    const pulseUniforms = {
+        uTime: { value: 0.0 },
+        uPulsePositions: { value: [new THREE.Vector3(1e3, 1e3, 1e3), new THREE.Vector3(1e3, 1e3, 1e3), new THREE.Vector3(1e3, 1e3, 1e3)] },
+        uPulseTimes: { value: [-1e3, -1e3, -1e3] },
+        uPulseColors: { value: [new THREE.Color(1, 1, 1), new THREE.Color(1, 1, 1), new THREE.Color(1, 1, 1)] },
+        uPulseSpeed: { value: 15.0 },
+        uBaseNodeSize: { value: 0.32 },
+        uActivePalette: { value: 0 }
+    };
+
+    const noiseFunctions = `
+    vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;}
+    vec4 mod289(vec4 x){return x-floor(x*(1.0/289.0))*289.0;}
+    vec4 permute(vec4 x){return mod289(((x*34.0)+1.0)*x);}
+    vec4 taylorInvSqrt(vec4 r){return 1.79284291400159-0.85373472095314*r;}
+    float snoise(vec3 v){
+        const vec2 C=vec2(1.0/6.0,1.0/3.0);const vec4 D=vec4(0.0,0.5,1.0,2.0);
+        vec3 i=floor(v+dot(v,C.yyy));vec3 x0=v-i+dot(i,C.xxx);vec3 g=step(x0.yzx,x0.xyz);
+        vec3 l=1.0-g;vec3 i1=min(g.xyz,l.zxy);vec3 i2=max(g.xyz,l.zxy);
+        vec3 x1=x0-i1+C.xxx;vec3 x2=x0-i2+C.yyy;vec3 x3=x0-D.yyy;i=mod289(i);
+        vec4 p=permute(permute(permute(i.z+vec4(0.0,i1.z,i2.z,1.0))+i.y+vec4(0.0,i1.y,i2.y,1.0))+i.x+vec4(0.0,i1.x,i2.x,1.0));
+        float n_=0.142857142857;vec3 ns=n_*D.wyz-D.xzx;
+        vec4 j=p-49.0*floor(p*ns.z*ns.z);vec4 x_=floor(j*ns.z);vec4 y_=floor(j-7.0*x_);
+        vec4 x=x_*ns.x+ns.yyyy;vec4 y=y_*ns.x+ns.yyyy;vec4 h=1.0-abs(x)-abs(y);
+        vec4 b0=vec4(x.xy,y.xy);vec4 b1=vec4(x.zw,y.zw);vec4 s0=floor(b0)*2.0+1.0;vec4 s1=floor(b1)*2.0+1.0;
+        vec4 sh=-step(h,vec4(0.0));vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy;vec4 a1=b1.xzyw+s1.xzyw*sh.zzww;
+        vec3 p0=vec3(a0.xy,h.x);vec3 p1=vec3(a0.zw,h.y);vec3 p2=vec3(a1.xy,h.z);vec3 p3=vec3(a1.zw,h.w);
+        vec4 norm=taylorInvSqrt(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));
+        p0*=norm.x;p1*=norm.y;p2*=norm.z;p3*=norm.w;vec4 m=max(0.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.0);
+        m*=m;return 42.0*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));
+    }
+    float fbm(vec3 p,float time){
+        float value=0.0;float amplitude=0.5;float frequency=1.0;int octaves=3;
+        for(int i=0;i<octaves;i++){
+            value+=amplitude*snoise(p*frequency+time*0.2*frequency);
+            amplitude*=0.5;frequency*=2.0;
+        }
+        return value;
+    }`;
+
+    const nodeShader = {
+        vertexShader: `${noiseFunctions}
+        attribute float nodeSize;attribute float nodeType;attribute vec3 nodeColor;attribute vec3 connectionIndices;attribute float distanceFromRoot;
+        uniform float uTime;uniform vec3 uPulsePositions[3];uniform float uPulseTimes[3];uniform float uPulseSpeed;uniform float uBaseNodeSize;
+        varying vec3 vColor;varying float vNodeType;varying vec3 vPosition;varying float vPulseIntensity;varying float vDistanceFromRoot;
+
+        float getPulseIntensity(vec3 worldPos, vec3 pulsePos, float pulseTime) {
+            if (pulseTime < 0.0) return 0.0;
+            float timeSinceClick = uTime - pulseTime;
+            if (timeSinceClick < 0.0 || timeSinceClick > 3.0) return 0.0;
+
+            float pulseRadius = timeSinceClick * uPulseSpeed;
+            float distToClick = distance(worldPos, pulsePos);
+            float pulseThickness = 2.0;
+            float waveProximity = abs(distToClick - pulseRadius);
+
+            return smoothstep(pulseThickness, 0.0, waveProximity) * smoothstep(3.0, 0.0, timeSinceClick);
+        }
+
+        void main() {
+            vNodeType = nodeType;
+            vColor = nodeColor;
+            vDistanceFromRoot = distanceFromRoot;
+
+            vec3 worldPos = (modelMatrix * vec4(position, 1.0)).xyz;
+            vPosition = worldPos;
+
+            float totalPulseIntensity = 0.0;
+            for (int i = 0; i < 3; i++) {
+                totalPulseIntensity += getPulseIntensity(worldPos, uPulsePositions[i], uPulseTimes[i]);
+            }
+            vPulseIntensity = min(totalPulseIntensity, 1.0);
+
+            float timeScale = 0.5 + 0.5 * sin(uTime * 0.8 + distanceFromRoot * 0.2);
+            float baseSize = nodeSize * (0.8 + 0.2 * timeScale);
+            float pulseSize = baseSize * (1.0 + vPulseIntensity * 2.0);
+
+            vec3 modifiedPosition = position;
+            if (nodeType > 0.5) {
+                float noise = fbm(position * 0.1, uTime * 0.1);
+                modifiedPosition += normal * noise * 0.2;
+            }
+
+            vec4 mvPosition = modelViewMatrix * vec4(modifiedPosition, 1.0);
+            gl_PointSize = pulseSize * uBaseNodeSize * (800.0 / -mvPosition.z);
+            gl_Position = projectionMatrix * mvPosition;
+        }`,
+
+        fragmentShader: `
+        uniform float uTime;uniform vec3 uPulseColors[3];uniform int uActivePalette;
+        varying vec3 vColor;varying float vNodeType;varying vec3 vPosition;varying float vPulseIntensity;varying float vDistanceFromRoot;
+
+        void main() {
+            vec2 center = 2.0 * gl_PointCoord - 1.0;
+            float dist = length(center);
+            if (dist > 1.0) discard;
+
+            float glowStrength = 1.0 - smoothstep(0.0, 1.0, dist);
+            glowStrength = pow(glowStrength, 1.4);
+
+            vec3 baseColor = vColor * (0.8 + 0.2 * sin(uTime * 0.5 + vDistanceFromRoot * 0.3));
+            vec3 finalColor = baseColor;
+
+            if (vPulseIntensity > 0.0) {
+                vec3 pulseColor = mix(vec3(1.0), uPulseColors[0], 0.3);
+                finalColor = mix(baseColor, pulseColor, vPulseIntensity);
+                finalColor *= (1.0 + vPulseIntensity * 0.7);
+            }
+
+            float alpha = glowStrength * (0.9 - 0.5 * dist);
+
+            float camDistance = length(vPosition - cameraPosition);
+            float distanceFade = smoothstep(80.0, 10.0, camDistance);
+
+            if (vNodeType > 0.5) {
+                alpha *= 0.85;
+            } else {
+                finalColor *= 1.2;
+            }
+
+            gl_FragColor = vec4(finalColor, alpha * distanceFade);
+        }`
+    };
+
+    const connectionShader = {
+        vertexShader: `${noiseFunctions}
+        attribute vec3 startPoint;attribute vec3 endPoint;attribute float connectionStrength;attribute float pathIndex;attribute vec3 connectionColor;
+        uniform float uTime;uniform vec3 uPulsePositions[3];uniform float uPulseTimes[3];uniform float uPulseSpeed;
+        varying vec3 vColor;varying float vConnectionStrength;varying float vPulseIntensity;varying float vPathPosition;
+
+        float getPulseIntensity(vec3 worldPos, vec3 pulsePos, float pulseTime) {
+            if (pulseTime < 0.0) return 0.0;
+            float timeSinceClick = uTime - pulseTime;
+            if (timeSinceClick < 0.0 || timeSinceClick > 3.0) return 0.0;
+            float pulseRadius = timeSinceClick * uPulseSpeed;
+            float distToClick = distance(worldPos, pulsePos);
+            float pulseThickness = 2.0;
+            float waveProximity = abs(distToClick - pulseRadius);
+            return smoothstep(pulseThickness, 0.0, waveProximity) * smoothstep(3.0, 0.0, timeSinceClick);
+        }
+
+        void main() {
+            float t = position.x;
+            vPathPosition = t;
+
+            vec3 midPoint = mix(startPoint, endPoint, 0.5);
+            float pathOffset = sin(t * 3.14159) * 0.1;
+            vec3 perpendicular = normalize(cross(normalize(endPoint - startPoint), vec3(0.0, 1.0, 0.0)));
+            if (length(perpendicular) < 0.1) perpendicular = vec3(1.0, 0.0, 0.0);
+            midPoint += perpendicular * pathOffset;
+
+            vec3 p0 = mix(startPoint, midPoint, t);
+            vec3 p1 = mix(midPoint, endPoint, t);
+            vec3 finalPos = mix(p0, p1, t);
+
+            float noiseTime = uTime * 0.2;
+            float noise = fbm(vec3(pathIndex * 0.1, t * 0.5, noiseTime), noiseTime);
+            finalPos += perpendicular * noise * 0.1;
+
+            vec3 worldPos = (modelMatrix * vec4(finalPos, 1.0)).xyz;
+
+            float totalPulseIntensity = 0.0;
+            for (int i = 0; i < 3; i++) {
+                totalPulseIntensity += getPulseIntensity(worldPos, uPulsePositions[i], uPulseTimes[i]);
+            }
+            vPulseIntensity = min(totalPulseIntensity, 1.0);
+
+            vColor = connectionColor;
+            vConnectionStrength = connectionStrength;
+
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(finalPos, 1.0);
+        }`,
+
+        fragmentShader: `
+        uniform float uTime;uniform vec3 uPulseColors[3];
+        varying vec3 vColor;varying float vConnectionStrength;varying float vPulseIntensity;varying float vPathPosition;
+
+        void main() {
+            vec3 baseColor = vColor * (0.7 + 0.3 * sin(uTime * 0.5 + vPathPosition * 10.0));
+
+            float flowPattern = sin(vPathPosition * 20.0 - uTime * 3.0) * 0.5 + 0.5;
+            float flowIntensity = 0.3 * flowPattern * vConnectionStrength;
+
+            vec3 finalColor = baseColor;
+
+            if (vPulseIntensity > 0.0) {
+                vec3 pulseColor = mix(vec3(1.0), uPulseColors[0], 0.3);
+                finalColor = mix(baseColor, pulseColor, vPulseIntensity);
+                flowIntensity += vPulseIntensity * 0.5;
+            }
+
+            finalColor *= (0.6 + flowIntensity + vConnectionStrength * 0.4);
+
+            float alpha = 0.8 * vConnectionStrength + 0.2 * flowPattern;
+            alpha = mix(alpha, min(1.0, alpha * 2.0), vPulseIntensity);
+
+            gl_FragColor = vec4(finalColor, alpha);
+        }`
+    };
+
+    class Node {
+        constructor(position, level = 0, type = 0) {
+            this.position = position;
+            this.connections = [];
+            this.level = level;
+            this.type = type;
+            this.size = type === 0 ? THREE.MathUtils.randFloat(0.7, 1.2) : THREE.MathUtils.randFloat(0.4, 0.9);
+            this.distanceFromRoot = 0;
+        }
+
+        addConnection(node, strength = 1.0) {
+            if (!this.isConnectedTo(node)) {
+                this.connections.push({ node, strength });
+                node.connections.push({ node: this, strength });
+            }
+        }
+
+        isConnectedTo(node) {
+            return this.connections.some(conn => conn.node === node);
+        }
+    }
+
+    function generateNeuralNetwork(densityFactor = 1.0) {
+        let nodes = [];
+
+        const rootNode = new Node(new THREE.Vector3(0, 0, 0), 0, 0);
+        rootNode.size = 1.5;
+        nodes.push(rootNode);
+
+        const GRID_N = 28;
+        const HALF_W = 14;
+        const HALF_H = 0.4;
+        const HALF_W_EXTRA = 14.5;   // cube (13) より僅かに外側まで。飛び出しを控えめに
+        const HALF_H_EXTRA = 0.55;
+        const step = (HALF_W * 2) / (GRID_N - 1);
+
+        const LAYER_COUNT = 3;
+        const LAYER_SPACING = 8;      // 層間隔（Y 軸）
+        const layers = [];            // { nodes: NetNode[], grid: (NetNode|null)[][] }
+
+        // ── 各層を生成 ──
+        for (let l = 0; l < LAYER_COUNT; l++) {
+            const yOffset = (l - (LAYER_COUNT - 1) / 2) * LAYER_SPACING;
+            const layerNodes = [];
+            const grid = [];
+
+            // グリッドノード（欠落 25%, 極外れ 12%, 強ジッター 53%, 控えめ 35%）
+            for (let zi = 0; zi < GRID_N; zi++) {
+                const row = [];
+                for (let xi = 0; xi < GRID_N; xi++) {
+                    if (Math.random() < 0.25) { row.push(null); continue; }
+
+                    const r = Math.random();
+                    let jitter;
+                    if (r < 0.07)       jitter = step * 1.1;   // 極外れ（旧 1.9 → 1.1 に縮小）
+                    else if (r < 0.55)  jitter = step * 0.55;
+                    else                jitter = step * 0.22;
+
+                    const x = -HALF_W + xi * step + THREE.MathUtils.randFloatSpread(jitter);
+                    const z = -HALF_W + zi * step + THREE.MathUtils.randFloatSpread(jitter);
+                    const y = yOffset + THREE.MathUtils.randFloatSpread(HALF_H * 2);
+
+                    const pos = new THREE.Vector3(x, y, z);
+                    const distance = pos.length();
+                    const isLeaf = Math.random() < 0.25;
+                    const level = Math.min(4, Math.floor(distance / 4) + 1);
+                    const newNode = new Node(pos, level, isLeaf ? 1 : 0);
+                    newNode.distanceFromRoot = distance;
+                    nodes.push(newNode);
+                    layerNodes.push(newNode);
+                    row.push(newNode);
+                }
+                grid.push(row);
+            }
+
+            // off-grid 散布
+            const extraCount = Math.floor(200 * densityFactor);
+            const extraNodes = [];
+            for (let i = 0; i < extraCount; i++) {
+                const pos = new THREE.Vector3(
+                    THREE.MathUtils.randFloatSpread(HALF_W_EXTRA * 2),
+                    yOffset + THREE.MathUtils.randFloatSpread(HALF_H_EXTRA * 2),
+                    THREE.MathUtils.randFloatSpread(HALF_W_EXTRA * 2)
+                );
+                const distance = pos.length();
+                const level = Math.min(4, Math.floor(distance / 4) + 1);
+                const newNode = new Node(pos, level, Math.random() < 0.5 ? 1 : 0);
+                newNode.distanceFromRoot = distance;
+                nodes.push(newNode);
+                layerNodes.push(newNode);
+                extraNodes.push(newNode);
+            }
+
+            // グリッド隣接接続
+            for (let zi = 0; zi < GRID_N; zi++) {
+                for (let xi = 0; xi < GRID_N; xi++) {
+                    const n = grid[zi][xi];
+                    if (!n) continue;
+                    if (xi < GRID_N - 1 && grid[zi][xi + 1]) {
+                        n.addConnection(grid[zi][xi + 1], 0.5 + Math.random() * 0.3);
+                    }
+                    if (zi < GRID_N - 1 && grid[zi + 1][xi]) {
+                        n.addConnection(grid[zi + 1][xi], 0.5 + Math.random() * 0.3);
+                    }
+                }
+            }
+
+            // off-grid を同層内の最寄りに接続
+            for (const ex of extraNodes) {
+                const cnt = 1 + Math.floor(Math.random() * 2);
+                const nearby = layerNodes
+                    .filter(n => n !== ex)
+                    .sort((a, b) =>
+                        ex.position.distanceTo(a.position) -
+                        ex.position.distanceTo(b.position)
+                    );
+                for (let j = 0; j < Math.min(cnt, nearby.length); j++) {
+                    if (!ex.isConnectedTo(nearby[j])) {
+                        ex.addConnection(nearby[j], 0.35);
+                    }
+                }
+            }
+
+            // 対角ランダム接続
+            const diagonals = Math.floor(GRID_N * GRID_N * 0.18 * densityFactor);
+            for (let i = 0; i < diagonals; i++) {
+                const zi = Math.floor(Math.random() * (GRID_N - 1));
+                const xi = Math.floor(Math.random() * (GRID_N - 1));
+                const n = grid[zi][xi];
+                if (!n) continue;
+                const goRight = Math.random() < 0.5;
+                const target = goRight
+                    ? grid[zi + 1][xi + 1]
+                    : (xi > 0 ? grid[zi + 1][xi - 1] : null);
+                if (target && !n.isConnectedTo(target)) {
+                    n.addConnection(target, 0.3);
+                }
+            }
+
+            layers.push({ nodes: layerNodes, grid });
+        }
+
+        // ── 層間接続（隣接層間。XZ 距離で最寄りに繋ぐ） ──
+        // 層内接続の約 1/5 程度の本数を目標に、上層側の各ノードに interProb の確率で
+        // 下層の XZ 最近傍ノードへの 1 本を生やす。
+        const interProb = 0.005;
+        for (let l = 0; l < LAYER_COUNT - 1; l++) {
+            const layerA = layers[l].nodes;
+            const layerB = layers[l + 1].nodes;
+            for (const a of layerA) {
+                if (Math.random() > interProb) continue;
+                let bestB = null, bestD = Infinity;
+                for (const b of layerB) {
+                    const dx = a.position.x - b.position.x;
+                    const dz = a.position.z - b.position.z;
+                    const d = dx * dx + dz * dz;
+                    if (d < bestD) { bestD = d; bestB = b; }
+                }
+                if (bestB && !a.isConnectedTo(bestB)) {
+                    // strength を低めに（接続線シェーダは alpha = 0.8 * strength + 0.2 * flow
+                    // なので strength が小さいほど透けて見える）
+                    a.addConnection(bestB, 0.15);
+                }
+            }
+        }
+
+        // 中央層の中心ノードをルートに繋ぐ（pulse の起点）
+        const cIdx = Math.floor(GRID_N / 2);
+        const midGrid = layers[Math.floor(LAYER_COUNT / 2)].grid;
+        if (midGrid[cIdx][cIdx]) {
+            rootNode.addConnection(midGrid[cIdx][cIdx], 0.8);
+        }
+
+        if (densityFactor < 1.0) {
+            nodes = nodes.filter((node, index) => {
+                if (node === rootNode) return true;
+                const hash = (index * 31 + Math.floor(densityFactor * 100)) % 100;
+                return hash < (densityFactor * 100);
+            });
+            nodes.forEach(node => {
+                node.connections = node.connections.filter(conn => nodes.includes(conn.node));
+            });
+        }
+
+        return { nodes, rootNode };
+    }
+
+    let neuralNetwork = null, nodesMesh = null, connectionsMesh = null;
+    let glassMesh = null;
+    // 層ごとの独立マテリアル参照。parent から postMessage でフォーカス層を指定可能にする
+    const slabMaterials = [];
+    // focusLayerIdx: -1=フォーカス無し / 0..LAYER_COUNT-1 = その層をハイライト
+    let focusLayerIdx = -1;
+    // 層ごとに分けた強度値。インデックスは 3D 層インデックス (l=0 が底、l=2 が天)。
+    // 天層 (l=2) はカメラに近く画面占有率が大きいので、同じ uIntensity でも視覚的により
+    // 強く光る → focus 時は控えめに、dim 時はやや余裕を残す。
+    // 底層 (l=0) は遠く小さいので、focus 時は強めに振らないとフォーカス感が出ない。
+    const BASE_INTENSITIES = [0.4, 0.4, 0.4];        // [底, 中, 天]
+    const FOCUS_INTENSITIES = [1.4, 0.95, 0.55];     // [底, 中, 天]
+    const DIM_INTENSITIES = [0.10, 0.10, 0.08];      // [底, 中, 天]
+
+    // ガラスのスラブ（面取りされた薄い直方体）を格子を覆うように配置。
+    //
+    // ガラスっぽさを出すための仕掛け:
+    //   1. RoundedBoxGeometry — 面取り（chamfer）で、エッジ近傍に "湾曲した surface" が
+    //      でき、そこに Fresnel が滑らかに乗ってガラス縁の光沢を作る。
+    //   2. Fresnel シェーダ — 視線と垂直 (正面) は暗く透明、grazing angle で光る。
+    //   3. AdditiveBlending — 暗い背景に対して "光を足す" 描画。中心は実質ノーオペ。
+    //   4. 強さは控えめ（uIntensity 低め + uFresnelPower 高め）で、エッジだけが
+    //      鋭く光るチューンにする。別途エッジ LineSegments は重ねない。
+    function createGlassSlab() {
+        // cube を格子よりわずかに小さく & 薄く。dot が外にはみ出して
+        // cube と dot が混ざる構図を狙う。
+        const W = 26;
+        const H = 0.45;
+        const D = 26;
+
+        // 第4引数 segments: 面取りの分割数（多いほど滑らか）
+        // 第5引数 radius: 面取り半径（最大 = H/2 = 0.225）
+        const geo = new RoundedBoxGeometry(W, H, D, 4, 0.08);
+
+        const makeGlassMat = () => new THREE.ShaderMaterial({
+            uniforms: {
+                uCameraPos: { value: camera.position },
+                uCenterColor: { value: new THREE.Color(0x080808) },
+                uEdgeColor:   { value: new THREE.Color(0xffffff) },
+                uFresnelPower: { value: 2.5 },
+                uIntensity:   { value: 0.4 },
+            },
+            vertexShader: `
+                varying vec3 vWorldPos;
+                varying vec3 vWorldNormal;
+                void main() {
+                    vec4 wp = modelMatrix * vec4(position, 1.0);
+                    vWorldPos = wp.xyz;
+                    vWorldNormal = normalize((modelMatrix * vec4(normal, 0.0)).xyz);
+                    gl_Position = projectionMatrix * viewMatrix * wp;
+                }
+            `,
+            fragmentShader: `
+                uniform vec3 uCameraPos;
+                uniform vec3 uCenterColor;
+                uniform vec3 uEdgeColor;
+                uniform float uFresnelPower;
+                uniform float uIntensity;
+                varying vec3 vWorldPos;
+                varying vec3 vWorldNormal;
+                void main() {
+                    vec3 V = normalize(uCameraPos - vWorldPos);
+                    float NdotV = abs(dot(V, vWorldNormal));
+                    float fresnel = pow(1.0 - NdotV, uFresnelPower);
+                    vec3 color = mix(uCenterColor, uEdgeColor, fresnel) * uIntensity;
+                    gl_FragColor = vec4(color, 1.0);
+                }
+            `,
+            transparent: true,
+            blending: THREE.AdditiveBlending,
+            side: THREE.DoubleSide,
+            depthWrite: false,
+        });
+        // 3 層に対してマテリアルをそれぞれインスタンス化して保持し、
+        // 親(React)からのフォーカス指示で層ごとに uIntensity を変える。
+        const LAYER_COUNT = 3;
+        const LAYER_SPACING = 8;
+        const group = new THREE.Group();
+        for (let l = 0; l < LAYER_COUNT; l++) {
+            const mat = makeGlassMat();
+            const m = new THREE.Mesh(geo, mat);
+            m.position.y = (l - (LAYER_COUNT - 1) / 2) * LAYER_SPACING;
+            group.add(m);
+            slabMaterials.push(mat);
+        }
+        scene.add(group);
+        glassMesh = group; // animate ループから回転制御
+    }
+
+    function createNetworkVisualization(densityFactor = 1.0) {
+        if (nodesMesh) {
+            scene.remove(nodesMesh);
+            nodesMesh.geometry.dispose();
+            nodesMesh.material.dispose();
+            nodesMesh = null;
+        }
+        if (connectionsMesh) {
+            scene.remove(connectionsMesh);
+            connectionsMesh.geometry.dispose();
+            connectionsMesh.material.dispose();
+            connectionsMesh = null;
+        }
+
+        neuralNetwork = generateNeuralNetwork(densityFactor);
+        if (!neuralNetwork || neuralNetwork.nodes.length === 0) {
+            return;
+        }
+
+        const nodesGeometry = new THREE.BufferGeometry();
+        const nodePositions = [], nodeTypes = [], nodeSizes = [], nodeColors = [], connectionIndices = [], distancesFromRoot = [];
+
+        neuralNetwork.nodes.forEach((node) => {
+            nodePositions.push(node.position.x, node.position.y, node.position.z);
+            nodeTypes.push(node.type);
+            nodeSizes.push(node.size);
+            distancesFromRoot.push(node.distanceFromRoot);
+
+            const indices = node.connections.slice(0, 3).map(conn => neuralNetwork.nodes.indexOf(conn.node));
+            while (indices.length < 3) indices.push(-1);
+            connectionIndices.push(...indices);
+
+            const palette = colorPalettes[config.activePaletteIndex];
+            const colorIndex = Math.min(node.level, palette.length - 1);
+            const baseColor = palette[colorIndex % palette.length].clone();
+            // 白を保ったまま明度だけ揺らす（offsetHSL は彩度を入れてしまうので避ける）
+            baseColor.multiplyScalar(0.75 + Math.random() * 0.5);
+            nodeColors.push(baseColor.r, baseColor.g, baseColor.b);
+        });
+
+        nodesGeometry.setAttribute('position', new THREE.Float32BufferAttribute(nodePositions, 3));
+        nodesGeometry.setAttribute('nodeType', new THREE.Float32BufferAttribute(nodeTypes, 1));
+        nodesGeometry.setAttribute('nodeSize', new THREE.Float32BufferAttribute(nodeSizes, 1));
+        nodesGeometry.setAttribute('nodeColor', new THREE.Float32BufferAttribute(nodeColors, 3));
+        nodesGeometry.setAttribute('connectionIndices', new THREE.Float32BufferAttribute(connectionIndices, 3));
+        nodesGeometry.setAttribute('distanceFromRoot', new THREE.Float32BufferAttribute(distancesFromRoot, 1));
+
+        const nodesMaterial = new THREE.ShaderMaterial({
+            uniforms: THREE.UniformsUtils.clone(pulseUniforms),
+            vertexShader: nodeShader.vertexShader,
+            fragmentShader: nodeShader.fragmentShader,
+            transparent: true,
+            depthWrite: false,
+            blending: THREE.AdditiveBlending
+        });
+
+        nodesMesh = new THREE.Points(nodesGeometry, nodesMaterial);
+        scene.add(nodesMesh);
+
+        const connectionsGeometry = new THREE.BufferGeometry();
+        const connectionColors = [], connectionStrengths = [], connectionPositions = [], startPoints = [], endPoints = [], pathIndices = [];
+        const processedConnections = new Set();
+        let pathIndex = 0;
+
+        neuralNetwork.nodes.forEach((node, nodeIndex) => {
+            node.connections.forEach(connection => {
+                const connectedNode = connection.node;
+                const connectedIndex = neuralNetwork.nodes.indexOf(connectedNode);
+                if (connectedIndex === -1) return;
+
+                const key = [Math.min(nodeIndex, connectedIndex), Math.max(nodeIndex, connectedIndex)].join('-');
+                if (!processedConnections.has(key)) {
+                    processedConnections.add(key);
+
+                    const startPoint = node.position;
+                    const endPoint = connectedNode.position;
+                    const numSegments = 15;
+
+                    for (let i = 0; i < numSegments; i++) {
+                        const t = i / (numSegments - 1);
+                        connectionPositions.push(t, 0, 0);
+                        startPoints.push(startPoint.x, startPoint.y, startPoint.z);
+                        endPoints.push(endPoint.x, endPoint.y, endPoint.z);
+                        pathIndices.push(pathIndex);
+                        connectionStrengths.push(connection.strength);
+
+                        const palette = colorPalettes[config.activePaletteIndex];
+                        const avgLevel = Math.min(Math.floor((node.level + connectedNode.level) / 2), palette.length - 1);
+                        const baseColor = palette[avgLevel % palette.length].clone();
+                        baseColor.multiplyScalar(0.7 + Math.random() * 0.5);
+                        connectionColors.push(baseColor.r, baseColor.g, baseColor.b);
+                    }
+                    pathIndex++;
+                }
+            });
+        });
+
+        connectionsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(connectionPositions, 3));
+        connectionsGeometry.setAttribute('startPoint', new THREE.Float32BufferAttribute(startPoints, 3));
+        connectionsGeometry.setAttribute('endPoint', new THREE.Float32BufferAttribute(endPoints, 3));
+        connectionsGeometry.setAttribute('connectionStrength', new THREE.Float32BufferAttribute(connectionStrengths, 1));
+        connectionsGeometry.setAttribute('connectionColor', new THREE.Float32BufferAttribute(connectionColors, 3));
+        connectionsGeometry.setAttribute('pathIndex', new THREE.Float32BufferAttribute(pathIndices, 1));
+
+        const connectionsMaterial = new THREE.ShaderMaterial({
+            uniforms: THREE.UniformsUtils.clone(pulseUniforms),
+            vertexShader: connectionShader.vertexShader,
+            fragmentShader: connectionShader.fragmentShader,
+            transparent: true,
+            depthWrite: false,
+            blending: THREE.AdditiveBlending
+        });
+
+        connectionsMesh = new THREE.LineSegments(connectionsGeometry, connectionsMaterial);
+        scene.add(connectionsMesh);
+
+        const palette = colorPalettes[config.activePaletteIndex];
+        connectionsMaterial.uniforms.uPulseColors.value[0].copy(palette[0]);
+        connectionsMaterial.uniforms.uPulseColors.value[1].copy(palette[1]);
+        connectionsMaterial.uniforms.uPulseColors.value[2].copy(palette[2]);
+        nodesMaterial.uniforms.uPulseColors.value[0].copy(palette[0]);
+        nodesMaterial.uniforms.uPulseColors.value[1].copy(palette[1]);
+        nodesMaterial.uniforms.uPulseColors.value[2].copy(palette[2]);
+        nodesMaterial.uniforms.uActivePalette.value = config.activePaletteIndex;
+    }
+
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+    const interactionPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+    const interactionPoint = new THREE.Vector3();
+    let lastPulseIndex = 0;
+
+    function triggerPulse(clientX, clientY) {
+        pointer.x = (clientX / window.innerWidth) * 2 - 1;
+        pointer.y = -(clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(pointer, camera);
+
+        interactionPlane.normal.copy(camera.position).normalize();
+        interactionPlane.constant = -interactionPlane.normal.dot(camera.position) + camera.position.length() * 0.5;
+
+        if (raycaster.ray.intersectPlane(interactionPlane, interactionPoint)) {
+            const time = clock.getElapsedTime();
+
+            if (nodesMesh && connectionsMesh) {
+                lastPulseIndex = (lastPulseIndex + 1) % 3;
+
+                nodesMesh.material.uniforms.uPulsePositions.value[lastPulseIndex].copy(interactionPoint);
+                nodesMesh.material.uniforms.uPulseTimes.value[lastPulseIndex] = time;
+                connectionsMesh.material.uniforms.uPulsePositions.value[lastPulseIndex].copy(interactionPoint);
+                connectionsMesh.material.uniforms.uPulseTimes.value[lastPulseIndex] = time;
+
+                const palette = colorPalettes[config.activePaletteIndex];
+                const randomColor = palette[Math.floor(Math.random() * palette.length)];
+                nodesMesh.material.uniforms.uPulseColors.value[lastPulseIndex].copy(randomColor);
+                connectionsMesh.material.uniforms.uPulseColors.value[lastPulseIndex].copy(randomColor);
+            }
+        }
+    }
+
+    renderer.domElement.addEventListener('click', (e) => {
+        if (!config.paused) triggerPulse(e.clientX, e.clientY);
+    });
+    renderer.domElement.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        if (e.touches.length > 0 && !config.paused) {
+            triggerPulse(e.touches[0].clientX, e.touches[0].clientY);
+        }
+    }, { passive: false });
+
+    const clock = new THREE.Clock();
+    // 静止構図の基点となる Y rotation。3/4 ビューで奥行きが出る角度。
+    const FIXED_Y_ROT = 0.4;
+
+    function animate() {
+        requestAnimationFrame(animate);
+
+        const t = clock.getElapsedTime();
+
+        if (!config.paused) {
+            // ゆっくりした連続回転 + 微弱な wobble。初期角度 FIXED_Y_ROT を基点に動かす。
+            const yRot = FIXED_Y_ROT + t * 0.01 + Math.sin(t * 0.05) * 0.04;
+            if (nodesMesh) {
+                nodesMesh.material.uniforms.uTime.value = t;
+                nodesMesh.rotation.y = yRot;
+            }
+            if (connectionsMesh) {
+                connectionsMesh.material.uniforms.uTime.value = t;
+                connectionsMesh.rotation.y = yRot;
+            }
+            if (glassMesh) glassMesh.rotation.y = yRot;
+        }
+
+        // 各層のフォーカス状態を lerp で滑らかに反映 (層ごとに目標値を分ける)
+        if (slabMaterials.length > 0) {
+            slabMaterials.forEach((mat, l) => {
+                let target;
+                if (focusLayerIdx === -1) {
+                    target = BASE_INTENSITIES[l];
+                } else if (l === focusLayerIdx) {
+                    target = FOCUS_INTENSITIES[l];
+                } else {
+                    target = DIM_INTENSITIES[l];
+                }
+                const current = mat.uniforms.uIntensity.value;
+                mat.uniforms.uIntensity.value = current + (target - current) * 0.08;
+            });
+        }
+
+        composer.render();
+    }
+
+    // 親フレームからの postMessage を受けて focus 状態を更新
+    window.addEventListener('message', (e) => {
+        if (!e.data || e.data.type !== 'focusLayer') return;
+        const v = e.data.layer;
+        if (typeof v === 'number' && v >= -1 && v < slabMaterials.length) {
+            focusLayerIdx = v;
+        }
+    });
+
+    function init() {
+        createNetworkVisualization(config.densityFactor);
+        createGlassSlab();
+        animate();
+    }
+
+    function onWindowResize() {
+        const { width, height } = getViewportSize();
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(width, height);
+        composer.setSize(width, height);
+
+        bloomPass.resolution.set(width, height);
+    }
+    window.addEventListener('resize', onWindowResize);
+
+    if (typeof ResizeObserver !== 'undefined') {
+        const ro = new ResizeObserver(() => onWindowResize());
+        ro.observe(document.documentElement);
+    }
+
+    init();
+    requestAnimationFrame(onWindowResize);
+
+</script>

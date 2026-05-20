@@ -1,109 +1,115 @@
-export default function InformationSection() {
-  const companyInfo = [
-    { label: 'Company Name', value: '株式会社STAR UP' },
-    { 
-      label: 'Address', 
-      value: (
-        <>
-          京都府京都市上京区甲斐守町97<br />
-          西陣産業創造會館109
-        </>
-      )
-    },
-    { label: 'Established', value: '2023年11月30日' },
-    { label: 'Employees', value: '46人' },
-    { label: 'Representative', value: '緒方勇斗' },
-    { 
-      label: 'Business', 
-      value: (
-        <>
-          AIを活用した共同開発・新規事業開発<br />
-          AIプロダクトの開発<br />
-          製造業向けAI SaaS事業<br />
-          人材紹介事業
-        </>
-      )
-    },
-    { label: 'License', value: '認可番号：26-ユ-300728' },
-    { 
-      label: 'Legal Advisor', 
-      value: (
-        <>
-          HEROリーガルグループ<br />
-          弁護士法人 淀屋橋・山上合同　大阪事務所
-        </>
-      )
-    },
-    { label: 'Tax Advisor', value: '赤松税務会計事務所' },
-    { 
-      label: 'Bank', 
-      value: (
-        <>
-          京都銀行 本店営業部<br />
-          京都中央信用金庫 西陣支店
-        </>
-      )
-    },
-    // 取引実績
-    {
-      label: 'Transaction History',
-      value: (
-        <>
-          EYストラテジー・アンド・コンサルティング株式会社<br />
-          {/* 株式会社NTTデータ<br /> */}
-          株式会社NTTドコモ<br />
-          株式会社クロステック<br />
-          株式会社チャンピオンコーポレーション<br />
-          株式会社建設技術研究所<br />
-          清水建設株式会社<br />
-          住友電気工業株式会社<br />
-          STUDYSWITCH株式会社<br />
-          たから株式会社<br />
-          東映アニメーション株式会社<br />
-          ナビエース株式会社<br />
-          ネットロック株式会社<br />
-          前田建設工業株式会社<br />
-          VISONAL株式会社<br />
-          LINEヤフー株式会社<br />
-        </>
-      )
-    }
-  ]
+import { ReactNode } from 'react'
 
+type InfoItem = {
+  label: string
+  value: ReactNode
+}
+
+const partners = [
+  'オムロンデジタル株式会社',
+  '東京都',
+  '株式会社NTTドコモ',
+  '東映アニメーション株式会社',
+  'アート引越センター株式会社',
+  '横河マニュファクチャリング株式会社',
+  '株式会社明電エンジニアリング',
+  '株式会社神崎高級工機製作所',
+  '日本オートマチックマシン株式会社',
+  '生田産機工業株式会社',
+  '株式会社リネックス',
+  'その他',
+]
+
+const items: InfoItem[] = [
+  { label: 'Company', value: '株式会社STAR UP' },
+  { label: 'Representative', value: '緒方 勇斗' },
+  { label: 'Established', value: '2023.11.30' },
+  { label: 'Employees', value: '38名（アルバイトを含む）' },
+  {
+    label: 'Address',
+    value: (
+      <>
+        京都府京都市上京区甲斐守町97<br />
+        西陣産業創造會舘
+      </>
+    ),
+  },
+  {
+    label: 'Business',
+    value: (
+      <>
+        AIを活用した共同開発・新規事業開発<br />
+        AIプロダクトの開発<br />
+        製造業向けAI SaaS事業<br />
+        人材紹介事業
+      </>
+    ),
+  },
+  {
+    label: 'License',
+    value: (
+      <>
+        有料職業紹介<br />
+        認可番号：26-ユ-300728
+      </>
+    ),
+  },
+  {
+    label: 'Legal',
+    value: (
+      <>
+        HEROリーガルグループ<br />
+        弁護士法人 淀屋橋・山上合同 大阪事務所
+      </>
+    ),
+  },
+  { label: 'Tax', value: '木田事務所' },
+  {
+    label: 'Bank',
+    value: (
+      <>
+        京都銀行<br />
+        みずほ銀行<br />
+        京都中央信用金庫<br />
+        滋賀銀行
+      </>
+    ),
+  },
+  {
+    label: 'Partners',
+    value: (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
+        {partners.map((name) => (
+          <p key={name}>{name}</p>
+        ))}
+      </div>
+    ),
+  },
+]
+
+export default function InformationSection() {
   return (
-    <section className="py-16 md:py-32 bg-white">
+    <section className="py-24 md:py-32 bg-white">
       <div className="max-w-[1500px] mx-auto px-4">
-        {/* Header Section */}
-        <div className="mb-12 md:mb-16">
-          <p className="text-sm lg:text-base text-gray-600">
-            私たちの会社情報をご覧いただけます。
-          </p>
-          <p className="text-2xl md:text-3xl lg:text-6xl">
-            Discover who we are, what drives our innovation forward, and the vision that shapes our future.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-8 gap-8 lg:gap-32">
-          <div className="lg:col-span-3">
-            <img src="/images/about/company.jpg" alt="company-info" className="w-full object-cover" />
-          </div>
-          <div className="space-y-8 md:space-y-12 lg:col-span-5">
-            {companyInfo.map((info, index) => (
-                <div key={index} className="border-b border-gray-200 pb-6 md:pb-8">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8">
-                    <div className="md:col-span-1">
-                    <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2 md:mb-0">
-                        {info.label}
-                    </h3>
-                    </div>
-                    <div className="md:col-span-3">
-                    <div className="text-base md:text-lg text-gray-900 leading-relaxed">
-                        {info.value}
-                    </div>
-                    </div>
-                </div>
-                </div>
-            ))}
-          </div>
+        <p className="text-xs text-gray-400 uppercase tracking-widest mb-6">Information</p>
+        <h2 className="text-3xl md:text-5xl font-medium text-gray-900 mb-12 md:mb-20">
+          会社情報
+        </h2>
+
+        <div className="border-t border-gray-200">
+          {items.map((item, i) => (
+            <div
+              key={i}
+              className="grid grid-cols-12 gap-4 md:gap-8 py-6 md:py-8 border-b border-gray-200"
+            >
+              <p className="col-span-12 md:col-span-3 text-xs md:text-sm text-gray-400 uppercase tracking-widest pt-1">
+                {item.label}
+              </p>
+              <div className="col-span-12 md:col-span-9 text-sm md:text-base text-gray-900 leading-relaxed">
+                {item.value}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

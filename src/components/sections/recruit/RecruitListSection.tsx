@@ -31,7 +31,7 @@ export default function RecruitListSection({ recruits }: RecruitListSectionProps
   }, [allRecruits])
 
   const employmentTypes = useMemo(() => {
-    const types = new Set(allRecruits.map(r => r.employmentType))
+    const types = new Set(allRecruits.flatMap(r => r.employmentType))
     return ['すべて', ...Array.from(types)]
   }, [allRecruits])
 
@@ -40,7 +40,7 @@ export default function RecruitListSection({ recruits }: RecruitListSectionProps
     return allRecruits.filter((recruit) => {
       const matchesJobType = selectedJobType === 'すべて' || recruit.jobType === selectedJobType
       const matchesLocation = selectedLocation === 'すべて' || recruit.location === selectedLocation
-      const matchesEmploymentType = selectedEmploymentType === 'すべて' || recruit.employmentType === selectedEmploymentType
+      const matchesEmploymentType = selectedEmploymentType === 'すべて' || recruit.employmentType.includes(selectedEmploymentType)
 
       return matchesJobType && matchesLocation && matchesEmploymentType
     })
@@ -98,10 +98,10 @@ export default function RecruitListSection({ recruits }: RecruitListSectionProps
                 私たちが共に働く方に求めるのは、Valueにもある通り以下の4つです。
               </p>
               <ol className="space-y-2 text-sm md:text-base pl-4">
-                <li>1. 社内外、社会に対してのポジティブな貢献意欲があること</li>
-                <li>2. 常にオーナーシップを持って意思決定を行うこと</li>
-                <li>3. 真に世の中が求めているものを追求すること</li>
-                <li>4. 高い知的好奇心を持っていること</li>
+                <li>1. 顧客・プロダクト・事業・会社の成長を自分ごととして捉え、最後までやり切ること</li>
+                <li>2. できない理由ではなく実現する方法を考え、素直に向き合うこと</li>
+                <li>3. 最先端と現場を行き来し、顧客が「使える」価値に変えること</li>
+                <li>4. チームで知恵を出し合い、最善の答えを出すこと</li>
               </ol>
             </div>
 

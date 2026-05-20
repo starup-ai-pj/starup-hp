@@ -87,9 +87,10 @@ const Header = () => {
     }
   }, [lastScrollY])
   const navItems = [
-    { label: 'News', href: '/news' },
     { label: 'About', href: '/about' },
     { label: 'Member', href: '/member' },
+    { label: 'Service', href: '/service' },
+    { label: 'News', href: '/news' },
     { label: 'Career', href: '/recruit' },
     { label: 'Contact', href: '/contact' },
   ]

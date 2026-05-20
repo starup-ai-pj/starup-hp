@@ -33,6 +33,15 @@ html, body {
   contain: layout style;
 }
 
+/* 横スクロールのスクロールバーを非表示 */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -153,6 +162,46 @@ body {
   90% { clip: rect(29px, 9999px, 41px, 0); transform: skew(0.6deg); }
   95% { clip: rect(92px, 9999px, 52px, 0); transform: skew(0.2deg); }
   100% { clip: rect(11px, 9999px, 33px, 0); transform: skew(0.4deg); }
+}
+
+/* ===== Custom Cursor ===== */
+#custom-cursor {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  will-change: transform;
+  mix-blend-mode: difference;
+}
+
+.custom-cursor__circle {
+  width: 8px;
+  height: 8px;
+  margin-top: -50%;
+  margin-left: -50%;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 1);
+  border: none;
+  transition:
+    width 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+    height 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+    background-color 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+    border 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#custom-cursor.is-clickable .custom-cursor__circle {
+  width: 72px;
+  height: 72px;
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Hide default cursor when custom cursor is active */
+.custom-cursor-active,
+.custom-cursor-active * {
+  cursor: none !important;
 }
 
 @keyframes glitch-skew {

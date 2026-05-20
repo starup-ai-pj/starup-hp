@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import PageTransition from "@/components/layout/PageTransition";
+import CustomCursor from "@/components/ui/CustomCursor";
 import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
@@ -33,15 +34,16 @@ const alliance = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "STARUP - Transform thought into technology",
-  description: "思想をテクノロジーに変え、産業と文化の構造を再構築する。AI技術とイノベーションで未来を創造するスタートアップ企業です。",
+  metadataBase: new URL("https://starup.co.jp"),
+  title: "STARUP - Redesigning the structures of industry and culture",
+  description: "産業と文化の構造を再構築する。AI技術とイノベーションで未来を創造するスタートアップ企業です。",
   keywords: ["スタートアップ", "AI", "テクノロジー", "イノベーション", "DX", "デジタル変革"],
   authors: [{ name: "STARUP" }],
   creator: "STARUP",
   publisher: "STARUP",
   openGraph: {
-    title: "STARUP - Transform thought into technology",
-    description: "思想をテクノロジーに変え、産業と文化の構造を再構築する。",
+    title: "STARUP - Redesigning the structures of industry and culture",
+    description: "産業と文化の構造を再構築する。",
     url: "https://starup.co.jp",
     siteName: "STARUP",
     locale: "ja_JP",
@@ -49,8 +51,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "STARUP - Transform thought into technology",
-    description: "思想をテクノロジーに変え、産業と文化の構造を再構築する。",
+    title: "STARUP - Redesigning the structures of industry and culture",
+    description: "産業と文化の構造を再構築する。",
     creator: "@starup01",
   },
   robots: {
@@ -102,6 +104,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${alliance.variable} antialiased`}
       >
+        <CustomCursor />
         <PageTransition>
           {children}
         </PageTransition>

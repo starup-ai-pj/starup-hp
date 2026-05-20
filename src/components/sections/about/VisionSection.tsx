@@ -1,4 +1,3 @@
-import ScanLine from "@/components/animation/scan-line/ScanLine"
 import TypingText from "@/components/ui/TypingText"
 
 export default function VisionSection() {
@@ -7,15 +6,20 @@ export default function VisionSection() {
       <div className="max-w-[1500px] mx-auto px-4">
         <h2 className="text-4xl md:text-7xl text-gray-900 leading-relaxed">Our Mission</h2>
         <div className="my-6 md:my-8">
-          <p className="text-sm lg:text-base text-gray-600">思想をテクノロジーに変え、産業と文化の構造を再構築する。</p>
+          <p className="text-sm lg:text-base text-gray-600">産業と文化の構造を再構築する。</p>
           <TypingText
-            text="Transform thought into technology, redesigning the structures of industry and culture."
+            text="Redesigning the structures of industry and culture."
             className="text-2xl md:text-3xl lg:text-6xl"
           />
         </div>
       </div>
-      <div className="w-full mb-12 md:mb-16">
-          <ScanLine />
+      <div className="w-full mb-12 md:mb-16" style={{ height: 400 }}>
+          <iframe
+            src="/scan-line.html"
+            className="w-full h-full block"
+            style={{ border: 0 }}
+            aria-hidden="true"
+          />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 lg:gap-32 max-w-[1500px] mx-auto px-4">
         <div className="text-sm md:text-base text-gray-900 leading-relaxed space-y-4 md:space-y-6">

@@ -1,12 +1,52 @@
 'use client'
-import NetworkBackground from "@/components/animation/network-background/NetworkBackground"
+
+import { useEffect, useRef } from 'react'
 
 export default function HeroSection() {
+    const bgRef = useRef<HTMLDivElement>(null)
+
+    // Vision section の下端がビューポート上端より上に来たら背景iframeを非表示にする
+    // （fixed背景が Mission 以降に透けるのを防ぐ）
+    useEffect(() => {
+        const heroSection = bgRef.current?.closest('section')
+        if (!heroSection || !bgRef.current) return
+
+        let nextEl: Element | null = heroSection.nextElementSibling
+        while (nextEl && nextEl.tagName !== 'SECTION') {
+            nextEl = nextEl.nextElementSibling
+        }
+        const visionSection = nextEl as HTMLElement | null
+        if (!visionSection) return
+
+        let raf = 0
+        const update = () => {
+            if (!bgRef.current) return
+            const rect = visionSection.getBoundingClientRect()
+            const visible = rect.bottom > 0
+            bgRef.current.style.opacity = visible ? '1' : '0'
+            bgRef.current.style.visibility = visible ? 'visible' : 'hidden'
+        }
+        const onScroll = () => {
+            cancelAnimationFrame(raf)
+            raf = requestAnimationFrame(update)
+        }
+        update()
+        window.addEventListener('scroll', onScroll, { passive: true })
+        return () => {
+            window.removeEventListener('scroll', onScroll)
+            cancelAnimationFrame(raf)
+        }
+    }, [])
+
     return (
         <section className="relative h-screen min-h-[100dvh] overflow-hidden" data-bg="dark">
             {/* Background */}
-            <div className="fixed inset-0">
-                <NetworkBackground className="w-full h-full"/>
+            <div ref={bgRef} className="fixed inset-0 transition-opacity duration-200">
+                <iframe
+                    src="/network-background.html"
+                    className="w-full h-full border-0"
+                    aria-hidden="true"
+                />
             </div>
 
             {/* 下半分のタッチイベントをブロックするオーバーレイ */}
