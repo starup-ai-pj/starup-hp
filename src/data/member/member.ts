@@ -73,7 +73,8 @@ export interface Member {
         "京都大学経済学部出身。京都のスタートアップで事業開発を行ったのち、上場企業のM&A・アライアンス部署でソーシングや出資・協業検討を行う。STARUPでは、2度の銀行調達など経理・ファイナンスの統括を担当。",
       comment: "経営基盤をつくる",
       hasInterview: true,
-      image: "/images/member/fuji-daigo.png",
+      image: "/images/member/fujii-daigo.jpg",
+      heroImage: "/images/member/fujii-daigo-hero.jpg",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
     {
