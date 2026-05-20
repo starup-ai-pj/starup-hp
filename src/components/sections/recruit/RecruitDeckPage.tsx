@@ -3,6 +3,7 @@ import HeroAiMakerSection from './deck/HeroAiMakerSection'
 import ChapterDivider from './deck/ChapterDivider'
 import MissionSection from './deck/MissionSection'
 import WorkplaceSection from './deck/WorkplaceSection'
+import MessageSection from './deck/MessageSection'
 import JobsSection from './deck/JobsSection'
 import CtaSection from './deck/CtaSection'
 
@@ -37,6 +38,9 @@ export default function RecruitDeckPage() {
         bgImage="/images/recruit/chapters/chapter-02.jpg"
       />
       <WorkplaceSection />
+
+      {/* 代表メッセージ */}
+      <MessageSection />
 
       {/* ━━━ 03. 募集中のポジション ━━━ */}
       <ChapterDivider

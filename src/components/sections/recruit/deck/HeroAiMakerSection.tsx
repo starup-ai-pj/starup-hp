@@ -9,50 +9,56 @@ gsap.registerPlugin(ScrollTrigger)
 
 type Tile = { src: string; aspect: string }
 
-// 各列はビューポートよりはるかに高くなるよう12枚積む。
-// こうしないとyPercentで動かしても下部に余白が出てしまう。
+// 18枚の画像を3列×12タイル(計36スロット)に2回ずつ均等配置。
+// 各画像のペアは「別の列」かつ「6行差」になるよう設計してあり、
+// 画面に同時表示される範囲(≒15タイル)では重複が出ないようになっている。
+// 配置: Col1 = [1..12], Col2 = [13..18, 1..6], Col3 = [7..12, 13..18]
+// 各行で3列が常に異なる画像 / アスペクト比は3パターンを散らしてPinterest的リズムを作る。
 const GALLERY_COLUMNS: Tile[][] = [
+  // Col 1: images 1-12
   [
     { src: '/images/join-us/01.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/05.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/09.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/03.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/07.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/02.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/10.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/04.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/08.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/06.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/01.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/05.jpg', aspect: '4 / 3' },
-  ],
-  [
-    { src: '/images/join-us/06.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/02.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/10.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/04.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/08.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/01.jpg', aspect: '4 / 5' },
+    { src: '/images/join-us/02.jpg', aspect: '4 / 5' },
     { src: '/images/join-us/03.jpg', aspect: '4 / 3' },
+    { src: '/images/join-us/04.jpg', aspect: '3 / 4' },
+    { src: '/images/join-us/05.jpg', aspect: '4 / 5' },
+    { src: '/images/join-us/06.jpg', aspect: '4 / 3' },
     { src: '/images/join-us/07.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/09.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/05.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/02.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/06.jpg', aspect: '4 / 5' },
+    { src: '/images/join-us/08.jpg', aspect: '4 / 5' },
+    { src: '/images/join-us/09.jpg', aspect: '4 / 3' },
+    { src: '/images/join-us/10.jpg', aspect: '3 / 4' },
+    { src: '/images/join-us/11.jpg', aspect: '4 / 5' },
+    { src: '/images/join-us/12.jpg', aspect: '4 / 3' },
   ],
+  // Col 2: images 13-18 + 1-6 (1-6 と Col1 の同画像は 6行ズレ)
   [
-    { src: '/images/join-us/03.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/07.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/01.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/05.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/09.jpg', aspect: '3 / 4' },
+    { src: '/images/join-us/13.jpg', aspect: '4 / 3' },
+    { src: '/images/join-us/14.jpg', aspect: '3 / 4' },
+    { src: '/images/join-us/15.jpg', aspect: '4 / 5' },
+    { src: '/images/join-us/16.jpg', aspect: '4 / 3' },
+    { src: '/images/join-us/17.jpg', aspect: '3 / 4' },
+    { src: '/images/join-us/18.jpg', aspect: '4 / 5' },
+    { src: '/images/join-us/01.jpg', aspect: '4 / 5' },
+    { src: '/images/join-us/02.jpg', aspect: '4 / 3' },
+    { src: '/images/join-us/03.jpg', aspect: '3 / 4' },
     { src: '/images/join-us/04.jpg', aspect: '4 / 5' },
-    { src: '/images/join-us/08.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/02.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/06.jpg', aspect: '4 / 5' },
+    { src: '/images/join-us/05.jpg', aspect: '4 / 3' },
+    { src: '/images/join-us/06.jpg', aspect: '3 / 4' },
+  ],
+  // Col 3: images 7-12 + 13-18 (7-12 と Col1 / 13-18 と Col2 はそれぞれ 6行ズレ)
+  [
+    { src: '/images/join-us/07.jpg', aspect: '4 / 3' },
+    { src: '/images/join-us/08.jpg', aspect: '3 / 4' },
+    { src: '/images/join-us/09.jpg', aspect: '4 / 5' },
     { src: '/images/join-us/10.jpg', aspect: '4 / 3' },
-    { src: '/images/join-us/07.jpg', aspect: '3 / 4' },
-    { src: '/images/join-us/03.jpg', aspect: '4 / 5' },
+    { src: '/images/join-us/11.jpg', aspect: '3 / 4' },
+    { src: '/images/join-us/12.jpg', aspect: '4 / 5' },
+    { src: '/images/join-us/13.jpg', aspect: '3 / 4' },
+    { src: '/images/join-us/14.jpg', aspect: '4 / 5' },
+    { src: '/images/join-us/15.jpg', aspect: '4 / 3' },
+    { src: '/images/join-us/16.jpg', aspect: '3 / 4' },
+    { src: '/images/join-us/17.jpg', aspect: '4 / 5' },
+    { src: '/images/join-us/18.jpg', aspect: '4 / 3' },
   ],
 ]
 
@@ -125,7 +131,7 @@ export default function HeroAiMakerSection() {
 
   return (
     <section ref={sectionRef} className="relative bg-white" data-bg="light">
-      <div className="flex flex-col lg:flex-row">
+      <div className="flex flex-col lg:flex-row-reverse">
         {/* ━━━━━ LEFT: Hero + AiMaker (普通にスクロール) ━━━━━ */}
         <div className="w-full lg:w-[58%]">
           {/* ─── Hero: Photo + Code the Culture ─── */}
