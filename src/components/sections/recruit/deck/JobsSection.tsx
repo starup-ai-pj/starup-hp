@@ -10,8 +10,8 @@ export default async function JobsSection() {
     <section className="py-24 md:py-40" data-bg="light">
       <div className="max-w-[1500px] mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-          {/* ━━━ Left: sticky photo (= セクション見出し) ━━━ */}
-          <div className="lg:col-span-5">
+          {/* ━━━ Left: sticky photo (= セクション見出し) - PCのみ表示 ━━━ */}
+          <div className="hidden lg:block lg:col-span-5">
             <div className="lg:sticky lg:top-28">
               <div className="relative w-full aspect-[2/3] lg:aspect-auto lg:h-[78vh] overflow-hidden">
                 <Image
