@@ -23,7 +23,6 @@ export interface ServiceItem {
   description: string
   pillars: ServicePillar[]
   previews: ServicePreview[]
-  highlight: { label: string; value: string }
   image: string
   href?: string
   externalLink?: string
@@ -64,11 +63,10 @@ export const servicePageData: ServiceItem[] = [
       },
     ],
     previews: [
-      { label: "類似図面検索", image: "" },
-      { label: "チャット検索", image: "" },
-      { label: "案件管理", image: "" },
+      { label: "図面1枚から、形状・寸法・加工が近い過去図面を瞬時に引き当てる。", image: "/images/services/archaive/similar-search.png" },
+      { label: "社内の図面・帳票・履歴を、自然文の質問で横断検索する。", image: "/images/services/archaive/chat-search.png" },
+      { label: "設計から出荷までの進捗を、図面に紐づけてカンバンで可視化する。", image: "/images/services/archaive/project-management.png" },
     ],
-    highlight: { label: "導入効果", value: "図面検索時間を90%短縮、部署間連携の効率化を実現" },
     image: "/images/services/archaive.jpg",
     href: "https://archaive.net",
   },
@@ -110,7 +108,6 @@ export const servicePageData: ServiceItem[] = [
       { label: "見たいデータを、見たい時に、見たい形で。", image: "/images/services/sendai/dashboard.png" },
       { label: "AIが最適な配分・発注を提案。人は承認するだけ。", image: "/images/services/sendai/ai-suggestion.png" },
     ],
-    highlight: { label: "導入成果", value: "在庫最適化により売上最大化とコスト削減を同時実現" },
     image: "/images/services/sendai/hero.png",
     href: "https://send-ai.co.jp/",
   },
@@ -148,7 +145,6 @@ export const servicePageData: ServiceItem[] = [
       { label: "業務をノードの組み合わせでデジタル化し、AIエージェントと協業", image: "/images/services/flowerium/Workflow.png" },
       { label: "業務上の概念をデジタルスキーマに変換し、意味論ベースでデータを統合・活用", image: "/images/services/flowerium/ERD.png" },
     ],
-    highlight: { label: "プロダクト特性", value: "AIの成長に合わせて形を変え続ける、適応型の業務AIシステム基盤" },
     image: "/images/services/flowerium/hero.png",
   },
 ]

@@ -145,12 +145,8 @@ function ServiceSpread({ service }: { service: ServiceItem }) {
       {/* ── Row 4: CTA row ── */}
       <div
         data-a="foot"
-        className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 pt-6 border-t border-gray-100 opacity-0"
+        className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-end gap-4 pt-6 border-t border-gray-100 opacity-0"
       >
-        <p className="text-sm text-gray-400 max-w-[400px]">
-          {service.highlight.value}
-        </p>
-
         <div className="flex items-center gap-5">
           {service.href && (
             <TransitionLink
