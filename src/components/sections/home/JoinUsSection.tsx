@@ -151,7 +151,7 @@ export default function JoinUsSection() {
                 Join Us
               </h2>
               <p className="mt-4 md:mt-6 text-base md:text-lg text-white/80 max-w-xl">
-                「それ、おもろくね？」を形にする仲間を、私たちは探しています。
+                日本発のNo.1AIメーカーを作る仲間を探しています。
               </p>
             </div>
           </div>
