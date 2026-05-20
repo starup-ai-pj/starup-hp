@@ -25,7 +25,8 @@ export interface Member {
         "京都大学在学中に教育メディアの会社を大学1年時立ち上げ後、製造業の営業コンサル、商社の新規事業部でのPM、人材会社でのCSを経験。その後、昨年11月に株式会社STARUPを設立し、12ヶ月でメンバーも40名まで拡大させる。",
       comment: "「それ、おもろくね？」を形にする",
       hasInterview: true,
-      image: "/images/member/ogata-yuto.png",
+      image: "/images/member/ogata-yuto.jpg",
+      heroImage: "/images/member/ogata-yuto-hero.jpg",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
     {
@@ -37,7 +38,8 @@ export interface Member {
         "データサイエンス系ベンチャーにて非財務情報の開示やバックオフィス改善業務に従事。また、大学別の環境報告書の作成や飲食店のGHG排出量の開示等のPJを行う。",
       comment: "データで社会をよりよくする",
       hasInterview: true,
-      image: "/images/member/kikkawa-takehiro.png",
+      image: "/images/member/kikkawa-takehiro.jpg",
+      heroImage: "/images/member/kikkawa-takehiro-hero.jpg",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
     {
@@ -49,7 +51,8 @@ export interface Member {
         "大手IT企業をはじめとする3社にてPM・リードエンジニアを経験した後フリーランスエンジニアとして数十件の案件に携わる。生成AIを活用した新規事業立ち上げ、業務効率化、システム開発などを経験する。",
       comment: "技術で可能性を広げる",
       hasInterview: true,
-      image: "/images/member/tanaka-yuki.png",
+      image: "/images/member/tanaka-yuki.jpg",
+      heroImage: "/images/member/tanaka-yuki-hero.jpg",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
     // {
@@ -71,7 +74,8 @@ export interface Member {
         "京都大学経済学部出身。京都のスタートアップで事業開発を行ったのち、上場企業のM&A・アライアンス部署でソーシングや出資・協業検討を行う。STARUPでは、2度の銀行調達など経理・ファイナンスの統括を担当。",
       comment: "経営基盤をつくる",
       hasInterview: true,
-      image: "/images/member/fuji-daigo.png",
+      image: "/images/member/fujii-daigo.jpg",
+      heroImage: "/images/member/fujii-daigo-hero.jpg",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
     {
@@ -83,7 +87,8 @@ export interface Member {
         "京都大学大学院情報学研究科卒。京大在学中にエンジニアサークルを立ち上げ後、STAR UP初期メンバーとして参画。一度リクルートにデータスペシャリストとして入社しデータ解析の力を磨いた後、STAR UPへ復帰。現在はAIソリューション事業部を統括し、製造業から行政まで多種多様な現場データの社会実装を推進。",
       comment: "現場でデータを社会実装する",
       hasInterview: true,
-      image: "/images/member/kadokura-naoki.png",
+      image: "/images/member/kadokura-naoki.jpg",
+      heroImage: "/images/member/kadokura-naoki-hero.jpg",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
     {
@@ -95,7 +100,8 @@ export interface Member {
         "京都大学工学部出身。在学時には、新規事業開発、人材事業での営業・CSを経験。STARUPではSaaS事業の立ち上げを行い、現在は営業組織構築や販売戦略立案など営業の統括を担当。",
       comment: "事業を前に進める",
       hasInterview: true,
-      image: "/images/member/kimura-haruki.png",
+      image: "/images/member/kimura-haruki.jpg",
+      heroImage: "/images/member/kimura-haruki-hero.jpg",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
     {
@@ -159,6 +165,8 @@ export interface Member {
         "國學院大学卒。木村遥輝との再会をきっかけにSTAR UPへ参画し、ARCHAIVE（製造業向けAIプラットフォーム）の営業を担当。関西を中心に泥臭く現場へ足を運び続け、2026年度開設予定の東京オフィスを拠点に関東圏の市場開拓を進める。ニックネームは「ケヴィン」。",
       comment: "課題に寄り添い、未来を売る",
       hasInterview: true,
+      image: "/images/member/nagai-sota.jpg",
+      heroImage: "/images/member/nagai-sota-hero.jpg",
       socialLinks: { twitter: "#", facebook: "#", linkedin: "#" }
     },
     // {

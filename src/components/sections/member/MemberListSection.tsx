@@ -67,7 +67,7 @@ export default function MemberListSection({ members }: MemberListSectionProps) {
       <div className="max-w-[1500px] mx-auto px-4">
 
         {/* ──── ヘッダー ──── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 md:mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 md:mb-16">
           <div className="lg:col-span-2">
             <span className="text-xs text-gray-500 uppercase tracking-wider">Team</span>
           </div>
@@ -82,6 +82,26 @@ export default function MemberListSection({ members }: MemberListSectionProps) {
           </div>
           <div className="lg:col-span-2"></div>
         </div>
+
+        {/* ──── 集合写真バナー ──── */}
+        <figure className="mb-16 md:mb-24">
+          <div className="relative w-full aspect-[4/3] md:aspect-[2/1] overflow-hidden bg-gray-100">
+            <Image
+              src="/images/member/team-group.jpg"
+              alt="STARUP メンバー集合写真"
+              fill
+              priority
+              sizes="(min-width: 1024px) 1500px, 100vw"
+              className="object-cover object-[center_60%]"
+              unoptimized
+            />
+          </div>
+          <figcaption className="mt-3 md:mt-4 flex items-center justify-between gap-4 text-[10px] text-gray-400 uppercase tracking-[0.3em]">
+            <span>All Members</span>
+            <span className="h-px flex-1 bg-gray-200" />
+            <span>STARUP / 2026</span>
+          </figcaption>
+        </figure>
 
         {/* ──── メンバー一覧 ──── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -111,7 +131,7 @@ export default function MemberListSection({ members }: MemberListSectionProps) {
                           src={member.image}
                           alt={member.name}
                           fill
-                          className="object-cover transition-all duration-500"
+                          className="object-cover object-top transition-all duration-500"
                         />
                       ) : (
                         <div className="w-full h-full bg-gray-100 flex items-center justify-center">

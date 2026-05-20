@@ -55,6 +55,7 @@ const SERVICES: Service[] = [
 
 export default function ServiceDetailSection() {
   const iframeRef = useRef<HTMLIFrameElement>(null)
+  const mobileIframeRef = useRef<HTMLIFrameElement>(null)
   const articlesRef = useRef<(HTMLElement | null)[]>([])
   const focusRef = useRef<number>(-1) // 最後に送った layer idx
 
@@ -65,10 +66,9 @@ export default function ServiceDetailSection() {
     const sendFocus = (layer: number) => {
       if (layer === focusRef.current) return
       focusRef.current = layer
-      iframeRef.current?.contentWindow?.postMessage(
-        { type: "focusLayer", layer },
-        "*"
-      )
+      const msg = { type: "focusLayer", layer }
+      iframeRef.current?.contentWindow?.postMessage(msg, "*")
+      mobileIframeRef.current?.contentWindow?.postMessage(msg, "*")
     }
 
     const observer = new IntersectionObserver(
@@ -101,20 +101,40 @@ export default function ServiceDetailSection() {
 
   // iframe ロード完了時に最後の focus 状態を再送（マウント直後に決まっていた場合の保険）
   const handleIframeLoad = () => {
-    iframeRef.current?.contentWindow?.postMessage(
-      { type: "focusLayer", layer: focusRef.current },
-      "*"
-    )
+    const msg = { type: "focusLayer", layer: focusRef.current }
+    iframeRef.current?.contentWindow?.postMessage(msg, "*")
+  }
+  const handleMobileIframeLoad = () => {
+    const msg = { type: "focusLayer", layer: focusRef.current }
+    mobileIframeRef.current?.contentWindow?.postMessage(msg, "*")
   }
 
   return (
     <section className="relative bg-black text-white">
-      <div className="flex">
+      {/* ━━━ モバイル用: 背景に常駐する sticky な iframe ━━━ */}
+      <div className="lg:hidden absolute inset-0 z-0">
+        <div className="sticky top-0 h-screen w-full">
+          <iframe
+            ref={mobileIframeRef}
+            src="/network-background-4layer.html"
+            title="Network Visualization"
+            loading="lazy"
+            scrolling="no"
+            onLoad={handleMobileIframeLoad}
+            aria-hidden="true"
+            className="block w-full h-full border-0 bg-black"
+          />
+          {/* テキスト可読性のための黒オーバーレイ */}
+          <div className="absolute inset-0 bg-black/55 pointer-events-none" />
+        </div>
+      </div>
+
+      <div className="flex relative z-10">
         {/* ━━━ 左: sticky な iframe (PCのみ表示) ━━━ */}
         <div className="hidden lg:block w-[58%] xl:w-[60%] shrink-0">
-          <div className="sticky top-0 h-screen w-full">
-            {/* iframe は内側で自分のサイズを viewport として 3D を描画するので、
-                親に overflow を被せず、フル幅を渡してやればスラブ周囲のドットも収まる */}
+          <div className="sticky top-0 h-screen w-full bg-black">
+            {/* iframeはviewport分の3Dを描画するので、高さを少し短くして上に寄せると
+                スラブの中心が画面の上の方に来る。下の余白はbg-blackで馴染ませる */}
             <iframe
               ref={iframeRef}
               src="/network-background-4layer.html"
@@ -122,7 +142,7 @@ export default function ServiceDetailSection() {
               loading="lazy"
               scrolling="no"
               onLoad={handleIframeLoad}
-              className="block w-full h-full border-0 bg-black"
+              className="block w-full h-[90vh] border-0 bg-black"
             />
           </div>
         </div>
@@ -221,16 +241,6 @@ export default function ServiceDetailSection() {
         </div>
       </div>
 
-      {/* ━━━ モバイル用 iframe (下に1枚) ━━━ */}
-      <div className="lg:hidden relative w-full h-[60vh] bg-black border-t border-white/10">
-        <iframe
-          src="/network-background-4layer.html"
-          title="Network Visualization"
-          loading="lazy"
-          scrolling="no"
-          className="block w-full h-full border-0"
-        />
-      </div>
     </section>
   )
 }

@@ -6,9 +6,9 @@ export default function VisionSection() {
       <div className="max-w-[1500px] mx-auto px-4">
         <h2 className="text-4xl md:text-7xl text-gray-900 leading-relaxed">Our Mission</h2>
         <div className="my-6 md:my-8">
-          <p className="text-sm lg:text-base text-gray-600">思想をテクノロジーに変え、産業と文化の構造を再構築する。</p>
+          <p className="text-sm lg:text-base text-gray-600">産業と文化の構造を再構築する。</p>
           <TypingText
-            text="Transform thought into technology, redesigning the structures of industry and culture."
+            text="Redesigning the structures of industry and culture."
             className="text-2xl md:text-3xl lg:text-6xl"
           />
         </div>

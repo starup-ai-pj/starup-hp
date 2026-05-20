@@ -91,7 +91,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
               alt={member.name}
               fill
               sizes="(max-width: 1500px) 100vw, 1500px"
-              className="object-cover"
+              className="object-cover object-[center_20%]"
               loading="lazy"
             />
           ) : (

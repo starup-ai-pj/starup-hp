@@ -46,11 +46,11 @@
 
     const colorPalettes = [
         [
-            new THREE.Color(0x1E3A8A),
-            new THREE.Color(0x2563EB),
-            new THREE.Color(0x3B82F6),
-            new THREE.Color(0x60A5FA),
-            new THREE.Color(0x93C5FD)
+            new THREE.Color(0x0EA5E9),
+            new THREE.Color(0x0284C7),
+            new THREE.Color(0x0369A1),
+            new THREE.Color(0x075985),
+            new THREE.Color(0x38BDF8)
         ]
     ];
 
@@ -90,10 +90,10 @@
         geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
         const mat = new THREE.PointsMaterial({
             color: 0xffffff,
-            size: 0.15,
+            size: 0.1,
             sizeAttenuation: true,
             depthWrite: false,
-            opacity: 0.8,
+            opacity: 0.45,
             transparent: true
         });
         return new THREE.Points(geo, mat);
@@ -115,10 +115,10 @@
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
 
-    const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.68);
+    const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.6, 0.3, 0.85);
     composer.addPass(bloomPass);
 
-    const filmPass = new FilmPass(0.35, 0.55, 2048, false);
+    const filmPass = new FilmPass(0.0, 0.0, 2048, false);
     composer.addPass(filmPass);
 
     composer.addPass(new OutputPass());
