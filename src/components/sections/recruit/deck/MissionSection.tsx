@@ -11,8 +11,8 @@ const MISSION_BODY = [
 
 const VALUES = [
   { num: '01', title: 'Ownership' },
-  { num: '02', title: 'not cynical' },
-  { num: '03', title: 'stay curious,\nstay grounded' },
+  { num: '02', title: 'Not cynical' },
+  { num: '03', title: 'Stay curious,\nstay grounded' },
   { num: '04', title: 'Be a multiplier' },
 ]
 
