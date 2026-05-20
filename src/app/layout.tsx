@@ -34,6 +34,7 @@ const alliance = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://starup.co.jp"),
   title: "STARUP - Redesigning the structures of industry and culture",
   description: "産業と文化の構造を再構築する。AI技術とイノベーションで未来を創造するスタートアップ企業です。",
   keywords: ["スタートアップ", "AI", "テクノロジー", "イノベーション", "DX", "デジタル変革"],
