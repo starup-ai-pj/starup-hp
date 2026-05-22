@@ -55,6 +55,16 @@ const items: InfoItem[] = [
     ),
   },
   {
+    label: 'Certification',
+    value: (
+      <>
+        ISO/IEC 27001:2022（情報セキュリティマネジメントシステム）<br />
+        認証機関：G-CERTI／認証番号：GUP-2109-IC<br />
+        有効期限：2029年4月1日
+      </>
+    ),
+  },
+  {
     label: 'Legal',
     value: (
       <>
