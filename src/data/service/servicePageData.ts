@@ -64,8 +64,8 @@ export const servicePageData: ServiceItem[] = [
     ],
     previews: [
       { label: "図面1枚から、形状・寸法・加工が近い過去図面を瞬時に引き当てる。", image: "/images/services/archaive/similar-search.png" },
-      { label: "社内の図面・帳票・履歴を、自然文の質問で横断検索する。", image: "/images/services/archaive/chat-search.png" },
-      { label: "設計から出荷までの進捗を、図面に紐づけてカンバンで可視化する。", image: "/images/services/archaive/project-management.png" },
+      { label: "社内の図面・帳票・履歴を、自然文の質問で横断検索する。", image: "/images/services/archaive/chat-search.jpg" },
+      { label: "設計から出荷までの進捗を、図面に紐づけてカンバンで可視化する。", image: "/images/services/archaive/project-management.jpg" },
     ],
     image: "/images/services/archaive.jpg",
     href: "https://archaive.net",

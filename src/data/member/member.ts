@@ -22,7 +22,7 @@ export interface Member {
       englishName: "Yuto Ogata",
       position: "代表取締役",
       description:
-        "京都大学在学中に教育メディアの会社を大学1年時立ち上げ後、製造業の営業コンサル、商社の新規事業部でのPM、人材会社でのCSを経験。その後、昨年11月に株式会社STARUPを設立し、12ヶ月でメンバーも40名まで拡大させる。",
+        "京都大学在学中に教育メディアの会社を大学1年時立ち上げ後、製造業の営業コンサル、商社の新規事業部でのPM、人材会社でのCSを経験。",
       comment: "「それ、おもろくね？」を形にする",
       hasInterview: true,
       image: "/images/member/ogata-yuto.jpg",
@@ -134,7 +134,7 @@ export interface Member {
       id: "shunsuke-kimura",
       name: "木村 俊介",
       englishName: "Shunsuke Kimura",
-      position: "PM / AIエンジニア",
+      position: "SENDAIプロダクトマネージャー",
       description:
         "京都大学工学部情報学科卒。2026年4月新卒入社。AIソリューション部のPMとして『SENDAI』（小売業界向け発注最適化AI）のプロダクト責任者を担当。",
       comment: "Code The Culture",
@@ -147,7 +147,7 @@ export interface Member {
       id: "namiki-chikusa",
       name: "千種 直幹",
       englishName: "Namiki Chikusa",
-      position: "AIソリューション事業部 エンジニア",
+      position: "SENDAI開発統括",
       description:
         "京都大学工学部情報学科卒。2026年4月新卒入社。『SENDAI』（小売業界向け発注最適化AI）のバックエンド設計とAI実装を担当。",
       comment: "理論をプロダクトの骨組みへ",
