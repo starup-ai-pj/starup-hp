@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import TypingText from "@/components/ui/TypingText"
@@ -30,37 +30,41 @@ function shuffle<T>(arr: readonly T[]): T[] {
 
 export default function MemberListSection({ members }: MemberListSectionProps) {
   const [ordered, setOrdered] = useState<MemberListItem[]>(members)
+  const listRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setOrdered(shuffle(members))
   }, [members])
 
   useEffect(() => {
-    const cards = document.querySelectorAll('.member-card')
+    if (!listRef.current) return
 
-    cards.forEach((card) => {
-      const image = card.querySelector('.member-image')
-      const content = card.querySelector('.member-content')
+    const ctx = gsap.context(() => {
+      const cards = gsap.utils.toArray<HTMLElement>('.member-card')
 
-      gsap.set(image, { opacity: 0, x: -20 })
-      gsap.set(content, { opacity: 0, y: 20 })
+      cards.forEach((card) => {
+        const images = card.querySelectorAll<HTMLElement>('.member-image')
+        const contents = card.querySelectorAll<HTMLElement>('.member-content')
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: card,
-          start: "top 80%",
-          toggleActions: "play none none reverse"
-        }
+        gsap.set(images, { opacity: 0, x: -20 })
+        gsap.set(contents, { opacity: 0, y: 20 })
+
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        })
+          .to(images, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" })
+          .to(contents, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, "-=0.3")
       })
+    }, listRef)
 
-      tl.to(image, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" })
-        .to(content, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, "-=0.3")
-    })
+    ScrollTrigger.refresh()
 
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
-    }
-  }, [])
+    return () => ctx.revert()
+  }, [ordered])
 
   return (
     <section className="bg-white pt-20 md:pt-40 pb-16 md:pb-24">
@@ -116,7 +120,7 @@ export default function MemberListSection({ members }: MemberListSectionProps) {
           {/* 右10col: 2列グリッド(5+5) */}
           <div className="lg:col-span-10">
             {/* Mobile: 1列 / Desktop: 2列 */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-0">
+            <div ref={listRef} className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-0">
               {ordered.map(({ member, preview }) => (
                 <TransitionLink
                   key={member.id}
