@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ARCHAIVE — Diorama</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --bg:           #f3f1ec;
+    --ink:          #15140f;
+    --ink-soft:     rgba(21,20,15,.62);
+    --ink-mute:     rgba(21,20,15,.42);
+    --ink-line:     rgba(21,20,15,.08);
+    --svc-accent:   #1aa6a0;     /* archaive teal */
+    --svc-accent-2: #ec5b50;
+    --diorama-depth: 2.2;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:"Noto Sans JP","Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+  body{ min-height:100vh; display:grid; place-items:center; padding: 40px;}
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(1200px 700px at 80% -10%, rgba(26,166,160,.10), transparent 60%),
+      radial-gradient(900px 600px at 0% 30%, rgba(236,91,80,.06), transparent 60%);
+  }
+  body::after{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image: radial-gradient(rgba(20,18,10,.05) 1px, transparent 1px);
+    background-size: 3px 3px; opacity:.35; mix-blend-mode:multiply;
+  }
+  .wrap{ position:relative; z-index:1; width:100%; max-width: 820px;}
+
+  /* ===== Stage ===== */
+  .stage{ position:relative; height: 620px; perspective: 1800px; perspective-origin: 50% 45%;}
+  .stage-orb{ position:absolute; border-radius:50%; filter: blur(50px); opacity:.5; pointer-events:none; z-index:0;}
+  .stage-orb.a{ width: 340px; height:340px; left:-70px; top:-40px;
+    background: radial-gradient(circle, var(--svc-accent), transparent 70%);}
+  .stage-orb.b{ width: 320px; height: 320px; right:-50px; bottom:20px;
+    background: radial-gradient(circle, var(--svc-accent-2), transparent 70%); opacity:.4;}
+  .deck{ position:absolute; inset:0; transform-style:preserve-3d;
+    transition: transform .4s cubic-bezier(.2,.7,.2,1);}
+
+  /* ===== Main card ===== */
+  .layer-card{ position:absolute; left: 20px; top: 30px; width: 640px; height: 440px;
+    border-radius: 18px; background: #fff;
+    border: .5px solid rgba(255,255,255,.9);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.85) inset,
+      0 0 0 .5px rgba(255,255,255,.6) inset,
+      0 40px 70px -22px rgba(15,14,8,.32),
+      0 18px 30px -18px rgba(15,14,8,.2);
+    overflow:hidden; transform-style:preserve-3d; will-change: transform;
+    transform: translate3d(0, 0, 40px);
+  }
+
+  /* App chrome: teal sidebar + content */
+  .app{ display:grid; grid-template-columns: 40px 1fr; height:100%; transform-style:preserve-3d;}
+  .sidebar{ background: var(--svc-accent); display:flex; flex-direction:column; align-items:center;
+    padding: 10px 0; gap: 6px; position:relative;
+    transform: translateZ(calc(20px * var(--diorama-depth,1)));}
+  .sidebar .logo{ width:22px; height:22px; margin-bottom:6px;}
+  .sidebar .ico{ width:30px; height:30px; border-radius:6px; display:grid; place-items:center;
+    color:rgba(255,255,255,.78); position:relative;}
+  .sidebar .ico.on{ background: rgba(255,255,255,.18); color:#fff;}
+  .sidebar .ico svg{ width:16px; height:16px;}
+  .sidebar .spacer{ flex:1;}
+  .content{ display:flex; flex-direction:column; min-width:0; transform-style:preserve-3d; position:relative;}
+
+  /* ===== Drawing Search content ===== */
+  .ds-top{ height: 28px; border-bottom: .5px solid var(--ink-line); display:flex; align-items:center;
+    padding: 0 12px; gap: 10px; font-size: 9.5px; color: var(--ink-soft);}
+  .ds-top .crumb{ display:flex; align-items:center; gap:6px;}
+  .ds-top .crumb .sep{ color: var(--ink-mute);}
+  .ds-top .tabs{ display:flex; gap:14px; margin-left:8px;}
+  .ds-top .tabs .t{ padding: 0 0 4px 0; position:relative; font-size:9px; color: var(--ink-soft);
+    display:flex; align-items:center; gap:4px;}
+  .ds-top .tabs .t.on{ color: var(--svc-accent); font-weight:600;}
+  .ds-top .tabs .t.on::after{ content:""; position:absolute; left:0; right:0; bottom:-1px; height:1.5px;
+    background: var(--svc-accent);}
+  .ds-top .right{ margin-left:auto; color: var(--svc-accent); font-size:9px; font-weight:500;}
+
+  .ds-body{ flex:1; display:grid; grid-template-columns: 92px 1fr 200px; gap: 8px; padding: 10px;
+    background: linear-gradient(180deg, #fbfaf6, #f5f3ec); transform-style:preserve-3d; min-height:0;}
+
+  /* left thumb list */
+  .ds-left{ display:flex; flex-direction:column; gap:8px; transform-style:preserve-3d;}
+  .ds-left .add-btn{ height:22px; border:1px dashed rgba(21,20,15,.18); border-radius:6px;
+    display:flex; align-items:center; justify-content:center; gap:4px; font-size:8.5px;
+    color: var(--ink-soft); background: #fff;
+    transform: translateZ(calc(32px * var(--diorama-depth,1)));
+    box-shadow: 0 12px 22px -10px rgba(15,14,8,.22);}
+  .ds-thumb-row{ padding: 5px; border-radius:6px; background:#fff;
+    transform: translateZ(calc(70px * var(--diorama-depth,1)));
+    box-shadow: 0 30px 44px -14px rgba(15,14,8,.4), 0 0 0 1.5px var(--svc-accent);}
+  .ds-thumb{ height: 56px; border-radius:3px; background:#fff; border: .5px solid rgba(21,20,15,.06);
+    padding: 3px; position:relative; overflow:hidden;}
+  .ds-thumb .label{ position:absolute; top:2px; left:2px; background: rgba(21,20,15,.78);
+    color:#fff; font-size:6.5px; padding: 1px 3px; border-radius:2px;}
+  .ds-thumb-row .name{ font-size:8.5px; color: var(--svc-accent); font-weight:600; margin-top:4px;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .ds-thumb-row .sub{ font-size:7px; color: var(--ink-mute); margin-top:1px;
+    font-family:"JetBrains Mono", monospace;}
+
+  /* center drawing viewer */
+  .ds-center{ background:#fff; border-radius:8px; padding:10px 12px;
+    display:flex; flex-direction:column; gap:8px; transform-style:preserve-3d;
+    transform: translateZ(calc(40px * var(--diorama-depth,1)));
+    box-shadow: 0 24px 36px -14px rgba(15,14,8,.3), inset 0 0 0 .5px rgba(20,18,10,.04);}
+  .ds-toolbar{ display:flex; gap:5px; transform-style:preserve-3d;
+    transform: translateZ(calc(56px * var(--diorama-depth,1)));}
+  .ds-toolbar .tb{ width:22px; height:22px; border-radius:5px; background:#fff;
+    box-shadow: 0 8px 14px -8px rgba(15,14,8,.25), inset 0 0 0 .5px rgba(20,18,10,.1); display:grid; place-items:center;
+    color: var(--ink-soft); font-size:11px;}
+  .ds-toolbar .tb.danger{ color: #ec5b50;}
+  .ds-toolbar .write{ width:auto; padding: 0 9px; display:flex; align-items:center; gap:4px; font-size:9px;
+    color: var(--ink); font-weight:500;}
+  .ds-drawing{ flex:1; background:#fff; border-radius:4px; border: .5px solid rgba(20,18,10,.12);
+    position:relative; padding: 8px 10px;
+    transform: translateZ(calc(90px * var(--diorama-depth,1)));
+    box-shadow: 0 44px 64px -18px rgba(15,14,8,.45), 0 16px 28px -14px rgba(15,14,8,.25);}
+  .ds-drawing .corner{ position:absolute; top: 4px; left: 6px; font-size:6px; color: var(--ink-mute);
+    font-family:"JetBrains Mono",monospace;}
+  .ds-drawing .top-strip{ position:absolute; top:8px; left:30px; right:8px; height:8px;
+    background: repeating-linear-gradient(115deg, transparent 0 5px, rgba(20,18,10,.55) 5px 6px);}
+  .ds-drawing svg{ width:100%; height: calc(100% - 10px); margin-top: 6px;}
+  .ds-drawing .titleblock{ position:absolute; bottom:6px; right:6px; left:55%;
+    border:.5px solid rgba(20,18,10,.5); height:28px;
+    display:grid; grid-template-rows: 1fr 1fr; grid-template-columns: 1.2fr 1fr 1fr 1fr;
+    font-size:5.5px; color: var(--ink); font-family:"JetBrains Mono",monospace;}
+  .ds-drawing .titleblock div{ border-right:.5px solid rgba(20,18,10,.35); border-bottom:.5px solid rgba(20,18,10,.35);
+    padding: 1px 3px; display:flex; align-items:center;}
+
+  /* right similar panel */
+  .ds-right{ display:flex; flex-direction:column; gap:6px; min-height:0; transform-style:preserve-3d;}
+  .ds-right .tabs2{ display:flex; gap:10px; padding: 0 0 4px 0; border-bottom: .5px solid var(--ink-line);
+    transform: translateZ(calc(24px * var(--diorama-depth,1)));}
+  .ds-right .tabs2 .t2{ font-size:8.5px; color: var(--ink-soft); padding: 0 0 5px 0; position:relative;
+    display:flex; align-items:center; gap:3px;}
+  .ds-right .tabs2 .t2.on{ color: var(--svc-accent); font-weight:600;}
+  .ds-right .tabs2 .t2.on::after{ content:""; position:absolute; left:0; right:0; bottom:-1px; height:1.5px;
+    background: var(--svc-accent);}
+  .ds-right .head{ display:flex; justify-content:space-between; align-items:center; font-size:8px;
+    color: var(--ink-soft);}
+  .ds-right .head .link{ color: var(--svc-accent);}
+  .ds-grid-similar{ display:grid; grid-template-columns: 1fr 1fr; gap: 6px;
+    transform-style:preserve-3d; overflow:hidden;}
+  .ds-sim{ background:#fff; border-radius:5px; padding: 4px; position:relative; overflow:hidden;
+    transform-style:preserve-3d; box-shadow: inset 0 0 0 .5px rgba(20,18,10,.05);}
+  .ds-sim .thumb{ height: 44px; background:#fff; border-radius:2px; position:relative; overflow:hidden;
+    border: .5px solid rgba(20,18,10,.08); padding: 3px;}
+  .ds-sim .thumb .strip{ position:absolute; top: 2px; left: 16px; right: 2px; height:5px;
+    background: repeating-linear-gradient(115deg, transparent 0 4px, rgba(20,18,10,.5) 4px 5px);}
+  .ds-sim .score{ position:absolute; top:6px; right:6px; background: #2dbf5f; color:#fff;
+    font-size:7px; padding: 1px 5px; border-radius:3px; font-weight:600;
+    transform: translateZ(calc(8px * var(--diorama-depth,1)));}
+  .ds-sim .score.low{ background: #aaa;}
+  .ds-sim .name{ font-size:8.5px; font-weight:600; color: var(--ink); margin-top:3px;}
+  .ds-sim .co{ font-size:7px; color: var(--ink-mute); margin-top:1px;}
+  .ds-sim .tag{ font-size:6.5px; color: var(--ink-soft); margin-top:2px;}
+  .ds-sim:nth-child(1){ transform: translateZ(calc(130px * var(--diorama-depth,1))) rotateY(-2deg) rotateX(2deg);
+    box-shadow: 0 60px 80px -20px rgba(15,14,8,.5);}
+  .ds-sim:nth-child(2){ transform: translateZ(calc(95px * var(--diorama-depth,1))) rotateY(1deg);
+    box-shadow: 0 44px 60px -18px rgba(15,14,8,.42);}
+  .ds-sim:nth-child(3){ transform: translateZ(calc(70px * var(--diorama-depth,1))) rotateY(1.5deg) rotateX(-1deg);
+    box-shadow: 0 32px 46px -16px rgba(15,14,8,.36);}
+  .ds-sim:nth-child(4){ transform: translateZ(calc(48px * var(--diorama-depth,1))) rotateY(-1deg);
+    box-shadow: 0 22px 34px -14px rgba(15,14,8,.3);}
+
+  /* ===== Chat content ===== */
+  .ch-top{ height: 28px; border-bottom: .5px solid var(--ink-line); display:flex; align-items:center;
+    padding: 0 10px; gap: 8px; transform: translateZ(calc(16px * var(--diorama-depth,1)));}
+  .ch-top .stat{ width:6px; height:6px; border-radius:50%; background: var(--svc-accent);}
+  .ch-top .ttl{ font-size:10px; font-weight:600;}
+  .ch-top .right{ margin-left:auto; display:flex; gap:5px; align-items:center;}
+  .ch-top .iconbtn{ width:18px; height:18px; border-radius:4px; display:grid; place-items:center;
+    color: var(--ink-mute); font-size:10px;}
+  .ch-top .iconbtn.on{ background: var(--svc-accent); color:#fff;}
+  .ch-tabs{ display:flex; gap:6px; padding: 6px 10px 4px; border-bottom: .5px solid var(--ink-line);
+    overflow:hidden; transform: translateZ(calc(36px * var(--diorama-depth,1)));}
+  .ch-tab{ display:flex; align-items:center; gap:4px; padding: 4px 8px; border-radius: 6px;
+    font-size: 8.5px; color: var(--ink-soft); background: rgba(21,20,15,.04);
+    white-space:nowrap; min-width:0;}
+  .ch-tab .star{ color: rgba(21,20,15,.3); font-size:8px;}
+  .ch-tab.on{ background: #fff; color: var(--ink); font-weight:500;
+    box-shadow: inset 0 0 0 .5px rgba(20,18,10,.08), 0 6px 12px -8px rgba(15,14,8,.18);}
+  .ch-tab.on .star{ color: #f0b91d;}
+  .ch-tab .x{ color: var(--ink-mute); font-size:8px;}
+  .ch-tab .lbl{ max-width: 70px; overflow:hidden; text-overflow:ellipsis;}
+  .ch-plus{ width:22px; height:22px; border-radius:5px; background:#fff; color: var(--ink-soft);
+    display:grid; place-items:center; box-shadow: inset 0 0 0 .5px rgba(20,18,10,.08);
+    margin-left:auto; flex-shrink:0;}
+  .ch-body{ flex:1; padding: 10px 12px; overflow:hidden; display:flex; flex-direction:column; gap:10px;
+    transform-style:preserve-3d;}
+  .ch-user{ align-self:flex-end; max-width: 78%; background: var(--svc-accent); color:#fff;
+    border-radius: 14px; border-bottom-right-radius: 4px; padding: 8px 12px; font-size: 9.5px;
+    line-height:1.45; position:relative;
+    transform: translateZ(calc(80px * var(--diorama-depth,1))) rotateY(2deg);
+    box-shadow: 0 44px 60px -18px color-mix(in oklch, var(--svc-accent) 70%, transparent);}
+  .ch-user::after{ content:""; position:absolute; right:-22px; top: 4px; width:16px; height:16px;
+    border-radius:50%; background: var(--svc-accent);
+    background-image: linear-gradient(160deg, var(--svc-accent), color-mix(in oklch, var(--svc-accent) 70%, #000));}
+  .ch-meta{ align-self:flex-end; font-size: 7.5px; color: var(--ink-mute); padding-right: 22px;
+    font-family:"JetBrains Mono",monospace;}
+  .ch-ai{ align-self:flex-start; max-width: 88%; background:#f5f3ec; color:var(--ink);
+    border-radius: 12px; padding: 10px 12px; font-size: 9px; line-height: 1.55; position:relative;
+    transform: translateZ(calc(130px * var(--diorama-depth,1))) rotateY(-2.5deg);
+    box-shadow: 0 60px 80px -18px rgba(15,14,8,.5);}
+  .ch-ai::before{ content:""; position:absolute; left:-24px; top: 6px; width:18px; height:18px;
+    border-radius:50%; background: #e0eaf5; display:grid; place-items:center;}
+  .ch-ai .icn{ position:absolute; left:-22px; top: 8px; width:14px; height:14px; border-radius:50%;
+    background: linear-gradient(160deg, #5aa9ff, var(--svc-accent));
+    box-shadow: 0 4px 10px -3px rgba(26,166,160,.5);}
+  .ch-ai .intro{ margin-bottom:6px;}
+  .ch-ai h{ display:block; font-weight:700; font-size:9px; margin: 5px 0 3px;}
+  .ch-ai ul{ margin: 0; padding-left: 12px;}
+  .ch-ai ul li{ margin-top: 2px;}
+  .ch-ai ul li b{ font-weight:700;}
+  .ch-input{ margin: 8px 12px; padding: 0 10px; height: 26px; border-radius: 7px;
+    border: 1px solid rgba(20,18,10,.15); background:#fff; display:flex; align-items:center; gap:8px;
+    font-size: 9px; color: var(--ink-mute); white-space:nowrap; overflow:hidden;
+    transform: translateZ(calc(48px * var(--diorama-depth,1)));
+    box-shadow: 0 24px 32px -14px rgba(15,14,8,.3);}
+  .ch-input .plus{ color: var(--ink-soft); font-size: 12px;}
+  .ch-input .input-flex{ flex:1;}
+  .ch-input .mic{ color: var(--ink-mute); font-size:10px;}
+  .ch-input .send{ color: var(--ink); font-size:11px;}
+
+  /* ===== Kanban content ===== */
+  .kb-top{ display:flex; align-items:center; gap: 8px; padding: 8px 12px;
+    border-bottom: .5px solid var(--ink-line); transform: translateZ(calc(20px * var(--diorama-depth,1)));}
+  .kb-top h3{ margin: 0; font-size: 13px; font-weight:600; letter-spacing:-.005em;}
+  .kb-search{ flex:1; max-width: 320px; height: 26px; border-radius: 999px;
+    background:#fff; border: .5px solid rgba(20,18,10,.1);
+    display:flex; align-items:center; padding: 0 12px; gap: 8px; font-size:9px; color: var(--ink-mute);
+    margin: 0 auto; box-shadow: 0 14px 22px -10px rgba(15,14,8,.25);
+    transform: translateZ(calc(40px * var(--diorama-depth,1)));}
+  .kb-search .filter{ width: 16px; height:16px; border-radius:4px; background: rgba(21,20,15,.05);
+    display:grid; place-items:center; font-size:9px;}
+  .kb-new{ height: 26px; padding: 0 12px; border-radius: 6px; background: var(--svc-accent);
+    color:#fff; font-size: 9.5px; font-weight: 600; display:flex; align-items:center; gap: 5px;
+    transform: translateZ(calc(70px * var(--diorama-depth,1)));
+    box-shadow: 0 30px 40px -12px color-mix(in oklch, var(--svc-accent) 60%, transparent);}
+  .kb-tools{ display:flex; gap:6px; padding: 6px 12px; border-bottom: .5px solid var(--ink-line);
+    align-items:center; font-size: 9px; color: var(--ink-soft);
+    transform: translateZ(calc(28px * var(--diorama-depth,1)));}
+  .kb-tools .seg{ display:flex; background:#fff; border-radius:6px; padding: 2px;
+    border: .5px solid rgba(20,18,10,.08); gap: 2px;}
+  .kb-tools .seg .b{ width:24px; height:18px; border-radius:4px; display:grid; place-items:center;
+    color: var(--ink-soft); font-size:10px;}
+  .kb-tools .seg .b.on{ background: var(--svc-accent); color:#fff;}
+  .kb-tools .pill{ height: 22px; padding: 0 8px; border-radius:6px; background:#fff;
+    border:.5px solid rgba(20,18,10,.08); display:flex; align-items:center; gap:5px;}
+  .kb-tools .pill .ic{ font-size:10px; color: var(--ink-mute);}
+  .kb-tools .csv{ margin-left:auto;}
+
+  .kb-board{ flex:1; display:grid; grid-template-columns: repeat(4, 1fr) 64px; gap: 8px; padding: 10px;
+    background: linear-gradient(180deg, #fbfaf6, #f5f3ec); transform-style:preserve-3d; min-height:0;
+    overflow:hidden;}
+  .kb-col{ display:flex; flex-direction:column; gap:6px; padding: 6px 5px; border-radius: 8px;
+    border-top: 1px solid var(--kb-col-c); position:relative; transform-style:preserve-3d;
+    transform: translateZ(calc(20px * var(--diorama-depth,1)));
+    background: linear-gradient(180deg, color-mix(in oklch, var(--kb-col-c) 12%, white) 0%, transparent 70%);
+    box-shadow: 0 14px 28px -14px rgba(15,14,8,.22);
+    min-height: 0;
+    overflow:hidden;
+  }
+  .kb-colhead{ display:flex; align-items:center; justify-content:space-between;
+    padding: 3px 6px; font-size: 9.5px; font-weight: 600;}
+  .kb-colhead .dot{ width:7px; height:7px; border-radius:50%; background: var(--kb-col-c);
+    display:inline-block; margin-right:5px; box-shadow: 0 0 0 2px rgba(255,255,255,.6);}
+  .kb-colhead .count{ font-size:9px; color: var(--ink-mute); font-family:"JetBrains Mono",monospace;}
+  .kb-card{ background:#fff; border-radius:8px; padding: 8px 9px; display:flex; flex-direction:column;
+    gap:3px; transform-style:preserve-3d;
+    box-shadow: 0 12px 22px -14px rgba(15,14,8,.28), inset 0 0 0 .5px rgba(20,18,10,.04);}
+  .kb-card .row1{ display:flex; align-items:center; gap:5px;}
+  .kb-card .chk{ width:9px; height:9px; border-radius:2px; border: 1px solid rgba(20,18,10,.18); flex-shrink:0;}
+  .kb-card .t{ font-size: 9px; font-weight: 600; color: var(--ink); flex:1; min-width:0;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .kb-card .co{ font-size: 7.5px; color: var(--ink-soft); margin-left: 14px;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .kb-card .dt{ font-size: 7px; color: var(--ink-mute); margin-left: 14px; font-family:"JetBrains Mono",monospace;}
+
+  .kb-card:nth-child(2){ transform: translateZ(calc(48px * var(--diorama-depth,1)));}
+  .kb-card:nth-child(3){ transform: translateZ(calc(78px * var(--diorama-depth,1))) rotateZ(.4deg);
+    box-shadow: 0 30px 42px -14px rgba(15,14,8,.36);}
+  .kb-card:nth-child(4){ transform: translateZ(calc(112px * var(--diorama-depth,1))) rotateZ(-.5deg);
+    box-shadow: 0 44px 58px -16px rgba(15,14,8,.44);}
+  .kb-card:nth-child(5){ transform: translateZ(calc(150px * var(--diorama-depth,1))) rotateZ(.5deg);
+    box-shadow: 0 60px 76px -18px rgba(15,14,8,.5);}
+
+  /* ===== Floating bits around card ===== */
+  .float{ position:absolute; transform-style:preserve-3d; will-change:transform;
+    animation: float-in .6s cubic-bezier(.2,.7,.2,1) backwards;}
+  @keyframes float-in {
+    from { opacity:0; transform: translate3d(0,12px,0) scale(.92);}
+    to   { opacity:1;}
+  }
+  .float.pill, .float.btn, .float.badge, .float.chip, .float.search, .float.note{
+    background: linear-gradient(160deg, rgba(255,255,255,.96), rgba(255,255,255,.82));
+    border: .5px solid rgba(255,255,255,.9);
+    -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
+    box-shadow: 0 1px 0 rgba(255,255,255,.85) inset, 0 22px 38px -14px rgba(15,14,8,.32),
+                0 6px 14px -8px rgba(15,14,8,.18);
+    color: var(--ink); font-family: inherit;
+  }
+  .float.pill{ padding: 8px 13px 8px 9px; display:flex; align-items:center; gap:8px;
+    border-radius: 999px; font-size: 10.5px; font-weight:500; white-space:nowrap;}
+  .float.pill i{ width:18px; height:18px; border-radius:50%; display:grid; place-items:center;
+    background: var(--svc-accent); color:#fff; font-size:10px; font-style:normal;}
+  .float.btn{ padding: 10px 16px 10px 12px; border-radius: 12px; white-space:nowrap;
+    display:flex; align-items:center; gap:9px; font-size:11px; font-weight:600; color:#fff;
+    background: linear-gradient(160deg, var(--svc-accent), color-mix(in oklch, var(--svc-accent) 75%, #000));
+    border: .5px solid rgba(255,255,255,.4);
+    box-shadow: 0 1px 0 rgba(255,255,255,.4) inset, 0 22px 40px -16px rgba(15,14,8,.45);}
+  .float.btn .ico{ width:18px; height:18px; border-radius:5px;
+    background: rgba(255,255,255,.22); display:grid; place-items:center; font-size:11px;}
+  .float.badge{ padding: 9px 13px; border-radius: 11px; min-width: 100px;
+    display:flex; flex-direction:column; gap:1px;}
+  .float.badge .l{ font-size:8.5px; color:var(--ink-mute); letter-spacing:.08em; text-transform:uppercase;
+    font-family:"JetBrains Mono",monospace;}
+  .float.badge .v{ font-family:"Space Grotesk",sans-serif; font-weight:600; font-size:18px; letter-spacing:-.01em;}
+  .float.badge .v em{ font-style:normal; color: var(--svc-accent);}
+  .float.chip{ padding: 6px 11px; border-radius: 8px; white-space:nowrap;
+    display:flex; align-items:center; gap:7px; font-size:10px; font-weight:500;}
+  .float.chip .dot{ width:7px; height:7px; border-radius:50%; background: var(--svc-accent);
+    box-shadow: 0 0 0 3px rgba(255,255,255,.6), 0 0 0 4px var(--svc-accent), 0 0 12px var(--svc-accent);}
+  .float.note{ padding: 11px 13px; border-radius: 11px; max-width: 200px;
+    font-size: 10px; line-height: 1.55;}
+  .float.note .h{ font-size:9px; color:var(--svc-accent); letter-spacing:.1em;
+    text-transform:uppercase; font-family:"JetBrains Mono",monospace; margin-bottom:3px; font-weight:600;}
+  .float.avatar{ width:44px; height:44px; border-radius:50%;
+    background: linear-gradient(160deg, var(--svc-accent), color-mix(in oklch, var(--svc-accent) 60%, #000));
+    border: 2px solid rgba(255,255,255,.9);
+    box-shadow: 0 22px 40px -14px rgba(15,14,8,.4);
+    display:grid; place-items:center; color:#fff; font-weight:600;
+    font-family:"Space Grotesk",sans-serif; font-size:13px;}
+
+  /* ===== Tabs ===== */
+  .tabrow{ position:absolute; left: 0; right: 0; bottom: 0px; display:flex; gap:8px; justify-content:center; z-index:5;}
+  .tab{ flex:0 0 auto; padding: 10px 16px; font-size:11.5px; font-weight:500; color: var(--ink-soft);
+    white-space:nowrap; background: rgba(255,255,255,.78);
+    border: .5px solid rgba(255,255,255,.7); border-radius:999px;
+    -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
+    box-shadow: 0 12px 30px -16px rgba(20,18,10,.2), inset 0 1px 0 rgba(255,255,255,.7);
+    cursor:pointer; transition: all .25s ease;
+    display:flex; align-items:center; gap:8px; font-family: inherit;}
+  .tab[data-active="1"]{ color:#fff; background: var(--ink); border-color:var(--ink);
+    box-shadow: 0 12px 30px -12px rgba(20,18,10,.5);}
+  .tab .idx{ font-family:"JetBrains Mono",monospace; font-size:10px; opacity:.7;}
+
+  /* ==== Embed overrides (when loaded in iframe) ==== */
+  html, body {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    overflow: hidden !important;
+  }
+  body {
+    display: grid !important;
+    place-items: center !important;
+  }
+  body::before, body::after { display: none !important; content: none !important; }
+  .stage-orb { display: none !important; }
+  .tabrow { display: none !important; }
+  .wrap {
+    --s: min(1.5, calc(100vw / 900px), calc(100vh / 580px));
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    width: 820px !important;
+    max-width: 820px !important;
+    /* `+ 70px * var(--s)` to compensate the card's left:20 offset within the
+       wrap so the card itself sits at the iframe's horizontal center. */
+    transform: translate(calc(-50% + 70px * var(--s)), -50%) scale(var(--s)) !important;
+    transform-origin: center center !important;
+  }
+  .stage { height: 520px !important; }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="wrap" id="root"></div>
+
+<script type="text/babel">
+const { useState, useRef, useEffect } = React;
+
+// ===== Reusable bits =====
+const LogoMark = ({ color = '#fff' }) => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="6" fill={color}/>
+  </svg>
+);
+
+const SidebarIcon = ({ d, on = false }) => (
+  <div className={"ico " + (on ? "on" : "")}>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"
+         strokeLinecap="round" strokeLinejoin="round">
+      <path d={d}/>
+    </svg>
+  </div>
+);
+
+const Sidebar = ({ activeIcon }) => (
+  <div className="sidebar">
+    <div className="logo"><LogoMark/></div>
+    <SidebarIcon on={activeIcon === 'draw'} d="M4 6h10l-3 3 4 4 6-6V3H8L4 7z M4 6l8 8 M14 4l5 5"/>
+    <SidebarIcon on={activeIcon === 'product'} d="M4 7l8-4 8 4-8 4z M4 7v10l8 4 M20 7v10l-8 4 M12 11v10"/>
+    <SidebarIcon on={activeIcon === 'kanban'} d="M3 7h6v13H3z M11 4h6v16h-6z M19 9h2v11h-2z"/>
+    <SidebarIcon d="M5 4h11l3 3v13H5z M14 4v4h5"/>
+    <SidebarIcon d="M7 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M3 21c0-2 2-5 4-5h0c2 0 4 3 4 5 M17 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z M13 21c0-1.5 2-3.5 4-3.5h0c2 0 4 2 4 3.5"/>
+    <div className="spacer"></div>
+    <SidebarIcon d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z M19 12l2 1-1 2-2-1 M5 11l-2 1 1 2 2-1 M11 5l1-2 2 1-1 2 M11 19l1 2 2-1-1-2"/>
+    <SidebarIcon d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z M12 17v.01 M12 8v5"/>
+    <div style={{height:6}}></div>
+    <SidebarIcon d="M7 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M3 21c0-3 3-6 6-6h0c3 0 6 3 6 6"/>
+  </div>
+);
+
+// ===== Drawing Search =====
+const DrawingSearchScreen = () => (
+  <div className="app">
+    <Sidebar activeIcon="product"/>
+    <div className="content">
+      <div className="ds-top">
+        <div className="crumb">
+          <span>📐 製品一覧</span>
+          <span className="sep">›</span>
+          <span style={{color:'var(--ink)', fontWeight:500}}>筐体パーツ</span>
+        </div>
+        <div className="tabs">
+          <span className="t">① 製品基本情報</span>
+          <span className="t on">▦ 製品図面</span>
+          <span className="t">📄 製品関連書類</span>
+          <span className="t">⬢ 3Dモデル</span>
+        </div>
+        <span className="right">この製品の案件へ ›</span>
+      </div>
+      <div className="ds-body">
+        <div className="ds-left">
+          <div className="add-btn">+ 図面を追加</div>
+          <div className="ds-thumb-row">
+            <div className="ds-thumb">
+              <div className="label">本図面</div>
+              <DrawingSVG mini/>
+            </div>
+            <div className="name">892_松尾金属工業所</div>
+            <div className="sub">ab47892</div>
+          </div>
+        </div>
+        <div className="ds-center">
+          <div className="ds-toolbar">
+            <span className="tb">⬇</span>
+            <span className="tb">⎙</span>
+            <span className="tb">↗</span>
+            <span className="tb danger">🗑</span>
+            <span className="tb write">✎ 書き込み</span>
+            <span className="tb" style={{marginLeft:'auto'}}>⤢</span>
+          </div>
+          <div className="ds-drawing">
+            <span className="corner">A1  B1</span>
+            <div className="top-strip"></div>
+            <DrawingSVG/>
+            <div className="titleblock">
+              <div>製図</div><div>T.Tsuji</div><div>検図</div><div>T.hurukawa</div>
+              <div>製造番号</div><div>ab47892</div><div>筐体パーツ</div><div>4/9/2023</div>
+            </div>
+          </div>
+        </div>
+        <div className="ds-right">
+          <div className="tabs2">
+            <span className="t2">ⓘ 図面情報</span>
+            <span className="t2 on">🔍 類似図面</span>
+            <span className="t2">▤ 見積もり</span>
+          </div>
+          <div className="head">
+            <span>32件の類似図面</span>
+            <span className="link">類似図面詳細へ ↗</span>
+          </div>
+          <div className="ds-grid-similar">
+            {[
+              {n:'1-02101', co:'株式会社オメガ・クラフト', s:'高'},
+              {n:'9122120', co:'株式会社オメガ・クラフト', s:'高'},
+              {n:'890_松尾金属工業所 (1)', co:'大門機械製作所', s:'高'},
+              {n:'890_松尾金属工業所 (1)', co:'トライデント技研株式会社', s:'高'},
+            ].map((s,i)=>(
+              <div className="ds-sim" key={i}>
+                <span className={"score " + (s.s==='低'?'low':'')}>{s.s}</span>
+                <div className="thumb">
+                  <div className="strip"></div>
+                  <DrawingSVG mini compact/>
+                </div>
+                <div className="name">{s.n}</div>
+                <div className="co">{s.co}</div>
+                <div className="tag">形状</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+// Stylized technical drawing
+const DrawingSVG = ({ mini, compact }) => (
+  <svg viewBox="0 0 200 110" preserveAspectRatio="xMidYMid meet">
+    <g stroke="#15140f" strokeWidth={mini ? "0.6" : "0.8"} fill="none">
+      {/* main rectangle with notch */}
+      <path d="M40 35 L40 80 L150 80 L150 70 L130 70 L130 35 Z"/>
+      {/* hidden line */}
+      <line x1="40" y1="55" x2="130" y2="55" strokeDasharray="2 1.5" opacity=".7"/>
+      {/* circle */}
+      <circle cx="85" cy="60" r="11"/>
+      {/* small holes */}
+      <circle cx="55" cy="73" r="2.5"/>
+      <circle cx="120" cy="73" r="2.5"/>
+      {/* crosshair */}
+      <line x1="80" y1="60" x2="90" y2="60" strokeWidth="0.4"/>
+      <line x1="85" y1="55" x2="85" y2="65" strokeWidth="0.4"/>
+      {/* 3D isometric shape on right */}
+      <g transform="translate(155,30)">
+        <path d="M0 12 L20 4 L40 12 L40 32 L20 40 L0 32 Z"/>
+        <path d="M0 12 L20 20 L40 12 M20 20 L20 40" />
+        <circle cx="22" cy="22" r="6"/>
+      </g>
+      {!mini && (
+        <g fontSize="3.5" fontFamily="JetBrains Mono" fill="#15140f" stroke="none">
+          <text x="42" y="30">44.00</text>
+          <text x="42" y="40">22.00</text>
+          <text x="42" y="50">14.00</text>
+          <text x="22" y="60">18.00</text>
+          <text x="100" y="92">34.00</text>
+        </g>
+      )}
+      {!mini && (
+        <g stroke="#15140f" strokeWidth="0.3">
+          <line x1="40" y1="26" x2="130" y2="26"/>
+          <line x1="40" y1="24" x2="40" y2="28"/>
+          <line x1="130" y1="24" x2="130" y2="28"/>
+          <line x1="40" y1="86" x2="150" y2="86"/>
+          <line x1="40" y1="84" x2="40" y2="88"/>
+          <line x1="150" y1="84" x2="150" y2="88"/>
+        </g>
+      )}
+    </g>
+  </svg>
+);
+
+// ===== Chat =====
+const ChatScreen = () => (
+  <div className="app">
+    <Sidebar activeIcon="product"/>
+    <div className="content">
+      <div className="ch-top">
+        <span className="stat"></span>
+        <span className="ttl">ベーシックAI Assistant</span>
+        <span className="right">
+          <span className="iconbtn on">⚡</span>
+          <span className="iconbtn">▤</span>
+          <span className="iconbtn">⤢</span>
+          <span className="iconbtn">✕</span>
+        </span>
+      </div>
+      <div className="ch-tabs">
+        <div className="ch-tab"><span className="star">★</span><span className="lbl">過去トラブルにつ…</span><span className="x">✕</span></div>
+        <div className="ch-tab"><span className="star">★</span><span className="lbl">C工場・溶接エリア…</span><span className="x">✕</span></div>
+        <div className="ch-tab on"><span className="star">★</span><span className="lbl">C工場・溶接エリア…</span><span className="x">✕</span></div>
+        <div className="ch-tab"><span className="star">★</span><span className="lbl">レーザー加工につ…</span><span className="x">✕</span></div>
+        <div className="ch-plus">+</div>
+      </div>
+      <div className="ch-body">
+        <div className="ch-user">C工場・溶接エリアの過去トラブルについて教えてください</div>
+        <div className="ch-meta">01/29 15:49</div>
+        <div className="ch-ai">
+          <span className="icn"></span>
+          <div className="intro">C工場・溶接エリアにおける過去のトラブルについて、以下の情報をまとめました。</div>
+          <h>トラブルの概要</h>
+          <ul>
+            <li><b>発生日</b>: 2026年2月19日</li>
+            <li><b>場所</b>: C工場 溶接・組立エリア</li>
+          </ul>
+          <h>問題の詳細</h>
+          <ul>
+            <li><b>内容</b>: メインサポートフレームの溶接後に熱影響による歪み、寸法公差を外れた</li>
+            <li><b>状況</b>: ロット 20台中 2台が不適合（不適合率 10.0%）</li>
+          </ul>
+        </div>
+      </div>
+      <div className="ch-input">
+        <span className="plus">+</span>
+        <span className="input-flex">メッセージを入力...</span>
+        <span className="mic">🎤</span>
+        <span className="send">⇗</span>
+      </div>
+    </div>
+  </div>
+);
+
+// ===== Kanban =====
+const KanbanScreen = () => {
+  const cols = [
+    { title: '受注', c: '#1db77c', cards: [
+      { t: '検索用図面', co:'株式会社STAR UP', d:'2/1'},
+      { t: 'トライデント技研超精密機…', co:'トライデント技研株式会社', d:'1/16'},
+      { t: '八雲紡績繊維製品加工', co:'八雲紡績株式会社', d:'1/16'},
+      { t: '案件3G6170-921', co:'雷電機製作所', d:'11/20'},
+      { t: '案件1STAR UPパンチ金型…', co:'八雲紡績株式会社', d:'11/20'},
+    ]},
+    { title: '入荷', c: '#7a6bff', cards: [
+      { t: '剛田鉄工所大型フレーム製造', co:'株式会社 剛田鉄工所', d:'1/16'},
+      { t: 'オメガクラフト鋳造型製造', co:'株式会社オメガ・クラフト', d:'1/16'},
+      { t: 'バンダイ高性能フィルム加工', co:'万代マテリアル株式会社', d:'1/16', acc:true},
+      { t: '案件3B7890-Y789', co:'トライデント技研株式会社', d:'11/25'},
+      { t: '案件2松尾金属タンク製造…', co:'株式会社オメガ・クラフト', d:'11/20'},
+    ]},
+    { title: '失注', c: '#15140f', cards: [
+      { t: 'ゼロメカニクス自動化組立…', co:'株式会社ゼロ・メカニクス', d:'1/17'},
+      { t: 'ギガファクトリー精密射出…', co:'株式会社ギガ・ファクトリー', d:'1/17'},
+      { t: '雲海化学工業高機能樹脂部品', co:'雲海化学工業株式会社', d:'1/17'},
+      { t: '中型プレス金型設計・製造', co:'株式会社田中製作所', d:'12/15'},
+    ]},
+    { title: '見積中', c: '#9fd96b', cards: [
+      { t: '鬼瓦金属高精度パーツ製造', co:'鬼瓦金属株式会社', d:'1/16'},
+      { t: 'アルミ製パネル枠組立', co:'金剛プレス工業株式会社', d:'12/15'},
+      { t: '案件2A5083-H321', co:'大門機械製作所', d:'11/25'},
+      { t: '田中製作所', co:'株式会社田中製作所', d:'9/18'},
+    ]},
+  ];
+  return (
+    <div className="app">
+      <Sidebar activeIcon="kanban"/>
+      <div className="content">
+        <div className="kb-top">
+          <h3>案件一覧</h3>
+          <div className="kb-search"><span className="filter">⛀</span><span style={{color:'var(--ink-mute)'}}>⌕</span>案件を検索…</div>
+          <div className="kb-new">+ 新規案件</div>
+        </div>
+        <div className="kb-tools">
+          <div className="seg">
+            <div className="b">▦</div>
+            <div className="b on">▥</div>
+          </div>
+          <div className="pill"><span className="ic">↕</span>並べ替え設定 <span className="ic">▾</span></div>
+          <div className="pill"><span className="ic">⚙</span>テーブル設定</div>
+          <div className="pill csv"><span className="ic">⬇</span>CSV出力</div>
+        </div>
+        <div className="kb-board">
+          {cols.map((col,i)=>(
+            <div className="kb-col" key={i} style={{'--kb-col-c': col.c}}>
+              <div className="kb-colhead">
+                <span><span className="dot"></span>{col.title}</span>
+                <span className="count">{col.cards.length}</span>
+              </div>
+              {col.cards.map((card,j)=>(
+                <div className="kb-card" key={j}>
+                  <div className="row1">
+                    <span className="chk"></span>
+                    <span className="t">{card.t}</span>
+                  </div>
+                  <div className="co">{card.co}</div>
+                  <div className="dt">作成日: {card.d}</div>
+                </div>
+              ))}
+            </div>
+          ))}
+          <div className="kb-col" style={{'--kb-col-c':'#22b3d4', opacity:.5}}>
+            <div className="kb-colhead"><span><span className="dot"></span>加工中</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ===== Diorama ===== 
+const SCREENS = [
+  {
+    label: 'AI類似図面検索',
+    path: 'products/筐体パーツ',
+    tilt: { rx: -10, ry: 14 },
+    render: () => <DrawingSearchScreen />,
+    floats: [
+      { kind:'badge',  x: 580, y: 0,   z: 99, node: (<><span className="l">類似度</span><span className="v">98<em>%</em></span></>) },
+      { kind:'chip',   x: -20, y: 60,  z: 81, node: (<><span className="dot"></span>32 件の類似図面</>) },
+      { kind:'note',   x: 560, y: 320, z: 90, node: (<><div className="h">Auto-Match</div>24,108件をAIインデックス済</>) },
+      { kind:'pill',   x: -10, y: 460, z: 86, node: (<><i>↗</i> 類似図面詳細へ</>) },
+    ],
+  },
+  {
+    label: 'AIチャット型データ検索',
+    path: 'chat/C工場・溶接エリア',
+    tilt: { rx: -4, ry: -18 },
+    render: () => <ChatScreen />,
+    floats: [
+      { kind:'avatar', x: -28, y: 26,  z: 108, node: 'AI' },
+      { kind:'note',   x: 580, y: 10,  z: 99, node: (<><div className="h">Auto-cite</div>過去事例 3件から回答を生成</>) },
+      { kind:'chip',   x: -20, y: 320, z: 77, node: (<><span className="dot"></span>話し言葉で検索可能</>) },
+      { kind:'btn',    x: 540, y: 440, z: 113, node: (<><span className="ico">↵</span>参考図面を開く</>) },
+    ],
+  },
+  {
+    label: '案件管理機能',
+    path: 'cases/board',
+    tilt: { rx: -14, ry: 6 },
+    render: () => <KanbanScreen />,
+    floats: [
+      { kind:'pill',   x: -24, y: 30,  z: 95, node: (<><i>●</i>進行中 23 件</>) },
+      { kind:'badge',  x: 580, y: 0,   z: 104, node: (<><span className="l">This Month</span><span className="v">42 件</span></>) },
+      { kind:'btn',    x: -10, y: 460, z: 108, node: (<><span className="ico">+</span>新規案件</>) },
+      { kind:'chip',   x: 570, y: 330, z: 81, node: (<><span className="dot"></span>図面に紐づけ済</>) },
+    ],
+  },
+];
+
+function Diorama() {
+  const [active, setActive] = useState(0);
+  const stageRef = useRef(null);
+  const baseTilt = SCREENS[active].tilt;
+  const [tilt, setTilt] = useState(baseTilt);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => { setTilt(SCREENS[active].tilt); }, [active]);
+
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!el) return;
+    const onMove = (e) => {
+      const r = el.getBoundingClientRect();
+      const dx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      const dy = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      const bt = SCREENS[active].tilt;
+      setTilt({ rx: bt.rx - dy * 6, ry: bt.ry + dx * 8 });
+    };
+    const onLeave = () => setTilt(SCREENS[active].tilt);
+    el.addEventListener('mousemove', onMove);
+    el.addEventListener('mouseleave', onLeave);
+    return () => {
+      el.removeEventListener('mousemove', onMove);
+      el.removeEventListener('mouseleave', onLeave);
+    };
+  }, [active]);
+
+  useEffect(() => {
+    if (paused) return undefined;
+    const id = setInterval(() => setActive((a) => (a + 1) % SCREENS.length), 2500);
+    return () => clearInterval(id);
+  }, [paused]);
+
+  useEffect(() => {
+    const onMessage = (e) => {
+      const d = e.data;
+      if (!d || typeof d !== 'object') return;
+      if (d.type === 'set-screen' && typeof d.index === 'number') {
+        if (d.index >= 0 && d.index < SCREENS.length) {
+          setPaused(true);
+          setActive(d.index);
+        }
+      } else if (d.type === 'resume') {
+        setPaused(false);
+      }
+    };
+    window.addEventListener('message', onMessage);
+    return () => window.removeEventListener('message', onMessage);
+  }, []);
+
+  useEffect(() => {
+    try { window.parent.postMessage({ type: 'screen-changed', index: active }, '*'); } catch (_) {}
+  }, [active]);
+
+  const screen = SCREENS[active];
+
+  return (
+    <div ref={stageRef} className="stage"
+         onMouseEnter={() => setPaused(true)}
+         onMouseLeave={() => setPaused(false)}>
+      <div className="stage-orb a"></div>
+      <div className="stage-orb b"></div>
+      <div className="deck" style={{ transform: `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`, transition: 'transform .9s cubic-bezier(.2,.7,.2,1)' }}>
+        <div className="layer-card" key={`card-${active}`}>
+          {screen.render()}
+        </div>
+        {screen.floats.map((f, i) => (
+          <div key={`f-${active}-${i}`}
+               className={`float ${f.kind}`}
+               style={{
+                 left: f.x, top: f.y,
+                 transform: `translate3d(0,0,${f.z}px)`,
+                 animationDelay: `${i * 80}ms`,
+               }}>
+            {f.node}
+          </div>
+        ))}
+      </div>
+      <div className="tabrow">
+        {SCREENS.map((s, i) => (
+          <button key={i} className="tab"
+                  data-active={i === active ? '1' : '0'}
+                  onClick={() => setActive(i)}
+                  onMouseEnter={() => setActive(i)}>
+            <span className="idx">0{i+1}</span>
+            <span>{s.label}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Diorama />);
+</script>
+</body>
+</html>

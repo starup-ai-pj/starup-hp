@@ -204,6 +204,12 @@ body {
   cursor: none !important;
 }
 
+/* Service feature row — fills horizontally while diorama auto-rotates */
+@keyframes fillBar {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
 @keyframes glitch-skew {
   0% { transform: skew(-1deg); }
   10% { transform: skew(2deg); }

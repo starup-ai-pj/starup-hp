@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>PULSE — Diorama</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --bg:           #f3f1ec;
+    --ink:          #15140f;
+    --ink-soft:     rgba(21,20,15,.62);
+    --ink-mute:     rgba(21,20,15,.42);
+    --ink-line:     rgba(21,20,15,.08);
+    --svc-accent:   #ef4d4d;     /* pulse coral */
+    --svc-accent-2: #f59e3a;     /* secondary amber */
+    --good:         #1db77c;
+    --info:         #4a8bff;
+    --warn:         #f5b342;
+    --diorama-depth: 2.2;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:"Noto Sans JP","Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+  body{ min-height:100vh; display:grid; place-items:center; padding: 40px;}
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(1200px 700px at 80% -10%, rgba(239,77,77,.13), transparent 60%),
+      radial-gradient(900px 600px at 0% 30%, rgba(245,158,58,.08), transparent 60%);
+  }
+  body::after{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image: radial-gradient(rgba(20,18,10,.05) 1px, transparent 1px);
+    background-size: 3px 3px; opacity:.35; mix-blend-mode:multiply;
+  }
+  .wrap{ position:relative; z-index:1; width:100%; max-width: 820px;}
+
+  /* ===== Stage ===== */
+  .stage{ position:relative; height: 620px; perspective: 1800px; perspective-origin: 50% 45%;}
+  .stage-orb{ position:absolute; border-radius:50%; filter: blur(50px); opacity:.55; pointer-events:none; z-index:0;}
+  .stage-orb.a{ width: 340px; height:340px; left:-70px; top:-40px;
+    background: radial-gradient(circle, var(--svc-accent), transparent 70%);}
+  .stage-orb.b{ width: 320px; height: 320px; right:-50px; bottom:20px;
+    background: radial-gradient(circle, var(--svc-accent-2), transparent 70%); opacity:.4;}
+  .deck{ position:absolute; inset:0; transform-style:preserve-3d;}
+
+  /* ===== Main card ===== */
+  .layer-card{ position:absolute; left: 20px; top: 30px; width: 640px; height: 440px;
+    border-radius: 14px; background: #fff;
+    border: .5px solid rgba(255,255,255,.9);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.85) inset,
+      0 0 0 .5px rgba(255,255,255,.6) inset,
+      0 40px 70px -22px rgba(15,14,8,.32),
+      0 18px 30px -18px rgba(15,14,8,.2);
+    overflow:hidden; transform-style:preserve-3d; will-change: transform;
+    transform: translate3d(0, 0, 40px);
+  }
+
+  /* App chrome */
+  .app{ display:grid; grid-template-columns: 40px 1fr; height:100%; transform-style:preserve-3d;}
+  .sidebar{ background: var(--svc-accent); display:flex; flex-direction:column; align-items:center;
+    padding: 10px 0; gap: 4px; position:relative;
+    transform: translateZ(calc(20px * var(--diorama-depth,1)));}
+  .sidebar .logo{ width:24px; height:24px; margin-bottom:4px; display:grid; place-items:center;}
+  .sidebar .group{ font-size: 7.5px; color: rgba(255,255,255,.65); margin-top: 6px; font-weight:600;
+    letter-spacing: .04em;}
+  .sidebar .ico{ width:30px; height:30px; border-radius:6px; display:grid; place-items:center;
+    color:rgba(255,255,255,.78); position:relative;}
+  .sidebar .ico.on{ background: rgba(255,255,255,.18); color:#fff;}
+  .sidebar .ico svg{ width:16px; height:16px;}
+  .sidebar .spacer{ flex:1;}
+
+  .content{ display:flex; flex-direction:column; min-width:0; transform-style:preserve-3d;
+    position:relative; background: #f7f5f0;}
+
+  /* Top header bar */
+  .topbar{ display:flex; align-items:center; gap: 8px; padding: 8px 14px; background:#fff;
+    border-bottom: .5px solid var(--ink-line); overflow:hidden;
+    transform: translateZ(calc(14px * var(--diorama-depth,1)));}
+  .topbar h2{ margin: 0; font-size: 13px; font-weight:700; letter-spacing:-.005em; white-space:nowrap;}
+  .topbar .breadcrumb{ color: var(--ink-soft); font-size: 9px; margin-top: 1px;}
+  .topbar .sub{ font-size: 7.5px; color: var(--ink-mute); margin-top: 1px;
+    font-family:"JetBrains Mono", monospace; white-space:nowrap;}
+  .topbar .right{ margin-left:auto; display:flex; gap:6px; align-items:center; flex-shrink:0;}
+  .topbar .iconbtn{ height: 22px; padding: 0 9px; border-radius: 6px; background:#fff;
+    border: .5px solid rgba(20,18,10,.1); display:flex; align-items:center; gap:5px;
+    font-size: 9px; color: var(--ink); font-weight:500; white-space:nowrap; flex-shrink:0;}
+  .topbar .iconbtn .ic{ font-size:10px; color: var(--ink-soft);}
+  .topbar .iconbtn.solid{ background: var(--svc-accent); color: #fff; border-color: transparent;
+    transform: translateZ(calc(40px * var(--diorama-depth,1)));
+    box-shadow: 0 18px 26px -10px color-mix(in oklch, var(--svc-accent) 60%, transparent);}
+  .topbar .iconbtn.solid .ic{ color: #fff;}
+
+  /* Body */
+  .body-area{ flex:1; padding: 10px; overflow:hidden; transform-style:preserve-3d; min-height:0;}
+
+  /* ===== Screen 1: Dashboard ===== */
+  .ds-grid{ display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; transform-style:preserve-3d;}
+  .ds-kpi{ background:#fff; border-radius: 8px; padding: 8px 10px; transform-style:preserve-3d;
+    box-shadow: 0 14px 22px -10px rgba(15,14,8,.18), inset 0 0 0 .5px rgba(20,18,10,.05);
+    border: .5px solid rgba(20,18,10,.04);}
+  .ds-kpi .hd{ display:flex; align-items:center; gap: 4px; font-size: 7.5px; color: var(--ink-soft);}
+  .ds-kpi .hd .ic{ color: var(--svc-accent); font-size: 9px;}
+  .ds-kpi .v{ font-family:"Space Grotesk", sans-serif; font-weight: 700; font-size: 22px;
+    margin-top: 2px; letter-spacing:-.03em; line-height:1;}
+  .ds-kpi .v small{ font-size: 8px; color: var(--ink-mute); font-weight:500; margin-left: 2px;}
+  .ds-kpi .trend{ display:flex; align-items:center; gap: 3px; font-size: 7px;
+    color: var(--good); margin-top: 3px;}
+  .ds-kpi:nth-child(1){ transform: translateZ(calc(96px * var(--diorama-depth,1))) rotateY(-2deg);
+    box-shadow: 0 44px 56px -14px rgba(15,14,8,.42);}
+  .ds-kpi:nth-child(2){ transform: translateZ(calc(70px * var(--diorama-depth,1)));
+    box-shadow: 0 34px 44px -14px rgba(15,14,8,.36);}
+  .ds-kpi:nth-child(3){ transform: translateZ(calc(52px * var(--diorama-depth,1)));
+    box-shadow: 0 26px 36px -14px rgba(15,14,8,.32);}
+  .ds-kpi:nth-child(4){ transform: translateZ(calc(38px * var(--diorama-depth,1))) rotateY(2deg);
+    box-shadow: 0 22px 30px -14px rgba(15,14,8,.28);}
+
+  .ds-charts{ display:grid; grid-template-columns: 1.55fr 1fr; gap: 8px; margin-top: 8px;
+    transform-style:preserve-3d; height: calc(100% - 80px);}
+  .ds-chart{ background:#fff; border-radius: 8px; padding: 9px 11px;
+    display:flex; flex-direction:column; gap: 5px;
+    box-shadow: 0 18px 28px -12px rgba(15,14,8,.22), inset 0 0 0 .5px rgba(20,18,10,.04);
+    border: .5px solid rgba(20,18,10,.04);}
+  .ds-chart .hd{ display:flex; align-items:center; gap: 5px; font-size: 9px; font-weight:600;}
+  .ds-chart .hd .ic{ color: var(--svc-accent); font-size: 10px;}
+  .ds-chart .hd .right{ margin-left:auto; display:flex; gap: 4px;}
+  .ds-chart .hd .pill{ font-size: 7px; padding: 1px 5px; border-radius: 999px;
+    background: rgba(20,18,10,.05); color: var(--ink-soft);}
+  .ds-chart .body{ flex:1; position:relative;}
+  .ds-chart.line{ transform: translateZ(calc(48px * var(--diorama-depth,1))) rotateY(-1deg);
+    box-shadow: 0 28px 40px -14px rgba(15,14,8,.34);}
+  .ds-chart.bars{ transform: translateZ(calc(76px * var(--diorama-depth,1))) rotateY(2deg);
+    box-shadow: 0 38px 52px -14px rgba(15,14,8,.42);}
+
+  /* Line chart */
+  .ds-line svg{ width:100%; height:100%; display:block;}
+
+  /* Bar chart */
+  .ds-bars{ display:flex; align-items:flex-end; gap: 5px; height: 100%; padding-bottom: 14px; position:relative;}
+  .ds-bars .b{ flex:1; background: linear-gradient(180deg, var(--svc-accent), color-mix(in oklch, var(--svc-accent) 75%, #000));
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 8px 14px -6px rgba(239,77,77,.5);}
+  .ds-bars .lbl{ position:absolute; bottom: 0; font-size: 6px; color: var(--ink-mute);}
+
+  /* Bottom rankings strip */
+  .ds-rank{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 8px;
+    transform-style:preserve-3d;}
+  .ds-rk{ background:#fff; border-radius: 6px; padding: 6px 8px;
+    box-shadow: 0 12px 20px -10px rgba(15,14,8,.18), inset 0 0 0 .5px rgba(20,18,10,.04);
+    transform: translateZ(calc(28px * var(--diorama-depth,1)));
+    font-size: 8.5px; display:flex; align-items:center; gap: 5px;}
+  .ds-rk .ic{ width:16px; height:16px; border-radius:50%; background: var(--svc-accent-2);
+    display:grid; place-items:center; color:#fff; font-size: 9px;}
+  .ds-rk .t{ flex: 1; min-width: 0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+    font-weight: 500;}
+  .ds-rk .n{ font-family:"JetBrains Mono", monospace; font-size: 8px; color: var(--ink-soft);}
+
+  /* ===== Screen 2: Product Master ===== */
+  .pm-grid{ display:grid; grid-template-columns: 1.05fr 1.2fr; gap: 8px; height:100%; transform-style:preserve-3d;}
+  .pm-list{ background:#fff; border-radius: 8px; padding: 0; overflow:hidden;
+    display:flex; flex-direction:column;
+    box-shadow: 0 16px 26px -10px rgba(15,14,8,.2), inset 0 0 0 .5px rgba(20,18,10,.05);
+    transform: translateZ(calc(36px * var(--diorama-depth,1)));}
+  .pm-list .lhd{ display:grid; grid-template-columns: 100px 1fr; padding: 6px 10px;
+    border-bottom: .5px solid var(--ink-line); font-size: 8px; font-weight:600; color: var(--ink-soft);
+    font-family:"JetBrains Mono", monospace; letter-spacing: .04em;}
+  .pm-list .row{ display:grid; grid-template-columns: 16px 100px 1fr; padding: 5px 10px;
+    align-items:center; font-size: 8.5px; gap: 5px; border-bottom: .5px solid rgba(20,18,10,.03);}
+  .pm-list .row .chk{ width:9px; height:9px; border-radius:2px; border: 1px solid rgba(20,18,10,.2);}
+  .pm-list .row.on{ background: rgba(239,77,77,.07);
+    transform: translateZ(calc(34px * var(--diorama-depth,1)));
+    box-shadow: 0 20px 28px -12px rgba(239,77,77,.32);
+    position:relative; z-index:2;}
+  .pm-list .row .code{ font-family:"JetBrains Mono", monospace; font-size: 8px;}
+  .pm-list .row .name{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+
+  .pm-detail{ background:#fff; border-radius: 8px; padding: 9px 10px;
+    display:flex; flex-direction:column; gap: 6px; transform-style:preserve-3d;
+    box-shadow: 0 22px 34px -12px rgba(15,14,8,.26), inset 0 0 0 .5px rgba(20,18,10,.05);
+    transform: translateZ(calc(58px * var(--diorama-depth,1))) rotateY(2deg);}
+  .pm-detail .dhd{ display:flex; align-items:center; gap: 6px;}
+  .pm-detail .dhd .name{ font-size: 11px; font-weight: 700;}
+  .pm-detail .dhd .scope{ margin-left:auto; padding: 2px 8px; border-radius: 5px;
+    border: .5px solid rgba(20,18,10,.1); font-size: 7.5px; color: var(--ink-soft); display:flex; align-items:center; gap: 3px;}
+  .pm-kpis{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; transform-style:preserve-3d;}
+  .pm-kpi{ background: linear-gradient(180deg, #f9f9f6, #f4f3ee); border-radius: 6px;
+    padding: 6px 8px; text-align:center;
+    box-shadow: inset 0 0 0 .5px rgba(20,18,10,.05); transform-style:preserve-3d;}
+  .pm-kpi .l{ font-size: 7px; color: var(--ink-mute); letter-spacing: .04em;}
+  .pm-kpi .v{ font-family:"Space Grotesk", sans-serif; font-weight: 700; font-size: 16px;
+    color: var(--ink); letter-spacing:-.02em;}
+  .pm-kpi .v small{ font-size: 7.5px; color: var(--ink-mute); margin-left: 1px;}
+  .pm-kpi:nth-child(2){ transform: translateZ(calc(28px * var(--diorama-depth,1)));
+    box-shadow: 0 18px 24px -12px rgba(15,14,8,.3), inset 0 0 0 .5px rgba(20,18,10,.05);
+    background: #fff;}
+  .pm-trend-box{ background:#f9f9f6; border-radius: 6px; padding: 7px 9px; flex:1;
+    display:flex; flex-direction:column; gap: 4px; position:relative; transform-style:preserve-3d;}
+  .pm-trend-head{ display:flex; align-items:center; gap: 5px;}
+  .pm-trend-head .t{ font-size: 8.5px; font-weight:600;}
+  .pm-trend-head .tabs{ margin-left:auto; display:flex; gap: 3px;}
+  .pm-trend-head .tab{ font-size: 6.5px; padding: 2px 5px; border-radius: 3px;
+    background: rgba(20,18,10,.04); color: var(--ink-soft); font-weight:500;}
+  .pm-trend-head .tab.on{ background: var(--svc-accent); color:#fff;}
+  .pm-trend-body{ flex:1; position:relative;}
+  .pm-bars{ display:flex; align-items:flex-end; gap: 3px; height: 100%; padding: 4px 4px 12px 24px; position:relative;}
+  .pm-bars .ax{ position:absolute; left: 2px; top: 4px; bottom: 14px;
+    display:flex; flex-direction:column; justify-content:space-between; font-size: 6px; color: var(--ink-mute);
+    font-family:"JetBrains Mono", monospace;}
+  .pm-bars .b{ flex:1; background: var(--svc-accent); border-radius: 2px 2px 0 0;
+    box-shadow: 0 4px 8px -3px rgba(239,77,77,.4);}
+  .pm-bars .b.big{ background: linear-gradient(180deg, var(--svc-accent), color-mix(in oklch, var(--svc-accent) 75%, #000));
+    transform: translateZ(calc(20px * var(--diorama-depth,1)));
+    box-shadow: 0 10px 16px -4px rgba(239,77,77,.55);}
+  .pm-bars .dt{ position:absolute; bottom: 0; font-size: 5.5px; color: var(--ink-mute);
+    font-family:"JetBrains Mono", monospace;}
+  .pm-callout{ position:absolute; left: 28px; top: 6px; display:flex; flex-direction:column; gap: 4px;
+    transform: translateZ(calc(44px * var(--diorama-depth,1)));}
+  .pm-callout .co{ background:#fff; border:.5px solid rgba(20,18,10,.08); border-radius: 5px;
+    padding: 4px 7px; box-shadow: 0 14px 20px -10px rgba(15,14,8,.28);}
+  .pm-callout .co .l{ font-size: 6.5px; color: var(--ink-mute);}
+  .pm-callout .co .v{ font-family:"Space Grotesk", sans-serif; font-weight: 700; font-size: 11px;}
+
+  /* ===== Screen 3: Replenishment / AI ===== */
+  .rp-grid{ display:grid; grid-template-columns: 170px 1fr; gap: 8px; height:100%; transform-style:preserve-3d;}
+  .rp-skus{ background:#fff; border-radius: 8px; padding: 8px; display:flex; flex-direction:column; gap: 5px;
+    box-shadow: 0 16px 26px -10px rgba(15,14,8,.2), inset 0 0 0 .5px rgba(20,18,10,.05);
+    transform: translateZ(calc(32px * var(--diorama-depth,1))); overflow:hidden;}
+  .rp-skus h3{ margin:0 0 4px; font-size: 10px; font-weight:700;}
+  .rp-sku{ padding: 5px 7px; border-radius: 5px; display:flex; gap: 4px; align-items:flex-start;
+    background: #fff; border: .5px solid rgba(20,18,10,.05);
+    transform-style:preserve-3d;
+    box-shadow: 0 6px 10px -6px rgba(15,14,8,.15);}
+  .rp-sku .info{ flex:1; min-width: 0;}
+  .rp-sku .code{ font-family:"JetBrains Mono", monospace; font-size: 7.5px; color: var(--ink-mute);}
+  .rp-sku .n{ font-size: 8.5px; font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+    margin-top: 1px;}
+  .rp-sku .m{ font-size: 7px; color: var(--ink-mute); margin-top: 1px;
+    font-family:"JetBrains Mono", monospace;}
+  .rp-sku .bdg{ font-size: 6.5px; padding: 2px 5px; border-radius: 999px; font-weight: 600; align-self:flex-start;
+    white-space:nowrap;}
+  .bdg.ok{ background: rgba(29,183,124,.15); color: var(--good);}
+  .bdg.risk{ background: rgba(239,77,77,.15); color: var(--svc-accent);}
+  .bdg.move{ background: rgba(74,139,255,.15); color: var(--info);}
+  .bdg.unset{ background: rgba(20,18,10,.08); color: var(--ink-soft);}
+  .rp-sku.on{ background: rgba(239,77,77,.07); border: .5px solid rgba(239,77,77,.25);
+    transform: translateZ(calc(46px * var(--diorama-depth,1)));
+    box-shadow: 0 26px 34px -14px rgba(239,77,77,.32);}
+  .rp-sku:nth-child(3){ transform: translateZ(calc(20px * var(--diorama-depth,1)));}
+  .rp-sku:nth-child(4){ transform: translateZ(calc(34px * var(--diorama-depth,1)));}
+  .rp-sku:nth-child(5){ transform: translateZ(calc(22px * var(--diorama-depth,1)));}
+  .rp-sku:nth-child(6){ transform: translateZ(calc(28px * var(--diorama-depth,1)));}
+
+  .rp-matrix{ background:#fff; border-radius: 8px; padding: 9px 9px 9px 9px;
+    display:flex; flex-direction:column; gap: 4px; overflow:hidden;
+    transform-style:preserve-3d;
+    box-shadow: 0 22px 34px -12px rgba(15,14,8,.26), inset 0 0 0 .5px rgba(20,18,10,.05);
+    transform: translateZ(calc(56px * var(--diorama-depth,1))) rotateY(2deg);}
+  .rp-matrix .mhd{ display:flex; align-items:center; font-size: 10px; font-weight:700;}
+  .rp-matrix .mhd .right{ margin-left:auto; display:flex; gap: 3px;}
+  .rp-matrix .mhd .seg{ background: rgba(20,18,10,.05); border-radius: 4px; padding: 1px;
+    display:flex; gap: 1px;}
+  .rp-matrix .mhd .seg .s{ width:18px; height:14px; border-radius:3px; display:grid; place-items:center;
+    color: var(--ink-soft); font-size:8px;}
+  .rp-matrix .mhd .seg .s.on{ background: var(--svc-accent); color:#fff;}
+  .rp-th{ display:grid; grid-template-columns: 60px 70px repeat(5, 1fr); gap: 4px;
+    padding: 4px 0; border-bottom: .5px solid var(--ink-line); font-size: 7px; color: var(--ink-mute);
+    font-family:"JetBrains Mono", monospace; font-weight: 600;}
+  .rp-th .col{ text-align:center;}
+  .rp-th .col .v{ font-size: 8px; color: var(--ink); font-weight: 700;
+    font-family:"Noto Sans JP", sans-serif; margin-bottom: 1px;}
+  .rp-th .col .sub{ display:flex; gap: 2px; justify-content:center;}
+  .rp-row{ display:grid; grid-template-columns: 60px 70px repeat(5, 1fr); gap: 4px;
+    padding: 3px 0; align-items:center; font-size: 7.5px; transform-style:preserve-3d;}
+  .rp-row .code{ font-family:"JetBrains Mono", monospace; font-size: 7px; color: var(--ink-soft);}
+  .rp-row .store{ font-size: 7.5px;}
+  .rp-cell{ display:flex; align-items:center; justify-content:center; gap: 3px; font-size: 7.5px;}
+  .rp-cell .from{ color: var(--ink-soft); font-weight: 500;}
+  .rp-cell .to{ color: var(--ink); font-weight: 700;}
+  .rp-cell .arr{ color: var(--ink-mute); font-size: 8px;}
+  .rp-wk{ display:flex; align-items:center; gap: 2px; justify-content:center; font-size: 6.5px;
+    font-family:"JetBrains Mono", monospace; font-weight: 600;}
+  .rp-wk .w{ padding: 0 3px; border-radius: 2px;}
+  .rp-wk .w.r{ color: var(--svc-accent); background: rgba(239,77,77,.12);}
+  .rp-wk .w.y{ color: #b88300; background: rgba(245,179,66,.18);}
+  .rp-wk .w.g{ color: var(--good); background: rgba(29,183,124,.14);}
+  .rp-wk .w.b{ color: var(--info); background: rgba(74,139,255,.15);}
+  .rp-wk .arr{ color: var(--ink-mute); font-size:7px;}
+  .rp-row:nth-child(3){ transform: translateZ(calc(40px * var(--diorama-depth,1)));}
+  .rp-row:nth-child(4){ transform: translateZ(calc(64px * var(--diorama-depth,1)));
+    background: linear-gradient(90deg, rgba(239,77,77,.04), transparent);}
+  .rp-row:nth-child(5){ transform: translateZ(calc(30px * var(--diorama-depth,1)));}
+  .rp-row:nth-child(6){ transform: translateZ(calc(46px * var(--diorama-depth,1)));}
+  .rp-row:nth-child(7){ transform: translateZ(calc(22px * var(--diorama-depth,1)));}
+  .rp-row:nth-child(8){ transform: translateZ(calc(34px * var(--diorama-depth,1)));}
+
+  /* ===== Floating bits around card ===== */
+  .float{ position:absolute; transform-style:preserve-3d; will-change:transform;
+    animation: float-in .6s cubic-bezier(.2,.7,.2,1) backwards;}
+  @keyframes float-in {
+    from { opacity:0; transform: translate3d(0,12px,0) scale(.92);}
+    to   { opacity:1;}
+  }
+  .float.pill, .float.btn, .float.badge, .float.chip, .float.note{
+    background: linear-gradient(160deg, rgba(255,255,255,.96), rgba(255,255,255,.82));
+    border: .5px solid rgba(255,255,255,.9);
+    -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
+    box-shadow: 0 1px 0 rgba(255,255,255,.85) inset, 0 22px 38px -14px rgba(15,14,8,.32),
+                0 6px 14px -8px rgba(15,14,8,.18);
+    color: var(--ink); font-family: inherit;
+  }
+  .float.pill{ padding: 8px 13px 8px 9px; display:flex; align-items:center; gap:8px;
+    border-radius: 999px; font-size: 10.5px; font-weight:500; white-space:nowrap;}
+  .float.pill i{ width:18px; height:18px; border-radius:50%; display:grid; place-items:center;
+    background: var(--svc-accent); color:#fff; font-size:10px; font-style:normal;}
+  .float.btn{ padding: 10px 16px 10px 12px; border-radius: 12px; white-space:nowrap;
+    display:flex; align-items:center; gap:9px; font-size:11px; font-weight:600; color:#fff;
+    background: linear-gradient(160deg, var(--svc-accent), color-mix(in oklch, var(--svc-accent) 75%, #000));
+    border: .5px solid rgba(255,255,255,.4);
+    box-shadow: 0 1px 0 rgba(255,255,255,.4) inset, 0 22px 40px -16px rgba(15,14,8,.45);}
+  .float.btn .ico{ width:18px; height:18px; border-radius:5px;
+    background: rgba(255,255,255,.22); display:grid; place-items:center; font-size:11px;}
+  .float.badge{ padding: 9px 13px; border-radius: 11px; min-width: 110px;
+    display:flex; flex-direction:column; gap:1px;}
+  .float.badge .l{ font-size:8.5px; color:var(--ink-mute); letter-spacing:.08em; text-transform:uppercase;
+    font-family:"JetBrains Mono",monospace;}
+  .float.badge .v{ font-family:"Space Grotesk",sans-serif; font-weight:600; font-size:20px; letter-spacing:-.01em;}
+  .float.badge .v em{ font-style:normal; color: var(--svc-accent);}
+  .float.badge .d{ font-size:8px; color: var(--good); font-weight: 500; margin-top: 1px;}
+  .float.chip{ padding: 6px 11px; border-radius: 8px; white-space:nowrap;
+    display:flex; align-items:center; gap:7px; font-size:10px; font-weight:500;}
+  .float.chip .dot{ width:7px; height:7px; border-radius:50%; background: var(--svc-accent);
+    box-shadow: 0 0 0 3px rgba(255,255,255,.6), 0 0 0 4px var(--svc-accent), 0 0 12px var(--svc-accent);}
+  .float.note{ padding: 11px 13px; border-radius: 11px; max-width: 220px;
+    font-size: 10px; line-height: 1.55;}
+  .float.note .h{ font-size:9px; color:var(--svc-accent); letter-spacing:.1em;
+    text-transform:uppercase; font-family:"JetBrains Mono",monospace; margin-bottom:3px; font-weight:600;}
+  .float.spark{ width: 44px; height: 44px; border-radius:50%;
+    background: linear-gradient(160deg, var(--svc-accent), color-mix(in oklch, var(--svc-accent) 50%, #000));
+    border: 2px solid rgba(255,255,255,.9);
+    box-shadow: 0 22px 40px -14px color-mix(in oklch, var(--svc-accent) 70%, transparent);
+    display:grid; place-items:center; color:#fff; font-size:18px;}
+
+  /* ===== Tabs ===== */
+  .tabrow{ position:absolute; left: 0; right: 0; bottom: 0px; display:flex; gap:8px; justify-content:center; z-index:5;}
+  .tab{ flex:0 0 auto; padding: 10px 16px; font-size:11.5px; font-weight:500; color: var(--ink-soft);
+    white-space:nowrap; background: rgba(255,255,255,.78);
+    border: .5px solid rgba(255,255,255,.7); border-radius:999px;
+    -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
+    box-shadow: 0 12px 30px -16px rgba(20,18,10,.2), inset 0 1px 0 rgba(255,255,255,.7);
+    cursor:pointer; transition: all .25s ease;
+    display:flex; align-items:center; gap:8px; font-family: inherit;}
+  .tab[data-active="1"]{ color:#fff; background: var(--ink); border-color:var(--ink);
+    box-shadow: 0 12px 30px -12px rgba(20,18,10,.5);}
+  .tab .idx{ font-family:"JetBrains Mono",monospace; font-size:10px; opacity:.7;}
+
+  /* ==== Embed overrides (when loaded in iframe) ==== */
+  html, body {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    overflow: hidden !important;
+  }
+  body {
+    display: grid !important;
+    place-items: center !important;
+  }
+  body::before, body::after { display: none !important; content: none !important; }
+  .stage-orb { display: none !important; }
+  .tabrow { display: none !important; }
+  .wrap {
+    --s: min(1.5, calc(100vw / 900px), calc(100vh / 580px));
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    width: 820px !important;
+    max-width: 820px !important;
+    /* `+ 70px * var(--s)` to compensate the card's left:20 offset within the
+       wrap so the card itself sits at the iframe's horizontal center. */
+    transform: translate(calc(-50% + 70px * var(--s)), -50%) scale(var(--s)) !important;
+    transform-origin: center center !important;
+  }
+  .stage { height: 520px !important; }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="wrap" id="root"></div>
+
+<script type="text/babel">
+const { useState, useRef, useEffect } = React;
+
+// Brand mark — abstracted to a simple circle
+const BrandMark = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="6" fill="#fff"/>
+  </svg>
+);
+
+const SidebarIcon = ({ d, on=false }) => (
+  <div className={"ico " + (on ? "on" : "")}>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"
+         strokeLinecap="round" strokeLinejoin="round">
+      <path d={d}/>
+    </svg>
+  </div>
+);
+
+const Sidebar = ({ active }) => (
+  <div className="sidebar">
+    <div className="logo"><BrandMark/></div>
+    <div className="group">Main</div>
+    <SidebarIcon on={active === 'dash'} d="M3 13l9-9 9 9 M5 11v9h5v-6h4v6h5v-9"/>
+    <SidebarIcon on={active === 'replen'} d="M4 12a8 8 0 0 1 14-5.5 M20 12a8 8 0 0 1-14 5.5 M18 4v3h-3 M6 20v-3h3"/>
+    <div className="group">Data</div>
+    <SidebarIcon on={active === 'product'} d="M4 7l8-4 8 4-8 4z M4 7v10l8 4 M20 7v10l-8 4 M12 11v10"/>
+    <SidebarIcon d="M12 21s-7-7-7-12a7 7 0 0 1 14 0c0 5-7 12-7 12z M12 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+    <SidebarIcon d="M7 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M3 21c0-2 2-5 4-5h0c2 0 4 3 4 5 M17 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z M13 21c0-1.5 2-3.5 4-3.5h0c2 0 4 2 4 3.5"/>
+    <div className="group">Set</div>
+    <SidebarIcon d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z M19 12l2 1-1 2-2-1 M5 11l-2 1 1 2 2-1 M11 5l1-2 2 1-1 2 M11 19l1 2 2-1-1-2"/>
+    <SidebarIcon d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z M19 12l2 1-1 2-2-1 M5 11l-2 1 1 2 2-1"/>
+    <SidebarIcon d="M3 6h18 M3 12h18 M3 18h18"/>
+    <SidebarIcon d="M5 5h14v14H5z M5 9h14 M9 5v14"/>
+    <div className="spacer"></div>
+    <SidebarIcon d="M7 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M3 21c0-3 3-6 6-6h0c3 0 6 3 6 6"/>
+  </div>
+);
+
+// ===== Screen 1: Dashboard =====
+const DashboardScreen = () => {
+  // Sales trend line — generate a wavy red line
+  const points = [50,40,72,38,62,30,68,35,55,28,80,45,90,32,72,38,60,42,78,28,95,40,72,55,60,42,68,32,78,28,70,38,82,50,42,32,28,22,18,24,26,20];
+  const W=100, H=42, step=W/(points.length-1);
+  const path = points.map((p,i)=>`${i?'L':'M'} ${i*step} ${H - (p/100)*H}`).join(' ');
+  const area = `${path} L ${W} ${H} L 0 ${H} Z`;
+
+  return (
+    <div className="app">
+      <Sidebar active="dash"/>
+      <div className="content">
+        <div className="topbar">
+          <h2>ダッシュボード</h2>
+          <span className="right">
+            <span className="iconbtn"><span className="ic">⬇</span>ダウンロード</span>
+            <span className="iconbtn"><span className="ic">⚙</span>編集</span>
+          </span>
+        </div>
+        <div className="body-area">
+          <div className="ds-grid">
+            <div className="ds-kpi">
+              <div className="hd"><span className="ic">📈</span>今月売上</div>
+              <div className="v">6,609,572<small>円</small></div>
+              <div className="trend">↗ +3.6% <span style={{color:'var(--ink-mute)'}}>前期比</span></div>
+            </div>
+            <div className="ds-kpi">
+              <div className="hd"><span className="ic">📈</span>今月販売数</div>
+              <div className="v">2,390<small>個</small></div>
+              <div className="trend">↗ +0.5% <span style={{color:'var(--ink-mute)'}}>前期比</span></div>
+            </div>
+            <div className="ds-kpi">
+              <div className="hd"><span className="ic">📈</span>平均在庫週数</div>
+              <div className="v">24.6<small>週</small></div>
+              <div className="trend" style={{color:'var(--svc-accent)'}}>↘ −2.1% <span style={{color:'var(--ink-mute)'}}>前期比</span></div>
+            </div>
+            <div className="ds-kpi">
+              <div className="hd"><span className="ic">📈</span>今月取引数</div>
+              <div className="v">410<small>件</small></div>
+              <div className="trend">↗ +3.5% <span style={{color:'var(--ink-mute)'}}>前期比</span></div>
+            </div>
+          </div>
+
+          <div className="ds-charts">
+            <div className="ds-chart line">
+              <div className="hd">
+                <span className="ic">📈</span>売上推移
+                <span className="right">
+                  <span className="pill">¥141,056,697</span>
+                  <span className="pill">3ヶ月 ▾</span>
+                </span>
+              </div>
+              <div className="body ds-line">
+                <svg viewBox={`0 0 ${W} ${H+4}`} preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="dsg" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="var(--svc-accent)" stopOpacity=".35"/>
+                      <stop offset="100%" stopColor="var(--svc-accent)" stopOpacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <path d={area} fill="url(#dsg)"/>
+                  <path d={path} fill="none" stroke="var(--svc-accent)" strokeWidth="0.7"/>
+                  <line x1="0" y1={H*0.25} x2={W} y2={H*0.25} stroke="rgba(20,18,10,.06)" strokeWidth="0.2" strokeDasharray="1 1"/>
+                  <line x1="0" y1={H*0.5}  x2={W} y2={H*0.5}  stroke="rgba(20,18,10,.06)" strokeWidth="0.2" strokeDasharray="1 1"/>
+                  <line x1="0" y1={H*0.75} x2={W} y2={H*0.75} stroke="rgba(20,18,10,.06)" strokeWidth="0.2" strokeDasharray="1 1"/>
+                </svg>
+              </div>
+            </div>
+            <div className="ds-chart bars">
+              <div className="hd">
+                <span className="ic">▥</span>店舗別売上比較
+                <span className="right"><span className="pill">10件 ▾</span></span>
+              </div>
+              <div className="body">
+                <div className="ds-bars">
+                  {[88, 82, 76, 75, 73, 68].map((h,i)=>(
+                    <div className="b" key={i} style={{ height: h+'%' }}></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="ds-rank">
+            <div className="ds-rk"><span className="ic">♛</span><span className="t">トレンチコート</span><span className="n">7,738,191</span></div>
+            <div className="ds-rk"><span className="ic">♛</span><span className="t">Curio Style 桜丘通り店</span><span className="n">25,640,002</span></div>
+            <div className="ds-rk"><span className="ic">♛</span><span className="t">リブタンクトップ</span><span className="n">47,173.2</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ===== Screen 2: Product Master =====
+const ProductMasterScreen = () => {
+  const products = [
+    { c:'CS-P001', n:'コットンクルーネックT', on:true },
+    { c:'CS-P002', n:'リブタンクトップ' },
+    { c:'CS-P003', n:'オーガニックコットンVネックT' },
+    { c:'CS-P004', n:'ドライメッシュポケットT' },
+    { c:'CS-P005', n:'ヘビーウェイトポケットT' },
+    { c:'CS-P006', n:'ボーダークルーネックT' },
+    { c:'CS-P007', n:'プリントグラフィックT' },
+    { c:'CS-P008', n:'スラブコットンT' },
+    { c:'CS-P009', n:'オープンカラーシャツ' },
+  ];
+  return (
+    <div className="app">
+      <Sidebar active="product"/>
+      <div className="content">
+        <div className="topbar">
+          <h2>商品マスタ</h2>
+          <span className="right">
+            <span className="iconbtn"><span className="ic">▦</span></span>
+            <span className="iconbtn solid"><span className="ic">▥</span></span>
+            <span className="iconbtn"><span className="ic">⌕</span></span>
+            <span className="iconbtn">ステータス ▾</span>
+            <span className="iconbtn"><span className="ic">⚲</span>フィルター</span>
+            <span className="iconbtn"><span className="ic">⬇</span>CSV出力</span>
+          </span>
+        </div>
+        <div className="body-area">
+          <div className="pm-grid">
+            <div className="pm-list">
+              <div className="lhd"><div>商品コード ▾</div><div>商品名 ▾</div></div>
+              {products.map((p,i)=>(
+                <div className={"row " + (p.on?'on':'')} key={i}>
+                  <span className="chk"></span>
+                  <span className="code">{p.c}</span>
+                  <span className="name">{p.n}</span>
+                </div>
+              ))}
+            </div>
+            <div className="pm-detail">
+              <div className="dhd">
+                <span className="name">コットンクルーネックT</span>
+                <span className="scope">全店舗 ▾</span>
+              </div>
+              <div className="pm-kpis">
+                <div className="pm-kpi"><div className="l">在庫数</div><div className="v">7,398<small>個</small></div></div>
+                <div className="pm-kpi"><div className="l">売上数 (3ヶ月)</div><div className="v">169<small>個</small></div></div>
+                <div className="pm-kpi"><div className="l">在庫切れ日数</div><div className="v">2,920<small>日</small></div></div>
+              </div>
+              <div className="pm-trend-box">
+                <div className="pm-trend-head">
+                  <span style={{color:'var(--svc-accent)', fontSize:10}}>▥</span>
+                  <span className="t">売上推移</span>
+                  <div className="tabs">
+                    <span className="tab">1ヶ月</span>
+                    <span className="tab on">3ヶ月</span>
+                    <span className="tab">6ヶ月</span>
+                    <span className="tab">1年</span>
+                    <span className="tab">発売日〜</span>
+                  </div>
+                </div>
+                <div className="pm-trend-body">
+                  <div className="pm-bars">
+                    <div className="ax"><span>24</span><span>18</span><span>12</span><span>6</span><span>0</span></div>
+                    {[40,32,40,30,80,70,90,55,40,75,85,95,90].map((h,i)=>(
+                      <div className={"b " + (i===10||i===11?'big':'')} key={i} style={{ height: h+'%' }}></div>
+                    ))}
+                    <span className="dt" style={{left:'8%'}}>12/8</span>
+                    <span className="dt" style={{left:'40%'}}>1/12</span>
+                    <span className="dt" style={{left:'78%'}}>2/23</span>
+                  </div>
+                  <div className="pm-callout">
+                    <div className="co"><div className="l">期間売上数</div><div className="v">169個</div></div>
+                    <div className="co"><div className="l">期間売上金額</div><div className="v">51万円</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ===== Screen 3: AI Replenishment =====
+const ReplenishmentScreen = () => {
+  const skus = [
+    { c:'CS-P001', n:'リブタンクトップ', m:'補充 42個 · 今週売上 18', bdg:'ok',  bdgLbl:'確認済み', on:true },
+    { c:'CS-P002', n:'オーガニックコット…', m:'補充 18個 · 今週売上 9', bdg:'risk', bdgLbl:'リスク' },
+    { c:'CS-P003', n:'ストレッチデニムパ…', m:'補充 31個 · 今週売上 14', bdg:'unset', bdgLbl:'未確認' },
+    { c:'CS-P004', n:'リネンシャツ',         m:'補充 25個 · 今週売上 11', bdg:'ok',  bdgLbl:'確認済み' },
+    { c:'CS-P005', n:'フレアスカート',       m:'補充 15個 · 今週売上 7',  bdg:'move', bdgLbl:'店間移動' },
+    { c:'CS-P006', n:'クルーネックニット',   m:'補充 38個 · 今週売上 16', bdg:'risk', bdgLbl:'リスク' },
+  ];
+  const rows = [
+    { code:'CS-ST-001', name:'新宿店',    total:['115','153'], cols:[ {f:'7w', t:'9w', cf:'y', ct:'b'}, {f:'0w', t:'3w', cf:'r', ct:'y'}, {f:'14', t:'21', cf:'g', ct:'b'}, {f:'19', t:'24', cf:'b', ct:'b'}, {f:'4', t:'8',  cf:'r', ct:'y'} ] },
+    { code:'CS-ST-002', name:'渋谷店',    total:['90','124'],  cols:[ {f:'5w', t:'7w', cf:'g', ct:'g'}, {f:'6', t:'11', cf:'g', ct:'b'},   {f:'5', t:'12', cf:'g', ct:'b'},   {f:'3w', t:'6w', cf:'y', ct:'g'}, {f:'5', t:'10', cf:'g', ct:'b'} ] },
+    { code:'CS-ST-003', name:'池袋店',    total:['51','89'],   cols:[ {f:'3w', t:'5w', cf:'r', ct:'y'}, {f:'0', t:'1',  cf:'r', ct:'r'},   {f:'1', t:'8',  cf:'r', ct:'g'},   {f:'1w', t:'4w', cf:'r', ct:'y'}, {f:'3', t:'9',  cf:'y', ct:'b'} ] },
+    { code:'CS-ST-004', name:'銀座店',    total:['70','96'],   cols:[ {f:'4w', t:'6w', cf:'y', ct:'g'}, {f:'8', t:'14', cf:'g', ct:'b'},   {f:'7', t:'12', cf:'g', ct:'b'},   {f:'4w', t:'5w', cf:'y', ct:'g'}, {f:'10','t':'15',cf:'b', ct:'b'} ] },
+    { code:'CS-ST-005', name:'横浜店',    total:['86','115'],  cols:[ {f:'5w', t:'6w', cf:'g', ct:'g'}, {f:'16','t':'16',cf:'b', ct:'b'},  {f:'9w', t:'9w', cf:'b', ct:'b'},  {f:'2w', t:'3w', cf:'y', ct:'y'}, {f:'11','t':'16',cf:'b', ct:'b'} ] },
+    { code:'CS-ST-006', name:'大阪梅田店', total:['79','108'], cols:[ {f:'5w', t:'6w', cf:'g', ct:'g'}, {f:'5', t:'12', cf:'g', ct:'b'},   {f:'3w', t:'6w', cf:'y', ct:'g'},   {f:'3w', t:'3w', cf:'y', ct:'y'}, {f:'15','t':'18',cf:'b', ct:'b'} ] },
+  ];
+
+  return (
+    <div className="app">
+      <Sidebar active="replen"/>
+      <div className="content">
+        <div className="topbar">
+          <h2>補充調整</h2>
+          <span className="sub" style={{marginLeft:6}}>2026-03-06 作成</span>
+          <span className="right">
+            <span className="iconbtn"><span className="ic">+</span>品番</span>
+            <span className="iconbtn"><span className="ic" style={{color:'var(--good)'}}>✓</span>計画確定</span>
+            <span className="iconbtn solid"><span className="ic">⬇</span>出力</span>
+          </span>
+        </div>
+        <div className="body-area">
+          <div className="rp-grid">
+            <div className="rp-skus">
+              <h3>品番リスト</h3>
+              {skus.map((s,i)=>(
+                <div className={"rp-sku " + (s.on?'on':'')} key={i}>
+                  <div className="info">
+                    <div className="code">{s.c}</div>
+                    <div className="n">{s.n}</div>
+                    <div className="m">{s.m}</div>
+                  </div>
+                  <span className={"bdg "+s.bdg}>{s.bdgLbl}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="rp-matrix">
+              <div className="mhd">
+                在庫マトリクス
+                <div className="right">
+                  <div className="seg"><div className="s on">▦</div><div className="s">▤</div></div>
+                </div>
+              </div>
+              <div className="rp-th">
+                <div>店舗コード</div>
+                <div>店舗名</div>
+                <div className="col"><div className="v">品番全体</div><div className="sub"><span>在庫</span><span>週数</span></div></div>
+                <div className="col"><div className="v">ホワイト/S</div><div className="sub"><span>在庫</span><span>週数</span></div></div>
+                <div className="col"><div className="v">ホワイト/M</div><div className="sub"><span>在庫</span><span>週数</span></div></div>
+                <div className="col"><div className="v">ホワイト/L</div><div className="sub"><span>在庫</span><span>週数</span></div></div>
+                <div className="col"><div className="v">ブラック/S</div><div className="sub"><span>在庫</span><span>週数</span></div></div>
+              </div>
+              {rows.map((r,i)=>(
+                <div className="rp-row" key={i}>
+                  <span className="code">{r.code}</span>
+                  <span className="store">{r.name}</span>
+                  <div className="rp-cell"><span className="from">{r.total[0]}</span><span className="arr">→</span><span className="to">{r.total[1]}</span></div>
+                  {r.cols.map((c, j) => (
+                    <div className="rp-wk" key={j}>
+                      <span className={"w "+c.cf}>{c.f}</span>
+                      <span className="arr">→</span>
+                      <span className={"w "+c.ct}>{c.t}</span>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ===== Diorama =====
+const SCREENS = [
+  {
+    label: 'ダッシュボード',
+    path: 'analytics/dashboard',
+    tilt: { rx: -10, ry: 14 },
+    render: () => <DashboardScreen />,
+    floats: [
+      { kind:'badge', x: 580, y: 0,   z: 65, node: (<><span className="l">今月売上</span><span className="v">¥6.6<em>M</em></span><span className="d">↗ +3.6%</span></>) },
+      { kind:'chip',  x: -22, y: 60,  z: 52, node: (<><span className="dot"></span>14 店舗 リアルタイム</>) },
+      { kind:'note',  x: 560, y: 320, z: 59, node: (<><div className="h">Integrated</div>POS・EC・在庫を一元化</>) },
+      { kind:'pill',  x: -10, y: 460, z: 56, node: (<><i>↻</i> 5分毎更新</>) },
+    ],
+  },
+  {
+    label: '商品マスタ',
+    path: 'products/CS-P001',
+    tilt: { rx: -6, ry: -16 },
+    render: () => <ProductMasterScreen />,
+    floats: [
+      { kind:'badge', x: 580, y: 0,   z: 65, node: (<><span className="l">在庫切れ</span><span className="v">2,920<em>日</em></span></>) },
+      { kind:'chip',  x: -22, y: 30,  z: 52, node: (<><span className="dot"></span>100 SKU × 14 店舗</>) },
+      { kind:'note',  x: -10, y: 460, z: 59, node: (<><div className="h">Drill-down</div>SKU×店舗×期間 分析</>) },
+      { kind:'btn',   x: 540, y: 440, z: 65, node: (<><span className="ico">↗</span>店舗別を見る</>) },
+    ],
+  },
+  {
+    label: 'AI補充提案',
+    path: 'replenish/2026-03-07',
+    tilt: { rx: -14, ry: 10 },
+    render: () => <ReplenishmentScreen />,
+    floats: [
+      { kind:'spark', x: -22, y: 26,  z: 70, node: '✦' },
+      { kind:'note',  x: 580, y: 10,  z: 63, node: (<><div className="h">AI Proposal</div>14 店 · 100 SKU 一括最適化</>) },
+      { kind:'chip',  x: -20, y: 320, z: 52, node: (<><span className="dot"></span>欠品リスク 3 件</>) },
+      { kind:'btn',   x: 540, y: 440, z: 70, node: (<><span className="ico">✓</span>計画を確定</>) },
+    ],
+  },
+];
+
+function Diorama() {
+  const [active, setActive] = useState(0);
+  const stageRef = useRef(null);
+  const [tilt, setTilt] = useState(SCREENS[0].tilt);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => { setTilt(SCREENS[active].tilt); }, [active]);
+
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!el) return;
+    const onMove = (e) => {
+      const r = el.getBoundingClientRect();
+      const dx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      const dy = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      const bt = SCREENS[active].tilt;
+      setTilt({ rx: bt.rx - dy * 6, ry: bt.ry + dx * 8 });
+    };
+    const onLeave = () => setTilt(SCREENS[active].tilt);
+    el.addEventListener('mousemove', onMove);
+    el.addEventListener('mouseleave', onLeave);
+    return () => {
+      el.removeEventListener('mousemove', onMove);
+      el.removeEventListener('mouseleave', onLeave);
+    };
+  }, [active]);
+
+  useEffect(() => {
+    if (paused) return undefined;
+    const id = setInterval(() => setActive(a => (a + 1) % SCREENS.length), 2500);
+    return () => clearInterval(id);
+  }, [paused]);
+
+  useEffect(() => {
+    const onMessage = (e) => {
+      const d = e.data;
+      if (!d || typeof d !== 'object') return;
+      if (d.type === 'set-screen' && typeof d.index === 'number') {
+        if (d.index >= 0 && d.index < SCREENS.length) {
+          setPaused(true);
+          setActive(d.index);
+        }
+      } else if (d.type === 'resume') {
+        setPaused(false);
+      }
+    };
+    window.addEventListener('message', onMessage);
+    return () => window.removeEventListener('message', onMessage);
+  }, []);
+
+  useEffect(() => {
+    try { window.parent.postMessage({ type: 'screen-changed', index: active }, '*'); } catch (_) {}
+  }, [active]);
+
+  const screen = SCREENS[active];
+
+  return (
+    <div ref={stageRef} className="stage"
+         onMouseEnter={() => setPaused(true)}
+         onMouseLeave={() => setPaused(false)}>
+      <div className="stage-orb a"></div>
+      <div className="stage-orb b"></div>
+      <div className="deck" style={{ transform: `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`, transition:'transform .9s cubic-bezier(.2,.7,.2,1)' }}>
+        <div className="layer-card" key={`card-${active}`}>
+          {screen.render()}
+        </div>
+        {screen.floats.map((f, i) => (
+          <div key={`f-${active}-${i}`}
+               className={`float ${f.kind}`}
+               style={{
+                 left: f.x, top: f.y,
+                 transform: `translate3d(0,0,${f.z}px)`,
+                 animationDelay: `${i * 80}ms`,
+               }}>
+            {f.node}
+          </div>
+        ))}
+      </div>
+      <div className="tabrow">
+        {SCREENS.map((s, i) => (
+          <button key={i} className="tab"
+                  data-active={i === active ? '1' : '0'}
+                  onClick={() => setActive(i)}
+                  onMouseEnter={() => setActive(i)}>
+            <span className="idx">0{i+1}</span>
+            <span>{s.label}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Diorama />);
+</script>
+</body>
+</html>

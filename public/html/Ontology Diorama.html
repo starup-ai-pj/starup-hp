@@ -1,0 +1,922 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ORBIT — Diorama</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --bg:           #eef0ec;
+    --ink:          #15140f;
+    --ink-soft:     rgba(21,20,15,.62);
+    --ink-mute:     rgba(21,20,15,.42);
+    --ink-line:     rgba(21,20,15,.08);
+    --svc-accent:   #10a571;     /* orbit emerald */
+    --svc-accent-2: #f5b342;     /* secondary amber */
+    --diorama-depth: 2.2;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:"Noto Sans JP","Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+  body{ min-height:100vh; display:grid; place-items:center; padding: 40px;}
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(1200px 700px at 80% -10%, rgba(16,165,113,.13), transparent 60%),
+      radial-gradient(900px 600px at 0% 30%, rgba(245,179,66,.07), transparent 60%);
+  }
+  body::after{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image: radial-gradient(rgba(20,18,10,.05) 1px, transparent 1px);
+    background-size: 3px 3px; opacity:.35; mix-blend-mode:multiply;
+  }
+  .wrap{ position:relative; z-index:1; width:100%; max-width: 820px;}
+
+  /* ===== Stage ===== */
+  .stage{ position:relative; height: 620px; perspective: 1800px; perspective-origin: 50% 45%;}
+  .stage-orb{ position:absolute; border-radius:50%; filter: blur(50px); opacity:.55; pointer-events:none; z-index:0;}
+  .stage-orb.a{ width: 340px; height:340px; left:-70px; top:-40px;
+    background: radial-gradient(circle, var(--svc-accent), transparent 70%);}
+  .stage-orb.b{ width: 320px; height: 320px; right:-50px; bottom:20px;
+    background: radial-gradient(circle, var(--svc-accent-2), transparent 70%); opacity:.4;}
+  .deck{ position:absolute; inset:0; transform-style:preserve-3d;}
+
+  /* ===== Main card ===== */
+  .layer-card{ position:absolute; left: 20px; top: 30px; width: 640px; height: 440px;
+    border-radius: 14px; background: #fff;
+    border: .5px solid rgba(255,255,255,.9);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.85) inset,
+      0 0 0 .5px rgba(255,255,255,.6) inset,
+      0 40px 70px -22px rgba(15,14,8,.32),
+      0 18px 30px -18px rgba(15,14,8,.2);
+    overflow:hidden; transform-style:preserve-3d; will-change: transform;
+    transform: translate3d(0, 0, 40px);
+  }
+
+  /* App chrome */
+  .app{ display:grid; grid-template-rows: 32px 1fr; height:100%; transform-style:preserve-3d;}
+  .app-top{ display:flex; align-items:center; padding: 0 10px; gap: 8px;
+    background: #fff; border-bottom: .5px solid var(--ink-line); overflow:hidden;
+    transform: translateZ(calc(12px * var(--diorama-depth,1)));}
+  .app-top .back{ color: var(--ink-soft); font-size: 12px; width:18px; text-align:center; flex-shrink:0;}
+  .app-top .ttl{ font-size: 11px; font-weight: 600; white-space:nowrap; overflow:hidden;
+    text-overflow:ellipsis; max-width: 200px;}
+  .app-top .pub{ font-size: 7.5px; padding: 2px 6px; border-radius: 999px;
+    background: var(--svc-accent); color:#fff; font-weight: 600; letter-spacing:.06em;
+    font-family:"JetBrains Mono", monospace; white-space:nowrap; flex-shrink:0;}
+  .app-top .right{ margin-left:auto; display:flex; align-items:center; gap:5px; flex-shrink:0;}
+  .app-top .ic{ width:20px; height:20px; border-radius:5px; display:grid; place-items:center;
+    color: var(--ink-soft); font-size:11px;}
+  .app-top .ic.amber{ background: var(--svc-accent-2); color:#fff;}
+  .app-top .save{ height: 22px; padding: 0 10px; border-radius: 6px;
+    background: var(--svc-accent); color: #fff; font-size: 9.5px; font-weight: 600;
+    display:flex; align-items:center; gap:4px;
+    transform: translateZ(calc(40px * var(--diorama-depth,1)));
+    box-shadow: 0 18px 26px -10px color-mix(in oklch, var(--svc-accent) 60%, transparent);}
+  .app-top .pill-toggle{ display:flex; background: rgba(245,179,66,.15); border-radius: 7px; padding: 2px;
+    transform: translateZ(calc(28px * var(--diorama-depth,1)));}
+  .app-top .pill-toggle .pt{ padding: 2px 8px; font-size: 9px; font-weight:500; color:var(--ink-soft);
+    border-radius: 5px; display:flex; align-items:center; gap:3px;}
+  .app-top .pill-toggle .pt.on{ background: var(--svc-accent-2); color:#fff;}
+
+  .app-body{ display:grid; grid-template-columns: var(--left,150px) 1fr var(--right,150px);
+    transform-style:preserve-3d; min-height:0; overflow:hidden;}
+
+  /* Side panels */
+  .panel{ background: #fff; border-right: .5px solid var(--ink-line);
+    padding: 10px 8px; display:flex; flex-direction:column; gap:7px; overflow:hidden;
+    transform-style:preserve-3d; min-height:0;
+    transform: translateZ(calc(24px * var(--diorama-depth,1)));}
+  .panel.right{ border-right: none; border-left: .5px solid var(--ink-line);}
+  .panel .ptitle{ font-size: 11px; font-weight:700; color:var(--ink); display:flex; align-items:center;
+    justify-content:space-between; padding-bottom: 4px; white-space:nowrap;}
+  .panel .ptitle .x{ color:var(--ink-mute); font-size:11px;}
+  .panel .psub{ font-size: 8px; color: var(--ink-mute); margin-top:-4px; margin-bottom: 4px; white-space:nowrap;}
+  .panel .search{ height: 22px; padding: 0 8px; border-radius: 6px;
+    border: .5px solid rgba(20,18,10,.1); background: #fff; display:flex; align-items:center;
+    font-size: 8.5px; color: var(--ink-mute); gap: 5px;}
+  .panel .pcat{ font-size: 9px; color: var(--svc-accent); font-weight:600; display:flex;
+    align-items:center; gap: 4px; margin-top: 4px;}
+  .panel .pcat .num{ background: var(--svc-accent-2); color: #fff; font-size:7px;
+    padding: 1px 5px; border-radius: 999px; font-weight:600;}
+  .panel .pcat .chev{ margin-left:auto; color: var(--ink-mute);}
+
+  /* Canvas */
+  .canvas{ background: #f8f8f6; padding: 10px; overflow:hidden; transform-style:preserve-3d;
+    position: relative; min-height: 0;}
+
+  /* ===== Screen 1: App Builder ===== */
+  .ab-widgets{ display:flex; flex-direction:column; gap:5px;}
+  .ab-w{ background:#fff; border-radius: 5px; padding: 5px 7px; display:flex; align-items:center; gap:6px;
+    border:.5px solid rgba(20,18,10,.06);}
+  .ab-w .ic{ width:16px; height:16px; border-radius:4px; background: rgba(16,165,113,.1);
+    display:grid; place-items:center; color: var(--svc-accent); font-size:9px;}
+  .ab-w .n{ font-size: 8.5px; font-weight: 600;}
+  .ab-w .s{ font-size: 7px; color: var(--ink-mute); margin-top:1px;}
+  .ab-w-text{ flex:1; min-width:0;}
+
+  .ab-canvas{ display:grid; grid-template-columns: 1fr 1fr; gap: 8px; height: 100%;
+    transform-style:preserve-3d;}
+  .ab-card{ background: #fff; border-radius: 8px; padding: 10px 11px; transform-style:preserve-3d;
+    box-shadow: 0 14px 22px -10px rgba(15,14,8,.16), inset 0 0 0 .5px rgba(20,18,10,.05);
+    display:flex; flex-direction:column; gap:6px;}
+  .ab-card .hd{ display:flex; align-items:center; gap:5px; font-size:8.5px; color:var(--ink-soft);}
+  .ab-card .hd .ic{ width:14px; height:14px; border-radius:3px; background: rgba(16,165,113,.1);
+    color: var(--svc-accent); display:grid; place-items:center; font-size:9px;}
+  .ab-card .hd .ic.bar{ background: rgba(96,140,255,.15); color: #5b88ff;}
+  .ab-card .hd .ic.tbl{ background: rgba(245,179,66,.15); color: var(--svc-accent-2);}
+  .ab-card .hd .grip{ color: var(--ink-mute); margin-right:auto;}
+  .ab-card.kpi{ align-items:center; justify-content:center; gap:0; transform: translateZ(calc(56px * var(--diorama-depth,1)));
+    box-shadow: 0 28px 38px -12px rgba(15,14,8,.28);}
+  .ab-card.kpi .lbl{ font-size: 9px; color: var(--ink-mute); letter-spacing:.16em; font-weight: 700;
+    margin-top:14px; font-family:"JetBrains Mono", monospace;}
+  .ab-card.kpi .val{ font-family:"Space Grotesk", sans-serif; font-weight: 700; font-size: 56px;
+    line-height: 1; color: var(--ink); letter-spacing: -.04em;
+    transform: translateZ(calc(40px * var(--diorama-depth,1)));}
+  .ab-card.kpi .hd{ position:absolute; top: 8px; left: 11px; right: 11px;}
+  .ab-card.kpi{ position:relative;}
+  .ab-card.bar{ transform: translateZ(calc(86px * var(--diorama-depth,1))) rotateY(-2deg);
+    box-shadow: 0 42px 58px -16px rgba(15,14,8,.4);}
+  .ab-bars{ flex:1; display:grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    align-items:end; padding: 4px 14px 10px; position:relative;}
+  .ab-bars .ax{ position:absolute; left:4px; top: 4px; bottom: 18px;
+    display:flex; flex-direction:column; justify-content:space-between; font-size: 6.5px;
+    color: var(--ink-mute); font-family:"JetBrains Mono", monospace;}
+  .ab-bars .b{ background: linear-gradient(180deg, #5b88ff 0%, #6a8bff 100%); border-radius: 3px 3px 0 0;
+    transform: translateZ(calc(30px * var(--diorama-depth,1)));
+    box-shadow: 0 10px 18px -6px rgba(91,136,255,.5);}
+  .ab-bars .b.h1{ height: 86%;}
+  .ab-bars .b.h2{ height: 92%;}
+  .ab-bars .lbl{ position:absolute; bottom: 4px; font-size: 7px; color: var(--ink-soft);}
+  .ab-bars .lbl.l1{ left: 20%;}
+  .ab-bars .lbl.l2{ right: 22%;}
+
+  .ab-card.tbl{ grid-column: span 2; transform: translateZ(calc(34px * var(--diorama-depth,1)));
+    box-shadow: 0 22px 32px -12px rgba(15,14,8,.28);}
+  .ab-tbl-hd{ display:grid; grid-template-columns: 70px 80px 1fr 50px; padding: 4px 4px 6px;
+    border-bottom: .5px solid var(--ink-line); font-size: 7px; color: var(--ink-mute);
+    font-family:"JetBrains Mono", monospace; letter-spacing: .05em; font-weight: 600;}
+  .ab-tbl-row{ display:grid; grid-template-columns: 70px 80px 1fr 50px; padding: 6px 4px;
+    font-size: 8px; color: var(--ink); align-items:center;
+    transform: translateZ(calc(20px * var(--diorama-depth,1)));}
+  .ab-tbl-row .actions{ display:flex; gap: 5px; color: var(--ink-mute);}
+
+  /* Right settings panel */
+  .ab-setting{ display:flex; flex-direction:column; gap: 4px;}
+  .ab-setting .lbl{ font-size: 8.5px; color: var(--ink); font-weight: 600;}
+  .ab-setting .field{ height: 22px; padding: 0 8px; border-radius: 5px;
+    border: .5px solid rgba(20,18,10,.1); background:#fff; font-size: 8px; color: var(--ink);
+    display:flex; align-items:center; justify-content:space-between;}
+  .ab-setting .field .chev{ color: var(--ink-mute);}
+  .ab-setting .field.dark{ background:#f5f3ee;}
+  .ab-setting .toggle{ display:flex; align-items:center; justify-content:space-between;
+    font-size: 8.5px;}
+  .ab-setting .tg{ width: 22px; height: 12px; border-radius: 999px; background: var(--svc-accent);
+    position:relative;}
+  .ab-setting .tg::after{ content:""; position:absolute; top:2px; right:2px; width:8px; height:8px;
+    border-radius:50%; background:#fff;}
+  .ab-setting .add-btn{ padding: 4px 0; font-size: 8.5px; color: var(--ink-soft);
+    border: .5px dashed rgba(20,18,10,.18); border-radius: 5px; text-align:center;}
+  .ab-setting .add-link{ color: var(--svc-accent); font-size: 8.5px; font-weight:500;}
+
+  /* ===== Screen 2: Workflow ===== */
+  .wf-nodes{ display:flex; flex-direction:column; gap:6px;}
+  .wf-n{ background:#fff; border-radius: 8px; padding: 7px 8px; display:flex; align-items:center; gap:6px;
+    box-shadow: 0 6px 10px -6px rgba(15,14,8,.15), inset 0 0 0 .5px rgba(20,18,10,.06);}
+  .wf-n .ic{ width:18px; height:18px; border-radius:4px;
+    display:grid; place-items:center; color:#fff; font-size:10px;}
+  .wf-n .ic.trig{ background: var(--svc-accent-2);}
+  .wf-n .ic.ai{ background: var(--svc-accent);}
+  .wf-n .n{ font-size: 8.5px; font-weight:500; color: var(--ink);}
+  .wf-cat{ font-size: 9px; color: var(--ink-mute); font-weight:600; letter-spacing:.04em; margin-top:6px;}
+
+  .wf-canvas{ position:relative; background:
+    radial-gradient(rgba(20,18,10,.07) 1px, transparent 1px) 0 0 / 12px 12px,
+    linear-gradient(180deg, #fafaf6, #f3f5f0);
+    transform-style:preserve-3d; padding: 8px;}
+
+  .wf-node{ position:absolute; background:#fff; border-radius: 8px; padding: 7px 9px;
+    border: .5px solid rgba(20,18,10,.1); transform-style:preserve-3d; width: 132px;
+    box-shadow: 0 14px 22px -10px rgba(15,14,8,.2);}
+  .wf-node .top{ display:flex; align-items:center; gap:5px;}
+  .wf-node .top .ic{ width:14px; height:14px; border-radius:4px; display:grid; place-items:center;
+    color:#fff; font-size:9px;}
+  .wf-node .top .name{ font-size: 8.5px; font-weight: 600;}
+  .wf-node .tag{ display:inline-block; background: var(--svc-accent-2); color:#fff;
+    padding: 1px 5px; border-radius: 3px; font-size: 6.5px; font-weight: 600; margin-top: 3px;
+    font-family:"JetBrains Mono", monospace;}
+  .wf-node .desc{ font-size: 7px; color: var(--ink-soft); margin-top:3px; line-height: 1.4;
+    overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;}
+  .wf-node.trigger{ background: linear-gradient(160deg, #d3e3f6, #e2eaf7);}
+  .wf-node.trigger .ic{ background: #5b88ff;}
+  .wf-node.ai .ic{ background: var(--svc-accent);}
+  .wf-node.review{ background: #ece3d8;}
+  .wf-node.review .ic{ background: #c9a575;}
+  .wf-node.wait{ background: #e6d8f0;}
+  .wf-node.wait .ic{ background: #9d72d3;}
+  .wf-node.decision{ background: #fff5dc; border: 1.5px solid var(--svc-accent);}
+  .wf-node.decision .ic{ background: var(--svc-accent-2);}
+
+  .wf-edge{ position:absolute; pointer-events:none; transform-style:preserve-3d;}
+
+  /* Right AI assistant panel */
+  .ai-asst{ display:flex; flex-direction:column; gap:8px; height: 100%;}
+  .ai-asst .top{ display:flex; align-items:center; justify-content:space-between;}
+  .ai-asst .top .ttl{ display:flex; align-items:center; gap:5px; font-size:10px; font-weight:600;}
+  .ai-asst .top .ttl .sp{ color: var(--svc-accent); font-size: 11px;}
+  .ai-asst .iconrow{ display:flex; gap: 4px;}
+  .ai-asst .iconrow .ic{ width:18px; height:18px; border-radius:5px;
+    display:grid; place-items:center; color: var(--ink-soft); font-size:11px;}
+  .ai-asst .iconrow .ic.on{ background: var(--svc-accent); color:#fff;}
+  .ai-asst .splash{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; gap:6px; padding: 10px;}
+  .ai-asst .splash .big-ic{ width:36px; height:36px; border-radius:50%;
+    background: rgba(16,165,113,.08); display:grid; place-items:center; font-size:20px; color: var(--svc-accent);
+    transform: translateZ(calc(40px * var(--diorama-depth,1)));
+    box-shadow: 0 20px 28px -10px color-mix(in oklch, var(--svc-accent) 40%, transparent);}
+  .ai-asst .splash h4{ margin: 0; font-size: 10.5px; font-weight:700;}
+  .ai-asst .splash p{ margin: 0; font-size: 8.5px; color: var(--ink-soft); line-height: 1.6;}
+  .ai-asst .splash .hint{ font-size: 7.5px; color: var(--ink-mute);}
+  .ai-asst .prompts{ display:flex; flex-direction:column; gap:5px;}
+  .ai-asst .pr{ background:#fff; border: .5px solid rgba(20,18,10,.1); border-radius: 6px;
+    padding: 7px 9px; font-size: 8.5px; color: var(--ink); transform-style:preserve-3d;}
+  .ai-asst .pr:nth-child(1){ transform: translateZ(calc(34px * var(--diorama-depth,1))) rotateY(-2deg);
+    box-shadow: 0 24px 32px -14px rgba(15,14,8,.32);}
+  .ai-asst .pr:nth-child(2){ transform: translateZ(calc(56px * var(--diorama-depth,1)));
+    box-shadow: 0 32px 40px -14px rgba(15,14,8,.4);}
+  .ai-asst .pr:nth-child(3){ transform: translateZ(calc(80px * var(--diorama-depth,1))) rotateY(2deg);
+    box-shadow: 0 44px 54px -14px rgba(15,14,8,.46);}
+  .ai-asst .pinput{ margin-top: auto; height: 28px; border: 1.5px solid var(--svc-accent);
+    border-radius: 6px; display:flex; align-items:center; padding: 0 8px; gap: 6px;
+    font-size: 8px; color: var(--ink-mute); background:#fff;
+    transform: translateZ(calc(60px * var(--diorama-depth,1)));
+    box-shadow: 0 26px 34px -14px rgba(15,14,8,.32);}
+  .ai-asst .pinput .send{ margin-left:auto; width: 18px; height:18px; border-radius: 4px;
+    background: var(--svc-accent); color: #fff; display:grid; place-items:center; font-size: 10px;}
+
+  /* ===== Screen 3: ERD ===== */
+  .er-list{ display:flex; flex-direction:column; gap: 5px;}
+  .er-pill-row{ display:flex; gap: 4px; flex-wrap:wrap;}
+  .er-pill{ font-size: 7.5px; padding: 3px 7px; border-radius: 999px;
+    background: rgba(20,18,10,.05); color: var(--ink-soft); white-space:nowrap;}
+  .er-pill.on{ background: rgba(16,165,113,.12); color: var(--svc-accent); font-weight: 600;}
+  .er-vis{ display:flex; gap: 10px; align-items:center; margin-top: 3px; font-size: 8px;
+    color: var(--ink-soft);}
+  .er-vis .v{ display:flex; align-items:center; gap: 3px;}
+  .er-add-btn{ padding: 6px; font-size: 8.5px; color: var(--ink); border: .5px dashed rgba(20,18,10,.18);
+    border-radius: 5px; text-align:center; font-weight: 500; margin-top: 3px;
+    display:flex; align-items:center; justify-content:center; gap:4px;}
+
+  .er-group{ font-size: 8.5px; font-weight: 600; color: var(--ink-soft); display:flex;
+    align-items:center; gap: 5px; margin-top: 4px; padding: 3px 0;
+    border-top: .5px solid var(--ink-line);}
+  .er-group .chev{ font-size: 7px;}
+  .er-group .count{ margin-left:auto; font-size: 7.5px; color: var(--ink-mute);
+    font-family: "JetBrains Mono", monospace;}
+  .er-item{ display:flex; align-items:center; gap:5px; font-size: 8.5px; color: var(--ink);
+    padding: 2px 4px;}
+  .er-item.dim{ color: var(--ink-mute);}
+  .er-item .eye{ font-size: 9px; color: var(--ink-mute);}
+  .er-item .dot{ width: 6px; height: 6px; border-radius: 50%;}
+
+  .er-canvas{ background:
+    radial-gradient(rgba(20,18,10,.06) 1px, transparent 1px) 0 0 / 10px 10px,
+    #f5f6f1;
+    transform-style:preserve-3d; padding: 12px; min-height: 0; overflow:hidden;
+    position: relative;}
+
+  /* Region containers */
+  .er-region{ position:absolute; border-radius: 10px; border: .5px dashed var(--er-c, #5b88ff);
+    background: color-mix(in oklch, var(--er-c, #5b88ff) 8%, transparent);
+    transform-style:preserve-3d; padding: 16px 8px 6px;}
+  .er-region .rlbl{ position:absolute; top: -7px; left: 8px; background: var(--er-c, #5b88ff);
+    color: #fff; font-size: 6.5px; padding: 1px 7px; border-radius: 999px; font-weight: 600;
+    font-family: "JetBrains Mono", monospace;}
+
+  .er-entity{ background: var(--ent-bg, #fff); border-radius: 7px; padding: 4px 6px;
+    transform-style:preserve-3d; min-width: 90px;
+    box-shadow: 0 16px 22px -10px rgba(15,14,8,.22), inset 0 0 0 .5px rgba(255,255,255,.85);
+    border-top: 2px solid var(--ent-c, var(--svc-accent));}
+  .er-entity .head{ display:flex; align-items:center; gap:4px; font-size: 8px; font-weight: 700;
+    color: var(--ent-c, var(--svc-accent));}
+  .er-entity .head .dot{ width: 4px; height: 4px; border-radius: 50%; background: var(--ent-c, var(--svc-accent));}
+  .er-entity .sub{ font-size: 6px; color: var(--ink-mute); margin-left: 8px;
+    font-family: "JetBrains Mono", monospace;}
+  .er-entity .tags{ display:flex; gap: 2px; margin-left: 8px; margin-top:1px;}
+  .er-entity .tags .tag{ font-size: 5.5px; padding: 1px 3px; border-radius: 2px;
+    background: rgba(20,18,10,.05); color: var(--ink-soft);
+    font-family:"JetBrains Mono", monospace;}
+  .er-entity .prop{ display:flex; align-items:center; gap: 4px; font-size: 7px;
+    padding: 2px 0; border-top: .5px solid var(--ink-line); margin-top: 3px;}
+  .er-entity .prop:first-of-type{ border-top: 0; margin-top: 2px;}
+  .er-entity .prop .key{ font-size: 8px; color: var(--svc-accent-2);}
+  .er-entity .prop .name{ flex:1; color: var(--ink);}
+  .er-entity .prop .typ{ font-size: 5.5px; color: var(--ink-mute); background: rgba(20,18,10,.05);
+    padding: 1px 3px; border-radius: 2px; font-family:"JetBrains Mono",monospace;}
+
+  /* Bottom legend */
+  .er-legend{ position:absolute; left: 0; right: 0; bottom: 0; padding: 5px 10px;
+    background: rgba(255,255,255,.85); border-top: .5px solid var(--ink-line);
+    display:flex; gap:10px; font-size: 7px; color: var(--ink-soft); align-items:center;
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    transform: translateZ(calc(8px * var(--diorama-depth,1)));}
+  .er-legend .ll{ display:flex; align-items:center; gap: 4px;}
+  .er-legend .ll .k{ color: var(--svc-accent-2); font-size: 9px;}
+  .er-legend .ll .line{ width: 12px; height: 1px; background: var(--ink-soft);}
+  .er-legend .ll .line.d{ background: repeating-linear-gradient(90deg, var(--ink-soft) 0 2px, transparent 2px 4px);}
+  .er-legend .ll .line.dt{ background: repeating-linear-gradient(90deg, var(--ink-soft) 0 1px, transparent 1px 3px);}
+  .er-legend .sw{ width:7px; height:7px; border-radius:50%;}
+
+  /* ===== Floating bits around card ===== */
+  .float{ position:absolute; transform-style:preserve-3d; will-change:transform;
+    animation: float-in .6s cubic-bezier(.2,.7,.2,1) backwards;}
+  @keyframes float-in {
+    from { opacity:0; transform: translate3d(0,12px,0) scale(.92);}
+    to   { opacity:1;}
+  }
+  .float.pill, .float.btn, .float.badge, .float.chip, .float.note{
+    background: linear-gradient(160deg, rgba(255,255,255,.96), rgba(255,255,255,.82));
+    border: .5px solid rgba(255,255,255,.9);
+    -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
+    box-shadow: 0 1px 0 rgba(255,255,255,.85) inset, 0 22px 38px -14px rgba(15,14,8,.32),
+                0 6px 14px -8px rgba(15,14,8,.18);
+    color: var(--ink); font-family: inherit;
+  }
+  .float.pill{ padding: 8px 13px 8px 9px; display:flex; align-items:center; gap:8px;
+    border-radius: 999px; font-size: 10.5px; font-weight:500; white-space:nowrap;}
+  .float.pill i{ width:18px; height:18px; border-radius:50%; display:grid; place-items:center;
+    background: var(--svc-accent); color:#fff; font-size:10px; font-style:normal;}
+  .float.btn{ padding: 10px 16px 10px 12px; border-radius: 12px; white-space:nowrap;
+    display:flex; align-items:center; gap:9px; font-size:11px; font-weight:600; color:#fff;
+    background: linear-gradient(160deg, var(--svc-accent), color-mix(in oklch, var(--svc-accent) 75%, #000));
+    border: .5px solid rgba(255,255,255,.4);
+    box-shadow: 0 1px 0 rgba(255,255,255,.4) inset, 0 22px 40px -16px rgba(15,14,8,.45);}
+  .float.btn .ico{ width:18px; height:18px; border-radius:5px;
+    background: rgba(255,255,255,.22); display:grid; place-items:center; font-size:11px;}
+  .float.badge{ padding: 9px 13px; border-radius: 11px; min-width: 100px;
+    display:flex; flex-direction:column; gap:1px;}
+  .float.badge .l{ font-size:8.5px; color:var(--ink-mute); letter-spacing:.08em; text-transform:uppercase;
+    font-family:"JetBrains Mono",monospace;}
+  .float.badge .v{ font-family:"Space Grotesk",sans-serif; font-weight:600; font-size:18px; letter-spacing:-.01em;}
+  .float.badge .v em{ font-style:normal; color: var(--svc-accent);}
+  .float.chip{ padding: 6px 11px; border-radius: 8px; white-space:nowrap;
+    display:flex; align-items:center; gap:7px; font-size:10px; font-weight:500;}
+  .float.chip .dot{ width:7px; height:7px; border-radius:50%; background: var(--svc-accent);
+    box-shadow: 0 0 0 3px rgba(255,255,255,.6), 0 0 0 4px var(--svc-accent), 0 0 12px var(--svc-accent);}
+  .float.note{ padding: 11px 13px; border-radius: 11px; max-width: 200px;
+    font-size: 10px; line-height: 1.55;}
+  .float.note .h{ font-size:9px; color:var(--svc-accent); letter-spacing:.1em;
+    text-transform:uppercase; font-family:"JetBrains Mono",monospace; margin-bottom:3px; font-weight:600;}
+  .float.spark{ width: 44px; height: 44px; border-radius:50%;
+    background: linear-gradient(160deg, var(--svc-accent), color-mix(in oklch, var(--svc-accent) 50%, #000));
+    border: 2px solid rgba(255,255,255,.9);
+    box-shadow: 0 22px 40px -14px color-mix(in oklch, var(--svc-accent) 70%, transparent);
+    display:grid; place-items:center; color:#fff; font-size:18px;}
+
+  /* ===== Tabs ===== */
+  .tabrow{ position:absolute; left: 0; right: 0; bottom: 0px; display:flex; gap:8px; justify-content:center; z-index:5;}
+  .tab{ flex:0 0 auto; padding: 10px 16px; font-size:11.5px; font-weight:500; color: var(--ink-soft);
+    white-space:nowrap; background: rgba(255,255,255,.78);
+    border: .5px solid rgba(255,255,255,.7); border-radius:999px;
+    -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
+    box-shadow: 0 12px 30px -16px rgba(20,18,10,.2), inset 0 1px 0 rgba(255,255,255,.7);
+    cursor:pointer; transition: all .25s ease;
+    display:flex; align-items:center; gap:8px; font-family: inherit;}
+  .tab[data-active="1"]{ color:#fff; background: var(--ink); border-color:var(--ink);
+    box-shadow: 0 12px 30px -12px rgba(20,18,10,.5);}
+  .tab .idx{ font-family:"JetBrains Mono",monospace; font-size:10px; opacity:.7;}
+
+  /* ==== Embed overrides (when loaded in iframe) ==== */
+  html, body {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    overflow: hidden !important;
+  }
+  body {
+    display: grid !important;
+    place-items: center !important;
+  }
+  body::before, body::after { display: none !important; content: none !important; }
+  .stage-orb { display: none !important; }
+  .tabrow { display: none !important; }
+  .wrap {
+    --s: min(1.5, calc(100vw / 900px), calc(100vh / 580px));
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    width: 820px !important;
+    max-width: 820px !important;
+    /* `+ 70px * var(--s)` to compensate the card's left:20 offset within the
+       wrap so the card itself sits at the iframe's horizontal center. */
+    transform: translate(calc(-50% + 70px * var(--s)), -50%) scale(var(--s)) !important;
+    transform-origin: center center !important;
+  }
+  .stage { height: 520px !important; }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="wrap" id="root"></div>
+
+<script type="text/babel">
+const { useState, useRef, useEffect } = React;
+
+// ===== Screen 1: App Builder =====
+const AppBuilderScreen = () => (
+  <div className="app" style={{ '--left': '150px', '--right': '160px' }}>
+    <div className="app-top">
+      <span className="back">←</span>
+      <span className="ttl">オーケストレーション</span>
+      <span className="pub">PUBLISHED</span>
+      <div className="pill-toggle" style={{ marginLeft: 8 }}>
+        <span className="pt on">✎ 編集</span>
+        <span className="pt">◎ プレビュー</span>
+      </div>
+      <span className="right">
+        <span className="ic">↶</span>
+        <span className="ic">↷</span>
+        <span className="ic amber">▦</span>
+        <span className="ic amber">▥</span>
+        <span className="ic">⋯</span>
+        <span className="save">💾 保存</span>
+      </span>
+    </div>
+    <div className="app-body">
+      <div className="panel">
+        <div className="ptitle">ウィジェット <span className="x">✕</span></div>
+        <div className="psub">キャンバスにドラッグ</div>
+        <div className="search">⌕ ウィジェットを検索</div>
+        <div className="pcat">● データ <span className="num">6</span><span className="chev">▾</span></div>
+        <div className="ab-widgets">
+          <div className="ab-w"><span className="ic">▦</span><div className="ab-w-text"><div className="n">テーブル</div><div className="s">行と列で表示</div></div></div>
+          <div className="ab-w"><span className="ic">⌬</span><div className="ab-w-text"><div className="n">KPI</div><div className="s">単一の指標値</div></div></div>
+          <div className="ab-w"><span className="ic">▥</span><div className="ab-w-text"><div className="n">棒グラフ</div><div className="s">カテゴリ比較</div></div></div>
+          <div className="ab-w"><span className="ic">⌇</span><div className="ab-w-text"><div className="n">折れ線</div><div className="s">時系列</div></div></div>
+        </div>
+        <div className="pcat" style={{ color: 'var(--svc-accent-2)' }}>● レイアウト <span className="num">7</span><span className="chev">▾</span></div>
+      </div>
+
+      <div className="canvas">
+        <div className="ab-canvas">
+          <div className="ab-card kpi">
+            <div className="hd"><span className="grip">⋮⋮</span><span className="ic">⌬</span>フライトの件数</div>
+            <div className="lbl">COUNT</div>
+            <div className="val">2</div>
+          </div>
+          <div className="ab-card bar">
+            <div className="hd"><span className="grip">⋮⋮</span><span className="ic bar">▥</span>契約書件数</div>
+            <div className="ab-bars">
+              <div className="ax"><span>1</span><span>0.5</span><span>0</span></div>
+              <div className="b h1"></div>
+              <div className="b h2"></div>
+              <div className="lbl l1">タイトル業</div>
+              <div className="lbl l2">テスト</div>
+            </div>
+          </div>
+          <div className="ab-card tbl">
+            <div className="hd"><span className="grip">⋮⋮</span><span className="ic tbl">▦</span>試験について</div>
+            <div className="ab-tbl-hd">
+              <div>DATE</div><div>NAME</div><div>EXAM ID</div><div style={{textAlign:'right'}}>ACTIONS</div>
+            </div>
+            <div className="ab-tbl-row">
+              <div>2026-03-05</div>
+              <div>Rick Huang</div>
+              <div style={{fontFamily:'"JetBrains Mono",monospace', fontSize:7}}>2e86efc8-4659-47d2…</div>
+              <div className="actions" style={{justifyContent:'flex-end'}}>👁 ✎ 🗑</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="panel right">
+        <div className="ptitle">ウィジェットを設定<span className="x">✕</span></div>
+        <div className="ab-setting">
+          <div className="lbl">タイトル</div>
+          <div className="field">試験について</div>
+          <div className="lbl" style={{ marginTop: 4 }}>データソース</div>
+          <div className="field dark">ContractTing <span className="chev">▾</span></div>
+          <div className="psub" style={{ marginTop:-2 }}>4 個のプロパティが利用可能</div>
+          <div className="lbl" style={{ marginTop: 4 }}>テーブル設定</div>
+          <div className="psub" style={{ marginTop:-2 }}>列 <span style={{ float:'right' }}>0 / 20</span></div>
+          <div className="add-btn">+ Add Item</div>
+          <div className="add-link">+ プロパティから列を自動追加</div>
+          <div className="lbl" style={{ marginTop: 4 }}>ページネーション</div>
+          <div className="toggle">ページネーションを有効化<span className="tg"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+// ===== Screen 2: Workflow =====
+const WorkflowScreen = () => {
+  const nodes = [
+    { id:'start',  kind:'trigger',  ic:'▶', name:'Start Application', desc:'ユーザーがメッセージを送信すると開始', x: 80,  y: 110, z: 30, tag:null },
+    { id:'elig',   kind:'ai',       ic:'◇', name:'Eligibility Check', tag:'gpt-4o', desc:'You are an eligibility assessment agent…', x: 215, y: 50, z: 60, },
+    { id:'cat',    kind:'ai',       ic:'◇', name:'Category Selection',tag:'gpt-4o', desc:'Guide the applicant to select the…', x: 345, y: 105, z: 90, },
+    { id:'prep',   kind:'ai',       ic:'◇', name:'Document Prep Guide', tag:'gpt-4o', desc:'Provide a detailed checklist of…', x: 215, y: 195, z: 55, },
+    { id:'rev',    kind:'review',   ic:'⌃', name:'Document Review', desc:'Document Review Required', x: 345, y: 220, z: 100, },
+    { id:'sub',    kind:'ai',       ic:'◇', name:'Submission Guide', tag:'gpt-4o', desc:'Guide the applicant through the…', x: 215, y: 295, z: 75, },
+    { id:'wait',   kind:'wait',     ic:'⌛', name:'Review Wait', desc:'30d', x: 70, y: 330, z: 35, },
+    { id:'dec',    kind:'decision', ic:'⎇', name:'Result Decision', desc:'1 condition  ·  Default: rejected', x: 345, y: 330, z: 120, },
+  ];
+  const edges = [
+    ['start','elig'], ['elig','cat'], ['cat','prep'], ['prep','rev'],
+    ['rev','sub'], ['sub','wait'], ['wait','dec'], ['cat','rev'],
+  ];
+  const nodeMap = Object.fromEntries(nodes.map(n => [n.id, n]));
+
+  return (
+    <div className="app" style={{ '--left':'130px', '--right':'160px' }}>
+      <div className="app-top">
+        <span className="back">←</span>
+        <span className="ttl">補助金申請 <span style={{color:'var(--svc-accent)'}}>*</span></span>
+        <span className="right">
+          <span className="ic">▤</span>
+          <span className="ic">▥</span>
+          <span className="ic">⟲ 履歴</span>
+          <span className="ic">▶ 実行</span>
+          <span className="save">💾 保存</span>
+        </span>
+      </div>
+      <div className="app-body">
+        <div className="panel">
+          <div className="ptitle">ノード</div>
+          <div className="search">⌕ ノードを検索...</div>
+          <div className="wf-cat">トリガー</div>
+          <div className="wf-nodes">
+            <div className="wf-n"><span className="ic trig">⚡</span><span className="n">Webhookトリガー</span></div>
+            <div className="wf-n"><span className="ic trig">◷</span><span className="n">スケジュール</span></div>
+            <div className="wf-n"><span className="ic trig">💬</span><span className="n">チャット</span></div>
+          </div>
+          <div className="wf-cat">AI</div>
+          <div className="wf-nodes">
+            <div className="wf-n"><span className="ic ai">◇</span><span className="n">AIエージェント</span></div>
+            <div className="wf-n"><span className="ic ai">♛</span><span className="n">スーパーバイザー</span></div>
+          </div>
+          <div className="wf-cat">ロジック・データ</div>
+          <div className="wf-nodes">
+            <div className="wf-n"><span className="ic" style={{background:'#9d72d3'}}>⎇</span><span className="n">条件分岐</span></div>
+          </div>
+        </div>
+
+        <div className="canvas wf-canvas">
+          <svg style={{position:'absolute', inset:0, width:'100%', height:'100%', pointerEvents:'none'}}>
+            {edges.map(([a,b], i) => {
+              const A = nodeMap[a], B = nodeMap[b];
+              const ax = A.x + 132/2, ay = A.y + 32;
+              const bx = B.x + 132/2, by = B.y + 32;
+              const cx = (ax + bx) / 2;
+              const isWarn = (a === 'elig' && b === 'cat');
+              return (
+                <g key={i}>
+                  <path d={`M ${ax} ${ay} C ${cx} ${ay}, ${cx} ${by}, ${bx} ${by}`}
+                        fill="none"
+                        stroke={isWarn ? 'var(--svc-accent-2)' : 'rgba(20,18,10,.35)'}
+                        strokeWidth="1.2"
+                        strokeDasharray={isWarn ? '0' : '0'}/>
+                  {isWarn && (
+                    <circle cx={cx} cy={(ay+by)/2} r="6" fill="var(--svc-accent-2)"/>
+                  )}
+                  {isWarn && (
+                    <text x={cx} y={(ay+by)/2+2.5} textAnchor="middle" fontSize="8" fill="#fff" fontWeight="700">!</text>
+                  )}
+                </g>
+              );
+            })}
+          </svg>
+          {nodes.map(n => (
+            <div key={n.id}
+                 className={`wf-node ${n.kind}`}
+                 style={{
+                   left: n.x, top: n.y,
+                   transform: `translateZ(calc(${n.z}px * var(--diorama-depth,1)))`,
+                   boxShadow: `0 ${22 + n.z/3}px ${30 + n.z/2}px -14px rgba(15,14,8,${.25 + n.z/400})`,
+                 }}>
+              <div className="top">
+                <span className="ic">{n.ic}</span>
+                <span className="name">{n.name}</span>
+              </div>
+              {n.tag && <span className="tag">{n.tag}</span>}
+              {n.desc && <div className="desc">{n.desc}</div>}
+            </div>
+          ))}
+        </div>
+
+        <div className="panel right">
+          <div className="ai-asst">
+            <div className="top">
+              <div className="ttl"><span className="sp">✦</span>AIアシスタント</div>
+              <div className="iconrow">
+                <span className="ic">⟲</span>
+                <span className="ic">🗑</span>
+              </div>
+            </div>
+            <div className="splash">
+              <div className="big-ic">✦</div>
+              <h4>ワークフロー AI<br/>オーケストレーター</h4>
+              <p>作りたいものを説明してください。AI がワークフローを作成・設定・テストします。</p>
+              <div className="hint">ヒント: Ctrl+クリックでノードを固定</div>
+            </div>
+            <div className="prompts">
+              <div className="pr">AI エージェントにデータを送る Webhook を作成</div>
+              <div className="pr">Slack API を呼ぶ HTTP リクエストを追加</div>
+              <div className="pr">毎日実行するスケジュールワークフローを作成</div>
+            </div>
+            <div className="pinput">
+              📎 作りたいものを入力…
+              <span className="send">⇗</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ===== Screen 3: ERD =====
+const ERDScreen = () => {
+  const entities = [
+    { id:'invoice',  name:'Invoice',  sub:'Invoice', cat:'Finance', c:'#ec5b6e', region:'all',
+      x: 16,  y: 14, z: 60, props:[{k:'🔑', n:'Invoice ID', t:'STRING'}] },
+    { id:'invline',  name:'Invoice Line Item', sub:'Honda7c86c9a5', cat:'All', c:'#f5b342', region:'all',
+      x: 160, y: 20, z: 95, props:[{k:'🔑', n:'Honda ID', t:'STRING'}] },
+    { id:'keiyaku',  name:'契約書', sub:'T189741ed', cat:'All', c:'#f5b342', region:'all',
+      x: 320, y: 30, z: 50, props:[{k:'🔑', n:'契約書 ID', t:'STRING'}] },
+    { id:'employee', name:'Employee', sub:'Employee625bcb7f', cat:'All HR', c:'#10a571', region:'finance',
+      x: 30, y: 130, z: 135, props:[
+        { k:'🔑', n:'Employee ID', t:'STRING' },
+        { k:'＃', n:'Address', t:'STRUCT' },
+        { k:'＃', n:'Name', t:'STRING' },
+        { k:'＃', n:'会社名', t:'STRING' },
+      ]},
+    { id:'company',  name:'Company', sub:'Company2626778d', cat:'Finance All', c:'#7d40c7', region:'finance',
+      x: 220, y: 130, z: 80, props:[
+        { k:'🔑', n:'Company ID', t:'STRING' },
+        { k:'＃', n:'Company Name', t:'STRING' },
+        { k:'＃', n:'Number of Employees', t:'INTEGER' },
+        { k:'＃', n:'Status', t:'ENUM' },
+        { k:'＃', n:'Location', t:'GEOPOINT' },
+      ]},
+    { id:'jinsei',   name:'人生', sub:'Jinsei',     cat:'', c:'#ec5b6e', region:'free',
+      x: 10,  y: 280, z: 30,  props:[{k:'🔑', n:'人生 ID', t:'STRING'}] },
+    { id:'ikikata',  name:'生き方', sub:'Ikikata',  cat:'', c:'#10a571', region:'free',
+      x: 165, y: 285, z: 70,  props:[{k:'🔑', n:'生き方 ID', t:'STRING'}] },
+    { id:'torihiki', name:'取引先', sub:'Te34e822d', cat:'', c:'#5b88ff', region:'free',
+      x: 320, y: 290, z: 45,  props:[{k:'🔑', n:'取引先 ID', t:'STRING'}] },
+  ];
+
+  return (
+    <div className="app" style={{ '--left':'150px', '--right':'0' }}>
+      <div className="app-top">
+        <span className="back">←</span>
+        <span className="ttl">ER図</span>
+        <span className="right">
+          <span className="er-pill on" style={{ display:'inline-flex', gap:4, alignItems:'center', whiteSpace:'nowrap'}}>
+            <span style={{color:'var(--svc-accent)'}}>⬢</span> 10 エンティティ
+          </span>
+          <span className="er-pill on" style={{ display:'inline-flex', gap:4, alignItems:'center', whiteSpace:'nowrap'}}>
+            <span style={{color:'var(--svc-accent)'}}>⫘</span> 3 リレーション
+          </span>
+        </span>
+      </div>
+      <div className="app-body" style={{ gridTemplateColumns:'150px 1fr' }}>
+        <div className="panel">
+          <div className="ptitle">エンティティ <span className="x">✕</span></div>
+          <div className="psub">12 件中 10 件表示</div>
+          <div className="search">⌕ エンティティを検索…</div>
+          <div className="er-pill-row">
+            <span className="er-pill on">すべて</span>
+            <span className="er-pill">All</span>
+            <span className="er-pill">Finance</span>
+            <span className="er-pill">HR</span>
+          </div>
+          <div className="er-vis">
+            <span className="v">👁 すべて表示</span>
+            <span className="v">⊘ 非表示</span>
+          </div>
+          <div className="er-add-btn">+ エンティティを追加</div>
+          <div className="er-group"><span className="chev">▼</span>FINANCE<span className="count">5</span></div>
+          <div className="er-item dim"><span className="eye">⊘</span><span className="dot" style={{background:'#5b88ff'}}></span>Invoice Item</div>
+          <div className="er-item dim"><span className="eye">⊘</span><span className="dot" style={{background:'#f5b342'}}></span>Employee_HR</div>
+          <div className="er-item"><span className="eye">👁</span><span className="dot" style={{background:'#ec5b6e'}}></span>Company</div>
+          <div className="er-item"><span className="eye">👁</span><span className="dot" style={{background:'#5b88ff'}}></span>Invoice Line Item</div>
+          <div className="er-item"><span className="eye">👁</span><span className="dot" style={{background:'#5b88ff'}}></span>Invoice</div>
+          <div className="er-group"><span className="chev">▼</span>HR<span className="count">1</span></div>
+          <div className="er-item"><span className="eye">👁</span><span className="dot" style={{background:'#10a571'}}></span>test</div>
+        </div>
+
+        <div className="canvas er-canvas">
+          {/* Regions */}
+          <div className="er-region" style={{ left: 0, top: 4, width: 460, height: 120, '--er-c':'#5b88ff' }}>
+            <span className="rlbl">All</span>
+          </div>
+          <div className="er-region" style={{ left: 8, top: 116, width: 410, height: 130, '--er-c':'#10a571' }}>
+            <span className="rlbl">Finance</span>
+          </div>
+
+          {/* Entities */}
+          {entities.map(e => (
+            <div key={e.id} className="er-entity"
+                 style={{
+                   position:'absolute', left: e.x, top: e.y,
+                   transform: `translateZ(calc(${e.z}px * var(--diorama-depth,1))) rotateY(${(e.x%47-23)/30}deg)`,
+                   '--ent-c': e.c,
+                   '--ent-bg': '#fff',
+                   boxShadow: `0 ${20 + e.z/2}px ${30 + e.z/1.5}px -14px rgba(15,14,8,${.25 + e.z/350}), inset 0 0 0 .5px rgba(255,255,255,.85)`,
+                 }}>
+              <div className="head"><span className="dot"></span>{e.name}</div>
+              <div className="sub">{e.sub}</div>
+              {e.cat && (
+                <div className="tags">{e.cat.split(' ').map((t,i)=><span className="tag" key={i}>{t}</span>)}</div>
+              )}
+              {e.props.map((p,i) => (
+                <div className="prop" key={i}>
+                  <span className="key">{p.k}</span>
+                  <span className="name">{p.n}</span>
+                  <span className="typ">{p.t}</span>
+                </div>
+              ))}
+            </div>
+          ))}
+
+          {/* Connections (just visual indicators between specific cards) */}
+          <svg style={{position:'absolute', inset:0, width:'100%', height:'100%', pointerEvents:'none'}}>
+            <defs>
+              <marker id="arr" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+                <path d="M0,0 L6,3 L0,6 z" fill="rgba(20,18,10,.45)"/>
+              </marker>
+            </defs>
+            <path d="M 110 195 L 230 180" stroke="rgba(20,18,10,.4)" strokeWidth="1" strokeDasharray="3 2" fill="none" markerEnd="url(#arr)"/>
+            <path d="M 130 170 L 260 160" stroke="rgba(20,18,10,.4)" strokeWidth="1" fill="none"/>
+            <text x="155" y="155" fontSize="6" fill="rgba(20,18,10,.55)">会社に所属する従業員 (N:1) · FK</text>
+          </svg>
+
+          <div className="er-legend">
+            <span className="ll"><span className="k">🔑</span>PK</span>
+            <span className="ll">▤ Title Key</span>
+            <span className="ll">✱ Required</span>
+            <span className="ll"><span className="line"></span>FK</span>
+            <span className="ll"><span className="line d"></span>Join</span>
+            <span className="ll"><span className="line dt"></span>Object</span>
+            <span className="ll"><span className="sw" style={{background:'#5b88ff'}}></span>All</span>
+            <span className="ll"><span className="sw" style={{background:'#10a571'}}></span>Finance</span>
+            <span className="ll"><span className="sw" style={{background:'#7d40c7'}}></span>HR</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ===== Diorama =====
+const SCREENS = [
+  {
+    label: 'カスタムアプリ',
+    path: 'apps/dashboard',
+    tilt: { rx: -10, ry: 14 },
+    render: () => <AppBuilderScreen />,
+    floats: [
+      { kind:'badge',  x: 580, y: 0,   z: 63, node: (<><span className="l">No-Code</span><span className="v">46 <em>widgets</em></span></>) },
+      { kind:'chip',   x: -20, y: 60,  z: 50, node: (<><span className="dot"></span>ドラッグで完成</>) },
+      { kind:'note',   x: 560, y: 320, z: 59, node: (<><div className="h">Data-Bound</div>オントロジー自動接続</>) },
+      { kind:'pill',   x: -10, y: 460, z: 54, node: (<><i>✓</i> Published</>) },
+    ],
+  },
+  {
+    label: 'ワークフロー',
+    path: 'workflows/補助金申請',
+    tilt: { rx: -4, ry: -18 },
+    render: () => <WorkflowScreen />,
+    floats: [
+      { kind:'spark',  x: -22, y: 26,  z: 68, node: '✦' },
+      { kind:'note',   x: 580, y: 10,  z: 63, node: (<><div className="h">AI Agents</div>判断と実行を監査可能に</>) },
+      { kind:'chip',   x: -20, y: 320, z: 50, node: (<><span className="dot"></span>8 nodes · 3 conditions</>) },
+      { kind:'btn',    x: 540, y: 440, z: 70, node: (<><span className="ico">▶</span>実行する</>) },
+    ],
+  },
+  {
+    label: 'オントロジー',
+    path: 'schema/ER図',
+    tilt: { rx: -14, ry: 6 },
+    render: () => <ERDScreen />,
+    floats: [
+      { kind:'pill',   x: -24, y: 30,  z: 59, node: (<><i>⬢</i>10 エンティティ</>) },
+      { kind:'badge',  x: 580, y: 0,   z: 63, node: (<><span className="l">Semantic</span><span className="v">3 <em>relations</em></span></>) },
+      { kind:'note',   x: -10, y: 460, z: 65, node: (<><div className="h">Ontology</div>業務概念をスキーマに</>) },
+      { kind:'chip',   x: 570, y: 330, z: 52, node: (<><span className="dot"></span>意味論ベース統合</>) },
+    ],
+  },
+];
+
+function Diorama() {
+  const [active, setActive] = useState(0);
+  const stageRef = useRef(null);
+  const [tilt, setTilt] = useState(SCREENS[0].tilt);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => { setTilt(SCREENS[active].tilt); }, [active]);
+
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!el) return;
+    const onMove = (e) => {
+      const r = el.getBoundingClientRect();
+      const dx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      const dy = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      const bt = SCREENS[active].tilt;
+      setTilt({ rx: bt.rx - dy * 6, ry: bt.ry + dx * 8 });
+    };
+    const onLeave = () => setTilt(SCREENS[active].tilt);
+    el.addEventListener('mousemove', onMove);
+    el.addEventListener('mouseleave', onLeave);
+    return () => {
+      el.removeEventListener('mousemove', onMove);
+      el.removeEventListener('mouseleave', onLeave);
+    };
+  }, [active]);
+
+  useEffect(() => {
+    if (paused) return undefined;
+    const id = setInterval(() => setActive(a => (a + 1) % SCREENS.length), 2500);
+    return () => clearInterval(id);
+  }, [paused]);
+
+  useEffect(() => {
+    const onMessage = (e) => {
+      const d = e.data;
+      if (!d || typeof d !== 'object') return;
+      if (d.type === 'set-screen' && typeof d.index === 'number') {
+        if (d.index >= 0 && d.index < SCREENS.length) {
+          setPaused(true);
+          setActive(d.index);
+        }
+      } else if (d.type === 'resume') {
+        setPaused(false);
+      }
+    };
+    window.addEventListener('message', onMessage);
+    return () => window.removeEventListener('message', onMessage);
+  }, []);
+
+  useEffect(() => {
+    try { window.parent.postMessage({ type: 'screen-changed', index: active }, '*'); } catch (_) {}
+  }, [active]);
+
+  const screen = SCREENS[active];
+
+  return (
+    <div ref={stageRef} className="stage"
+         onMouseEnter={() => setPaused(true)}
+         onMouseLeave={() => setPaused(false)}>
+      <div className="stage-orb a"></div>
+      <div className="stage-orb b"></div>
+      <div className="deck" style={{ transform: `rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`, transition:'transform .9s cubic-bezier(.2,.7,.2,1)' }}>
+        <div className="layer-card" key={`card-${active}`}>
+          {screen.render()}
+        </div>
+        {screen.floats.map((f, i) => (
+          <div key={`f-${active}-${i}`}
+               className={`float ${f.kind}`}
+               style={{
+                 left: f.x, top: f.y,
+                 transform: `translate3d(0,0,${f.z}px)`,
+                 animationDelay: `${i * 80}ms`,
+               }}>
+            {f.node}
+          </div>
+        ))}
+      </div>
+      <div className="tabrow">
+        {SCREENS.map((s, i) => (
+          <button key={i} className="tab"
+                  data-active={i === active ? '1' : '0'}
+                  onClick={() => setActive(i)}
+                  onMouseEnter={() => setActive(i)}>
+            <span className="idx">0{i+1}</span>
+            <span>{s.label}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Diorama />);
+</script>
+</body>
+</html>

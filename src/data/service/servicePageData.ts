@@ -24,6 +24,7 @@ export interface ServiceItem {
   pillars: ServicePillar[]
   previews: ServicePreview[]
   image: string
+  diorama?: string
   href?: string
   externalLink?: string
 }
@@ -68,6 +69,7 @@ export const servicePageData: ServiceItem[] = [
       { label: "設計から出荷までの進捗を、図面に紐づけてカンバンで可視化する。", image: "/images/services/archaive/project-management.jpg" },
     ],
     image: "/images/services/archaive.jpg",
+    diorama: "/html/Archaive%20Diorama.html",
     href: "https://archaive.net",
   },
   {
@@ -109,6 +111,7 @@ export const servicePageData: ServiceItem[] = [
       { label: "AIが最適な配分・発注を提案。人は承認するだけ。", image: "/images/services/sendai/ai-suggestion.png" },
     ],
     image: "/images/services/sendai/hero.png",
+    diorama: "/html/Retail%20Diorama.html",
     href: "https://send-ai.co.jp/",
   },
   {
@@ -146,5 +149,6 @@ export const servicePageData: ServiceItem[] = [
       { label: "業務上の概念をデジタルスキーマに変換し、意味論ベースでデータを統合・活用", image: "/images/services/flowerium/ERD.png" },
     ],
     image: "/images/services/flowerium/hero.png",
+    diorama: "/html/Ontology%20Diorama.html",
   },
 ]
