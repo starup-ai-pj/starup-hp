@@ -15,6 +15,61 @@ export default function InformationSecurityPolicySection() {
           />
         </div>
 
+        {/* ISO/IEC 27001 認証取得 — フィーチャー帯 */}
+        <div className="mb-16 md:mb-24 bg-gray-50 px-6 py-12 md:px-12 md:py-16 lg:px-16 lg:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+            {/* 左：認証マーク */}
+            <div className="lg:col-span-5 lg:border-r lg:border-gray-200 lg:pr-10">
+              <p className="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-4">
+                ISMS Certified
+              </p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-[1.05] tracking-tight">
+                ISO/IEC<br />27001:2022
+              </h2>
+              <p className="mt-4 text-sm md:text-base text-gray-600 leading-relaxed">
+                情報セキュリティマネジメントシステム
+              </p>
+            </div>
+
+            {/* 右：ステートメント＋ファクト */}
+            <div className="lg:col-span-7 space-y-8 md:space-y-10">
+              <p className="text-base md:text-lg text-gray-900 leading-relaxed">
+                株式会社STAR UPは、お客様の情報資産を適切に保護し、信頼される事業運営を実現するため、情報セキュリティマネジメントシステム（ISMS）の国際規格である ISO/IEC 27001:2022 の認証を取得しています。
+              </p>
+
+              <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 border-t border-gray-200 pt-6 md:pt-8">
+                {[
+                  { label: 'Certification Body', value: 'G-CERTI' },
+                  { label: 'Accreditation', value: 'IAS / IAF' },
+                  { label: 'Certificate No.', value: 'GUP-2109-IC' },
+                  { label: 'Statement of Applicability', value: 'Rev.00 / 2025.11.19' },
+                  { label: 'Initial Certification', value: '2026.04.02' },
+                  { label: 'Valid Until', value: '2029.04.01' },
+                ].map((row) => (
+                  <div key={row.label}>
+                    <dt className="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-2">
+                      {row.label}
+                    </dt>
+                    <dd className="text-sm md:text-base text-gray-900 leading-relaxed">
+                      {row.value}
+                    </dd>
+                  </div>
+                ))}
+
+                {/* 認証範囲 — フル幅 */}
+                <div className="sm:col-span-2 pt-2">
+                  <dt className="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-2">
+                    Scope of Certification
+                  </dt>
+                  <dd className="text-sm md:text-base text-gray-900 leading-relaxed">
+                    AIを活用した共同開発・新規事業開発／AIプロダクトの開発／製造業向けAI SaaS事業／人材紹介事業
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+
         {/* コンテンツ */}
         <div className="space-y-12 md:space-y-16">
           {/* タイトル */}
