@@ -48,7 +48,7 @@ export interface Member {
       englishName: "Yuki Tanaka",
       position: "執行役員/最高技術責任者",
       description:
-        "大手IT企業をはじめとする3社にてPM・リードエンジニアを経験した後フリーランスエンジニアとして数十件の案件に携わる。生成AIを活用した新規事業立ち上げ、業務効率化、システム開発などを経験する。",
+        "大手IT企業をはじめとする数社にてPM・リードエンジニアを経験した後、フリーランスエンジニアとして数十件の案件に携わる。生成AIを活用した新規事業立ち上げ、業務効率化、システム開発などを経験する。",
       comment: "技術で可能性を広げる",
       hasInterview: true,
       image: "/images/member/tanaka-yuki.jpg",
