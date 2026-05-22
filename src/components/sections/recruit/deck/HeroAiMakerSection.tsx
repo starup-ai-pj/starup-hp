@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import TransitionLink from '@/components/ui/TransitionLink'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -222,6 +223,23 @@ export default function HeroAiMakerSection() {
                       </p>
                     </div>
                   ))}
+                </div>
+
+                <div className="mt-10 md:mt-14 flex justify-end">
+                  <TransitionLink
+                    href="/service"
+                    className="group inline-flex items-center gap-2 text-sm text-gray-900 border-b border-gray-900 pb-1 hover:gap-3 transition-all duration-300"
+                  >
+                    Serviceページで詳しく見る
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </TransitionLink>
                 </div>
               </div>
             </div>
