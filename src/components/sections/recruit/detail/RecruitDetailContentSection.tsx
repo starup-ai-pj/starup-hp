@@ -181,7 +181,7 @@ export default function RecruitDetailContentSection({ post, allRecruits }: Recru
 
                 {/* 応募ボタン */}
                 <TransitionLink
-                  href="/recruit/apply"
+                  href={`/recruit/apply?position=${encodeURIComponent(post.title)}`}
                   className="block w-full py-4 bg-gray-900 text-white text-center font-medium hover:bg-gray-800 transition-colors"
                 >
                   この職種に応募する
@@ -245,7 +245,7 @@ export default function RecruitDetailContentSection({ post, allRecruits }: Recru
                 私たちは常に新しい仲間を探しています。あなたのスキルと情熱で、チームに新しい風を吹き込んでください。
               </p>
               <TransitionLink
-                href="/recruit/apply"
+                href={`/recruit/apply?position=${encodeURIComponent(post.title)}`}
                 className="group inline-flex items-center gap-3 text-lg md:text-xl text-gray-900 border-b border-gray-900 pb-2 hover:gap-5 transition-all duration-300"
               >
                 この職種に応募する

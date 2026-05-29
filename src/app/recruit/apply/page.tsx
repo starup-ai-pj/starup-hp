@@ -2,6 +2,11 @@ import type { Metadata } from 'next'
 import RecruitApplyFormSection from '@/components/sections/recruit/apply/RecruitApplyFormSection'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import { getAllRecruitsForList } from '@/lib/recruit'
+
+interface RecruitApplyPageProps {
+  searchParams: Promise<{ position?: string }>
+}
 
 export const metadata: Metadata = {
   title: '採用応募フォーム | STARUP',
@@ -30,11 +35,15 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RecruitApplyPage() {
+export default async function RecruitApplyPage({ searchParams }: RecruitApplyPageProps) {
+  const { position } = await searchParams
+  const recruits = await getAllRecruitsForList()
+  const positions = recruits.map((r) => r.title)
+
   return (
     <div className="min-h-screen">
       <Header />
-      <RecruitApplyFormSection />
+      <RecruitApplyFormSection positions={positions} initialPosition={position} />
       <Footer />
     </div>
   )
