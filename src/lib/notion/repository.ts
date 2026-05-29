@@ -42,11 +42,5 @@ export function createContentRepository<TListItem, TPost>(
     return mappers.toPost(page, blocks)
   }
 
-  /** 全ての unique_id を取得（動的ルーティング用） */
-  async function getAllIds(): Promise<string[]> {
-    const pages = await queryDatabase(databaseId)
-    return pages.map(mappers.getId).filter(Boolean)
-  }
-
-  return { getAllForList, getById, getAllIds }
+  return { getAllForList, getById }
 }

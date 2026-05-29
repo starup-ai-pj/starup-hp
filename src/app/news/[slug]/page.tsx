@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { getAllNewsIds, getNewsPostById } from '@/lib/news'
+import { getNewsPostById } from '@/lib/news'
 import NewsDetailContentSection from '@/components/sections/news/NewsDetailContentSection'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'

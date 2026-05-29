@@ -62,6 +62,3 @@ export const getAllRecruitsForList = repository.getAllForList
 
 /** IDで採用情報を取得（見つからなければ null） */
 export const getRecruitPostById = repository.getById
-
-/** 全ての採用情報IDを取得（動的ルーティング用） */
-export const getAllRecruitIds = repository.getAllIds

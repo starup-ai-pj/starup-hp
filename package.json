@@ -12,7 +12,6 @@
     "@notionhq/client": "^5.3.0",
     "@types/three": "^0.180.0",
     "gsap": "3.13.0",
-    "html-react-parser": "^5.2.7",
     "next": "^15.5.9",
     "react": "19.1.0",
     "react-dom": "19.1.0",
