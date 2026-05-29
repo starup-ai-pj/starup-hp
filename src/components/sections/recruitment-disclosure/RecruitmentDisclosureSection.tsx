@@ -122,7 +122,7 @@ export default function RecruitmentDisclosureSection() {
             </div>
             <div className="pl-4 mt-4">
               <a
-                href="/docs/業務の運営に関する規程.pdf"
+                href="/docs/operation-policy.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-base md:text-lg text-gray-900 hover:text-gray-600 transition-colors"
@@ -160,7 +160,7 @@ export default function RecruitmentDisclosureSection() {
               </div>
               <div className="pl-4 mt-4">
                 <a
-                  href="/docs/手数料表.pdf"
+                  href="/docs/fee-schedule.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-base md:text-lg text-gray-900 hover:text-gray-600 transition-colors"

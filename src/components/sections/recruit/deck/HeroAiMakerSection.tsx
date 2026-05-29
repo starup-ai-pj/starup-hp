@@ -35,7 +35,7 @@ const TILES: Record<number, Pick<Tile, 'aspect' | 'focus'>> = {
 }
 
 const tile = (n: number): Tile => ({
-  src: `/images/join-us/${String(n).padStart(2, '0')}.jpg`,
+  src: `/images/gallery/${String(n).padStart(2, '0')}.jpg`,
   ...TILES[n],
 })
 
@@ -128,7 +128,7 @@ export default function HeroAiMakerSection() {
           {/* ─── Hero: Photo + Code the Culture ─── */}
           <div className="relative h-[80vh] lg:h-screen lg:min-h-[720px] overflow-hidden">
             <Image
-              src="/images/recruit/recruit-hero.jpg"
+              src="/images/recruit/hero.jpg"
               alt="STARUPからの眺め"
               fill
               priority

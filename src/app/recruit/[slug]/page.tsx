@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: RecruitPostPageProps): Promis
     post.summary ||
     `STARUPの${post.jobType || post.title}の募集詳細。勤務地: ${post.location || '—'}。あなたのスキルと情熱を私たちのチームで活かしませんか。`
   const url = `/recruit/${post.id}`
-  const image = post.thumbnail || '/images/recruit/recruit-hero.jpg'
+  const image = post.thumbnail || '/images/recruit/hero.jpg'
 
   const keywords = [
     'STARUP 採用',
@@ -74,7 +74,7 @@ export default async function RecruitPostPage({ params }: RecruitPostPageProps) 
 
   const imageUrl = post.thumbnail?.startsWith('http')
     ? post.thumbnail
-    : `${SITE_URL}${post.thumbnail || '/images/recruit/recruit-hero.jpg'}`
+    : `${SITE_URL}${post.thumbnail || '/images/recruit/hero.jpg'}`
 
   const jobPostingLd = {
     '@context': 'https://schema.org',

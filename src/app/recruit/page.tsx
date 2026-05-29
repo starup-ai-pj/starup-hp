@@ -15,14 +15,14 @@ export const metadata: Metadata = {
     title: 'Recruit | STARUP 採用情報',
     description: '産業と文化の構造を再構築する仲間を募集しています。',
     url: '/recruit',
-    images: ['/images/recruit/recruit-hero.jpg'],
+    images: ['/images/recruit/hero.jpg'],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Recruit | STARUP 採用情報',
     description: '産業と文化の構造を再構築する仲間を募集しています。',
-    images: ['/images/recruit/recruit-hero.jpg'],
+    images: ['/images/recruit/hero.jpg'],
   },
 }
 

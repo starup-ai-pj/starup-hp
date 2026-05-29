@@ -125,7 +125,7 @@ export default function WorkplaceSection() {
         {/* ━━━ Office ━━━ */}
         <div className="relative aspect-[3/2] md:aspect-[16/9] w-full">
           <Image
-            src="/images/recruit/recruit-office.jpg"
+            src="/images/recruit/office.jpg"
             alt="STARUP 京都オフィス"
             fill
             className="object-cover"

@@ -11,7 +11,7 @@ import { createExtractors, getDatabaseId, getDefaultSorts } from './notion/extra
 // Newsのextractorを自動生成
 const extractors = createExtractors(newsConfig)
 
-const DEFAULT_IMAGE = '/images/news/news-detail/s-1470x816_v-fms_webp_033766ae-ae48-42b4-8f69-9d944c37b6f2.webp'
+const DEFAULT_IMAGE = '/images/news/news-detail.webp'
 
 /**
  * 画像URLを取得（デフォルト画像のフォールバック付き）

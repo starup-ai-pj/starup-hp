@@ -116,7 +116,7 @@ export default function ServiceDetailSection() {
         <div className="sticky top-0 h-screen w-full">
           <iframe
             ref={mobileIframeRef}
-            src="/network-background-4layer.html"
+            src="/html/network-background-4layer.html"
             title="Network Visualization"
             loading="lazy"
             scrolling="no"
@@ -137,7 +137,7 @@ export default function ServiceDetailSection() {
                 スラブの中心が画面の上の方に来る。下の余白はbg-blackで馴染ませる */}
             <iframe
               ref={iframeRef}
-              src="/network-background-4layer.html"
+              src="/html/network-background-4layer.html"
               title="Network Visualization"
               loading="lazy"
               scrolling="no"

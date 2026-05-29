@@ -15,7 +15,7 @@ export default async function JobsSection() {
             <div className="lg:sticky lg:top-28">
               <div className="relative w-full aspect-[2/3] lg:aspect-auto lg:h-[78vh] overflow-hidden">
                 <Image
-                  src="/images/recruit/recruit-jobs.jpg"
+                  src="/images/recruit/jobs.jpg"
                   alt="STARUP メンバー"
                   fill
                   className="object-cover"

@@ -10,7 +10,7 @@ interface NewsDetailContentSectionProps {
 }
 
 // デフォルト画像パス
-const DEFAULT_NEWS_IMAGE = '/images/news/news-detail/s-1470x816_v-fms_webp_033766ae-ae48-42b4-8f69-9d944c37b6f2.webp'
+const DEFAULT_NEWS_IMAGE = '/images/news/news-detail.webp'
 
 // 画像を返す関数（画像が指定されていない場合はデフォルトを使用）
 function getNewsImage(customImage?: string): string {

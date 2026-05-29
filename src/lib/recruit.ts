@@ -11,7 +11,7 @@ import { createExtractors, getDatabaseId, getDefaultSorts } from './notion/extra
 // Recruitのextractorを自動生成
 const extractors = createExtractors(recruitConfig)
 
-const DEFAULT_IMAGE = '/images/recruit/rectuit-detail/business.jpg'
+const DEFAULT_IMAGE = '/images/recruit/detail/business.jpg'
 
 /**
  * 画像URLを取得（NotionのThumbnailまたはデフォルト画像）

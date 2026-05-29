@@ -42,7 +42,7 @@ async function sendSlackNotification(data: {
     minute: '2-digit'
   })
 
-  const iconUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/images/slack-bot/starup-icon-white-line.png`
+  const iconUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/icons/starup-icon-white.png`
 
   const slackMessage = {
     channel: slackChannelId,

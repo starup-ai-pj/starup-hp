@@ -68,8 +68,8 @@ export const servicePageData: ServiceItem[] = [
       { label: "社内の図面・帳票・履歴を、自然文の質問で横断検索する。", image: "/images/services/archaive/chat-search.jpg" },
       { label: "設計から出荷までの進捗を、図面に紐づけてカンバンで可視化する。", image: "/images/services/archaive/project-management.jpg" },
     ],
-    image: "/images/services/archaive.jpg",
-    diorama: "/html/Archaive%20Diorama.html",
+    image: "/images/services/archaive/hero.jpg",
+    diorama: "/html/archaive-diorama.html",
     href: "https://archaive.net",
   },
   {
@@ -111,7 +111,7 @@ export const servicePageData: ServiceItem[] = [
       { label: "AIが最適な配分・発注を提案。人は承認するだけ。", image: "/images/services/sendai/ai-suggestion.png" },
     ],
     image: "/images/services/sendai/hero.png",
-    diorama: "/html/Retail%20Diorama.html",
+    diorama: "/html/retail-diorama.html",
     href: "https://send-ai.co.jp/",
   },
   {
@@ -144,11 +144,11 @@ export const servicePageData: ServiceItem[] = [
       },
     ],
     previews: [
-      { label: "ウィジェットとデータを組み合わせて、自分だけのアプリをノーコードで作成", image: "/images/services/flowerium/CustomAppBuilder.png" },
-      { label: "業務をノードの組み合わせでデジタル化し、AIエージェントと協業", image: "/images/services/flowerium/Workflow.png" },
-      { label: "業務上の概念をデジタルスキーマに変換し、意味論ベースでデータを統合・活用", image: "/images/services/flowerium/ERD.png" },
+      { label: "ウィジェットとデータを組み合わせて、自分だけのアプリをノーコードで作成", image: "/images/services/flowerium/custom-app-builder.png" },
+      { label: "業務をノードの組み合わせでデジタル化し、AIエージェントと協業", image: "/images/services/flowerium/workflow.png" },
+      { label: "業務上の概念をデジタルスキーマに変換し、意味論ベースでデータを統合・活用", image: "/images/services/flowerium/erd.png" },
     ],
     image: "/images/services/flowerium/hero.png",
-    diorama: "/html/Ontology%20Diorama.html",
+    diorama: "/html/ontology-diorama.html",
   },
 ]
