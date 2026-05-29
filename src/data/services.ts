@@ -151,3 +151,63 @@ export const servicePageData: ServiceItem[] = [
     diorama: "/html/ontology-diorama.html",
   },
 ]
+
+/**
+ * ホームの ServiceDetail セクション用のキュレーション要約。
+ * 上記 servicePageData（サービスページの完全版）とは別ビュー：
+ * description は短縮、features は抜粋・語句調整、href は内部アンカー。
+ * title / subtitle / number は servicePageData と一致させること。
+ */
+export interface HomeServiceFeatureGroup {
+  label: string
+  items: string[]
+}
+
+export interface HomeServiceSummary {
+  index: string
+  subtitle: string
+  title: string
+  description: string
+  features: HomeServiceFeatureGroup[]
+  href: string
+}
+
+export const homeServiceSummaries: HomeServiceSummary[] = [
+  {
+    index: "01",
+    subtitle: "AIデータ活用プラットフォーム",
+    title: "ARCHAIVE",
+    description:
+      "社内に点在した図面データを一元管理し、AIによる類似図面検索とチャット型データ検索で業務効率を革新する。",
+    features: [
+      { label: "コア機能", items: ["AI類似図面検索", "チャット型データ検索", "案件管理"] },
+      { label: "対象", items: ["製造業", "建設・設計業"] },
+    ],
+    href: "/service#archaive",
+  },
+  {
+    index: "02",
+    subtitle: "サプライチェーン支援AI",
+    title: "SEND AI",
+    description:
+      "散在するデータを統合・可視化し、AIが最適なアクションを提案。在庫・販売管理から発注・配分まで一気通貫で支援する。",
+    features: [
+      { label: "予測・発注", items: ["需要予測AI", "発注最適化", "在庫管理"] },
+      { label: "分析・可視化", items: ["売上分析", "BI機能"] },
+    ],
+    href: "/service#send-ai",
+  },
+  {
+    index: "03",
+    subtitle: "オントロジー基盤の業務AIシステム",
+    title: "Flowerium",
+    description:
+      "業務データを”意味”で統合するオントロジーを中心に、業務UIとAIエージェントの実行基盤までを一体で提供。AIの成長に合わせて形を変え続ける適応型システム。",
+    features: [
+      { label: "データ基盤", items: ["オントロジー統合"] },
+      { label: "業務UI", items: ["カスタムアプリ"] },
+      { label: "AIエージェント", items: ["アクション実行"] },
+    ],
+    href: "/service#flowerium",
+  },
+]

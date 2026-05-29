@@ -1,56 +1,5 @@
 import TransitionLink from '@/components/ui/TransitionLink'
-
-const PHILOSOPHY_BODY = [
-  'STARUPフィロソフィーとは、私たちがどこに向かい、何をしたいか、どうありたいか、どんな価値を提供したいかを示すものです。',
-  'AIを単なる効率化ツールではなく、産業の意思決定を変えるためのインフラとして捉えます。現場に眠るデータをAIが活用できる形に整え、業界ごとの意思決定OSをつくっていきます。',
-  '経営陣やメンバーが迷ったとき、何を優先すべきか、どの顧客課題に向き合うべきか、どのプロダクトをどう進化させるべきかを判断するための軸として、日々の意思決定に活用しています。',
-  'プロダクトもAI開発も顧客への向き合い方も、すべて企業文化のアウトプットだと考えます。だからこそ、技術だけでなく、思想・行動指針・組織文化にも投資していきます。',
-]
-
-const VALUES = [
-  {
-    num: '01',
-    title: 'Ownership',
-    subtitle: '当事者意識を持つ',
-    body: '顧客・プロダクト・事業・会社の成長を自分ごととして捉え、評論ではなく実装で最後まで前に進める。誰かに任せるのではなく、自分が動かす姿勢。',
-  },
-  {
-    num: '02',
-    title: 'Not cynical',
-    subtitle: '斜に構えない',
-    body: 'できない理由ではなく実現する方法を考え、顧客・現場・仲間・外部の声に素直に向き合う。冷笑よりも、素直に試す方が答えに近い。',
-  },
-  {
-    num: '03',
-    title: 'Stay curious, stay grounded',
-    subtitle: 'ワクワクと現場を大切に',
-    body: 'ワクワクと現場への深い理解を行き来し、顧客が本当に使える価値に変える。最先端の好奇心と、地に足のついた実装の両方を持つ。',
-  },
-  {
-    num: '04',
-    title: 'Be a multiplier',
-    subtitle: '三人寄れば文殊の知恵',
-    body: 'チームで知恵を出し合い、最善の答えを出すことを意識する。一人の最大値ではなく、チームとしての出力を最大化する。',
-  },
-]
-
-const WORK_STYLES = [
-  {
-    num: '01',
-    title: '少数精鋭で、速く。',
-    body: '一人ひとりの裁量が大きく、意思決定に直接関わる。承認フローは最小限、良いアイデアは即実行。',
-  },
-  {
-    num: '02',
-    title: '現場 → プロダクト直結。',
-    body: '現場に入り込んで得た知見が、そのままプロダクトと基盤に還元される。隔たりのない現場と開発の往復。',
-  },
-  {
-    num: '03',
-    title: '京都拠点 × リモート可。',
-    body: '京都御所近くのオフィスを拠点に、リモートワークも柔軟に。集中とコラボレーションのバランスを大切に。',
-  },
-]
+import { philosophyBody, values, workStyles } from '@/data/culture'
 
 export default function CultureSection() {
   return (
@@ -80,7 +29,7 @@ export default function CultureSection() {
             <span className="text-gray-400">インフラとして。</span>
           </h2>
           <div className="space-y-5 text-sm md:text-base text-gray-700 leading-[2] max-w-2xl">
-            {PHILOSOPHY_BODY.map((p, i) => (
+            {philosophyBody.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </div>
@@ -96,7 +45,7 @@ export default function CultureSection() {
             4 Values.
           </h2>
           <div className="space-y-24 md:space-y-32">
-            {VALUES.map((v) => (
+            {values.map((v) => (
               <article key={v.num}>
                 <p className="text-5xl md:text-6xl lg:text-7xl text-gray-200 font-medium leading-none tracking-tighter mb-8 md:mb-12">
                   {v.num}
@@ -126,7 +75,7 @@ export default function CultureSection() {
             <span className="text-gray-400">本質的に。</span>
           </h2>
           <div className="space-y-14 md:space-y-20">
-            {WORK_STYLES.map((w) => (
+            {workStyles.map((w) => (
               <div key={w.num}>
                 <p className="text-[10px] text-gray-400 uppercase tracking-[0.3em] mb-3">{w.num}</p>
                 <h3 className="text-xl md:text-2xl lg:text-3xl font-medium text-gray-900 tracking-tight mb-4">
