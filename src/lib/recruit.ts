@@ -50,17 +50,6 @@ export async function getAllRecruitsForList(): Promise<RecruitListItem[]> {
 }
 
 /**
- * 最新の採用情報を指定件数取得
- *
- * @param limit - 取得件数
- * @returns 採用情報一覧
- */
-export async function getLatestRecruits(limit: number = 3): Promise<RecruitListItem[]> {
-  const allRecruits = await getAllRecruitsForList()
-  return allRecruits.slice(0, limit)
-}
-
-/**
  * IDで採用情報を取得
  *
  * @param id - 採用情報ID（unique_id.number）

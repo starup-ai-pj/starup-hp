@@ -27,27 +27,6 @@ function getEnvVar(name: string): string {
 }
 
 /**
- * NotionのIDをUUID形式に変換
- * ハイフンなし32文字のIDを、UUID形式（8-4-4-4-12）に変換
- * すでにUUID形式の場合はそのまま返す
- *
- * @param id - NotionのID（ハイフンありまたはなし）
- * @returns UUID形式のID
- */
-function normalizeNotionId(id: string): string {
-  // ハイフンを削除して32文字の文字列にする
-  const cleanId = id.replace(/-/g, '')
-
-  // 32文字でない場合はそのまま返す（エラーはNotion APIに任せる）
-  if (cleanId.length !== 32) {
-    return id
-  }
-
-  // UUID形式（8-4-4-4-12）に変換
-  return `${cleanId.slice(0, 8)}-${cleanId.slice(8, 12)}-${cleanId.slice(12, 16)}-${cleanId.slice(16, 20)}-${cleanId.slice(20)}`
-}
-
-/**
  * Notionクライアントを初期化して取得
  */
 export function getNotionClient(): Client {
@@ -85,7 +64,7 @@ export async function queryDatabase(
 
   try {
     const response = await fetch(
-      `${NOTION_API_BASE_URL}/databases/${databaseId}/query`, // normalizeNotionIdを削除
+      `${NOTION_API_BASE_URL}/databases/${databaseId}/query`,
       {
         method: 'POST',
         headers: {
@@ -116,27 +95,6 @@ export async function queryDatabase(
 }
 
 /**
- * ページIDでページ情報を取得
- *
- * @param pageId - NotionページID（UUID）
- * @returns ページオブジェクト
- */
-export async function getPageByPageId(pageId: string): Promise<NotionPage> {
-  const notion = getNotionClient()
-
-  try {
-    const response = await notion.pages.retrieve({
-      page_id: pageId, // normalizeNotionIdを削除
-    })
-
-    return response as unknown as NotionPage
-  } catch (error) {
-    console.error(`Error retrieving page ${pageId}:`, error)
-    throw error
-  }
-}
-
-/**
  * ブロックが完全なBlockObjectResponseかチェック
  */
 function isBlockObject(
@@ -161,7 +119,7 @@ async function fetchBlockChildrenRecursive(
   try {
     do {
       const response = await notion.blocks.children.list({
-        block_id: blockId, // normalizeNotionIdを削除
+        block_id: blockId,
         start_cursor: cursor,
         page_size: 100,
       })

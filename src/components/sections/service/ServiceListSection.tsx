@@ -246,26 +246,7 @@ function ServiceSpread({ service, index }: { service: ServiceItem; index: number
               data-a="foot"
               className="mt-10 md:mt-12 flex items-center justify-between gap-4 flex-wrap"
             >
-              {service.externalLink ? (
-                <a
-                  href={service.externalLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-xs text-gray-400 hover:text-gray-700 transition-colors"
-                >
-                  <span>{service.externalLink.replace("https://", "")}</span>
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                    />
-                  </svg>
-                </a>
-              ) : (
-                <span />
-              )}
+              <span />
               {service.href && (
                 <TransitionLink
                   href={service.href}

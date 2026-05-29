@@ -10,7 +10,7 @@ export interface ServicePillar {
 
 export interface ServicePreview {
   label: string
-  image: string // placeholder path — replace later
+  image: string
 }
 
 export interface ServiceItem {
@@ -26,7 +26,6 @@ export interface ServiceItem {
   image: string
   diorama?: string
   href?: string
-  externalLink?: string
 }
 
 export const servicePageData: ServiceItem[] = [
