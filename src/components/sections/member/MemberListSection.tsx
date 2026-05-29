@@ -6,7 +6,7 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import TypingText from "@/components/ui/TypingText"
 import TransitionLink from "@/components/ui/TransitionLink"
-import type { Member } from "@/data/member/member"
+import type { Member } from "@/data/members"
 
 gsap.registerPlugin(ScrollTrigger)
 

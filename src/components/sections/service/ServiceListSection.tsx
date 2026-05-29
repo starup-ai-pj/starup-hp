@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { servicePageData, ServiceItem } from "@/data/service/servicePageData"
+import { servicePageData, ServiceItem } from "@/data/services"
 import TransitionLink from "@/components/ui/TransitionLink"
 
 gsap.registerPlugin(ScrollTrigger)
