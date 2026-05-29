@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import JobListSection from '@/components/sections/recruit/JobListSection'
+import JobListSection from '@/components/sections/recruit/jobs/JobListSection'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { getAllRecruitsForList } from '@/lib/recruit'
@@ -16,14 +16,14 @@ export const metadata: Metadata = {
     title: '募集職種一覧 | STARUP 採用情報',
     description: 'STARUPで募集中の職種一覧をご覧いただけます。',
     url: '/recruit/jobs',
-    images: ['/images/recruit/recruit-jobs.jpg'],
+    images: ['/images/recruit/jobs.jpg'],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: '募集職種一覧 | STARUP 採用情報',
     description: 'STARUPで募集中の職種一覧をご覧いただけます。',
-    images: ['/images/recruit/recruit-jobs.jpg'],
+    images: ['/images/recruit/jobs.jpg'],
   },
 }
 

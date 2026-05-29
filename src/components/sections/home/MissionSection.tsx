@@ -20,7 +20,7 @@ export default function MissionSection() {
       </div>
         <div className="w-full mb-8 md:mb-16" style={{ height: 400 }}>
             <iframe
-              src="/scan-line.html"
+              src="/html/scan-line.html"
               className="w-full h-full block"
               style={{ border: 0 }}
               aria-hidden="true"

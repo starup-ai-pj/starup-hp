@@ -17,8 +17,9 @@ let notionClient: Client | null = null
 
 /**
  * 環境変数を取得（検証付き）
+ * 各ドメインが Notion DB ID を解決する際にも使う。
  */
-function getEnvVar(name: string): string {
+export function requireEnv(name: string): string {
   const value = process.env[name]
   if (!value) {
     throw new Error(`${name} is not defined in environment variables`)
@@ -27,34 +28,13 @@ function getEnvVar(name: string): string {
 }
 
 /**
- * NotionのIDをUUID形式に変換
- * ハイフンなし32文字のIDを、UUID形式（8-4-4-4-12）に変換
- * すでにUUID形式の場合はそのまま返す
- *
- * @param id - NotionのID（ハイフンありまたはなし）
- * @returns UUID形式のID
+ * Notionクライアント（SDK）を初期化して取得
+ * 現状はブロック取得でのみ使用する内部ヘルパー。
  */
-function normalizeNotionId(id: string): string {
-  // ハイフンを削除して32文字の文字列にする
-  const cleanId = id.replace(/-/g, '')
-
-  // 32文字でない場合はそのまま返す（エラーはNotion APIに任せる）
-  if (cleanId.length !== 32) {
-    return id
-  }
-
-  // UUID形式（8-4-4-4-12）に変換
-  return `${cleanId.slice(0, 8)}-${cleanId.slice(8, 12)}-${cleanId.slice(12, 16)}-${cleanId.slice(16, 20)}-${cleanId.slice(20)}`
-}
-
-/**
- * Notionクライアントを初期化して取得
- */
-export function getNotionClient(): Client {
+function getNotionClient(): Client {
   if (!notionClient) {
-    const apiKey = getEnvVar('NOTION_API_KEY')
     notionClient = new Client({
-      auth: apiKey,
+      auth: requireEnv('NOTION_API_KEY'),
     })
   }
   return notionClient
@@ -79,13 +59,13 @@ export async function queryDatabase(
     filter?: any
   }
 ): Promise<NotionPage[]> {
-  const apiKey = getEnvVar('NOTION_API_KEY')
+  const apiKey = requireEnv('NOTION_API_KEY')
   const NOTION_API_VERSION = '2022-06-28'
   const NOTION_API_BASE_URL = 'https://api.notion.com/v1'
 
   try {
     const response = await fetch(
-      `${NOTION_API_BASE_URL}/databases/${databaseId}/query`, // normalizeNotionIdを削除
+      `${NOTION_API_BASE_URL}/databases/${databaseId}/query`,
       {
         method: 'POST',
         headers: {
@@ -116,27 +96,6 @@ export async function queryDatabase(
 }
 
 /**
- * ページIDでページ情報を取得
- *
- * @param pageId - NotionページID（UUID）
- * @returns ページオブジェクト
- */
-export async function getPageByPageId(pageId: string): Promise<NotionPage> {
-  const notion = getNotionClient()
-
-  try {
-    const response = await notion.pages.retrieve({
-      page_id: pageId, // normalizeNotionIdを削除
-    })
-
-    return response as unknown as NotionPage
-  } catch (error) {
-    console.error(`Error retrieving page ${pageId}:`, error)
-    throw error
-  }
-}
-
-/**
  * ブロックが完全なBlockObjectResponseかチェック
  */
 function isBlockObject(
@@ -161,7 +120,7 @@ async function fetchBlockChildrenRecursive(
   try {
     do {
       const response = await notion.blocks.children.list({
-        block_id: blockId, // normalizeNotionIdを削除
+        block_id: blockId,
         start_cursor: cursor,
         page_size: 100,
       })

@@ -27,21 +27,6 @@ export interface NotionRichText {
 }
 
 /**
- * Notion ファイルオブジェクト
- */
-export interface NotionFile {
-  name: string
-  type: 'file' | 'external'
-  file?: {
-    url: string
-    expiry_time: string
-  }
-  external?: {
-    url: string
-  }
-}
-
-/**
  * Notion プロパティ値の汎用型
  */
 export interface NotionPropertyValue {
@@ -54,53 +39,6 @@ export interface NotionPropertyValue {
  * Notion プロパティの汎用型（インデックスシグネチャ付き）
  */
 export type NotionProperties = Record<string, NotionPropertyValue>
-
-/**
- * Notion ページプロパティ（ニュース用の具体例）
- */
-export interface NotionNewsProperties {
-  Name: {
-    id: string
-    type: 'title'
-    title: NotionRichText[]
-  }
-  ID: {
-    id: string
-    type: 'unique_id'
-    unique_id: {
-      prefix: string | null
-      number: number
-    }
-  }
-  Tags: {
-    id: string
-    type: 'multi_select'
-    multi_select: Array<{
-      id: string
-      name: string
-      color: string
-    }>
-  }
-  Date: {
-    id: string
-    type: 'date'
-    date: {
-      start: string
-      end: string | null
-      time_zone: string | null
-    } | null
-  }
-  Description: {
-    id: string
-    type: 'rich_text'
-    rich_text: NotionRichText[]
-  }
-  Thumbnail: {
-    id: string
-    type: 'files'
-    files: NotionFile[]
-  }
-}
 
 /**
  * Notion ページオブジェクト（汎用版）
@@ -237,43 +175,4 @@ export type NotionBlock = (
   | NotionBlockBase // その他のブロックタイプ
 ) & {
   children?: NotionBlock[] // 再帰的な子ブロック
-}
-
-/**
- * Notionプロパティタイプ定義
- */
-export type NotionPropertyType =
-  | 'title'
-  | 'rich_text'
-  | 'number'
-  | 'unique_id'
-  | 'select'
-  | 'multi_select'
-  | 'date'
-  | 'checkbox'
-  | 'url'
-  | 'email'
-  | 'phone_number'
-  | 'files'
-
-/**
- * プロパティ設定の型
- */
-export interface PropertyConfig {
-  name: string
-  type: NotionPropertyType
-}
-
-/**
- * データベース設定の型
- */
-export interface DatabaseConfig {
-  database: {
-    id: string | (() => string)
-    defaultSorts?: Array<{
-      property: string
-      direction: 'ascending' | 'descending'
-    }>
-  }
-  properties: Record<string, PropertyConfig>
 }

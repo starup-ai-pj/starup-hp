@@ -1,11 +1,10 @@
 import Header from "@/components/layout/Header"
 import HeroSection from "@/components/sections/home/HeroSection"
 import VisionSection from "@/components/sections/home/VisionSection"
-// import ServiceSection from "@/components/sections/home/ServiceSection"
 import ServiceDetailSection from "@/components/sections/home/ServiceDetailSection"
 import Footer from "@/components/layout/Footer"
-import ContactSection from "@/components/sections/home/ContactSection"
-import JoinUsSection from "@/components/sections/home/JoinUsSection"
+import ContactSection from "@/components/sections/common/ContactSection"
+import JoinUsSection from "@/components/sections/common/JoinUsSection"
 import MissionSection from "@/components/sections/home/MissionSection"
 import NewsSection from "@/components/sections/home/NewsSection"
 export default function Home() {
@@ -16,7 +15,6 @@ export default function Home() {
         <HeroSection />
         <VisionSection />
         <MissionSection/>
-        {/* <ServiceSection /> */}
       </div>
       <ServiceDetailSection />
       <NewsSection />

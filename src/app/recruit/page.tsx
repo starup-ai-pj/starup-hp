@@ -1,7 +1,13 @@
 import type { Metadata } from 'next'
-import RecruitDeckPage from '@/components/sections/recruit/RecruitDeckPage'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import HeroAiMakerSection from '@/components/sections/recruit/landing/HeroAiMakerSection'
+import ChapterDivider from '@/components/sections/recruit/landing/ChapterDivider'
+import MissionSection from '@/components/sections/recruit/landing/MissionSection'
+import WorkplaceSection from '@/components/sections/recruit/landing/WorkplaceSection'
+import MessageSection from '@/components/sections/recruit/landing/MessageSection'
+import JobsSection from '@/components/sections/recruit/landing/JobsSection'
+import CtaSection from '@/components/sections/recruit/landing/CtaSection'
 
 export const metadata: Metadata = {
   title: 'Recruit | STARUP 採用情報',
@@ -15,14 +21,14 @@ export const metadata: Metadata = {
     title: 'Recruit | STARUP 採用情報',
     description: '産業と文化の構造を再構築する仲間を募集しています。',
     url: '/recruit',
-    images: ['/images/recruit/recruit-hero.jpg'],
+    images: ['/images/recruit/hero.jpg'],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Recruit | STARUP 採用情報',
     description: '産業と文化の構造を再構築する仲間を募集しています。',
-    images: ['/images/recruit/recruit-hero.jpg'],
+    images: ['/images/recruit/hero.jpg'],
   },
 }
 
@@ -30,7 +36,54 @@ export default function RecruitPage() {
   return (
     <div className="min-h-screen">
       <Header />
-      <RecruitDeckPage />
+      <div className="bg-white">
+        {/* 表紙 + §0 Prologue: STARUP=AIメーカー (右側Pinterest風ギャラリー付き) */}
+        <HeroAiMakerSection />
+
+        {/* ━━━ 01. Mission + Values ━━━ */}
+        <ChapterDivider
+          number="01"
+          jaTitle="わたしたちがやろうとしていること"
+          enTitle={
+            <>
+              What we&apos;re<br />trying to do.
+            </>
+          }
+          bgImage="/images/recruit/chapters/chapter-01.jpg"
+        />
+        <MissionSection />
+
+        {/* ━━━ 02. ここで働くということ ━━━ */}
+        <ChapterDivider
+          number="02"
+          jaTitle="ここで働くということ"
+          enTitle={
+            <>
+              How we<br />work.
+            </>
+          }
+          bgImage="/images/recruit/chapters/chapter-02.jpg"
+        />
+        <WorkplaceSection />
+
+        {/* 代表メッセージ */}
+        <MessageSection />
+
+        {/* ━━━ 03. 募集中のポジション ━━━ */}
+        <ChapterDivider
+          number="03"
+          jaTitle="募集中のポジション"
+          enTitle={
+            <>
+              Open<br />positions.
+            </>
+          }
+          bgImage="/images/recruit/chapters/chapter-03.jpg"
+        />
+        <JobsSection />
+
+        <CtaSection />
+      </div>
       <Footer />
     </div>
   )

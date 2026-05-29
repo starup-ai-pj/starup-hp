@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { getAllRecruitsForList } from '@/lib/recruit'
 import { getAllNewsForList } from '@/lib/news'
-import { memberData } from '@/data/member/member'
+import { memberData } from '@/data/members'
 
 const SITE_URL = 'https://starup.co.jp'
 

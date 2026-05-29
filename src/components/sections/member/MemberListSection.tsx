@@ -6,13 +6,14 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import TypingText from "@/components/ui/TypingText"
 import TransitionLink from "@/components/ui/TransitionLink"
-import type { Member } from "@/data/member/member"
+import type { Member } from "@/data/members"
 
 gsap.registerPlugin(ScrollTrigger)
 
 interface MemberListItem {
   member: Member
   preview: string | null
+  hasInterview: boolean
 }
 
 interface MemberListSectionProps {
@@ -121,7 +122,7 @@ export default function MemberListSection({ members }: MemberListSectionProps) {
           <div className="lg:col-span-10">
             {/* Mobile: 1列 / Desktop: 2列 */}
             <div ref={listRef} className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-0">
-              {ordered.map(({ member, preview }) => (
+              {ordered.map(({ member, preview, hasInterview }) => (
                 <TransitionLink
                   key={member.id}
                   href={`/member/${member.id}`}
@@ -148,7 +149,7 @@ export default function MemberListSection({ members }: MemberListSectionProps) {
                       <h3 className="text-xl font-medium text-gray-900">{member.name}</h3>
                       <p className="text-xs text-gray-500 leading-relaxed ">{member.description}</p>
                       <div className="flex items-center gap-3">
-                        {member.hasInterview && (
+                        {hasInterview && (
                           <span className="text-xs bg-gray-900 text-white px-2 py-0.5">Interview</span>
                         )}
                         <span className="inline-flex items-center gap-1 text-xs text-gray-900 border-b border-gray-900 pb-0.5 group-hover:gap-2 transition-all duration-300">
@@ -208,7 +209,7 @@ export default function MemberListSection({ members }: MemberListSectionProps) {
                         )}
 
                         <div className="flex items-center gap-3">
-                          {member.hasInterview && (
+                          {hasInterview && (
                             <span className="text-xs bg-gray-900 text-white px-2 py-0.5">Interview</span>
                           )}
                           <span className="inline-flex items-center gap-1 text-xs text-gray-900 border-b border-gray-900 pb-0.5 group-hover:gap-2 transition-all duration-300">

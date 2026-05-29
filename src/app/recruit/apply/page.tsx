@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import RecruitApplyFormSection from '@/components/sections/recruit/RecruitApplyFormSection'
+import RecruitApplyFormSection from '@/components/sections/recruit/apply/RecruitApplyFormSection'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 
@@ -19,14 +19,14 @@ export const metadata: Metadata = {
     title: '採用応募フォーム | STARUP',
     description: 'STARUPの採用応募フォームです。あなたのスキルと情熱を私たちのチームで活かしませんか。',
     url: '/recruit/apply',
-    images: ['/images/recruit/recruit-hero.jpg'],
+    images: ['/images/recruit/hero.jpg'],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: '採用応募フォーム | STARUP',
     description: 'STARUPの採用応募フォームです。あなたのスキルと情熱を私たちのチームで活かしませんか。',
-    images: ['/images/recruit/recruit-hero.jpg'],
+    images: ['/images/recruit/hero.jpg'],
   },
 }
 

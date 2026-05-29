@@ -2,56 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import TransitionLink from "@/components/ui/TransitionLink"
-
-type FeatureGroup = { label: string; items: string[] }
-type Service = {
-  index: string
-  subtitle: string
-  title: string
-  description: string
-  features: FeatureGroup[]
-  href: string
-}
-
-const SERVICES: Service[] = [
-  {
-    index: "01",
-    subtitle: "AIデータ活用プラットフォーム",
-    title: "ARCHAIVE",
-    description:
-      "社内に点在した図面データを一元管理し、AIによる類似図面検索とチャット型データ検索で業務効率を革新する。",
-    features: [
-      { label: "コア機能", items: ["AI類似図面検索", "チャット型データ検索", "案件管理"] },
-      { label: "対象", items: ["製造業", "建設・設計業"] },
-    ],
-    href: "/service#archaive",
-  },
-  {
-    index: "02",
-    subtitle: "サプライチェーン支援AI",
-    title: "SEND AI",
-    description:
-      "散在するデータを統合・可視化し、AIが最適なアクションを提案。在庫・販売管理から発注・配分まで一気通貫で支援する。",
-    features: [
-      { label: "予測・発注", items: ["需要予測AI", "発注最適化", "在庫管理"] },
-      { label: "分析・可視化", items: ["売上分析", "BI機能"] },
-    ],
-    href: "/service#send-ai",
-  },
-  {
-    index: "03",
-    subtitle: "オントロジー基盤の業務AIシステム",
-    title: "Flowerium",
-    description:
-      "業務データを”意味”で統合するオントロジーを中心に、業務UIとAIエージェントの実行基盤までを一体で提供。AIの成長に合わせて形を変え続ける適応型システム。",
-    features: [
-      { label: "データ基盤", items: ["オントロジー統合"] },
-      { label: "業務UI", items: ["カスタムアプリ"] },
-      { label: "AIエージェント", items: ["アクション実行"] },
-    ],
-    href: "/service#flowerium",
-  },
-]
+import { homeServiceSummaries } from "@/data/services"
 
 export default function ServiceDetailSection() {
   const iframeRef = useRef<HTMLIFrameElement>(null)
@@ -89,7 +40,7 @@ export default function ServiceDetailSection() {
         })
 
         // service index → 3D layer index (service 01 = 一番上の層 = l=LAYER-1)
-        const layer = maxIdx === -1 ? -1 : SERVICES.length - 1 - maxIdx
+        const layer = maxIdx === -1 ? -1 : homeServiceSummaries.length - 1 - maxIdx
         sendFocus(layer)
       },
       { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] }
@@ -116,7 +67,7 @@ export default function ServiceDetailSection() {
         <div className="sticky top-0 h-screen w-full">
           <iframe
             ref={mobileIframeRef}
-            src="/network-background-4layer.html"
+            src="/html/network-background-4layer.html"
             title="Network Visualization"
             loading="lazy"
             scrolling="no"
@@ -137,7 +88,7 @@ export default function ServiceDetailSection() {
                 スラブの中心が画面の上の方に来る。下の余白はbg-blackで馴染ませる */}
             <iframe
               ref={iframeRef}
-              src="/network-background-4layer.html"
+              src="/html/network-background-4layer.html"
               title="Network Visualization"
               loading="lazy"
               scrolling="no"
@@ -153,7 +104,7 @@ export default function ServiceDetailSection() {
             {/* セクションヘッダー: 最初の画面に被せる */}
             <div className="lg:min-h-screen flex flex-col justify-center py-16 lg:py-0">
               <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 mb-4">
-                Services / {String(SERVICES.length).padStart(2, "0")}
+                Services / {String(homeServiceSummaries.length).padStart(2, "0")}
               </span>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.05] tracking-tight mb-6">
                 AIで、現場の<br />意思決定を変える。
@@ -168,7 +119,7 @@ export default function ServiceDetailSection() {
             </div>
 
             {/* 各サービス: 1画面分づつ縦に積む */}
-            {SERVICES.map((service, idx) => (
+            {homeServiceSummaries.map((service, idx) => (
               <article
                 key={service.index}
                 ref={(el) => {
@@ -178,7 +129,7 @@ export default function ServiceDetailSection() {
               >
                 <div className="flex items-baseline gap-3 mb-6">
                   <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">
-                    {service.index} / {String(SERVICES.length).padStart(2, "0")}
+                    {service.index} / {String(homeServiceSummaries.length).padStart(2, "0")}
                   </span>
                   <span className="block w-8 h-px bg-white/20" />
                 </div>

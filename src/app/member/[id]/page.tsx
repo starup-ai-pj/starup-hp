@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { memberData } from '@/data/member/member'
+import { memberData } from '@/data/members'
 import { getInterviewByMemberId, getInterviewPreview } from '@/lib/interview'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'

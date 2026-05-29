@@ -43,7 +43,7 @@ export default function HeroSection() {
             {/* Background */}
             <div ref={bgRef} className="fixed inset-0 transition-opacity duration-200">
                 <iframe
-                    src="/network-background.html"
+                    src="/html/network-background.html"
                     className="w-full h-full border-0"
                     aria-hidden="true"
                 />
