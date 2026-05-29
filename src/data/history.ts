@@ -22,7 +22,7 @@ export const historyData: HistoryEvent[] = [
     month: '03',
     title: 'AI開発事業開始',
     description: '受託開発を中心に開発事業をスタート',
-    image: '/images/about/history-tech.jpg',
+    image: '/images/tech-cards/tech-01.jpg',
   },
   {
     year: '2025',
