@@ -1,4 +1,3 @@
-import { PhotoGalleryWall } from '@/components/animation/photo-wall/PhotoGalleryWall'
 import HeroAiMakerSection from './deck/HeroAiMakerSection'
 import ChapterDivider from './deck/ChapterDivider'
 import MissionSection from './deck/MissionSection'
@@ -55,9 +54,7 @@ export default function RecruitDeckPage() {
       />
       <JobsSection />
 
-      {/* CTA → photo wall */}
       <CtaSection />
-      {/* <PhotoGalleryWall /> */}
     </div>
   )
 }
