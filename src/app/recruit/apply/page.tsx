@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import RecruitApplyFormSection from '@/components/sections/recruit/RecruitApplyFormSection'
+import RecruitApplyFormSection from '@/components/sections/recruit/apply/RecruitApplyFormSection'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 

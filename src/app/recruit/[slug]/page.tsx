@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getRecruitPostById, getAllRecruitsForList } from '@/lib/recruit'
-import RecruitDetailContentSection from '@/components/sections/recruit/RecruitDetailContentSection'
+import RecruitDetailContentSection from '@/components/sections/recruit/detail/RecruitDetailContentSection'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 

@@ -52,7 +52,7 @@ const WORK_STYLES = [
   },
 ]
 
-export default function CulturePage() {
+export default function CultureSection() {
   return (
     <div className="bg-white">
       {/* ━━━ Opening (hero-as-text) ━━━ */}

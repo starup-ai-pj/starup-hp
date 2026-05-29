@@ -1,9 +1,9 @@
 'use client'
 
 import { RecruitPost, RecruitListItem } from '@/lib/recruit'
-import RecruitItem from '@/components/ui/RecruitItem'
+import RecruitItem from '@/components/sections/recruit/detail/RecruitItem'
 import TransitionLink from '@/components/ui/TransitionLink'
-import NotionBlockRenderer from '@/components/ui/NotionBlockRenderer'
+import NotionBlockRenderer from '@/components/notion/NotionBlockRenderer'
 import Image from 'next/image'
 
 interface RecruitDetailContentSectionProps {

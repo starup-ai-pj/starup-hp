@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import JobListSection from '@/components/sections/recruit/JobListSection'
+import JobListSection from '@/components/sections/recruit/jobs/JobListSection'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { getAllRecruitsForList } from '@/lib/recruit'

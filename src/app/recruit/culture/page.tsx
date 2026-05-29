@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import CulturePage from '@/components/sections/culture/CulturePage'
+import CultureSection from '@/components/sections/recruit/culture/CultureSection'
 
 export const metadata: Metadata = {
   title: 'Culture | STARUP のカルチャー',
@@ -30,7 +30,7 @@ export default function RecruitCulturePage() {
   return (
     <div className="min-h-screen">
       <Header />
-      <CulturePage />
+      <CultureSection />
       <Footer />
     </div>
   )

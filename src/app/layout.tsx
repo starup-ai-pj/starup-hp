@@ -3,7 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import PageTransition from "@/components/layout/PageTransition";
-import CustomCursor from "@/components/ui/CustomCursor";
+import CustomCursor from "@/components/layout/CustomCursor";
 import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({

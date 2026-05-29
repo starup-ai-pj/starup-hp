@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { getAllNewsForList } from '@/lib/news'
 import TransitionLink from '@/components/ui/TransitionLink'
-import ExploreLinks from '@/components/sections/shared/ExploreLinks'
+import ExploreLinks from '@/components/sections/news/ExploreLinks'
 
 export default async function NewsListSection() {
   const allNews = await getAllNewsForList()

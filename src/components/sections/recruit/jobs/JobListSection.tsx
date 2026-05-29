@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import { RecruitListItem } from '@/lib/recruit'
-import JobCard from '@/components/ui/JobCard'
+import JobCard from '@/components/sections/recruit/jobs/JobCard'
 
 interface JobListSectionProps {
   recruits: RecruitListItem[]

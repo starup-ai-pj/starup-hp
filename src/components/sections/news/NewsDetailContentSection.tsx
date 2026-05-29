@@ -1,7 +1,7 @@
 'use client'
 
 import { NewsPost } from '@/lib/news'
-import NotionBlockRenderer from '@/components/ui/NotionBlockRenderer'
+import NotionBlockRenderer from '@/components/notion/NotionBlockRenderer'
 import ShareButtons from '@/components/ui/ShareButtons'
 import Image from 'next/image'
 

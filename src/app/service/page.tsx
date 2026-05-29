@@ -1,8 +1,8 @@
 import Header from "@/components/layout/Header"
 import Footer from "@/components/layout/Footer"
-import ServiceHeroSection from "@/components/sections/service/ServiceHeroSection"
-import ServiceListSection from "@/components/sections/service/ServiceListSection"
-import ServiceCTASection from "@/components/sections/service/ServiceCTASection"
+import ServiceHeroSection from "@/components/sections/service/HeroSection"
+import ServiceListSection from "@/components/sections/service/ListSection"
+import ServiceCTASection from "@/components/sections/service/CTASection"
 
 export const metadata = {
   title: "Service | STARUP",
