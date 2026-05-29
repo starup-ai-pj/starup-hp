@@ -5,7 +5,7 @@
 import { NotionBlock } from '@/lib/notion/types'
 
 /**
- * 採用情報の完全なデータ型
+ * 採用情報の完全なデータ型（詳細ページで使用）
  */
 export interface RecruitPost {
   id: string

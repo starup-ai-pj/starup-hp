@@ -17,8 +17,9 @@ let notionClient: Client | null = null
 
 /**
  * 環境変数を取得（検証付き）
+ * 各ドメインが Notion DB ID を解決する際にも使う。
  */
-function getEnvVar(name: string): string {
+export function requireEnv(name: string): string {
   const value = process.env[name]
   if (!value) {
     throw new Error(`${name} is not defined in environment variables`)
@@ -27,13 +28,13 @@ function getEnvVar(name: string): string {
 }
 
 /**
- * Notionクライアントを初期化して取得
+ * Notionクライアント（SDK）を初期化して取得
+ * 現状はブロック取得でのみ使用する内部ヘルパー。
  */
-export function getNotionClient(): Client {
+function getNotionClient(): Client {
   if (!notionClient) {
-    const apiKey = getEnvVar('NOTION_API_KEY')
     notionClient = new Client({
-      auth: apiKey,
+      auth: requireEnv('NOTION_API_KEY'),
     })
   }
   return notionClient
@@ -58,7 +59,7 @@ export async function queryDatabase(
     filter?: any
   }
 ): Promise<NotionPage[]> {
-  const apiKey = getEnvVar('NOTION_API_KEY')
+  const apiKey = requireEnv('NOTION_API_KEY')
   const NOTION_API_VERSION = '2022-06-28'
   const NOTION_API_BASE_URL = 'https://api.notion.com/v1'
 

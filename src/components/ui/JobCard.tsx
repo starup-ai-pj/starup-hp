@@ -1,6 +1,6 @@
 'use client'
 
-import { RecruitListItem } from '@/types/recruit'
+import { RecruitListItem } from '@/lib/recruit'
 import TransitionLink from '@/components/ui/TransitionLink'
 import Image from 'next/image'
 

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { NewsListItem } from '@/types/news'
+import { NewsListItem } from '@/lib/news'
 import TransitionLink from '@/components/ui/TransitionLink'
 
 interface NewsIndexListProps {

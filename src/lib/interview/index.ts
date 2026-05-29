@@ -1,6 +1,8 @@
 import fs from 'fs'
 import path from 'path'
-import type { Interview, InterviewItem, InterviewSection } from '@/types/interview'
+import type { Interview, InterviewItem, InterviewSection } from './types'
+
+export type { Interview, InterviewItem, InterviewSection } from './types'
 
 const interviewDirectory = path.join(process.cwd(), 'content', 'interview')
 

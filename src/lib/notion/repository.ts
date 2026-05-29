@@ -1,35 +1,32 @@
 /**
  * 汎用コンテンツリポジトリ
- * DatabaseConfig とマッパーから、Notion DB をソースとする
- * 「一覧取得 / ID取得 / 全ID取得」の共通データ層を生成する。
- * news / recruit など、構造が同じデータ層の重複を排除するためのファクトリ。
+ * Notion DB をソースとする「一覧取得 / ID取得 / 全ID取得」の共通オーケストレーションを提供する。
+ * プロパティの抽出（マッピング）は各ドメインが fields ヘルパで行い、ここには Notion DB 構造の知識を持たせない。
  */
 
 import { queryDatabase, getPageBlocks } from './client'
-import { createExtractors, getDatabaseId, getDefaultSorts } from './extractors'
-import { DatabaseConfig, NotionPage, NotionBlock } from './types'
+import { NotionPage, NotionBlock } from './types'
 
-type Extractors<C extends DatabaseConfig> = ReturnType<typeof createExtractors<C>>
+type Sort = { property: string; direction: 'ascending' | 'descending' }
 
-interface ContentMappers<C extends DatabaseConfig, TListItem, TPost> {
+interface ContentMappers<TListItem, TPost> {
   /** 一覧表示用の軽量データへ変換（本文を含まない） */
-  toListItem: (extractors: Extractors<C>, page: NotionPage) => TListItem
+  toListItem: (page: NotionPage) => TListItem
   /** 詳細表示用の完全データへ変換（本文ブロックを含む） */
-  toPost: (extractors: Extractors<C>, page: NotionPage, blocks: NotionBlock[]) => TPost
+  toPost: (page: NotionPage, blocks: NotionBlock[]) => TPost
+  /** unique_id を文字列で返す（getById の突合に使用） */
+  getId: (page: NotionPage) => string
 }
 
-export function createContentRepository<C extends DatabaseConfig, TListItem, TPost>(
-  config: C,
-  mappers: ContentMappers<C, TListItem, TPost>
+export function createContentRepository<TListItem, TPost>(
+  databaseId: string,
+  sorts: Sort[],
+  mappers: ContentMappers<TListItem, TPost>
 ) {
-  const extractors = createExtractors(config)
-
-  /** 一覧を取得（defaultSorts 適用済み） */
+  /** 一覧を取得（sorts 適用済み） */
   async function getAllForList(): Promise<TListItem[]> {
-    const pages = await queryDatabase(getDatabaseId(config), {
-      sorts: getDefaultSorts(config),
-    })
-    return pages.map((page) => mappers.toListItem(extractors, page))
+    const pages = await queryDatabase(databaseId, { sorts })
+    return pages.map(mappers.toListItem)
   }
 
   /** unique_id で詳細を取得（見つからなければ null） */
@@ -37,18 +34,18 @@ export function createContentRepository<C extends DatabaseConfig, TListItem, TPo
     const targetId = parseInt(id, 10)
     if (isNaN(targetId)) return null
 
-    const pages = await queryDatabase(getDatabaseId(config))
-    const page = pages.find((p) => extractors.id(p) === String(targetId))
+    const pages = await queryDatabase(databaseId)
+    const page = pages.find((p) => mappers.getId(p) === String(targetId))
     if (!page) return null
 
     const blocks = await getPageBlocks(page.id)
-    return mappers.toPost(extractors, page, blocks)
+    return mappers.toPost(page, blocks)
   }
 
   /** 全ての unique_id を取得（動的ルーティング用） */
   async function getAllIds(): Promise<string[]> {
-    const pages = await queryDatabase(getDatabaseId(config))
-    return pages.map((page) => extractors.id(page)).filter(Boolean)
+    const pages = await queryDatabase(databaseId)
+    return pages.map(mappers.getId).filter(Boolean)
   }
 
   return { getAllForList, getById, getAllIds }

@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import TransitionLink from '@/components/ui/TransitionLink'
 import type { Member } from '@/data/member/member'
-import type { Interview } from '@/types/interview'
+import type { Interview } from '@/lib/interview'
 
 interface OtherMember {
   member: Member

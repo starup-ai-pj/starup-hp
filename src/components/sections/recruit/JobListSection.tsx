@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { RecruitListItem } from '@/types/recruit'
+import { RecruitListItem } from '@/lib/recruit'
 import JobCard from '@/components/ui/JobCard'
 
 interface JobListSectionProps {

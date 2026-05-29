@@ -1,6 +1,6 @@
 'use client'
 
-import { RecruitPost, RecruitListItem } from '@/types/recruit'
+import { RecruitPost, RecruitListItem } from '@/lib/recruit'
 import RecruitItem from '@/components/ui/RecruitItem'
 import TransitionLink from '@/components/ui/TransitionLink'
 import NotionBlockRenderer from '@/components/ui/NotionBlockRenderer'
