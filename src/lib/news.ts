@@ -18,7 +18,7 @@ const repository = createContentRepository<typeof newsConfig, NewsListItem, News
       date: ex.date(page),
       tags: ex.tags(page),
       summary: ex.description(page),
-      imageUrl: ex.thumbnail(page) || DEFAULT_IMAGE,
+      thumbnail: ex.thumbnail(page) || DEFAULT_IMAGE,
     }),
     toPost: (ex, page, blocks) => ({
       id: ex.id(page),

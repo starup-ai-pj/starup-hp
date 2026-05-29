@@ -104,7 +104,7 @@ export default function NewsIndexList({ items }: NewsIndexListProps) {
                 aria-hidden={activeIdx !== i}
               >
                 <Image
-                  src={item.imageUrl}
+                  src={item.thumbnail}
                   alt={item.title}
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"

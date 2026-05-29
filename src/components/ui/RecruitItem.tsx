@@ -30,7 +30,7 @@ export default function RecruitItem({ item, showDivider = false }: RecruitItemPr
           {/* Image */}
           <div className="w-full relative h-48">
             <Image
-              src={item.imageUrl}
+              src={item.thumbnail}
               alt={item.title}
               fill
               sizes="100vw"
@@ -71,7 +71,7 @@ export default function RecruitItem({ item, showDivider = false }: RecruitItemPr
         <div className="grid grid-cols-6 gap-6 items-start py-8">
           <div className="col-span-2 relative aspect-[4/3]">
             <Image
-              src={item.imageUrl}
+              src={item.thumbnail}
               alt={item.title}
               fill
               sizes="(max-width: 768px) 100vw, 33vw"

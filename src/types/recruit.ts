@@ -26,16 +26,9 @@ export interface RecruitPost {
 
 /**
  * 採用情報一覧表示用のデータ型
+ * 本文ブロックと詳細ページ専用フィールドを含まない軽量版
  */
-export interface RecruitListItem {
-  id: string
-  title: string
-  date: string
-  category: string
-  imageUrl: string
-  summary: string
-  jobType: string
-  location: string
-  employmentType: string[]
-  salary: string
-}
+export type RecruitListItem = Omit<
+  RecruitPost,
+  'blocks' | 'workingHours' | 'holidays' | 'benefits'
+>

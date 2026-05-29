@@ -24,7 +24,7 @@ export default function JobCard({ item }: JobCardProps) {
       <div className="md:hidden space-y-4">
         <div className="relative w-full aspect-[16/9] overflow-hidden">
           <Image
-            src={item.imageUrl}
+            src={item.thumbnail}
             alt={item.title}
             fill
             sizes="100vw"
@@ -63,7 +63,7 @@ export default function JobCard({ item }: JobCardProps) {
         {/* サムネイル */}
         <div className="col-span-4 relative aspect-[3/2] overflow-hidden">
           <Image
-            src={item.imageUrl}
+            src={item.thumbnail}
             alt={item.title}
             fill
             sizes="33vw"

@@ -22,7 +22,7 @@ const repository = createContentRepository<typeof recruitConfig, RecruitListItem
       location: ex.location(page),
       employmentType: ex.employmentType(page),
       salary: ex.salary(page),
-      imageUrl: ex.thumbnail(page) || DEFAULT_IMAGE,
+      thumbnail: ex.thumbnail(page) || DEFAULT_IMAGE,
     }),
     toPost: (ex, page, blocks) => ({
       id: ex.id(page),

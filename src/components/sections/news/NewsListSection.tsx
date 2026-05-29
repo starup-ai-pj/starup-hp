@@ -76,7 +76,7 @@ export default async function NewsListSection() {
                   <div className="md:col-span-3">
                     <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
                       <Image
-                        src={item.imageUrl}
+                        src={item.thumbnail}
                         alt={item.title}
                         fill
                         sizes="(max-width: 768px) 100vw, 25vw"

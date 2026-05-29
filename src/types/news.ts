@@ -28,19 +28,6 @@ export interface NewsPost {
 
 /**
  * ニュース一覧表示用のデータ型
- * 一覧ページで使用（本文を含まない軽量版）
+ * 一覧ページで使用（本文ブロックを含まない軽量版）
  */
-export interface NewsListItem {
-  /** 記事ID */
-  id: string
-  /** 記事タイトル */
-  title: string
-  /** 公開日（YYYY-MM-DD形式） */
-  date: string
-  /** カテゴリタグ（複数） */
-  tags: string[]
-  /** 記事概要 */
-  summary: string
-  /** サムネイル画像URL */
-  imageUrl: string
-}
+export type NewsListItem = Omit<NewsPost, 'blocks'>
