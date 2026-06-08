@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getRecruitPostById, getAllRecruitsForList } from '@/lib/recruit'
 import RecruitDetailContentSection from '@/components/sections/recruit/detail/RecruitDetailContentSection'
 import Header from '@/components/layout/Header'
@@ -13,25 +13,29 @@ interface RecruitPostPageProps {
 const SITE_URL = 'https://starup.co.jp'
 
 export async function generateMetadata({ params }: RecruitPostPageProps): Promise<Metadata> {
-  const { slug } = await params
+  const { locale, slug } = await params
+  const t = await getTranslations({ locale, namespace: 'sections.recruit.detail.metadata' })
   const post = await getRecruitPostById(slug)
 
   if (!post) {
     return {
-      title: '採用情報が見つかりません | STARUP',
+      title: t('notFoundTitle'),
       robots: { index: false, follow: false },
     }
   }
 
-  const title = `${post.title} | STARUP 採用情報`
+  const title = `${post.title} | ${t('titleSuffix')}`
   const description =
     post.summary ||
-    `STARUPの${post.jobType[0] || post.title}の募集詳細。勤務地: ${post.location || '—'}。あなたのスキルと情熱を私たちのチームで活かしませんか。`
+    t('descriptionTemplate', {
+      jobType: post.jobType[0] || post.title,
+      location: post.location || '—',
+    })
   const url = `/recruit/${post.id}`
   const image = post.thumbnail || '/images/recruit/hero.jpg'
 
   const keywords = [
-    'STARUP 採用',
+    t('keywordPrefix'),
     post.title,
     ...post.jobType,
     ...post.category,
@@ -44,12 +48,13 @@ export async function generateMetadata({ params }: RecruitPostPageProps): Promis
     description,
     keywords,
     alternates: {
-      canonical: url,
+      canonical: locale === 'ja' ? url : `/en${url}`,
+      languages: { ja: url, en: `/en${url}` },
     },
     openGraph: {
       title,
       description,
-      url,
+      url: locale === 'ja' ? url : `/en${url}`,
       images: [image],
       type: 'article',
     },
@@ -65,6 +70,7 @@ export async function generateMetadata({ params }: RecruitPostPageProps): Promis
 export default async function RecruitPostPage({ params }: RecruitPostPageProps) {
   const { locale, slug } = await params
   setRequestLocale(locale)
+  const t = await getTranslations({ locale, namespace: 'sections.recruit.detail.metadata' })
 
   const post = await getRecruitPostById(slug)
 
@@ -82,7 +88,7 @@ export default async function RecruitPostPage({ params }: RecruitPostPageProps) 
     '@context': 'https://schema.org',
     '@type': 'JobPosting',
     title: post.title,
-    description: [post.summary, post.benefits, post.workingHours && `勤務時間: ${post.workingHours}`, post.holidays && `休日休暇: ${post.holidays}`]
+    description: [post.summary, post.benefits, post.workingHours && `${t('workingHoursLabel')}: ${post.workingHours}`, post.holidays && `${t('holidaysLabel')}: ${post.holidays}`]
       .filter(Boolean)
       .join('\n\n'),
     datePosted: post.date,
@@ -97,7 +103,7 @@ export default async function RecruitPostPage({ params }: RecruitPostPageProps) 
       '@type': 'Place',
       address: {
         '@type': 'PostalAddress',
-        addressLocality: post.location || '東京',
+        addressLocality: post.location || t('locationFallback'),
         addressCountry: 'JP',
       },
     },

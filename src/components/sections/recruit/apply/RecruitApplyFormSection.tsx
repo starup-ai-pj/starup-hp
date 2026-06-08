@@ -1,7 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
-import { useTranslations } from 'next-intl'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Select from '@/components/ui/Select'
@@ -20,7 +19,6 @@ export default function RecruitApplyFormSection({
   positions = [],
   initialPosition = '',
 }: RecruitApplyFormSectionProps) {
-  const t = useTranslations('sections.recruit.apply')
   const t = useTranslations('sections.recruit.apply')
   const [formData, setFormData] = useState({
     name: '',
@@ -99,8 +97,6 @@ export default function RecruitApplyFormSection({
         }),
       })
 
-      const data = await response.json()
-
       if (response.ok) {
         toast.success(t('successMessage'))
         // フォームをリセット
@@ -114,7 +110,7 @@ export default function RecruitApplyFormSection({
           message: '',
         })
       } else {
-        toast.error(data.error || t('errorMessage'))
+        toast.error(t('errorMessage'))
       }
     } catch (error) {
       console.error('送信エラー:', error)
@@ -290,13 +286,7 @@ export default function RecruitApplyFormSection({
                     name="position"
                     value={formData.position}
                     onChange={(value) => handleSelectChange('position', value)}
-                    options={[
-                      { value: 'frontend', label: 'フロントエンドエンジニア' },
-                      { value: 'backend', label: 'バックエンドエンジニア' },
-                      { value: 'pm', label: 'プロダクトマネージャー' },
-                      { value: 'designer', label: 'デザイナー' },
-                      { value: 'other', label: 'その他' }
-                    ]}
+                    options={positionOptions}
                     placeholder={t('positionPlaceholder')}
                     required
                   />

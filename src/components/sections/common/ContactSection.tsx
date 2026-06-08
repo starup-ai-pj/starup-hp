@@ -62,8 +62,6 @@ export default function ContactSection() {
         body: JSON.stringify(formData),
       })
 
-      const data = await response.json()
-
       if (response.ok) {
         toast.success(t('toast.success'))
         // フォームをリセット
@@ -75,7 +73,7 @@ export default function ContactSection() {
           message: '',
         })
       } else {
-        toast.error(data.error || t('toast.error'))
+        toast.error(t('toast.error'))
       }
     } catch (error) {
       console.error('送信エラー:', error)

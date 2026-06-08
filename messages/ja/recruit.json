@@ -171,6 +171,12 @@
               "body": "現在募集中のポジションをご覧ください。"
             }
           }
+        },
+        "metadata": {
+          "title": "Recruit | STARUP 採用情報",
+          "description": "STARUPでは産業と文化の構造を再構築する仲間を募集しています。代表メッセージ、カルチャー、募集職種、選考プロセスをご覧ください。",
+          "ogDescription": "産業と文化の構造を再構築する仲間を募集しています。",
+          "keywords": "STARUP 採用,採用情報,求人,スタートアップ 採用,AI エンジニア 採用,新卒採用,中途採用"
         }
       },
       "culture": {
@@ -207,6 +213,12 @@
             "title": "募集中のポジション",
             "body": "現在募集中のポジションをご覧ください。"
           }
+        },
+        "metadata": {
+          "title": "Culture | STARUP のカルチャー",
+          "description": "STARUPのカルチャー、バリュー、働き方、メンバーの素顔をご紹介します。産業と文化の構造を再構築する組織の根底にある価値観をお伝えします。",
+          "ogDescription": "STARUPのカルチャー、バリュー、働き方、メンバーの素顔をご紹介します。",
+          "keywords": "STARUP カルチャー,スタートアップ カルチャー,企業文化,働き方,バリュー,チーム"
         }
       },
       "jobs": {
@@ -220,7 +232,13 @@
         "reset": "Reset",
         "empty": "該当する求人が見つかりませんでした。",
         "resetFilters": "フィルターをReset",
-        "detail": "詳細を見る"
+        "detail": "詳細を見る",
+        "metadata": {
+          "title": "募集職種一覧 | STARUP 採用情報",
+          "description": "STARUPで募集中の職種一覧。エンジニア、ビジネス、デザインなど、産業と文化の構造を再構築する仲間を募集しています。",
+          "ogDescription": "STARUPで募集中の職種一覧をご覧いただけます。",
+          "keywords": "STARUP 求人,募集職種,エンジニア 求人,スタートアップ 求人,中途採用,新卒採用"
+        }
       },
       "detail": {
         "selectionFlowTitle": "選考フロー",
@@ -260,7 +278,18 @@
         "viewMore": "View more",
         "relatedLead": "あなたにぴったりのポジションがきっと見つかります。",
         "relatedHeading": "Discover more opportunities that match your skills.",
-        "readMore": "READ MORE"
+        "readMore": "READ MORE",
+        "metadata": {
+          "titleSuffix": "STARUP 採用情報",
+          "notFoundTitle": "採用情報が見つかりません | STARUP",
+          "descriptionTemplate": "STARUPの{jobType}の募集詳細。勤務地: {location}。あなたのスキルと情熱を私たちのチームで活かしませんか。",
+          "keywordPrefix": "STARUP 採用",
+          "workingHoursLabel": "勤務時間",
+          "holidaysLabel": "休日休暇",
+          "locationFallback": "東京",
+          "ogAlt": "STARUP 採用情報",
+          "fallbackTitle": "採用情報"
+        }
       },
       "apply": {
         "title": "Apply Form",
@@ -297,7 +326,13 @@
         "submitting": "送信中...",
         "successMessage": "応募ありがとうございます。担当者より追って連絡いたします。",
         "errorMessage": "送信に失敗しました。もう一度お試しください。",
-        "networkError": "ネットワークエラーが発生しました。もう一度お試しください。"
+        "networkError": "ネットワークエラーが発生しました。もう一度お試しください。",
+        "metadata": {
+          "title": "採用応募フォーム | STARUP",
+          "description": "STARUPの採用応募フォームです。あなたのスキルと情熱を私たちのチームで活かしませんか。お気軽にご応募ください。",
+          "ogDescription": "STARUPの採用応募フォームです。あなたのスキルと情熱を私たちのチームで活かしませんか。",
+          "keywords": "STARUP 応募,採用 応募,エントリー,応募フォーム"
+        }
       }
     }
   },

@@ -14,27 +14,32 @@ interface RecruitPageProps {
   params: Promise<{ locale: string }>
 }
 
-export const metadata: Metadata = {
-  title: 'Recruit | STARUP 採用情報',
-  description:
-    'STARUPでは産業と文化の構造を再構築する仲間を募集しています。代表メッセージ、カルチャー、募集職種、選考プロセスをご覧ください。',
-  keywords: ['STARUP 採用', '採用情報', '求人', 'スタートアップ 採用', 'AI エンジニア 採用', '新卒採用', '中途採用'],
-  alternates: {
-    canonical: '/recruit',
-  },
-  openGraph: {
-    title: 'Recruit | STARUP 採用情報',
-    description: '産業と文化の構造を再構築する仲間を募集しています。',
-    url: '/recruit',
-    images: ['/images/recruit/hero.jpg'],
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Recruit | STARUP 採用情報',
-    description: '産業と文化の構造を再構築する仲間を募集しています。',
-    images: ['/images/recruit/hero.jpg'],
-  },
+export async function generateMetadata({ params }: RecruitPageProps): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'sections.recruit.landing.metadata' })
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords').split(','),
+    alternates: {
+      canonical: locale === 'ja' ? '/recruit' : '/en/recruit',
+      languages: { ja: '/recruit', en: '/en/recruit' },
+    },
+    openGraph: {
+      title: t('title'),
+      description: t('ogDescription'),
+      url: locale === 'ja' ? '/recruit' : '/en/recruit',
+      images: ['/images/recruit/hero.jpg'],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('title'),
+      description: t('ogDescription'),
+      images: ['/images/recruit/hero.jpg'],
+    },
+  }
 }
 
 export default async function RecruitPage({ params }: RecruitPageProps) {

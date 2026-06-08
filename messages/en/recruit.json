@@ -171,6 +171,12 @@
               "body": "Take a look at the positions we're currently hiring for."
             }
           }
+        },
+        "metadata": {
+          "title": "Recruit | STARUP Careers",
+          "description": "STARUP is looking for people to help rebuild the structures of industry and culture. Explore our CEO message, culture, open positions, and selection process.",
+          "ogDescription": "Join us in rebuilding the structures of industry and culture.",
+          "keywords": "STARUP careers,recruiting,jobs,startup careers,AI engineer jobs,new graduate hiring,mid-career hiring"
         }
       },
       "culture": {
@@ -207,6 +213,12 @@
             "title": "Open positions",
             "body": "Take a look at the positions we're currently hiring for."
           }
+        },
+        "metadata": {
+          "title": "Culture | STARUP Culture",
+          "description": "Discover STARUP's culture, values, ways of working, and the people behind the company — the values at the core of an organization rebuilding the structures of industry and culture.",
+          "ogDescription": "Discover STARUP's culture, values, ways of working, and the people behind the company.",
+          "keywords": "STARUP culture,startup culture,company culture,ways of working,values,team"
         }
       },
       "jobs": {
@@ -220,7 +232,13 @@
         "reset": "Reset",
         "empty": "No matching positions were found.",
         "resetFilters": "Reset filters",
-        "detail": "View details"
+        "detail": "View details",
+        "metadata": {
+          "title": "Open Positions | STARUP Careers",
+          "description": "Browse the positions currently open at STARUP — engineering, business, design, and more. Join us in rebuilding the structures of industry and culture.",
+          "ogDescription": "Browse the positions currently open at STARUP.",
+          "keywords": "STARUP jobs,open positions,engineering jobs,startup jobs,mid-career hiring,new graduate hiring"
+        }
       },
       "detail": {
         "selectionFlowTitle": "Selection process",
@@ -260,7 +278,18 @@
         "viewMore": "View more",
         "relatedLead": "We're confident you'll find the perfect position for you.",
         "relatedHeading": "Discover more opportunities that match your skills.",
-        "readMore": "READ MORE"
+        "readMore": "READ MORE",
+        "metadata": {
+          "titleSuffix": "STARUP Careers",
+          "notFoundTitle": "Job not found | STARUP",
+          "descriptionTemplate": "Details for the {jobType} position at STARUP. Location: {location}. Bring your skills and passion to our team.",
+          "keywordPrefix": "STARUP careers",
+          "workingHoursLabel": "Working hours",
+          "holidaysLabel": "Holidays",
+          "locationFallback": "Tokyo",
+          "ogAlt": "STARUP Careers",
+          "fallbackTitle": "Careers"
+        }
       },
       "apply": {
         "title": "Apply Form",
@@ -297,7 +326,13 @@
         "submitting": "Submitting...",
         "successMessage": "Thank you for applying. Our team will be in touch with you shortly.",
         "errorMessage": "Submission failed. Please try again.",
-        "networkError": "A network error occurred. Please try again."
+        "networkError": "A network error occurred. Please try again.",
+        "metadata": {
+          "title": "Application Form | STARUP",
+          "description": "The STARUP application form. Bring your skills and passion to our team — we welcome your application.",
+          "ogDescription": "The STARUP application form. Bring your skills and passion to our team.",
+          "keywords": "STARUP application,job application,entry,application form"
+        }
       }
     }
   },

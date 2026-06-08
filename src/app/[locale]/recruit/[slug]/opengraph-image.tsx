@@ -1,19 +1,21 @@
 import { ImageResponse } from 'next/og'
 import { readFileSync } from 'fs'
 import path from 'path'
+import { getTranslations } from 'next-intl/server'
 import { getRecruitPostById } from '@/lib/recruit'
 
 export const runtime = 'nodejs'
-export const alt = 'STARUP 採用情報'
+export const alt = 'STARUP Careers'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
 const fontPath = path.join(process.cwd(), 'public', 'fonts', 'NotoSansJP-Regular.ttf')
 
-export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
+export default async function Image({ params }: { params: Promise<{ locale: string; slug: string }> }) {
+  const { locale, slug } = await params
+  const t = await getTranslations({ locale, namespace: 'sections.recruit.detail.metadata' })
   const post = await getRecruitPostById(slug)
-  const title = post?.title || '採用情報'
+  const title = post?.title || t('fallbackTitle')
   const subtitle = post?.jobType?.[0] || post?.category?.[0] || ''
   const location = post?.location || ''
   const employment = (post?.employmentType || []).join(' / ')
