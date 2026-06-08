@@ -1,13 +1,18 @@
 import { Fragment } from 'react'
-import { companyProfile, partners } from '@/data/company'
+import { getTranslations } from 'next-intl/server'
+import { getCompanyProfile, getPartners } from '@/data/company'
 
-export default function InformationSection() {
+export default async function InformationSection({ locale }: { locale: string }) {
+  const t = await getTranslations({ locale, namespace: 'sections.about.information' })
+  const companyProfile = await getCompanyProfile(locale)
+  const partners = await getPartners(locale)
+
   return (
     <section className="py-24 md:py-32 bg-white">
       <div className="max-w-[1500px] mx-auto px-4">
-        <p className="text-xs text-gray-400 uppercase tracking-widest mb-6">Information</p>
+        <p className="text-xs text-gray-400 uppercase tracking-widest mb-6">{t('eyebrow')}</p>
         <h2 className="text-3xl md:text-5xl font-medium text-gray-900 mb-12 md:mb-20">
-          会社情報
+          {t('heading')}
         </h2>
 
         <div className="border-t border-gray-200">

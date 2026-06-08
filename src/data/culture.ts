@@ -1,14 +1,10 @@
 /**
  * カルチャーページ（/recruit/culture）のコンテンツ
  * フィロソフィー本文・バリュー・働き方。
+ * 構造（id・番号・英語タイトル）はここに、翻訳テキストは data.culture メッセージに置く。
  */
 
-export const philosophyBody: string[] = [
-  'STARUPフィロソフィーとは、私たちがどこに向かい、何をしたいか、どうありたいか、どんな価値を提供したいかを示すものです。',
-  'AIを単なる効率化ツールではなく、産業の意思決定を変えるためのインフラとして捉えます。現場に眠るデータをAIが活用できる形に整え、業界ごとの意思決定OSをつくっていきます。',
-  '経営陣やメンバーが迷ったとき、何を優先すべきか、どの顧客課題に向き合うべきか、どのプロダクトをどう進化させるべきかを判断するための軸として、日々の意思決定に活用しています。',
-  'プロダクトもAI開発も顧客への向き合い方も、すべて企業文化のアウトプットだと考えます。だからこそ、技術だけでなく、思想・行動指針・組織文化にも投資していきます。',
-]
+import { getTranslations } from 'next-intl/server'
 
 export interface CultureValue {
   num: string
@@ -17,53 +13,49 @@ export interface CultureValue {
   body: string
 }
 
-export const values: CultureValue[] = [
-  {
-    num: '01',
-    title: 'Ownership',
-    subtitle: '当事者意識を持つ',
-    body: '顧客・プロダクト・事業・会社の成長を自分ごととして捉え、評論ではなく実装で最後まで前に進める。誰かに任せるのではなく、自分が動かす姿勢。',
-  },
-  {
-    num: '02',
-    title: 'Not cynical',
-    subtitle: '斜に構えない',
-    body: 'できない理由ではなく実現する方法を考え、顧客・現場・仲間・外部の声に素直に向き合う。冷笑よりも、素直に試す方が答えに近い。',
-  },
-  {
-    num: '03',
-    title: 'Stay curious, stay grounded',
-    subtitle: 'ワクワクと現場を大切に',
-    body: 'ワクワクと現場への深い理解を行き来し、顧客が本当に使える価値に変える。最先端の好奇心と、地に足のついた実装の両方を持つ。',
-  },
-  {
-    num: '04',
-    title: 'Be a multiplier',
-    subtitle: '三人寄れば文殊の知恵',
-    body: 'チームで知恵を出し合い、最善の答えを出すことを意識する。一人の最大値ではなく、チームとしての出力を最大化する。',
-  },
-]
-
 export interface WorkStyle {
   num: string
   title: string
   body: string
 }
 
-export const workStyles: WorkStyle[] = [
-  {
-    num: '01',
-    title: '少数精鋭で、速く。',
-    body: '一人ひとりの裁量が大きく、意思決定に直接関わる。承認フローは最小限、良いアイデアは即実行。',
-  },
-  {
-    num: '02',
-    title: '現場 → プロダクト直結。',
-    body: '現場に入り込んで得た知見が、そのままプロダクトと基盤に還元される。隔たりのない現場と開発の往復。',
-  },
-  {
-    num: '03',
-    title: '京都拠点 × リモート可。',
-    body: '京都御所近くのオフィスを拠点に、リモートワークも柔軟に。集中とコラボレーションのバランスを大切に。',
-  },
-]
+export interface CultureContent {
+  philosophyBody: string[]
+  values: CultureValue[]
+  workStyles: WorkStyle[]
+}
+
+/** バリューの非翻訳フィールド（番号・英語タイトル）と翻訳キー */
+const valueStructure = [
+  { id: 'ownership', num: '01', title: 'Ownership' },
+  { id: 'notCynical', num: '02', title: 'Not cynical' },
+  { id: 'stayCurious', num: '03', title: 'Stay curious, stay grounded' },
+  { id: 'beMultiplier', num: '04', title: 'Be a multiplier' },
+] as const
+
+const workStyleStructure = [
+  { id: 'speed', num: '01' },
+  { id: 'frontline', num: '02' },
+  { id: 'kyoto', num: '03' },
+] as const
+
+const philosophyKeys = ['p1', 'p2', 'p3', 'p4'] as const
+
+/** 指定 locale のカルチャーコンテンツ（構造 + 翻訳テキスト）を返す（Server Component 用） */
+export async function getCulture(locale: string): Promise<CultureContent> {
+  const t = await getTranslations({ locale, namespace: 'data.culture' })
+  return {
+    philosophyBody: philosophyKeys.map((key) => t(`philosophyBody.${key}`)),
+    values: valueStructure.map((value) => ({
+      num: value.num,
+      title: value.title,
+      subtitle: t(`values.${value.id}.subtitle`),
+      body: t(`values.${value.id}.body`),
+    })),
+    workStyles: workStyleStructure.map((style) => ({
+      num: style.num,
+      title: t(`workStyles.${style.id}.title`),
+      body: t(`workStyles.${style.id}.body`),
+    })),
+  }
+}

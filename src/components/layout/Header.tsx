@@ -2,9 +2,12 @@
 import Image from 'next/image'
 import TransitionLink from '@/components/ui/TransitionLink'
 import { useState, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 import Breadcrumb from '@/components/ui/Breadcrumb'
+import LanguageToggle from '@/components/layout/LanguageToggle'
 
 const Header = () => {
+  const t = useTranslations('nav')
   const [isVisible, setIsVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
   const [isDarkBackground, setIsDarkBackground] = useState(true)
@@ -87,12 +90,12 @@ const Header = () => {
     }
   }, [lastScrollY])
   const navItems = [
-    { label: 'About', href: '/about' },
-    { label: 'Member', href: '/member' },
-    { label: 'Service', href: '/service' },
-    { label: 'News', href: '/news' },
-    { label: 'Career', href: '/recruit' },
-    { label: 'Contact', href: '/contact' },
+    { label: t('about'), href: '/about' },
+    { label: t('member'), href: '/member' },
+    { label: t('service'), href: '/service' },
+    { label: t('news'), href: '/news' },
+    { label: t('career'), href: '/recruit' },
+    { label: t('contact'), href: '/contact' },
   ]
 
   return (
@@ -128,6 +131,9 @@ const Header = () => {
         {/* デスクトップナビゲーション */}
         <nav className="hidden md:flex items-center justify-between ml-8">
           <ul className="flex items-center space-x-8">
+            <li>
+              <LanguageToggle isDarkBackground={isDarkBackground} />
+            </li>
             {navItems.map((item, index) => {
               const isContact = item.href === '/contact'
               return (
@@ -152,7 +158,7 @@ const Header = () => {
         <button
           className="md:hidden flex flex-col items-center justify-center w-8 h-8 relative"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="メニューを開く"
+          aria-label={t('openMenu')}
         >
           <span className={`absolute w-6 h-0.5 transition-all duration-300 ${
             isDarkBackground ? 'bg-white' : 'bg-black'
@@ -189,6 +195,9 @@ const Header = () => {
                 </TransitionLink>
               </li>
             ))}
+            <li className="pt-2">
+              <LanguageToggle isDarkBackground={isDarkBackground} />
+            </li>
           </ul>
         </nav>
       </div>

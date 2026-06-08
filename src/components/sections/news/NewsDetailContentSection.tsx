@@ -1,6 +1,7 @@
 'use client'
 
 import { NewsPost } from '@/lib/news'
+import { useTranslations } from 'next-intl'
 import NotionBlockRenderer from '@/components/notion/NotionBlockRenderer'
 import ShareButtons from '@/components/ui/ShareButtons'
 import Image from 'next/image'
@@ -18,6 +19,7 @@ function getNewsImage(customImage?: string): string {
 }
 
 export default function NewsDetailContentSection({ post }: NewsDetailContentSectionProps) {
+  const t = useTranslations('sections.news.detail')
   return (
     <div className="bg-white pt-16 md:pt-24">
       {/* 上部: ヘッダー部分 */}
@@ -114,7 +116,7 @@ export default function NewsDetailContentSection({ post }: NewsDetailContentSect
             
             {/* Mobile Share Section */}
             <div className="mt-8 pt-6 border-t border-gray-200">
-              <h4 className="text-sm font-medium text-gray-900 mb-4">Share</h4>
+              <h4 className="text-sm font-medium text-gray-900 mb-4">{t('share')}</h4>
               <ShareButtons title={post.title} variant="horizontal" />
             </div>
           </div>
@@ -133,7 +135,7 @@ export default function NewsDetailContentSection({ post }: NewsDetailContentSect
             <div className="col-span-2">
               <div className="sticky top-8">
                 <div className="mb-8">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Article Info</h3>
+                  <h3 className="text-lg font-medium text-gray-900 mb-4">{t('articleInfo')}</h3>
                   <p className="text-sm text-gray-600 leading-relaxed mb-4">
                     {post.summary}
                   </p>
@@ -145,7 +147,7 @@ export default function NewsDetailContentSection({ post }: NewsDetailContentSect
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-medium text-gray-900 mb-4">Share</h4>
+                  <h4 className="text-sm font-medium text-gray-900 mb-4">{t('share')}</h4>
                   <ShareButtons title={post.title} variant="vertical" />
                 </div>
               </div>

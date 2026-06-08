@@ -1,0 +1,91 @@
+{
+  "sections": {
+    "about": {
+      "hero": {
+        "eyebrow": "About",
+        "title": "Who We Are"
+      },
+      "vision": {
+        "heading": "Our Mission",
+        "missionLead": "産業と文化の構造を再構築する。",
+        "missionStatement": "Redesigning the structures of industry and culture.",
+        "philosophyTitle": "産業と文化の再構築",
+        "philosophyPrimary": "私たちは、SaaSやSIerが蔓延る業界自体を徹底的に変える破壊的な存在として、提供する産業の構造をプロダクトで根本から変革します。既存の業界慣習や非合理な構造を壊し、独自の思想とテクノロジーを融合させて、社会・産業・文化の<ldquo></ldquo>仕組み<rdquo></rdquo>そのものを再設計する企業です。単なる技術提供者ではなく、業界の常識を覆し、新たな価値創造の基盤を築く革新的な存在であり続けます。",
+        "philosophySecondary": "We are a disruptive force that fundamentally transforms industries dominated by conventional SaaS and system integrators, reshaping industrial structures through our products. We break down existing industry practices and irrational structures, fusing our unique philosophy with technology to redesign the very foundations of society, industry, and culture. Beyond being mere technology providers, we challenge industry norms and establish new foundations for value creation, remaining a revolutionary presence that drives meaningful change."
+      },
+      "information": {
+        "eyebrow": "Information",
+        "heading": "会社情報"
+      },
+      "history": {
+        "lead": "私たちの歩み",
+        "heading": "History"
+      }
+    }
+  },
+  "data": {
+    "company": {
+      "profile": {
+        "company": { "lines": ["株式会社STAR UP"] },
+        "representative": { "lines": ["緒方 勇斗"] },
+        "established": { "lines": ["2023.11.30"] },
+        "employees": { "lines": ["38名（アルバイトを含む）"] },
+        "address": { "lines": ["京都府京都市上京区甲斐守町97", "西陣産業創造會舘"] },
+        "business": {
+          "lines": [
+            "AIを活用した共同開発・新規事業開発",
+            "AIプロダクトの開発",
+            "製造業向けAI SaaS事業",
+            "人材紹介事業"
+          ]
+        },
+        "license": { "lines": ["有料職業紹介", "認可番号：26-ユ-300728"] },
+        "certification": {
+          "lines": [
+            "ISO/IEC 27001:2022（情報セキュリティマネジメントシステム）",
+            "認証機関：G-CERTI／認証番号：GUP-2109-IC",
+            "有効期限：2029年4月1日"
+          ]
+        },
+        "legal": { "lines": ["HEROリーガルグループ", "弁護士法人 淀屋橋・山上合同 大阪事務所"] },
+        "tax": { "lines": ["木田事務所"] },
+        "bank": { "lines": ["京都銀行", "みずほ銀行", "京都中央信用金庫", "滋賀銀行"] }
+      },
+      "partners": [
+        "オムロンデジタル株式会社",
+        "東京都",
+        "株式会社NTTドコモ",
+        "東映アニメーション株式会社",
+        "アート引越センター株式会社",
+        "横河マニュファクチャリング株式会社",
+        "株式会社明電エンジニアリング",
+        "株式会社神崎高級工機製作所",
+        "日本オートマチックマシン株式会社",
+        "生田産機工業株式会社",
+        "株式会社リネックス",
+        "その他"
+      ]
+    },
+    "history": {
+      "founding": {
+        "title": "創業",
+        "description": "京都にて創業"
+      },
+      "ai-development": {
+        "title": "AI開発事業開始",
+        "description": "受託開発を中心に開発事業をスタート"
+      },
+      "archaive-beta": {
+        "title": "Archaive β版ローンチ",
+        "description": "製造業向けAIプロダクトの提供を開始"
+      },
+      "sendai-launch": {
+        "title": "Send AI ローンチ",
+        "description": "アパレル・小売向けAIプロダクトの提供を開始"
+      },
+      "team-expansion": {
+        "title": "正社員10名体制へ拡大"
+      }
+    }
+  }
+}

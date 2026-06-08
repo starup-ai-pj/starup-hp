@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "title": "STARUP - Redesigning the structures of industry and culture",
+    "description": "産業と文化の構造を再構築する。AI技術とイノベーションで未来を創造するスタートアップ企業です。",
+    "ogDescription": "産業と文化の構造を再構築する。",
+    "keywords": "スタートアップ,AI,テクノロジー,イノベーション,DX,デジタル変革"
+  },
+  "nav": {
+    "about": "About",
+    "member": "Member",
+    "service": "Service",
+    "news": "News",
+    "career": "Career",
+    "contact": "Contact",
+    "openMenu": "メニューを開く"
+  },
+  "breadcrumb": {
+    "news": "ニュース",
+    "about": "会社概要",
+    "service": "サービス",
+    "member": "メンバー",
+    "recruit": "キャリア",
+    "contact": "お問い合わせ",
+    "newsDetail": "記事詳細"
+  },
+  "footer": {
+    "infoSecurityPolicy": "情報セキュリティ基本方針",
+    "recruitmentDisclosure": "有料職業紹介事業情報公開"
+  },
+  "data": {
+    "members": {
+      "yuto-ogata": {
+        "name": "緒方 勇斗",
+        "position": "代表取締役",
+        "description": "京都大学在学中に教育メディアの会社を大学1年時立ち上げ後、製造業の営業コンサル、商社の新規事業部でのPM、人材会社でのCSを経験。"
+      },
+      "takehiro-kikkawa": {
+        "name": "吉川岳宏",
+        "position": "取締役 CPO/CSO",
+        "description": "データサイエンス系ベンチャーにて非財務情報の開示やバックオフィス改善業務に従事。また、大学別の環境報告書の作成や飲食店のGHG排出量の開示等のPJを行う。"
+      },
+      "yuki-tanaka": {
+        "name": "田中祐希",
+        "position": "執行役員/最高技術責任者",
+        "description": "大手IT企業をはじめとする数社にてPM・リードエンジニアを経験した後、フリーランスエンジニアとして数十件の案件に携わる。生成AIを活用した新規事業立ち上げ、業務効率化、システム開発などを経験する。"
+      },
+      "daigo-fujii": {
+        "name": "藤井大悟",
+        "position": "執行役員 コーポレート統括",
+        "description": "京都大学経済学部出身。京都のスタートアップで事業開発を行ったのち、上場企業のM&A・アライアンス部署でソーシングや出資・協業検討を行う。STARUPでは、2度の銀行調達など経理・ファイナンスの統括を担当。"
+      },
+      "naoki-kadokura": {
+        "name": "門倉尚紀",
+        "position": "AIソリューション事業部 事業部長 兼 PM統括",
+        "description": "京都大学大学院情報学研究科卒。京大在学中にエンジニアサークルを立ち上げ後、STAR UP初期メンバーとして参画。一度リクルートにデータスペシャリストとして入社しデータ解析の力を磨いた後、STAR UPへ復帰。現在はAIソリューション事業部を統括し、製造業から行政まで多種多様な現場データの社会実装を推進。"
+      },
+      "haruki-kimura": {
+        "name": "木村遥輝",
+        "position": "執行役員/ARCHAIVE事業CEO",
+        "description": "京都大学工学部出身。在学時には、新規事業開発、人材事業での営業・CSを経験。STARUPではSaaS事業の立ち上げを行い、現在は営業組織構築や販売戦略立案など営業の統括を担当。"
+      },
+      "jiho-ryu": {
+        "name": "柳 智浩",
+        "position": "ARCHAIVE 開発統括",
+        "description": "京都大学工学部情報学科卒。ARCHAIVE開発統括として、プロダクト全体の要件定義からエンジニアへのタスク割り振り、高難度の実装までをリードする。"
+      },
+      "shota-yamashita": {
+        "name": "山下 翔大",
+        "position": "ARCHAIVE プロダクトマネージャー",
+        "description": "京都大学工学部建築学科卒。建築からエンジニアへ転身し、インドでの修行を経てSTARUPに参画。デザインと実装を一人で完結させるスピード感が強み。"
+      },
+      "shunsuke-kimura": {
+        "name": "木村 俊介",
+        "position": "SENDAIプロダクトマネージャー",
+        "description": "京都大学工学部情報学科卒。2026年4月新卒入社。AIソリューション部のPMとして『SENDAI』（小売業界向け発注最適化AI）のプロダクト責任者を担当。"
+      },
+      "namiki-chikusa": {
+        "name": "千種 直幹",
+        "position": "SENDAI開発統括",
+        "description": "京都大学工学部情報学科卒。2026年4月新卒入社。『SENDAI』（小売業界向け発注最適化AI）のバックエンド設計とAI実装を担当。"
+      },
+      "sota-nagai": {
+        "name": "永井 奏多",
+        "position": "ARCHAIVE事業部 営業担当",
+        "description": "國學院大学卒。木村遥輝との再会をきっかけにSTAR UPへ参画し、ARCHAIVE（製造業向けAIプラットフォーム）の営業を担当。関西を中心に泥臭く現場へ足を運び続け、2026年度開設予定の東京オフィスを拠点に関東圏の市場開拓を進める。ニックネームは「ケヴィン」。"
+      }
+    }
+  }
+}

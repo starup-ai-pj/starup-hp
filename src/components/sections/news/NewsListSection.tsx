@@ -1,9 +1,11 @@
 import Image from 'next/image'
+import { getTranslations } from 'next-intl/server'
 import { getAllNewsForList } from '@/lib/news'
 import TransitionLink from '@/components/ui/TransitionLink'
 import ExploreLinks from '@/components/sections/news/ExploreLinks'
 
-export default async function NewsListSection() {
+export default async function NewsListSection({ locale }: { locale: string }) {
+  const t = await getTranslations({ locale, namespace: 'sections.news.list' })
   const allNews = await getAllNewsForList()
   const total = allNews.length
 
@@ -15,14 +17,14 @@ export default async function NewsListSection() {
         {/* ━━━ ヘッダー ━━━ */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 md:mb-24">
           <div className="lg:col-span-2">
-            <span className="text-xs text-gray-500 uppercase tracking-[0.3em]">News</span>
+            <span className="text-xs text-gray-500 uppercase tracking-[0.3em]">{t('eyebrow')}</span>
           </div>
           <div className="lg:col-span-8">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium text-gray-900 leading-[1.05] mb-4 tracking-tight">
-              Stories
+              {t('heading')}
             </h1>
             <p className="text-base md:text-lg text-gray-500">
-              STAR UPの最新の取り組みとお知らせ。
+              {t('lead')}
             </p>
           </div>
           <div className="lg:col-span-2"></div>
@@ -34,7 +36,7 @@ export default async function NewsListSection() {
           <div className="lg:col-span-2">
             <div className="sticky top-24">
               <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-gray-400 mb-2">
-                stories
+                {t('countLabel')}
               </p>
               <span className="text-3xl font-medium text-gray-900">{total}</span>
             </div>
@@ -68,7 +70,7 @@ export default async function NewsListSection() {
                     </h3>
                     <div className="mt-6 md:mt-8 inline-flex items-center gap-3 text-xs font-mono uppercase tracking-[0.2em] text-gray-400 group-hover:text-gray-900 transition-colors duration-500">
                       <span className="block w-6 h-px bg-current transition-all duration-500 group-hover:w-10" />
-                      Read article
+                      {t('readArticle')}
                     </div>
                   </div>
 
@@ -91,14 +93,14 @@ export default async function NewsListSection() {
 
             {total === 0 && (
               <p className="text-sm text-gray-500 py-16 text-center">
-                記事はまだありません。
+                {t('empty')}
               </p>
             )}
           </div>
         </div>
       </div>
     </section>
-    <ExploreLinks />
+    <ExploreLinks locale={locale} />
     </>
   )
 }

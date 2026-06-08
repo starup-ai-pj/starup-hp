@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
+import { useTranslations } from 'next-intl'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Select from '@/components/ui/Select'
@@ -8,6 +9,7 @@ import toast from 'react-hot-toast'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function RecruitApplyFormSection() {
+  const t = useTranslations('sections.recruit.apply')
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -27,11 +29,11 @@ export default function RecruitApplyFormSection() {
   const [typedPlaceholders, setTypedPlaceholders] = useState<string[]>(['', '', '', '', '', ''])
 
   const originalPlaceholders = [
-    "山田太郎",
-    "example@email.com",
-    "090-1234-5678",
-    "https://portfolio.example.com",
-    "自己PRや志望動機をご記入ください...",
+    t('namePlaceholder'),
+    t('emailPlaceholder'),
+    t('phonePlaceholder'),
+    t('portfolioPlaceholder'),
+    t('messagePlaceholder'),
     ""
   ]
 
@@ -81,7 +83,7 @@ export default function RecruitApplyFormSection() {
       const data = await response.json()
 
       if (response.ok) {
-        toast.success('応募ありがとうございます。担当者より追って連絡いたします。')
+        toast.success(t('successMessage'))
         // フォームをリセット
         setFormData({
           name: '',
@@ -93,11 +95,11 @@ export default function RecruitApplyFormSection() {
           message: '',
         })
       } else {
-        toast.error(data.error || '送信に失敗しました。もう一度お試しください。')
+        toast.error(data.error || t('errorMessage'))
       }
     } catch (error) {
       console.error('送信エラー:', error)
-      toast.error('ネットワークエラーが発生しました。もう一度お試しください。')
+      toast.error(t('networkError'))
     } finally {
       setIsSubmitting(false)
     }
@@ -178,10 +180,10 @@ export default function RecruitApplyFormSection() {
             {/* Header */}
             <div>
               <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal text-gray-900 mb-6 md:mb-8">
-                Apply Form
+                {t('title')}
               </h2>
               <p className="text-gray-600 text-base md:text-lg mb-6">
-                あなたのスキルと情熱を、私たちのチームで活かしませんか。
+                {t('lead')}
               </p>
             </div>
 
@@ -190,14 +192,14 @@ export default function RecruitApplyFormSection() {
 
               <div>
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
-                  選考フロー
+                  {t('selectionFlowTitle')}
                 </h3>
                 <ol className="text-gray-600 text-sm space-y-1">
-                  <li>1. 書類選考</li>
-                  <li>2. 一次面談</li>
-                  <li>3. 技術面接</li>
-                  <li>4. 最終面接</li>
-                  <li>5. オファー</li>
+                  <li>{t('selectionSteps.step1')}</li>
+                  <li>{t('selectionSteps.step2')}</li>
+                  <li>{t('selectionSteps.step3')}</li>
+                  <li>{t('selectionSteps.step4')}</li>
+                  <li>{t('selectionSteps.step5')}</li>
                 </ol>
               </div>
             </div>
@@ -212,7 +214,7 @@ export default function RecruitApplyFormSection() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                    氏名 <span className="text-red-500">*</span>
+                    {t('nameLabel')} <span className="text-red-500">*</span>
                   </label>
                   <input
                     ref={el => { inputRefs.current[0] = el }}
@@ -228,7 +230,7 @@ export default function RecruitApplyFormSection() {
 
                 <div>
                   <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                    メールアドレス <span className="text-red-500">*</span>
+                    {t('emailLabel')} <span className="text-red-500">*</span>
                   </label>
                   <input
                     ref={el => { inputRefs.current[1] = el }}
@@ -247,7 +249,7 @@ export default function RecruitApplyFormSection() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                    電話番号 <span className="text-red-500">*</span>
+                    {t('phoneLabel')} <span className="text-red-500">*</span>
                   </label>
                   <input
                     ref={el => { inputRefs.current[2] = el }}
@@ -263,20 +265,20 @@ export default function RecruitApplyFormSection() {
 
                 <div>
                   <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                    応募職種 <span className="text-red-500">*</span>
+                    {t('positionLabel')} <span className="text-red-500">*</span>
                   </label>
                   <Select
                     name="position"
                     value={formData.position}
                     onChange={(value) => handleSelectChange('position', value)}
                     options={[
-                      { value: 'frontend', label: 'フロントエンドエンジニア' },
-                      { value: 'backend', label: 'バックエンドエンジニア' },
-                      { value: 'pm', label: 'プロダクトマネージャー' },
-                      { value: 'designer', label: 'デザイナー' },
-                      { value: 'other', label: 'その他' }
+                      { value: 'frontend', label: t('positions.frontend') },
+                      { value: 'backend', label: t('positions.backend') },
+                      { value: 'pm', label: t('positions.pm') },
+                      { value: 'designer', label: t('positions.designer') },
+                      { value: 'other', label: t('positions.other') }
                     ]}
-                    placeholder="選択してください"
+                    placeholder={t('positionPlaceholder')}
                     required
                   />
                 </div>
@@ -285,7 +287,7 @@ export default function RecruitApplyFormSection() {
               {/* Portfolio URL */}
               <div>
                 <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                  ポートフォリオURL（任意）
+                  {t('portfolioLabel')}
                 </label>
                 <input
                   ref={el => { inputRefs.current[3] = el }}
@@ -301,7 +303,7 @@ export default function RecruitApplyFormSection() {
               {/* Message */}
               <div>
                 <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                  自己PR・志望動機 <span className="text-red-500">*</span>
+                  {t('messageLabel')} <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   ref={el => { inputRefs.current[4] = el }}
@@ -323,7 +325,7 @@ export default function RecruitApplyFormSection() {
                   className="group flex items-center text-gray-900 hover:text-gray-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span className="text-base md:text-lg font-medium underline underline-offset-4">
-                    {isSubmitting ? '送信中...' : '応募する'}
+                    {isSubmitting ? t('submitting') : t('submit')}
                   </span>
                   {!isSubmitting && (
                     <svg

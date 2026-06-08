@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import Image from "next/image"
+import { useTranslations } from "next-intl"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import TransitionLink from "@/components/ui/TransitionLink"
@@ -53,6 +54,7 @@ const COL_RANGE: [number, number][] = [
 ]
 
 export default function JoinUsSection() {
+  const t = useTranslations('sections.common.joinUs')
   const sectionRef = useRef<HTMLElement>(null)
   const colRefs = useRef<(HTMLDivElement | null)[]>([])
 
@@ -144,14 +146,14 @@ export default function JoinUsSection() {
         <div className="max-w-[1500px] mx-auto w-full px-6 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             <div className="md:col-span-2">
-              <span className="text-xs text-white/60 uppercase tracking-[0.3em]">Careers</span>
+              <span className="text-xs text-white/60 uppercase tracking-[0.3em]">{t('eyebrow')}</span>
             </div>
             <div className="md:col-span-10">
               <h2 className="text-[clamp(3.5rem,10vw,9rem)] font-bold text-white leading-[0.95] tracking-tight">
-                Join Us
+                {t('heading')}
               </h2>
               <p className="mt-4 md:mt-6 text-base md:text-lg text-white/80 max-w-xl">
-                日本発のNo.1AIメーカーを作る仲間を探しています。
+                {t('lead')}
               </p>
             </div>
           </div>
@@ -161,16 +163,16 @@ export default function JoinUsSection() {
         <div className="max-w-[1500px] mx-auto w-full px-6 md:px-10">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 border-t border-white/20 pt-6 md:pt-8">
             <div>
-              <p className="text-xs text-white/50 uppercase tracking-[0.3em] mb-2">採用情報</p>
+              <p className="text-xs text-white/50 uppercase tracking-[0.3em] mb-2">{t('ctaEyebrow')}</p>
               <p className="text-xl md:text-2xl text-white">
-                一緒に未来をつくる仲間を募集中。
+                {t('ctaText')}
               </p>
             </div>
             <TransitionLink
               href="/recruit"
               className="group inline-flex items-center gap-3 text-base md:text-lg text-white border-b border-white pb-1.5 hover:gap-5 transition-all duration-300 self-start md:self-auto"
             >
-              募集中のポジションを見る
+              {t('ctaLink')}
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>

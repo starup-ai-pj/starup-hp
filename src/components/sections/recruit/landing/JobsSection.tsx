@@ -1,8 +1,10 @@
 import Image from 'next/image'
+import { getTranslations } from 'next-intl/server'
 import { getAllRecruitsForList } from '@/lib/recruit'
 import TransitionLink from '@/components/ui/TransitionLink'
 
 export default async function JobsSection() {
+  const t = await getTranslations('sections.recruit.landing.jobs')
   const recruits = await getAllRecruitsForList()
   const jobs = recruits.slice(0, 5)
 
@@ -16,7 +18,7 @@ export default async function JobsSection() {
               <div className="relative w-full aspect-[2/3] lg:aspect-auto lg:h-[78vh] overflow-hidden">
                 <Image
                   src="/images/recruit/jobs.jpg"
-                  alt="STARUP メンバー"
+                  alt={t('imageAlt')}
                   fill
                   className="object-cover"
                   sizes="(min-width: 1024px) 40vw, 100vw"
@@ -25,7 +27,7 @@ export default async function JobsSection() {
 
                 {/* Top-right stamp */}
                 <div className="absolute top-5 right-5 md:top-8 md:right-8 text-white text-right text-[10px] uppercase tracking-[0.35em] opacity-90 drop-shadow-[0_1px_4px_rgba(0,0,0,0.4)]">
-                  STARUP / Recruit
+                  {t('stamp')}
                 </div>
 
                 {/* Bottom gradient for readability */}
@@ -34,10 +36,10 @@ export default async function JobsSection() {
                 {/* Caption — this is the section heading */}
                 <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 md:right-10 text-white">
                   <p className="text-[10px] uppercase tracking-[0.4em] opacity-80 mb-3">
-                    — Open Positions
+                    {t('caption')}
                   </p>
                   <p className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.1]">
-                    募集中の<br />ポジション。
+                    {t.rich('headingImage', { br: () => <br /> })}
                   </p>
                 </div>
               </div>
@@ -48,9 +50,9 @@ export default async function JobsSection() {
           <div className="lg:col-span-7">
             {/* Status bar */}
             <div className="flex items-baseline justify-between border-b border-gray-900 pb-3 md:pb-4 mb-2 md:mb-3">
-              <p className="text-[10px] text-gray-900 uppercase tracking-[0.3em]">All roles</p>
+              <p className="text-[10px] text-gray-900 uppercase tracking-[0.3em]">{t('allRoles')}</p>
               <p className="text-[10px] text-gray-500 uppercase tracking-[0.3em]">
-                {jobs.length} open
+                {t('openCount', { count: jobs.length })}
               </p>
             </div>
 
@@ -91,7 +93,7 @@ export default async function JobsSection() {
                             )}
                           </div>
                           <span className="inline-flex items-center gap-2 text-xs text-gray-900 border-b border-gray-900 pb-0.5 group-hover:gap-3 transition-all duration-300 shrink-0">
-                            詳細を見る
+                            {t('detail')}
                             <svg
                               className="w-3.5 h-3.5"
                               fill="none"
@@ -113,7 +115,7 @@ export default async function JobsSection() {
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-gray-500 py-12">現在募集中のポジションはありません。</p>
+              <p className="text-sm text-gray-500 py-12">{t('empty')}</p>
             )}
 
             {/* See all */}
@@ -122,7 +124,7 @@ export default async function JobsSection() {
                 href="/recruit/jobs"
                 className="group inline-flex items-center gap-2 text-sm text-gray-900 border-b border-gray-900 pb-1 hover:gap-3 transition-all duration-300"
               >
-                すべての求人を見る
+                {t('seeAll')}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"

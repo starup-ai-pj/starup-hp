@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { RecruitListItem } from '@/lib/recruit'
 import TransitionLink from '@/components/ui/TransitionLink'
 import Image from 'next/image'
@@ -9,6 +10,7 @@ interface JobCardProps {
 }
 
 export default function JobCard({ item }: JobCardProps) {
+  const t = useTranslations('sections.recruit.jobs')
   const badges = [
     ...item.employmentType,
     item.location,
@@ -51,7 +53,7 @@ export default function JobCard({ item }: JobCardProps) {
           </div>
         )}
         <span className="inline-flex items-center gap-2 text-sm text-gray-900 border-b border-gray-900 pb-1 group-hover:gap-3 transition-all duration-300">
-          詳細を見る
+          {t('detail')}
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
@@ -95,7 +97,7 @@ export default function JobCard({ item }: JobCardProps) {
             )}
           </div>
           <span className="inline-flex items-center gap-2 text-sm text-gray-900 border-b border-gray-900 pb-1 self-start group-hover:gap-3 transition-all duration-300">
-            詳細を見る
+            {t('detail')}
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>

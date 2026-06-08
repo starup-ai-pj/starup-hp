@@ -1,14 +1,17 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useTranslations } from "next-intl"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { servicePageData, ServiceItem } from "@/data/services"
+import { serviceAssets, ServiceAsset } from "@/data/services"
 import TransitionLink from "@/components/ui/TransitionLink"
 
 gsap.registerPlugin(ScrollTrigger)
 
-function ServiceSpread({ service, index }: { service: ServiceItem; index: number }) {
+function ServiceSpread({ service, index }: { service: ServiceAsset; index: number }) {
+  const t = useTranslations("data.services")
+  const tSection = useTranslations("sections.service")
   const ref = useRef<HTMLElement>(null)
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const [activeFeature, setActiveFeature] = useState(0)
@@ -74,8 +77,8 @@ function ServiceSpread({ service, index }: { service: ServiceItem; index: number
     }
   }, [])
 
-  const isLast = index === servicePageData.length - 1
-  const totalCount = String(servicePageData.length).padStart(2, "0")
+  const isLast = index === serviceAssets.length - 1
+  const totalCount = String(serviceAssets.length).padStart(2, "0")
   const dioramaOnLeft = index % 2 === 0
   const introCls = dioramaOnLeft
     ? "lg:col-start-8 lg:col-span-5 lg:row-start-1"
@@ -106,7 +109,7 @@ function ServiceSpread({ service, index }: { service: ServiceItem; index: number
               data-a="meta"
             >
               <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-gray-400">
-                {service.category}
+                {t(`${service.id}.category`)}
               </span>
               <span className="text-[10px] text-gray-300">·</span>
               <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-gray-400">
@@ -119,7 +122,7 @@ function ServiceSpread({ service, index }: { service: ServiceItem; index: number
               data-a="title"
               className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-gray-900 leading-[0.95] tracking-tight"
             >
-              {service.title}
+              {t(`${service.id}.title`)}
             </h2>
 
             {/* italic subtitle */}
@@ -127,7 +130,7 @@ function ServiceSpread({ service, index }: { service: ServiceItem; index: number
               data-a="subtitle"
               className="mt-3 md:mt-4 text-sm md:text-base text-gray-400 italic"
             >
-              {service.subtitle}
+              {t(`${service.id}.subtitle`)}
             </p>
 
             {/* catchphrase */}
@@ -135,7 +138,7 @@ function ServiceSpread({ service, index }: { service: ServiceItem; index: number
               data-a="catch"
               className="mt-8 md:mt-10 text-xl md:text-2xl lg:text-[1.75rem] font-medium text-gray-900 leading-[1.45] tracking-tight"
             >
-              {service.catchphrase}
+              {t(`${service.id}.catchphrase`)}
             </p>
 
             {/* description */}
@@ -143,7 +146,7 @@ function ServiceSpread({ service, index }: { service: ServiceItem; index: number
               data-a="about"
               className="mt-8 md:mt-10 text-sm md:text-base text-gray-600 leading-[2]"
             >
-              {service.description}
+              {t(`${service.id}.description`)}
             </p>
           </div>
 
@@ -158,14 +161,14 @@ function ServiceSpread({ service, index }: { service: ServiceItem; index: number
                   <iframe
                     ref={iframeRef}
                     src={service.diorama}
-                    title={service.title}
+                    title={t(`${service.id}.title`)}
                     className="absolute inset-0 w-full h-full border-0"
                     loading="lazy"
                   />
                 ) : (
                   <img
                     src={service.image}
-                    alt={service.title}
+                    alt={t(`${service.id}.title`)}
                     className="absolute inset-0 w-full h-full object-contain"
                   />
                 )}
@@ -184,7 +187,7 @@ function ServiceSpread({ service, index }: { service: ServiceItem; index: number
 
             {/* features rows */}
             <div className="border-t border-gray-300">
-              {service.previews.map((preview, i) => {
+              {service.previewImages.map((_image, i) => {
                 const isActive = activeFeature === i
                 return (
                   <button
@@ -233,7 +236,7 @@ function ServiceSpread({ service, index }: { service: ServiceItem; index: number
                             : "text-gray-500 group-hover:text-gray-800"
                         }`}
                       >
-                        {preview.label}
+                        {t(`${service.id}.previews.${i}.label`)}
                       </h3>
                     </div>
                   </button>
@@ -255,7 +258,7 @@ function ServiceSpread({ service, index }: { service: ServiceItem; index: number
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
                 >
-                  <span>詳細を見る</span>
+                  <span>{tSection("viewDetails")}</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
@@ -284,7 +287,7 @@ function ServiceSpread({ service, index }: { service: ServiceItem; index: number
 export default function ServiceListSection() {
   return (
     <section className="bg-white relative z-10">
-      {servicePageData.map((service, i) => (
+      {serviceAssets.map((service, i) => (
         <ServiceSpread key={service.id} service={service} index={i} />
       ))}
     </section>

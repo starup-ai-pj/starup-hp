@@ -1,0 +1,166 @@
+{
+  "sections": {
+    "service": {
+      "viewDetails": "View details",
+      "meta": {
+        "title": "Service | STARUP",
+        "description": "STAR UP's three services. We power data-driven decision-making with an AI development platform, engineering-drawing intelligence, and supply chain optimization."
+      },
+      "hero": {
+        "tagline": "Built on deep engineering, delivering AI value across three domains.",
+        "headline": "Delivering AI value across three domains,<br></br>powered by deep technological expertise.",
+        "body": {
+          "title": "Reshaping industries through product",
+          "primary": "STAR UP takes on the structural challenges companies face across three domains: AI platforms, engineering-drawing intelligence, and supply chain optimization. We do far more than ship tools. We embed deeply into how work actually gets done and transform decision-making itself through data and algorithms. That conviction sits at the core of everything we build.",
+          "secondary": "We address structural challenges across three domains: AI platforms, engineering data utilization, and supply chain optimization. Rather than offering surface-level tools, we embed deeply into business operations, transforming decision-making itself through the power of data and algorithms."
+        }
+      },
+      "cta": {
+        "headline": "Unlock what AI can do, together.",
+        "description": "Have a question about our services? Get in touch and let's talk."
+      },
+      "home": {
+        "headline": "Transforming<br></br>decisions on the ground with AI.",
+        "lead": "Across three products, we reconnect the data scattered inside your company into a network that finally means something."
+      }
+    }
+  },
+  "data": {
+    "services": {
+      "archaive": {
+        "category": "Data Platform",
+        "title": "ARCHAIVE",
+        "subtitle": "AI Data Utilization Platform",
+        "catchphrase": "Bring dormant drawing data back to life with AI.",
+        "description": "ARCHAIVE centralizes the drawing data scattered across your organization and transforms how teams work through AI-powered similar-drawing search and conversational data retrieval. It turns a vast archive of past assets into knowledge you can find, use, and build on, accelerating decisions in design and manufacturing.",
+        "pillars": [
+          {
+            "label": "Core Features",
+            "features": [
+              { "title": "AI Similar-Drawing Search", "description": "Search a massive archive of past drawings in an instant, with 99%+ similarity accuracy. Even hand-drawn sketches work as a query." },
+              { "title": "Conversational AI Data Search", "description": "Just ask in plain language and find the data you need. No specialized expertise required, so anyone can put it to work." },
+              { "title": "Project Management", "description": "Automatically parse the information tied to each drawing and centralize related documents, giving you the full picture of a project at a glance." }
+            ]
+          },
+          {
+            "label": "Onboarding & Operations",
+            "features": [
+              { "title": "Implementation Support", "description": "Hands-on guidance through the DX journey until it sticks on the ground, with consistent support from data migration to lasting adoption." },
+              { "title": "Data Integration", "description": "Centralize the data scattered across your company, break down silos between departments, and drive company-wide data utilization." }
+            ]
+          },
+          {
+            "label": "Target Industries",
+            "features": [
+              { "title": "Manufacturing", "description": "Manage and search part and assembly drawings, drawing on similar past designs to dramatically cut design hours." },
+              { "title": "Construction & Design", "description": "Search construction and structural drawings across projects, instantly applying lessons from past work to new jobs." }
+            ]
+          }
+        ],
+        "previews": [
+          { "label": "From a single drawing, instantly surface past drawings with similar shape, dimensions, and machining." },
+          { "label": "Search your company's drawings, documents, and history across the board with plain-language questions." },
+          { "label": "Visualize progress from design to shipment on a Kanban board tied to each drawing." }
+        ]
+      },
+      "send-ai": {
+        "category": "Supply Chain AI",
+        "title": "SEND AI",
+        "subtitle": "Supply Chain AI",
+        "catchphrase": "Connect your data, optimize your supply chain.",
+        "description": "SEND AI unifies and visualizes scattered data, then lets AI recommend the optimal next move. From inventory and sales management to ordering and allocation, it supports the entire flow end to end. Start with data integration through SaaS, add operational modules step by step, and grow into bespoke algorithm development. Begin small, watch the results, and build a decision-making foundation that's uniquely yours.",
+        "pillars": [
+          {
+            "label": "Forecasting & Ordering",
+            "features": [
+              { "title": "Demand Forecasting AI", "description": "We build high-accuracy, made-to-order algorithms from your business model and PoC, forecasting sales one month and six months out with precision." },
+              { "title": "Order Optimization", "description": "Systematize each company's ordering workflow, automatically calculating the optimal timing and quantity from historical replenishment data." },
+              { "title": "Inventory Management", "description": "See stock levels and weeks of supply per store in real time, detecting stockout risk early and alerting you before it happens." }
+            ]
+          },
+          {
+            "label": "Analytics & Visualization",
+            "features": [
+              { "title": "Sales Analytics", "description": "Covers all-store analysis and new-product analysis, visualizing six-month average sales data and month-over-month change." },
+              { "title": "BI Capabilities", "description": "Visualize the data that informs mid- and long-term strategy, delivering insights that connect directly to management decisions." }
+            ]
+          },
+          {
+            "label": "Implementation Support",
+            "features": [
+              { "title": "PoC Support", "description": "Start with a small-scale proof of concept and validate the impact, minimizing risk while rolling out in stages." },
+              { "title": "Continuous Improvement", "description": "Keep refining the algorithms after go-live, automatically adapting to seasonal swings and shifting trends." }
+            ]
+          }
+        ],
+        "previews": [
+          { "label": "Bring every kind of data into a single database." },
+          { "label": "The data you want, when you want it, in the form you want." },
+          { "label": "AI proposes the optimal allocation and ordering. People simply approve." }
+        ]
+      },
+      "flowerium": {
+        "category": "AI Workflow",
+        "title": "Flowerium",
+        "subtitle": "Ontology-Based Business AI System",
+        "catchphrase": "Turn meaning into data.",
+        "description": "Flowerium centers on an ontology that unifies business data by its \"meaning,\" and delivers the business UI and AI-agent execution layer as one integrated product. It defines judgment calls and manual operations that once lived in people's heads as actions, which agents then execute in an auditable way. On top of this data foundation, you can stand up apps your teams can actually use in a short time and keep improving them. It's a system that keeps reshaping itself as AI continues to grow.",
+        "pillars": [
+          {
+            "label": "Data Foundation",
+            "features": [
+              { "title": "Ontology Integration", "description": "Unify business data by its \"meaning\" and build a data foundation that lets you handle knowledge once scattered across the company in one place." }
+            ]
+          },
+          {
+            "label": "Business UI",
+            "features": [
+              { "title": "Custom Apps", "description": "Stand up business apps your teams can use in a short time, with a foundation for continuous improvement as you operate." }
+            ]
+          },
+          {
+            "label": "AI Agents",
+            "features": [
+              { "title": "Action Execution", "description": "Define judgment calls and manual work that once lived in people's heads as actions, executed by agents in an auditable way." }
+            ]
+          }
+        ],
+        "previews": [
+          { "label": "Combine widgets and data to build your own app, no code required." },
+          { "label": "Digitize work as a composition of nodes and collaborate with AI agents." },
+          { "label": "Convert business concepts into a digital schema, integrating and using data on a semantic foundation." }
+        ]
+      },
+      "homeServiceSummaries": {
+        "archaive": {
+          "subtitle": "AI Data Utilization Platform",
+          "title": "ARCHAIVE",
+          "description": "Centralizes the drawing data scattered across your organization and reinvents efficiency through AI-powered similar-drawing search and conversational data retrieval.",
+          "features": [
+            { "label": "Core Features", "items": ["AI Similar-Drawing Search", "Conversational Data Search", "Project Management"] },
+            { "label": "For", "items": ["Manufacturing", "Construction & Design"] }
+          ]
+        },
+        "send-ai": {
+          "subtitle": "Supply Chain AI",
+          "title": "SEND AI",
+          "description": "Unifies and visualizes scattered data while AI recommends the optimal move, supporting everything from inventory and sales management to ordering and allocation, end to end.",
+          "features": [
+            { "label": "Forecasting & Ordering", "items": ["Demand Forecasting AI", "Order Optimization", "Inventory Management"] },
+            { "label": "Analytics & Visualization", "items": ["Sales Analytics", "BI Capabilities"] }
+          ]
+        },
+        "flowerium": {
+          "subtitle": "Ontology-Based Business AI System",
+          "title": "Flowerium",
+          "description": "Centered on an ontology that unifies business data by its \"meaning,\" it delivers the business UI and AI-agent execution layer as one. An adaptive system that keeps reshaping itself as AI grows.",
+          "features": [
+            { "label": "Data Foundation", "items": ["Ontology Integration"] },
+            { "label": "Business UI", "items": ["Custom Apps"] },
+            { "label": "AI Agents", "items": ["Action Execution"] }
+          ]
+        }
+      }
+    }
+  }
+}

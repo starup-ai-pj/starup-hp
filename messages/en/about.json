@@ -1,0 +1,91 @@
+{
+  "sections": {
+    "about": {
+      "hero": {
+        "eyebrow": "About",
+        "title": "Who We Are"
+      },
+      "vision": {
+        "heading": "Our Mission",
+        "missionLead": "Redesigning the structures of industry and culture.",
+        "missionStatement": "Redesigning the structures of industry and culture.",
+        "philosophyTitle": "Reinventing Industry and Culture",
+        "philosophyPrimary": "We are a disruptive force that fundamentally transforms industries long dominated by conventional SaaS and system integrators, reshaping their very structures through our products. We dismantle entrenched industry conventions and irrational systems, fusing our own philosophy with technology to redesign the underlying <ldquo></ldquo>mechanisms<rdquo></rdquo> of society, industry, and culture. We are far more than a technology vendor: we overturn the assumptions of an industry and build the foundations for entirely new value, remaining a force for genuine innovation.",
+        "philosophySecondary": "私たちは、SaaSやSIerが蔓延る業界自体を徹底的に変える破壊的な存在として、提供する産業の構造をプロダクトで根本から変革します。既存の業界慣習や非合理な構造を壊し、独自の思想とテクノロジーを融合させて、社会・産業・文化の“仕組み”そのものを再設計する企業です。単なる技術提供者ではなく、業界の常識を覆し、新たな価値創造の基盤を築く革新的な存在であり続けます。"
+      },
+      "information": {
+        "eyebrow": "Information",
+        "heading": "Company Information"
+      },
+      "history": {
+        "lead": "Our Journey",
+        "heading": "History"
+      }
+    }
+  },
+  "data": {
+    "company": {
+      "profile": {
+        "company": { "lines": ["STAR UP, Inc."] },
+        "representative": { "lines": ["Yuto Ogata"] },
+        "established": { "lines": ["November 30, 2023"] },
+        "employees": { "lines": ["38 (including part-time staff)"] },
+        "address": { "lines": ["97 Kaikamori-cho, Kamigyo-ku, Kyoto, Japan", "Nishijin Industrial Creation Hall"] },
+        "business": {
+          "lines": [
+            "AI-driven joint development and new business development",
+            "AI product development",
+            "AI SaaS for the manufacturing industry",
+            "Talent placement services"
+          ]
+        },
+        "license": { "lines": ["Fee-charging employment placement", "License No. 26-Yu-300728"] },
+        "certification": {
+          "lines": [
+            "ISO/IEC 27001:2022 (Information Security Management System)",
+            "Certifying body: G-CERTI / Certificate No. GUP-2109-IC",
+            "Valid until April 1, 2029"
+          ]
+        },
+        "legal": { "lines": ["HERO Legal Group", "Yodoyabashi & Yamagami LPC, Osaka Office"] },
+        "tax": { "lines": ["Kida Accounting Office"] },
+        "bank": { "lines": ["Bank of Kyoto", "Mizuho Bank", "Kyoto Chuo Shinkin Bank", "Shiga Bank"] }
+      },
+      "partners": [
+        "OMRON Digital Co., Ltd.",
+        "Tokyo Metropolitan Government",
+        "NTT DOCOMO, Inc.",
+        "Toei Animation Co., Ltd.",
+        "ART Corporation",
+        "Yokogawa Manufacturing Corporation",
+        "Meiden Engineering Co., Ltd.",
+        "Kanzaki Kokyukoki Mfg. Co., Ltd.",
+        "Japan Automatic Machine Co., Ltd.",
+        "Ikuta Sanki Kogyo Co., Ltd.",
+        "Linex Co., Ltd.",
+        "and others"
+      ]
+    },
+    "history": {
+      "founding": {
+        "title": "Founded",
+        "description": "Founded in Kyoto"
+      },
+      "ai-development": {
+        "title": "Launched AI Development Business",
+        "description": "Started our development business centered on contract development"
+      },
+      "archaive-beta": {
+        "title": "Archaive Beta Launch",
+        "description": "Began offering our AI product for the manufacturing industry"
+      },
+      "sendai-launch": {
+        "title": "Send AI Launch",
+        "description": "Began offering our AI product for the apparel and retail industries"
+      },
+      "team-expansion": {
+        "title": "Grew to a 10-person full-time team"
+      }
+    }
+  }
+}

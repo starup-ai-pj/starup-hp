@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname } from '@/i18n/navigation'
 import Image from 'next/image'
 
 interface PageTransitionProps {

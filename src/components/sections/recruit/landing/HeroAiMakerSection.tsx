@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import TransitionLink from '@/components/ui/TransitionLink'
@@ -61,25 +62,11 @@ const COL_RANGE: [number, number][] = [
   [-2, -26],    // 列3: 上向き(↑)
 ]
 
-const MANUFACTURING_LINE = [
-  {
-    tag: 'Platform / 開発基盤',
-    name: 'Flowerium',
-    body: 'AIソリューションを生み出す土台。データ整備〜AIエージェント実行までを一体で提供する開発基盤。',
-  },
-  {
-    tag: 'Product / 業界特化',
-    name: 'ARCHAIVE',
-    body: '製造業・建設・設計業の図面データをAIで一元化。類似検索からチャット型データ抽出まで。',
-  },
-  {
-    tag: 'Product / 業界特化',
-    name: 'SEND AI',
-    body: 'サプライチェーンの分断データを統合し、需要予測・発注最適化・在庫管理を一気通貫で支援。',
-  },
-]
+// 製品ラインの順序（テキストは sections.recruit.landing.aiMaker.lines に置く）
+const MANUFACTURING_LINE_IDS = ['flowerium', 'archaive', 'sendAi'] as const
 
 export default function HeroAiMakerSection() {
+  const t = useTranslations('sections.recruit.landing')
   const sectionRef = useRef<HTMLElement>(null)
   const colRefs = useRef<(HTMLDivElement | null)[]>([])
 
@@ -129,7 +116,7 @@ export default function HeroAiMakerSection() {
           <div className="relative h-[80vh] lg:h-screen lg:min-h-[720px] overflow-hidden">
             <Image
               src="/images/recruit/hero.jpg"
-              alt="STARUPからの眺め"
+              alt={t('hero.heroImageAlt')}
               fill
               priority
               unoptimized
@@ -145,23 +132,23 @@ export default function HeroAiMakerSection() {
             />
             <div className="relative h-full max-w-[820px] mx-auto px-6 md:px-10 lg:px-14 flex flex-col justify-between py-10 lg:py-16">
               <div className="flex items-center gap-3 text-[10px] md:text-xs text-gray-500 uppercase tracking-[0.3em]">
-                <span>Recruit</span>
+                <span>{t('hero.eyebrow')}</span>
                 <span className="w-6 h-px bg-gray-400" />
-                <span>Company Deck</span>
+                <span>{t('hero.deck')}</span>
               </div>
 
               <div>
                 <h1 className="text-[5.5rem] md:text-[7.5rem] lg:text-[7.5rem] xl:text-[9rem] font-medium text-gray-900 leading-[0.9] tracking-tight">
-                  Code<br />the<br />Culture
+                  {t('hero.titleLine1')}<br />{t('hero.titleLine2')}<br />{t('hero.titleLine3')}
                 </h1>
                 <p className="mt-6 md:mt-10 text-sm md:text-base text-gray-700 italic max-w-md leading-relaxed">
-                  STARUPは、文化からつくる<br />AIメーカーである。
+                  {t.rich('hero.tagline', { br: () => <br /> })}
                 </p>
               </div>
 
               <div className="flex items-center gap-3 text-[10px] md:text-xs text-gray-500 uppercase tracking-widest">
                 <span className="w-10 h-px bg-gray-400" />
-                <span>Scroll</span>
+                <span>{t('hero.scroll')}</span>
               </div>
             </div>
           </div>
@@ -171,55 +158,56 @@ export default function HeroAiMakerSection() {
             <div className="max-w-[820px] mx-auto px-6 md:px-10 lg:px-14">
               {/* Header */}
               <div className="mb-14 md:mb-20">
-                <p className="text-[10px] text-gray-400 uppercase tracking-[0.3em] mb-2">Prologue</p>
-                <p className="text-sm text-gray-500 mb-8">STARUP = AIメーカー</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-[0.3em] mb-2">{t('aiMaker.prologueLabel')}</p>
+                <p className="text-sm text-gray-500 mb-8">{t('aiMaker.prologueLead')}</p>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium text-gray-900 leading-[1.15] tracking-tight">
-                  AI業界の、<br />
-                  No.1 AIメーカーへ。
+                  {t.rich('aiMaker.heading', { br: () => <br /> })}
                 </h2>
               </div>
 
               {/* Manifesto */}
               <div className="mb-20 md:mb-28">
                 <p className="text-xl md:text-2xl lg:text-3xl font-medium text-gray-900 leading-[1.5] tracking-tight max-w-[34ch] mb-10 md:mb-14">
-                  産業に眠るデータを、<br />
-                  <span className="text-gray-400">人間の意思決定を変える</span>AIへ。
+                  {t.rich('aiMaker.manifestoTitle', {
+                    br: () => <br />,
+                    span: (chunks) => <span className="text-gray-400">{chunks}</span>,
+                  })}
                 </p>
                 <div className="space-y-6 max-w-[60ch]">
                   <p className="text-sm md:text-base text-gray-800 leading-[2]">
-                    私たちはAIカンパニーとして、AI業界の
-                    <span className="border-b border-gray-900 pb-0.5 mx-0.5">No.1 AIメーカー</span>
-                    を目指します。各企業・各業界に眠るデータをAI Readyな形に基盤化し、人間の意思決定に関与するところまで品質と顧客体験を仕上げ、届ける会社です。
+                    {t.rich('aiMaker.manifestoBody1', {
+                      span: (chunks) => <span className="border-b border-gray-900 pb-0.5 mx-0.5">{chunks}</span>,
+                    })}
                   </p>
                   <p className="text-sm md:text-base text-gray-600 leading-[2]">
-                    作る製品が「当たり前に使える」ことは前提として、顧客に
-                    <span className="border-b border-gray-900 pb-0.5 mx-0.5">ワクワクという顧客体験</span>
-                    までを届けます。
+                    {t.rich('aiMaker.manifestoBody2', {
+                      span: (chunks) => <span className="border-b border-gray-900 pb-0.5 mx-0.5">{chunks}</span>,
+                    })}
                   </p>
                   <p className="text-sm md:text-base text-gray-600 leading-[2]">
-                    その手段として、AIソリューション開発基盤「Flowerium」を中核に、ARCHAIVE・SEND AIのような業界特化AIプロダクトを連続的に生み出し、産業の意思決定を最適化していきます。
+                    {t('aiMaker.manifestoBody3')}
                   </p>
                 </div>
               </div>
 
               {/* Manufacturing line */}
               <div>
-                <p className="text-[10px] text-gray-400 uppercase tracking-[0.3em] mb-2">Manufacturing Line</p>
-                <p className="text-sm text-gray-500 mb-8">STARUPの製品ライン</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-[0.3em] mb-2">{t('aiMaker.lineLabel')}</p>
+                <p className="text-sm text-gray-500 mb-8">{t('aiMaker.lineLead')}</p>
                 <div className="border-t border-gray-300">
-                  {MANUFACTURING_LINE.map((line) => (
+                  {MANUFACTURING_LINE_IDS.map((id) => (
                     <div
-                      key={line.name}
+                      key={id}
                       className="relative border-b border-gray-200 py-7 md:py-8 px-3 -mx-3 grid grid-cols-12 gap-y-2 gap-x-3 md:gap-x-5 items-baseline rounded-sm bg-white transition-all duration-300 ease-out hover:shadow-[0_0_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 hover:z-10 hover:border-transparent"
                     >
                       <span className="col-span-12 text-[10px] text-gray-400 uppercase tracking-widest">
-                        {line.tag}
+                        {t(`aiMaker.lines.${id}.tag`)}
                       </span>
                       <h3 className="col-span-12 md:col-span-4 text-2xl md:text-3xl font-medium text-gray-900 tracking-tight">
-                        {line.name}
+                        {t(`aiMaker.lines.${id}.name`)}
                       </h3>
                       <p className="col-span-12 md:col-span-8 text-sm text-gray-500 leading-relaxed">
-                        {line.body}
+                        {t(`aiMaker.lines.${id}.body`)}
                       </p>
                     </div>
                   ))}
@@ -230,7 +218,7 @@ export default function HeroAiMakerSection() {
                     href="/service"
                     className="group inline-flex items-center gap-2 text-sm text-gray-900 border-b border-gray-900 pb-1 hover:gap-3 transition-all duration-300"
                   >
-                    Serviceページで詳しく見る
+                    {t('aiMaker.serviceLink')}
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
