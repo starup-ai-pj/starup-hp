@@ -1,0 +1,346 @@
+{
+  "sections": {
+    "recruit": {
+      "landing": {
+        "hero": {
+          "eyebrow": "Recruit",
+          "deck": "Company Deck",
+          "titleLine1": "Code",
+          "titleLine2": "the",
+          "titleLine3": "Culture",
+          "tagline": "STARUPは、文化からつくる<br></br>AIメーカーである。",
+          "scroll": "Scroll",
+          "heroImageAlt": "STARUPからの眺め"
+        },
+        "aiMaker": {
+          "prologueLabel": "Prologue",
+          "prologueLead": "STARUP = AIメーカー",
+          "heading": "AI業界の、<br></br>No.1 AIメーカーへ。",
+          "manifestoTitle": "産業に眠るデータを、<br></br><span>人間の意思決定を変える</span>AIへ。",
+          "manifestoBody1": "私たちはAIカンパニーとして、AI業界の<span>No.1 AIメーカー</span>を目指します。各企業・各業界に眠るデータをAI Readyな形に基盤化し、人間の意思決定に関与するところまで品質と顧客体験を仕上げ、届ける会社です。",
+          "manifestoBody2": "作る製品が「当たり前に使える」ことは前提として、顧客に<span>ワクワクという顧客体験</span>までを届けます。",
+          "manifestoBody3": "その手段として、AIソリューション開発基盤「Flowerium」を中核に、ARCHAIVE・SEND AIのような業界特化AIプロダクトを連続的に生み出し、産業の意思決定を最適化していきます。",
+          "lineLabel": "Manufacturing Line",
+          "lineLead": "STARUPの製品ライン",
+          "lines": {
+            "flowerium": {
+              "tag": "Platform / 開発基盤",
+              "name": "Flowerium",
+              "body": "AIソリューションを生み出す土台。データ整備〜AIエージェント実行までを一体で提供する開発基盤。"
+            },
+            "archaive": {
+              "tag": "Product / 業界特化",
+              "name": "ARCHAIVE",
+              "body": "製造業・建設・設計業の図面データをAIで一元化。類似検索からチャット型データ抽出まで。"
+            },
+            "sendAi": {
+              "tag": "Product / 業界特化",
+              "name": "SEND AI",
+              "body": "サプライチェーンの分断データを統合し、需要予測・発注最適化・在庫管理を一気通貫で支援。"
+            }
+          },
+          "serviceLink": "Serviceページで詳しく見る"
+        },
+        "chapter": {
+          "mission": {
+            "jaTitle": "わたしたちがやろうとしていること",
+            "enTitle": "What we're<br></br>trying to do."
+          },
+          "workplace": {
+            "jaTitle": "ここで働くということ",
+            "enTitle": "How we<br></br>work."
+          },
+          "jobs": {
+            "jaTitle": "募集中のポジション",
+            "enTitle": "Open<br></br>positions."
+          }
+        },
+        "mission": {
+          "label": "Mission",
+          "lead": "わたしたちの使命",
+          "heading": "産業と文化の構造を、<br></br>再構築する。",
+          "headingSub": "Redesigning the structures of industry and culture.",
+          "body1": "「SaaSやSIerが蔓延る業界自体を徹底的に変える」という破壊的な意味と、「提供する産業の構造をプロダクトで変える」という創造的目的を意図しています。",
+          "body2": "人工知能により、既存の業界慣習や非合理な構造を壊し、独自の思想とテクノロジーを融合させて、社会・産業・文化の「仕組み」を根本から再設計する存在であり続けます。",
+          "body3": "人間の意思決定の最適化に大きく寄与することを目指します。",
+          "body4": "製造業に始まり、行政、建設、小売、物流業など様々な業界の当たり前に、既存の創り上げられてきた価値あるものを残しつつ、AIというエッセンスを加え、新しい「当たり前」を創ります。",
+          "valuesLabel": "Values",
+          "valuesLead": "4つの行動指針",
+          "values": {
+            "ownership": "Ownership",
+            "notCynical": "Not cynical",
+            "stayCurious": "Stay curious,\nstay grounded",
+            "beMultiplier": "Be a multiplier"
+          },
+          "cultureLink": "Cultureページで詳しく見る"
+        },
+        "workplace": {
+          "label": "Workplace",
+          "lead": "ここで働くということ",
+          "heading": "ここで、一緒に<br></br><span>つくるもの。</span>",
+          "rolesLabel": "Roles",
+          "rolesLead": "仕事の3つの軸",
+          "rolesColumnLabel": "Roles",
+          "roles": {
+            "product": {
+              "name": "Product",
+              "subtitle": "ARCHAIVE / SEND AI",
+              "body": "業界の意思決定を変える、業界特化AIプロダクトをつくる。図面・サプライチェーンなど、業界のコアデータをAIで再設計していく仕事。",
+              "roleNames": "PdM / Engineer / Designer"
+            },
+            "aiSolution": {
+              "name": "AI Solution",
+              "subtitle": "Flowerium / 現場とAIをつなぐ",
+              "body": "現場に入り、顧客のデータと業務を解きほぐしてAIにする。Flowerium基盤を使い、コンサルティングと開発の境目で動く仕事。",
+              "roleNames": "AI Engineer / Solution Architect"
+            },
+            "bizDev": {
+              "name": "BizDev",
+              "subtitle": "新しい業界・顧客を切り開く",
+              "body": "AIで変えるべき産業の最前線を、顧客と一緒に見つけていく。経営層と対話しながら、新しい市場をつくる仕事。",
+              "roleNames": "BizDev / Sales / Partnership"
+            }
+          },
+          "howWeWorkLabel": "How we work",
+          "howWeWorkLead": "チームの動き方",
+          "pillars": {
+            "speed": {
+              "title": "少数精鋭で、速く。",
+              "body": "一人ひとりの裁量が大きく、意思決定に直接関わる。大企業では味わえないスピード感と手触り感のある仕事。"
+            },
+            "frontline": {
+              "title": "現場 → プロダクト直結。",
+              "body": "現場に入り込んで得た知見が、そのままプロダクトと基盤に還元される。隔たりのない現場と開発の往復。"
+            },
+            "philosophy": {
+              "title": "思想と行動指針が、判断軸。",
+              "body": "評価も意思決定も、STARUPのValueとフィロソフィーがベース。何を優先すべきか、迷ったときに立ち返る場所がある。"
+            }
+          },
+          "officeLabel": "Office",
+          "officeName": "STARUP Kyoto Office",
+          "officeImageAlt": "STARUP 京都オフィス"
+        },
+        "message": {
+          "stamp": "STARUP / Message",
+          "ceoCaption": "— Yuto Ogata, CEO",
+          "ceoName": "緒方 勇斗",
+          "ceoTitle": "代表取締役",
+          "ceoImageAlt": "緒方 勇斗 / 代表取締役",
+          "label": "Message",
+          "heading": "代表からのメッセージ",
+          "opening1": "私たちは、テクノロジーによる、既存産業・文化の再構築というミッションを掲げ、事業を行っております。",
+          "opening2": "日本の製造業、建設業、インフラ、小売などの産業には、世界に誇る技術と現場があります。しかし、その多くは未だに分断されたデータ、属人的な判断、古いシステム構造の上で動いています。本来つながるべき情報がつながっていない。その結果、本来もっと速く、もっと強く進化できるはずの現場が、構造的な制約によって力を発揮しきれていないと感じています。",
+          "opening3": "STARUPは、その構造そのものを変えるために生まれました。私たちは単なる受託開発会社でも、単なるSaaS企業でもありません。現場に深く入り込み、業務を理解し、AIとソフトウェアを用いて「現場の意思決定OS」をつくる会社です。",
+          "credo1": "現場の知識を、データに変える。",
+          "credo2": "データを、意思決定に変える。",
+          "credo3": "意思決定を、産業の進化につなげる。",
+          "credoClose": "それが私たちの挑戦です。",
+          "closing1": "世界では、ソフトウェアが国家や産業の競争力を決める時代に入っています。日本にも、日本の産業構造や文化に最適化されたAI基盤が必要です。だからこそ私たちは、単発のシステム開発ではなく、産業を支えるAIプロダクトを生み出し続ける「AIメーカー」でありたいと考えています。",
+          "punch": "思想をテクノロジーに変え、<br></br>産業と文化を<span>再構築する。</span>",
+          "punchSub": "京都から、世界に挑戦していきます。"
+        },
+        "jobs": {
+          "stamp": "STARUP / Recruit",
+          "caption": "— Open Positions",
+          "headingImage": "募集中の<br></br>ポジション。",
+          "imageAlt": "STARUP メンバー",
+          "allRoles": "All roles",
+          "openCount": "{count} open",
+          "employmentTypeLabel": "雇用形態",
+          "detail": "詳細を見る",
+          "empty": "現在募集中のポジションはありません。",
+          "seeAll": "すべての求人を見る"
+        },
+        "cta": {
+          "viewMore": "View more",
+          "cards": {
+            "culture": {
+              "label": "Culture",
+              "title": "Cultureを深く知る",
+              "body": "STARUPが大切にしている文化・思想を深堀りした記事へ。"
+            },
+            "member": {
+              "label": "Member",
+              "title": "メンバーを見る",
+              "body": "一緒に働くチームメンバーを紹介します。"
+            },
+            "jobs": {
+              "label": "Jobs",
+              "title": "募集職種を見る",
+              "body": "現在募集中のポジションをご覧ください。"
+            }
+          }
+        }
+      },
+      "culture": {
+        "opening": {
+          "label": "Culture",
+          "jaLabel": "カルチャー",
+          "heading": "What we<br></br>believe in.",
+          "lead": "STARUPの文化、思想、判断軸。<br></br>私たちがどう動き、何を選び、何を残していくか。"
+        },
+        "philosophy": {
+          "label": "Philosophy",
+          "jaLabel": "わたしたちの思想",
+          "heading": "産業の意思決定を変えるための、<br></br><span>インフラとして。</span>"
+        },
+        "values": {
+          "label": "Values",
+          "jaLabel": "4つの行動指針",
+          "heading": "4 Values."
+        },
+        "workStyle": {
+          "label": "Work Style",
+          "jaLabel": "わたしたちの働き方",
+          "heading": "少数精鋭で、<br></br><span>本質的に。</span>"
+        },
+        "cta": {
+          "viewMore": "View more",
+          "member": {
+            "label": "Member",
+            "title": "メンバーを見る",
+            "body": "一緒に働くチームメンバーを紹介します。"
+          },
+          "jobs": {
+            "label": "Jobs",
+            "title": "募集中のポジション",
+            "body": "現在募集中のポジションをご覧ください。"
+          }
+        }
+      },
+      "jobs": {
+        "label": "Jobs",
+        "heading": "Open Positions",
+        "lead": "私たちと一緒に未来を創りませんか。現在募集中のポジションをご覧ください。",
+        "all": "すべて",
+        "jobTypeLabel": "職種",
+        "employmentTypeLabel": "雇用形態",
+        "openPositions": "open positions",
+        "reset": "Reset",
+        "empty": "該当する求人が見つかりませんでした。",
+        "resetFilters": "フィルターをReset",
+        "detail": "詳細を見る"
+      },
+      "detail": {
+        "selectionFlowTitle": "選考フロー",
+        "selectionSteps": {
+          "step1": "書類選考",
+          "step2": "カジュアル面談",
+          "step3": "技術面接",
+          "step4": "最終面接",
+          "step5": "オファー"
+        },
+        "requirementLabels": {
+          "employmentType": "雇用形態",
+          "salary": "年収",
+          "location": "勤務地",
+          "workingHours": "勤務時間",
+          "holidays": "休日・休暇",
+          "benefits": "福利厚生"
+        },
+        "applyButton": "この職種に応募する",
+        "requirementsTitle": "募集要項",
+        "applyLabel": "Apply",
+        "applyHeading": "Ready to join?",
+        "applyBody": "私たちは常に新しい仲間を探しています。あなたのスキルと情熱で、チームに新しい風を吹き込んでください。",
+        "applyLink": "この職種に応募する",
+        "links": {
+          "culture": {
+            "label": "Culture",
+            "title": "私たちのカルチャーを知る",
+            "body": "STAR UPが大切にしている価値観やチームの雰囲気をご紹介します。"
+          },
+          "member": {
+            "label": "Member",
+            "title": "メンバーを知る",
+            "body": "一緒に働くチームメンバーをご紹介します。"
+          }
+        },
+        "viewMore": "View more",
+        "relatedLead": "あなたにぴったりのポジションがきっと見つかります。",
+        "relatedHeading": "Discover more opportunities that match your skills.",
+        "readMore": "READ MORE"
+      },
+      "apply": {
+        "title": "Apply Form",
+        "lead": "あなたのスキルと情熱を、私たちのチームで活かしませんか。",
+        "selectionFlowTitle": "選考フロー",
+        "selectionSteps": {
+          "step1": "1. 書類選考",
+          "step2": "2. 一次面談",
+          "step3": "3. 技術面接",
+          "step4": "4. 最終面接",
+          "step5": "5. オファー"
+        },
+        "formHeading": "Join our team",
+        "nameLabel": "氏名",
+        "namePlaceholder": "山田太郎",
+        "emailLabel": "メールアドレス",
+        "emailPlaceholder": "example@email.com",
+        "phoneLabel": "電話番号",
+        "phonePlaceholder": "090-1234-5678",
+        "positionLabel": "応募職種",
+        "positionPlaceholder": "選択してください",
+        "positions": {
+          "frontend": "フロントエンドエンジニア",
+          "backend": "バックエンドエンジニア",
+          "pm": "プロダクトマネージャー",
+          "designer": "デザイナー",
+          "other": "その他"
+        },
+        "portfolioLabel": "ポートフォリオURL（任意）",
+        "portfolioPlaceholder": "https://portfolio.example.com",
+        "messageLabel": "自己PR・志望動機",
+        "messagePlaceholder": "自己PRや志望動機をご記入ください...",
+        "submit": "応募する",
+        "submitting": "送信中...",
+        "successMessage": "応募ありがとうございます。担当者より追って連絡いたします。",
+        "errorMessage": "送信に失敗しました。もう一度お試しください。",
+        "networkError": "ネットワークエラーが発生しました。もう一度お試しください。"
+      }
+    }
+  },
+  "data": {
+    "culture": {
+      "philosophyBody": {
+        "p1": "STARUPフィロソフィーとは、私たちがどこに向かい、何をしたいか、どうありたいか、どんな価値を提供したいかを示すものです。",
+        "p2": "AIを単なる効率化ツールではなく、産業の意思決定を変えるためのインフラとして捉えます。現場に眠るデータをAIが活用できる形に整え、業界ごとの意思決定OSをつくっていきます。",
+        "p3": "経営陣やメンバーが迷ったとき、何を優先すべきか、どの顧客課題に向き合うべきか、どのプロダクトをどう進化させるべきかを判断するための軸として、日々の意思決定に活用しています。",
+        "p4": "プロダクトもAI開発も顧客への向き合い方も、すべて企業文化のアウトプットだと考えます。だからこそ、技術だけでなく、思想・行動指針・組織文化にも投資していきます。"
+      },
+      "values": {
+        "ownership": {
+          "subtitle": "当事者意識を持つ",
+          "body": "顧客・プロダクト・事業・会社の成長を自分ごととして捉え、評論ではなく実装で最後まで前に進める。誰かに任せるのではなく、自分が動かす姿勢。"
+        },
+        "notCynical": {
+          "subtitle": "斜に構えない",
+          "body": "できない理由ではなく実現する方法を考え、顧客・現場・仲間・外部の声に素直に向き合う。冷笑よりも、素直に試す方が答えに近い。"
+        },
+        "stayCurious": {
+          "subtitle": "ワクワクと現場を大切に",
+          "body": "ワクワクと現場への深い理解を行き来し、顧客が本当に使える価値に変える。最先端の好奇心と、地に足のついた実装の両方を持つ。"
+        },
+        "beMultiplier": {
+          "subtitle": "三人寄れば文殊の知恵",
+          "body": "チームで知恵を出し合い、最善の答えを出すことを意識する。一人の最大値ではなく、チームとしての出力を最大化する。"
+        }
+      },
+      "workStyles": {
+        "speed": {
+          "title": "少数精鋭で、速く。",
+          "body": "一人ひとりの裁量が大きく、意思決定に直接関わる。承認フローは最小限、良いアイデアは即実行。"
+        },
+        "frontline": {
+          "title": "現場 → プロダクト直結。",
+          "body": "現場に入り込んで得た知見が、そのままプロダクトと基盤に還元される。隔たりのない現場と開発の往復。"
+        },
+        "kyoto": {
+          "title": "京都拠点 × リモート可。",
+          "body": "京都御所近くのオフィスを拠点に、リモートワークも柔軟に。集中とコラボレーションのバランスを大切に。"
+        }
+      }
+    }
+  }
+}

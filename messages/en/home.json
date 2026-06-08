@@ -1,0 +1,266 @@
+{
+  "sections": {
+    "home": {
+      "mission": {
+        "heading": "Mission",
+        "lead": "Redesigning the structures of industry and culture.",
+        "statement": "Redesigning the structures of industry and culture.",
+        "learnMore": "Learn More About Us"
+      },
+      "vision": {
+        "scrollPrompt": "Scroll to explore"
+      },
+      "news": {
+        "eyebrow": "News",
+        "heading": "Latest Updates",
+        "viewAll": "View all"
+      }
+    },
+    "common": {
+      "contact": {
+        "heading": "Let's collaborate",
+        "lead": "Feel free to reach out with any project inquiries or questions.",
+        "findUs": "Find us",
+        "location": "Kyoto, Japan",
+        "email": "info@starup01.jp",
+        "formTitle": "Say hello",
+        "labels": {
+          "name": "Name",
+          "subject": "Subject",
+          "company": "Company",
+          "email": "Email",
+          "message": "Message"
+        },
+        "placeholders": {
+          "name": "Taro Yamada",
+          "company": "XXXX Inc.",
+          "email": "example@email.com",
+          "message": "Please tell us how we can help..."
+        },
+        "subjectPlaceholder": "Select a subject",
+        "subjectOptions": {
+          "general": "General inquiry",
+          "business": "Business partnership",
+          "career": "Careers",
+          "support": "Support"
+        },
+        "submit": "Send",
+        "submitting": "Sending...",
+        "toast": {
+          "success": "Your message has been sent. Thank you!",
+          "error": "Failed to send. Please try again.",
+          "networkError": "A network error occurred. Please try again."
+        }
+      },
+      "joinUs": {
+        "eyebrow": "Careers",
+        "heading": "Join Us",
+        "lead": "We're looking for people to build Japan's No.1 AI company with us.",
+        "ctaEyebrow": "Careers",
+        "ctaText": "We're hiring teammates to build the future together.",
+        "ctaLink": "View open positions"
+      }
+    },
+    "news": {
+      "list": {
+        "eyebrow": "News",
+        "heading": "Stories",
+        "lead": "The latest initiatives and announcements from STAR UP.",
+        "countLabel": "stories",
+        "readArticle": "Read article",
+        "empty": "No articles yet."
+      },
+      "detail": {
+        "share": "Share",
+        "articleInfo": "Article Info"
+      },
+      "explore": {
+        "eyebrow": "Explore",
+        "heading": "Discover more about STAR UP",
+        "viewMore": "View more",
+        "links": {
+          "culture": {
+            "title": "Explore our culture",
+            "description": "Get to know our Mission, Vision, Values, and the way we work."
+          },
+          "member": {
+            "title": "Meet the team",
+            "description": "Meet the teammates you'll work with and read their interviews."
+          },
+          "jobs": {
+            "title": "See open positions",
+            "description": "Check out the positions we're currently hiring for."
+          }
+        }
+      }
+    },
+    "member": {
+      "list": {
+        "eyebrow": "Team",
+        "heading": "Our Team",
+        "tagline": "Where brilliant minds converge to create the future.",
+        "groupPhotoAlt": "STARUP team group photo",
+        "allMembers": "All Members",
+        "countLabel": "members",
+        "noImage": "No Image",
+        "interview": "Interview",
+        "readMore": "Read more",
+        "fromInterview": "From the interview",
+        "career": {
+          "eyebrow": "Career",
+          "heading": "Join our team.",
+          "lead": "Why not work with us? We're always looking for new teammates.",
+          "cta": "View open positions"
+        }
+      },
+      "detail": {
+        "badge": "Member",
+        "interviewLabel": "Interview",
+        "chapters": "{count} chapters",
+        "heroAltEyebrow": "Hero image",
+        "heroComingSoon": "Coming soon",
+        "noImage": "No Image",
+        "backToList": "Back to member list",
+        "profileHeading": "Profile",
+        "profileLabels": {
+          "position": "Position",
+          "name": "Name",
+          "career": "Background"
+        },
+        "cta": {
+          "eyebrow": "Join us",
+          "heading": "Work with us.",
+          "lead": "We're looking for teammates to build the future together. If a position catches your eye, we'd love to hear from you.",
+          "link": "View open positions"
+        },
+        "related": {
+          "viewMore": "View more",
+          "culture": {
+            "eyebrow": "Culture",
+            "title": "Explore our culture",
+            "description": "Discover the values STAR UP holds dear and the atmosphere of our team."
+          },
+          "career": {
+            "eyebrow": "Career",
+            "title": "Visit the Career page",
+            "description": "Everything about careers at STAR UP: hiring, how we work, and our selection process."
+          }
+        },
+        "others": {
+          "lead": "Be sure to check out interviews with other members too.",
+          "heading": "Meet other members.",
+          "fromInterview": "From the interview",
+          "readMore": "Read more",
+          "noImage": "No Image"
+        }
+      }
+    },
+    "legal": {
+      "infoSecurity": {
+        "eyebrow": "Information Security Policy",
+        "heading": "Information Security Policy",
+        "isms": {
+          "certified": "ISMS Certified",
+          "standard": "ISO/IEC<br></br>27001:2022",
+          "subtitle": "Information Security Management System",
+          "statement": "STAR UP, Inc. has obtained certification under ISO/IEC 27001:2022, the international standard for Information Security Management Systems (ISMS), in order to properly protect our customers' information assets and operate a business worthy of their trust.",
+          "facts": {
+            "certificationBody": "Certification Body",
+            "accreditation": "Accreditation",
+            "certificateNo": "Certificate No.",
+            "soa": "Statement of Applicability",
+            "initialCertification": "Initial Certification",
+            "validUntil": "Valid Until",
+            "scope": "Scope of Certification"
+          },
+          "scopeValue": "AI-driven joint development and new business development / Development of AI products / AI SaaS business for manufacturing / Recruitment agency services"
+        },
+        "policyHeading": "Information Security Policy",
+        "guidelinesHeading": "Guiding Principles",
+        "guidelines": {
+          "1": "We take appropriate organizational and technical measures to reliably protect the confidentiality, integrity, and availability of information assets, and respond to evolving information technology and emerging threats.",
+          "2": "We provide information security education to all employees and ensure the policy is thoroughly communicated, striving to raise and maintain awareness.",
+          "3": "We set objectives for the management system and information security, review them regularly, and continuously implement and maintain improvements.",
+          "4": "We delegate responsibility and authority to the management representative in order to execute, maintain, and improve the management system."
+        },
+        "enactedDate": "Enacted November 19, 2025",
+        "companyName": "STAR UP, Inc.",
+        "representativeTitle": "Representative Director",
+        "representativeName": "Yuto Ogata"
+      },
+      "recruitmentDisclosure": {
+        "eyebrow": "Disclosure for Fee-Charging Employment Placement Services",
+        "heading": "Recruitment Business Disclosure",
+        "preamble": "In accordance with Article 32-13 of the Employment Security Act and Article 24-5 of its Enforcement Regulations, we disclose the following items.",
+        "section1": {
+          "heading": "1. Regulations on Business Operations",
+          "scope": {
+            "heading": "■ Scope of Occupations Handled",
+            "occupation": "・Occupations handled: All occupations",
+            "region": "・Region handled: Within Japan"
+          },
+          "privacy": {
+            "heading": "■ Protection of Personal Information",
+            "manager": "・Personal Information Protection Manager: Representative Director Yuto Ogata",
+            "statement": "・We appropriately manage the personal information of job seekers and employers, and do not disclose or provide it to third parties without the individual's consent. We also respond promptly to requests for disclosure, correction, or deletion of personal information."
+          },
+          "purpose": {
+            "heading": "■ Purposes of Use of Personal Information",
+            "intro": "We use the personal information obtained through our employment placement operations for the following purposes.",
+            "item1": "・Providing job seekers with the most suitable job information and managing progress",
+            "item2": "・Referrals to recruiting companies and conducting selection",
+            "item3": "・Post-placement follow-up and conducting surveys",
+            "item4": "・Managing information in accordance with laws (such as the Employment Security Act)"
+          },
+          "fee": {
+            "heading": "■ Collection of Fees",
+            "statement": "・We collect fees from employers (recruiting companies) based on a contract concluded in advance."
+          },
+          "complaint": {
+            "heading": "■ Handling of Complaints",
+            "manager": "・Complaint Handling Manager: Representative Director Yuto Ogata",
+            "statement": "・When a complaint is raised, we handle it promptly and appropriately in good faith."
+          },
+          "refund": {
+            "heading": "■ Refund System",
+            "statement": "・If a referred worker leaves the company early, we have a system in place to refund fees. For details, please refer to \"3. Refund System.\""
+          },
+          "pdfLink": "・View details of the regulations on business operations here",
+          "pdfLabel": "(PDF)"
+        },
+        "section2": {
+          "heading": "2. Fee Schedule",
+          "intro": "The fees we charge employers (recruiting companies) are as follows.",
+          "notified": {
+            "heading": "■ Notified Fees",
+            "amount": "・Fee amount: 35% of the placed candidate's expected annual income (consumption tax separate)",
+            "note": "*Expected annual income refers to the total wages (including base salary, allowances, and bonuses) anticipated to be paid during the first year from the date of permanent hire."
+          },
+          "pdfLink": "・View details of the fee schedule here",
+          "pdfLabel": "(PDF)"
+        },
+        "section3": {
+          "heading": "3. Refund System",
+          "intro": "If a candidate we referred leaves the company early after joining, we have a system to refund a portion of the placement fee received.",
+          "rateHeading": "■ Refund Rate (in the case of voluntary resignation)",
+          "rate1": "・Resignation within 1 month of joining: 80% of the placement fee",
+          "rate2": "・Resignation after 1 month and within 3 months of joining: 50% of the placement fee",
+          "rate3": "・Resignation after 3 months and within 6 months of joining: 10% of the placement fee",
+          "note": "*This system does not apply in cases of dismissal, bankruptcy, resignation due to reasons attributable to the employer, or resignation due to conditions significantly different from those agreed upon in advance."
+        },
+        "section4": {
+          "heading": "4. Business Operator Information",
+          "license": "・License number: 26-Yu-300728",
+          "name": "・Business name: STARUP, Inc.",
+          "address": "・Address: 109 Nishijin Sangyo Sozo Kaikan, 97 Kaikamori-cho, Kamigyo-ku, Kyoto City, Kyoto",
+          "licenseDate": "・License date: August 1, 2024"
+        }
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "lead": "The page you're looking for seems to have vanished into the far reaches of space.",
+    "description": "Click the portal on the right to return to a safe place."
+  }
+}

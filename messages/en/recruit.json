@@ -1,0 +1,346 @@
+{
+  "sections": {
+    "recruit": {
+      "landing": {
+        "hero": {
+          "eyebrow": "Recruit",
+          "deck": "Company Deck",
+          "titleLine1": "Code",
+          "titleLine2": "the",
+          "titleLine3": "Culture",
+          "tagline": "STARUP is an AI maker<br></br>built from culture up.",
+          "scroll": "Scroll",
+          "heroImageAlt": "The view from STARUP"
+        },
+        "aiMaker": {
+          "prologueLabel": "Prologue",
+          "prologueLead": "STARUP = AI maker",
+          "heading": "Becoming the<br></br>No.1 AI maker in the industry.",
+          "manifestoTitle": "Turning data buried in industry<br></br>into AI that <span>transforms human decisions</span>.",
+          "manifestoBody1": "As an AI company, we aim to be the <span>No.1 AI maker</span> in the industry. We turn the data buried within each company and sector into an AI-ready foundation, then refine the quality and customer experience all the way to where it shapes human decision-making, and deliver it.",
+          "manifestoBody2": "Taking it for granted that our products simply work, we go further to deliver customers <span>an experience that sparks excitement</span>.",
+          "manifestoBody3": "To achieve this, we build continuously on our AI solution development platform \"Flowerium,\" creating industry-specific AI products like ARCHAIVE and SEND AI to optimize decision-making across industries.",
+          "lineLabel": "Manufacturing Line",
+          "lineLead": "The STARUP product line",
+          "lines": {
+            "flowerium": {
+              "tag": "Platform / Development Foundation",
+              "name": "Flowerium",
+              "body": "The foundation that generates AI solutions. A development platform delivering everything from data preparation to AI-agent execution in one place."
+            },
+            "archaive": {
+              "tag": "Product / Industry-Specific",
+              "name": "ARCHAIVE",
+              "body": "Unifies drawing data across manufacturing, construction, and design with AI, from similarity search to chat-based data extraction."
+            },
+            "sendAi": {
+              "tag": "Product / Industry-Specific",
+              "name": "SEND AI",
+              "body": "Integrates fragmented supply-chain data to support demand forecasting, order optimization, and inventory management end to end."
+            }
+          },
+          "serviceLink": "Learn more on the Service page"
+        },
+        "chapter": {
+          "mission": {
+            "jaTitle": "What we are setting out to do",
+            "enTitle": "What we're<br></br>trying to do."
+          },
+          "workplace": {
+            "jaTitle": "What it means to work here",
+            "enTitle": "How we<br></br>work."
+          },
+          "jobs": {
+            "jaTitle": "Open positions",
+            "enTitle": "Open<br></br>positions."
+          }
+        },
+        "mission": {
+          "label": "Mission",
+          "lead": "Our mission",
+          "heading": "Redesigning the structures<br></br>of industry and culture.",
+          "headingSub": "Redesigning the structures of industry and culture.",
+          "body1": "It carries both a disruptive meaning, \"to fundamentally change the very industries where SaaS and SIers proliferate,\" and a creative purpose, \"to change the structure of the industries we serve through our products.\"",
+          "body2": "Using artificial intelligence, we will continue to be a company that breaks down established industry conventions and irrational structures, fusing our own philosophy with technology to fundamentally redesign the \"systems\" of society, industry, and culture.",
+          "body3": "We aim to make a significant contribution to optimizing human decision-making.",
+          "body4": "Starting with manufacturing and extending to government, construction, retail, logistics, and many other industries, we preserve the valuable things that have been built up while adding the essence of AI to create a new \"normal.\"",
+          "valuesLabel": "Values",
+          "valuesLead": "Four guiding principles",
+          "values": {
+            "ownership": "Ownership",
+            "notCynical": "Not cynical",
+            "stayCurious": "Stay curious,\nstay grounded",
+            "beMultiplier": "Be a multiplier"
+          },
+          "cultureLink": "Learn more on the Culture page"
+        },
+        "workplace": {
+          "label": "Workplace",
+          "lead": "What it means to work here",
+          "heading": "What we'll<br></br><span>build together here.</span>",
+          "rolesLabel": "Roles",
+          "rolesLead": "Three pillars of our work",
+          "rolesColumnLabel": "Roles",
+          "roles": {
+            "product": {
+              "name": "Product",
+              "subtitle": "ARCHAIVE / SEND AI",
+              "body": "Build industry-specific AI products that transform how industries make decisions. Work that redesigns core industry data, from drawings to supply chains, with AI.",
+              "roleNames": "PdM / Engineer / Designer"
+            },
+            "aiSolution": {
+              "name": "AI Solution",
+              "subtitle": "Flowerium / Connecting the field with AI",
+              "body": "Go on-site, untangle customers' data and operations, and turn them into AI. Work at the intersection of consulting and development, powered by the Flowerium platform.",
+              "roleNames": "AI Engineer / Solution Architect"
+            },
+            "bizDev": {
+              "name": "BizDev",
+              "subtitle": "Opening up new industries and customers",
+              "body": "Work with customers to discover the front lines of industries that AI should transform. Create new markets through dialogue with executive leadership.",
+              "roleNames": "BizDev / Sales / Partnership"
+            }
+          },
+          "howWeWorkLabel": "How we work",
+          "howWeWorkLead": "How the team moves",
+          "pillars": {
+            "speed": {
+              "title": "A small, elite team, moving fast.",
+              "body": "Each person has broad discretion and is directly involved in decisions. Work with a sense of speed and tangibility you can't get at a large company."
+            },
+            "frontline": {
+              "title": "From the field, straight to product.",
+              "body": "Insights gained from being on-site flow directly back into the product and platform. A seamless loop between the field and development."
+            },
+            "philosophy": {
+              "title": "Philosophy and principles as our compass.",
+              "body": "Evaluation and decisions alike are grounded in STARUP's Values and philosophy. There is always a place to return to when deciding what to prioritize."
+            }
+          },
+          "officeLabel": "Office",
+          "officeName": "STARUP Kyoto Office",
+          "officeImageAlt": "STARUP Kyoto Office"
+        },
+        "message": {
+          "stamp": "STARUP / Message",
+          "ceoCaption": "— Yuto Ogata, CEO",
+          "ceoName": "Yuto Ogata",
+          "ceoTitle": "Representative Director",
+          "ceoImageAlt": "Yuto Ogata / Representative Director",
+          "label": "Message",
+          "heading": "A message from our CEO",
+          "opening1": "We run our business under the mission of rebuilding existing industries and culture through technology.",
+          "opening2": "Japan's manufacturing, construction, infrastructure, retail, and other industries have technology and frontline expertise that rank among the world's best. Yet much of it still runs on fragmented data, person-dependent judgment, and outdated system architectures. Information that should be connected is not. As a result, we feel that frontlines capable of evolving faster and stronger are held back by structural constraints from realizing their full potential.",
+          "opening3": "STARUP was born to change that very structure. We are neither a mere contract development firm nor just a SaaS company. We are a company that goes deep into the field, understands the work, and uses AI and software to build an \"operating system for frontline decision-making.\"",
+          "credo1": "Turn frontline knowledge into data.",
+          "credo2": "Turn data into decisions.",
+          "credo3": "Connect decisions to the evolution of industry.",
+          "credoClose": "That is our challenge.",
+          "closing1": "Around the world, we have entered an era in which software determines the competitiveness of nations and industries. Japan, too, needs an AI foundation optimized for its own industrial structures and culture. That is why we strive to be an \"AI maker\" that keeps creating AI products to support industry, rather than building one-off systems.",
+          "punch": "Turning philosophy into technology,<br></br>we <span>rebuild industry and culture.</span>",
+          "punchSub": "From Kyoto, we take on the world."
+        },
+        "jobs": {
+          "stamp": "STARUP / Recruit",
+          "caption": "— Open Positions",
+          "headingImage": "Open<br></br>positions.",
+          "imageAlt": "STARUP members",
+          "allRoles": "All roles",
+          "openCount": "{count} open",
+          "employmentTypeLabel": "Employment type",
+          "detail": "View details",
+          "empty": "There are no open positions at the moment.",
+          "seeAll": "See all positions"
+        },
+        "cta": {
+          "viewMore": "View more",
+          "cards": {
+            "culture": {
+              "label": "Culture",
+              "title": "Explore our Culture",
+              "body": "Read articles that dive deep into the culture and philosophy STARUP holds dear."
+            },
+            "member": {
+              "label": "Member",
+              "title": "Meet the members",
+              "body": "Get to know the team members you'll work alongside."
+            },
+            "jobs": {
+              "label": "Jobs",
+              "title": "See open roles",
+              "body": "Take a look at the positions we're currently hiring for."
+            }
+          }
+        }
+      },
+      "culture": {
+        "opening": {
+          "label": "Culture",
+          "jaLabel": "Culture",
+          "heading": "What we<br></br>believe in.",
+          "lead": "STARUP's culture, philosophy, and guiding principles.<br></br>How we move, what we choose, and what we leave behind."
+        },
+        "philosophy": {
+          "label": "Philosophy",
+          "jaLabel": "Our philosophy",
+          "heading": "As the infrastructure<br></br><span>to transform industrial decisions.</span>"
+        },
+        "values": {
+          "label": "Values",
+          "jaLabel": "Four guiding principles",
+          "heading": "4 Values."
+        },
+        "workStyle": {
+          "label": "Work Style",
+          "jaLabel": "How we work",
+          "heading": "A small, elite team,<br></br><span>working on what matters.</span>"
+        },
+        "cta": {
+          "viewMore": "View more",
+          "member": {
+            "label": "Member",
+            "title": "Meet the members",
+            "body": "Get to know the team members you'll work alongside."
+          },
+          "jobs": {
+            "label": "Jobs",
+            "title": "Open positions",
+            "body": "Take a look at the positions we're currently hiring for."
+          }
+        }
+      },
+      "jobs": {
+        "label": "Jobs",
+        "heading": "Open Positions",
+        "lead": "Want to build the future with us? Explore the positions we're currently hiring for.",
+        "all": "All",
+        "jobTypeLabel": "Job type",
+        "employmentTypeLabel": "Employment type",
+        "openPositions": "open positions",
+        "reset": "Reset",
+        "empty": "No matching positions were found.",
+        "resetFilters": "Reset filters",
+        "detail": "View details"
+      },
+      "detail": {
+        "selectionFlowTitle": "Selection process",
+        "selectionSteps": {
+          "step1": "Document screening",
+          "step2": "Casual interview",
+          "step3": "Technical interview",
+          "step4": "Final interview",
+          "step5": "Offer"
+        },
+        "requirementLabels": {
+          "employmentType": "Employment type",
+          "salary": "Annual salary",
+          "location": "Work location",
+          "workingHours": "Working hours",
+          "holidays": "Holidays & leave",
+          "benefits": "Benefits"
+        },
+        "applyButton": "Apply for this role",
+        "requirementsTitle": "Requirements",
+        "applyLabel": "Apply",
+        "applyHeading": "Ready to join?",
+        "applyBody": "We're always looking for new teammates. Bring your skills and passion, and breathe new life into the team.",
+        "applyLink": "Apply for this role",
+        "links": {
+          "culture": {
+            "label": "Culture",
+            "title": "Get to know our culture",
+            "body": "We introduce the values STAR UP holds dear and the atmosphere of the team."
+          },
+          "member": {
+            "label": "Member",
+            "title": "Meet the members",
+            "body": "We introduce the team members you'll work alongside."
+          }
+        },
+        "viewMore": "View more",
+        "relatedLead": "We're confident you'll find the perfect position for you.",
+        "relatedHeading": "Discover more opportunities that match your skills.",
+        "readMore": "READ MORE"
+      },
+      "apply": {
+        "title": "Apply Form",
+        "lead": "Why not put your skills and passion to work on our team?",
+        "selectionFlowTitle": "Selection process",
+        "selectionSteps": {
+          "step1": "1. Document screening",
+          "step2": "2. First interview",
+          "step3": "3. Technical interview",
+          "step4": "4. Final interview",
+          "step5": "5. Offer"
+        },
+        "formHeading": "Join our team",
+        "nameLabel": "Full name",
+        "namePlaceholder": "Taro Yamada",
+        "emailLabel": "Email address",
+        "emailPlaceholder": "example@email.com",
+        "phoneLabel": "Phone number",
+        "phonePlaceholder": "090-1234-5678",
+        "positionLabel": "Position applied for",
+        "positionPlaceholder": "Please select",
+        "positions": {
+          "frontend": "Frontend Engineer",
+          "backend": "Backend Engineer",
+          "pm": "Product Manager",
+          "designer": "Designer",
+          "other": "Other"
+        },
+        "portfolioLabel": "Portfolio URL (optional)",
+        "portfolioPlaceholder": "https://portfolio.example.com",
+        "messageLabel": "About you & motivation",
+        "messagePlaceholder": "Tell us about yourself and why you'd like to join...",
+        "submit": "Apply",
+        "submitting": "Submitting...",
+        "successMessage": "Thank you for applying. Our team will be in touch with you shortly.",
+        "errorMessage": "Submission failed. Please try again.",
+        "networkError": "A network error occurred. Please try again."
+      }
+    }
+  },
+  "data": {
+    "culture": {
+      "philosophyBody": {
+        "p1": "The STARUP Philosophy defines where we are headed, what we want to do, who we want to be, and what value we want to provide.",
+        "p2": "We see AI not as a mere efficiency tool, but as the infrastructure for transforming industrial decision-making. We organize the data lying dormant in the field into a form AI can use, and build a decision-making OS for each industry.",
+        "p3": "When leadership and members are unsure, we use it as the axis for our daily decisions: what to prioritize, which customer challenges to tackle, and how to evolve which products.",
+        "p4": "We believe products, AI development, and how we engage with customers are all outputs of company culture. That is why we invest not only in technology, but also in our philosophy, guiding principles, and organizational culture."
+      },
+      "values": {
+        "ownership": {
+          "subtitle": "Take ownership",
+          "body": "Treat the growth of customers, products, the business, and the company as your own, and drive things forward to the finish through implementation, not commentary. The mindset of moving things yourself rather than leaving them to someone else."
+        },
+        "notCynical": {
+          "subtitle": "Don't be jaded",
+          "body": "Think about how to make things happen rather than why they can't, and engage honestly with the voices of customers, the field, teammates, and outsiders. Honestly giving it a try gets you closer to the answer than cynicism."
+        },
+        "stayCurious": {
+          "subtitle": "Cherish excitement and the field",
+          "body": "Move between excitement and a deep understanding of the field to turn it into value customers can truly use. Hold both cutting-edge curiosity and grounded, down-to-earth implementation."
+        },
+        "beMultiplier": {
+          "subtitle": "Two heads are better than one",
+          "body": "Be mindful of pooling the team's wisdom to reach the best answer. Maximize the team's output, not just any one person's peak."
+        }
+      },
+      "workStyles": {
+        "speed": {
+          "title": "A small, elite team, moving fast.",
+          "body": "Each person has broad discretion and is directly involved in decisions. Approval flows are kept to a minimum, and good ideas are acted on immediately."
+        },
+        "frontline": {
+          "title": "From the field, straight to product.",
+          "body": "Insights gained from being on-site flow directly back into the product and platform. A seamless loop between the field and development."
+        },
+        "kyoto": {
+          "title": "Kyoto-based, remote-friendly.",
+          "body": "Based at an office near the Kyoto Imperial Palace, with flexible remote work. We value the balance between focus and collaboration."
+        }
+      }
+    }
+  }
+}

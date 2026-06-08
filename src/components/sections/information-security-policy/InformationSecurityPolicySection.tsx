@@ -1,16 +1,30 @@
+import { getTranslations } from 'next-intl/server'
 import TypingText from '@/components/ui/TypingText'
 
-export default function InformationSecurityPolicySection() {
+export default async function InformationSecurityPolicySection({ locale }: { locale: string }) {
+  const t = await getTranslations({ locale, namespace: 'sections.legal.infoSecurity' })
+
+  const facts = [
+    { label: t('isms.facts.certificationBody'), value: 'G-CERTI' },
+    { label: t('isms.facts.accreditation'), value: 'IAS / IAF' },
+    { label: t('isms.facts.certificateNo'), value: 'GUP-2109-IC' },
+    { label: t('isms.facts.soa'), value: 'Rev.00 / 2025.11.19' },
+    { label: t('isms.facts.initialCertification'), value: '2026.04.02' },
+    { label: t('isms.facts.validUntil'), value: '2029.04.01' },
+  ]
+
+  const guidelineNumbers = ['1', '2', '3', '4'] as const
+
   return (
     <section className="py-16 md:py-32 bg-white" data-bg="light">
       <div className="max-w-[1500px] mx-auto px-4">
         {/* ヘッダー */}
         <div className="mb-12 md:mb-16">
           <p className="text-sm lg:text-base text-gray-600 mb-2">
-            情報セキュリティ基本方針
+            {t('eyebrow')}
           </p>
           <TypingText
-            text="Information Security Policy"
+            text={t('heading')}
             className="text-2xl md:text-3xl lg:text-6xl font-bold text-gray-900"
           />
         </div>
@@ -21,31 +35,24 @@ export default function InformationSecurityPolicySection() {
             {/* 左：認証マーク */}
             <div className="lg:col-span-5 lg:border-r lg:border-gray-200 lg:pr-10">
               <p className="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-4">
-                ISMS Certified
+                {t('isms.certified')}
               </p>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-[1.05] tracking-tight">
-                ISO/IEC<br />27001:2022
+                {t.rich('isms.standard', { br: () => <br /> })}
               </h2>
               <p className="mt-4 text-sm md:text-base text-gray-600 leading-relaxed">
-                情報セキュリティマネジメントシステム
+                {t('isms.subtitle')}
               </p>
             </div>
 
             {/* 右：ステートメント＋ファクト */}
             <div className="lg:col-span-7 space-y-8 md:space-y-10">
               <p className="text-base md:text-lg text-gray-900 leading-relaxed">
-                株式会社STAR UPは、お客様の情報資産を適切に保護し、信頼される事業運営を実現するため、情報セキュリティマネジメントシステム（ISMS）の国際規格である ISO/IEC 27001:2022 の認証を取得しています。
+                {t('isms.statement')}
               </p>
 
               <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 border-t border-gray-200 pt-6 md:pt-8">
-                {[
-                  { label: 'Certification Body', value: 'G-CERTI' },
-                  { label: 'Accreditation', value: 'IAS / IAF' },
-                  { label: 'Certificate No.', value: 'GUP-2109-IC' },
-                  { label: 'Statement of Applicability', value: 'Rev.00 / 2025.11.19' },
-                  { label: 'Initial Certification', value: '2026.04.02' },
-                  { label: 'Valid Until', value: '2029.04.01' },
-                ].map((row) => (
+                {facts.map((row) => (
                   <div key={row.label}>
                     <dt className="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-2">
                       {row.label}
@@ -59,10 +66,10 @@ export default function InformationSecurityPolicySection() {
                 {/* 認証範囲 — フル幅 */}
                 <div className="sm:col-span-2 pt-2">
                   <dt className="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-2">
-                    Scope of Certification
+                    {t('isms.facts.scope')}
                   </dt>
                   <dd className="text-sm md:text-base text-gray-900 leading-relaxed">
-                    AIを活用した共同開発・新規事業開発／AIプロダクトの開発／製造業向けAI SaaS事業／人材紹介事業
+                    {t('isms.scopeValue')}
                   </dd>
                 </div>
               </dl>
@@ -75,87 +82,46 @@ export default function InformationSecurityPolicySection() {
           {/* タイトル */}
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-8">
-              情報セキュリティ基本方針
+              {t('policyHeading')}
             </h1>
           </div>
 
           {/* 行動指針 */}
           <div className="space-y-8">
             <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 border-b border-gray-200 pb-4">
-              行動指針
+              {t('guidelinesHeading')}
             </h2>
 
-            {/* 指針1 */}
-            <div className="border-b border-gray-200 pb-6 md:pb-8">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8">
-                <div className="md:col-span-1">
-                  <p className="text-lg md:text-xl font-bold text-gray-900">1.</p>
-                </div>
-                <div className="md:col-span-11">
-                  <p className="text-base md:text-lg text-gray-900 leading-relaxed">
-                    情報資産の機密性、完全性、可用性を確実に保護するために組織的、技術的に適切な対策を講じ、変化する情報技術や新たな脅威に対応する。
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* 指針2 */}
-            <div className="border-b border-gray-200 pb-6 md:pb-8">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8">
-                <div className="md:col-span-1">
-                  <p className="text-lg md:text-xl font-bold text-gray-900">2.</p>
-                </div>
-                <div className="md:col-span-11">
-                  <p className="text-base md:text-lg text-gray-900 leading-relaxed">
-                    全社員に情報セキュリティ教育の実施と方針の周知徹底をはかり、意識の向上・維持に努める。
-                  </p>
+            {guidelineNumbers.map((number) => (
+              <div key={number} className="border-b border-gray-200 pb-6 md:pb-8">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8">
+                  <div className="md:col-span-1">
+                    <p className="text-lg md:text-xl font-bold text-gray-900">{number}.</p>
+                  </div>
+                  <div className="md:col-span-11">
+                    <p className="text-base md:text-lg text-gray-900 leading-relaxed">
+                      {t(`guidelines.${number}`)}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* 指針3 */}
-            <div className="border-b border-gray-200 pb-6 md:pb-8">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8">
-                <div className="md:col-span-1">
-                  <p className="text-lg md:text-xl font-bold text-gray-900">3.</p>
-                </div>
-                <div className="md:col-span-11">
-                  <p className="text-base md:text-lg text-gray-900 leading-relaxed">
-                    マネジメントシステム及び、情報セキュリティに関する目的を設定し、定期的にレビューし、継続的に改善を実施し、維持する。
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* 指針4 */}
-            <div className="border-b border-gray-200 pb-6 md:pb-8">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8">
-                <div className="md:col-span-1">
-                  <p className="text-lg md:text-xl font-bold text-gray-900">4.</p>
-                </div>
-                <div className="md:col-span-11">
-                  <p className="text-base md:text-lg text-gray-900 leading-relaxed">
-                    マネジメントシステムを実行・維持・改善して行くために管理責任者に責任と権限を委譲する。
-                  </p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
 
           {/* 制定日・署名 */}
           <div className="pt-8 md:pt-12 text-right space-y-4">
             <p className="text-base md:text-lg text-gray-900">
-              2025年11月19日 制定
+              {t('enactedDate')}
             </p>
             <div className="space-y-1">
               <p className="text-lg md:text-xl font-bold text-gray-900">
-                株式会社 STAR UP
+                {t('companyName')}
               </p>
               <p className="text-base md:text-lg text-gray-900">
-                代表取締役
+                {t('representativeTitle')}
               </p>
               <p className="text-base md:text-lg text-gray-900">
-                緒方 勇斗
+                {t('representativeName')}
               </p>
             </div>
           </div>

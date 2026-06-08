@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { useTranslations } from 'next-intl'
 import { RecruitListItem } from '@/lib/recruit'
 import JobCard from '@/components/sections/recruit/jobs/JobCard'
 
@@ -8,29 +9,36 @@ interface JobListSectionProps {
   recruits: RecruitListItem[]
 }
 
+// 「すべて」フィルターの言語非依存センチネル（Notion値と衝突しない固定文字列）
+const ALL_FILTER = '__all__'
+
 export default function JobListSection({ recruits }: JobListSectionProps) {
-  const [selectedJobType, setSelectedJobType] = useState<string>('すべて')
-  const [selectedEmploymentType, setSelectedEmploymentType] = useState<string>('すべて')
+  const t = useTranslations('sections.recruit.jobs')
+  const [selectedJobType, setSelectedJobType] = useState<string>(ALL_FILTER)
+  const [selectedEmploymentType, setSelectedEmploymentType] = useState<string>(ALL_FILTER)
 
   const jobTypes = useMemo(() => {
     const types = new Set(recruits.flatMap(r => r.jobType))
-    return ['すべて', ...Array.from(types)]
+    return [ALL_FILTER, ...Array.from(types)]
   }, [recruits])
 
   const employmentTypes = useMemo(() => {
     const types = new Set(recruits.flatMap(r => r.employmentType))
-    return ['すべて', ...Array.from(types)]
+    return [ALL_FILTER, ...Array.from(types)]
   }, [recruits])
 
   const filteredRecruits = useMemo(() => {
     return recruits.filter((recruit) => {
-      const matchesJobType = selectedJobType === 'すべて' || recruit.jobType.includes(selectedJobType)
-      const matchesEmploymentType = selectedEmploymentType === 'すべて' || recruit.employmentType.includes(selectedEmploymentType)
+      const matchesJobType = selectedJobType === ALL_FILTER || recruit.jobType.includes(selectedJobType)
+      const matchesEmploymentType = selectedEmploymentType === ALL_FILTER || recruit.employmentType.includes(selectedEmploymentType)
       return matchesJobType && matchesEmploymentType
     })
   }, [recruits, selectedJobType, selectedEmploymentType])
 
-  const isFiltered = selectedJobType !== 'すべて' || selectedEmploymentType !== 'すべて'
+  const isFiltered = selectedJobType !== ALL_FILTER || selectedEmploymentType !== ALL_FILTER
+
+  // フィルター値のラベル: センチネルは「すべて」、それ以外はNotion値をそのまま表示
+  const filterLabel = (value: string) => (value === ALL_FILTER ? t('all') : value)
 
   return (
     <section className="bg-white pt-20 md:pt-40 pb-16 md:pb-24">
@@ -39,14 +47,14 @@ export default function JobListSection({ recruits }: JobListSectionProps) {
         {/* ──── ヘッダー ──── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 md:mb-24">
           <div className="lg:col-span-2">
-            <span className="text-xs text-gray-500 uppercase tracking-wider">Jobs</span>
+            <span className="text-xs text-gray-500 uppercase tracking-wider">{t('label')}</span>
           </div>
           <div className="lg:col-span-8">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium text-gray-900 leading-[1.1] mb-4">
-              Open Positions
+              {t('heading')}
             </h1>
             <p className="text-base md:text-lg text-gray-500">
-              私たちと一緒に未来を創りませんか。現在募集中のポジションをご覧ください。
+              {t('lead')}
             </p>
           </div>
           <div className="lg:col-span-2"></div>
@@ -55,7 +63,7 @@ export default function JobListSection({ recruits }: JobListSectionProps) {
         {/* ──── モバイル: フィルター ──── */}
         <div className="lg:hidden space-y-6 mb-10">
           <div>
-            <h3 className="text-xs text-gray-500 mb-3">職種</h3>
+            <h3 className="text-xs text-gray-500 mb-3">{t('jobTypeLabel')}</h3>
             <div className="flex flex-wrap gap-2">
               {jobTypes.map((type) => (
                 <button
@@ -67,13 +75,13 @@ export default function JobListSection({ recruits }: JobListSectionProps) {
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
-                  {type}
+                  {filterLabel(type)}
                 </button>
               ))}
             </div>
           </div>
           <div>
-            <h3 className="text-xs text-gray-500 mb-3">雇用形態</h3>
+            <h3 className="text-xs text-gray-500 mb-3">{t('employmentTypeLabel')}</h3>
             <div className="flex flex-wrap gap-2">
               {employmentTypes.map((type) => (
                 <button
@@ -85,7 +93,7 @@ export default function JobListSection({ recruits }: JobListSectionProps) {
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
-                  {type}
+                  {filterLabel(type)}
                 </button>
               ))}
             </div>
@@ -101,7 +109,7 @@ export default function JobListSection({ recruits }: JobListSectionProps) {
               {/* 件数 */}
               <div>
                 <span className="text-3xl font-medium text-gray-900">{filteredRecruits.length}</span>
-                <p className="text-xs text-gray-500 mt-1">open positions</p>
+                <p className="text-xs text-gray-500 mt-1">{t('openPositions')}</p>
               </div>
 
               {/* 区切り線 */}
@@ -109,7 +117,7 @@ export default function JobListSection({ recruits }: JobListSectionProps) {
 
               {/* 職種フィルター */}
               <div>
-                <h3 className="text-xs text-gray-500 uppercase tracking-wider mb-3">職種</h3>
+                <h3 className="text-xs text-gray-500 uppercase tracking-wider mb-3">{t('jobTypeLabel')}</h3>
                 <div className="flex flex-col gap-1">
                   {jobTypes.map((type) => (
                     <button
@@ -121,7 +129,7 @@ export default function JobListSection({ recruits }: JobListSectionProps) {
                           : 'text-gray-400 hover:text-gray-700'
                       }`}
                     >
-                      {type}
+                      {filterLabel(type)}
                     </button>
                   ))}
                 </div>
@@ -129,7 +137,7 @@ export default function JobListSection({ recruits }: JobListSectionProps) {
 
               {/* 雇用形態フィルター */}
               <div>
-                <h3 className="text-xs text-gray-500 uppercase tracking-wider mb-3">雇用形態</h3>
+                <h3 className="text-xs text-gray-500 uppercase tracking-wider mb-3">{t('employmentTypeLabel')}</h3>
                 <div className="flex flex-col gap-1">
                   {employmentTypes.map((type) => (
                     <button
@@ -141,7 +149,7 @@ export default function JobListSection({ recruits }: JobListSectionProps) {
                           : 'text-gray-400 hover:text-gray-700'
                       }`}
                     >
-                      {type}
+                      {filterLabel(type)}
                     </button>
                   ))}
                 </div>
@@ -151,12 +159,12 @@ export default function JobListSection({ recruits }: JobListSectionProps) {
               {isFiltered && (
                 <button
                   onClick={() => {
-                    setSelectedJobType('すべて')
-                    setSelectedEmploymentType('すべて')
+                    setSelectedJobType(ALL_FILTER)
+                    setSelectedEmploymentType(ALL_FILTER)
                   }}
                   className="text-xs text-gray-500 border-b border-gray-400 pb-0.5 hover:text-gray-900 transition-colors"
                 >
-                  Reset
+                  {t('reset')}
                 </button>
               )}
             </div>
@@ -173,15 +181,15 @@ export default function JobListSection({ recruits }: JobListSectionProps) {
               </div>
             ) : (
               <div className="py-16 text-center border-t border-gray-200">
-                <p className="text-gray-500 mb-4">該当する求人が見つかりませんでした。</p>
+                <p className="text-gray-500 mb-4">{t('empty')}</p>
                 <button
                   onClick={() => {
-                    setSelectedJobType('すべて')
-                    setSelectedEmploymentType('すべて')
+                    setSelectedJobType(ALL_FILTER)
+                    setSelectedEmploymentType(ALL_FILTER)
                   }}
                   className="text-sm text-gray-900 border-b border-gray-900 pb-1 hover:text-gray-600 transition-colors"
                 >
-                  フィルターをReset
+                  {t('resetFilters')}
                 </button>
               </div>
             )}
@@ -194,15 +202,15 @@ export default function JobListSection({ recruits }: JobListSectionProps) {
         {/* ──── モバイル: 0件メッセージ ──── */}
         {filteredRecruits.length === 0 && (
           <div className="lg:hidden text-center py-12">
-            <p className="text-gray-500 mb-4">該当する求人が見つかりませんでした。</p>
+            <p className="text-gray-500 mb-4">{t('empty')}</p>
             <button
               onClick={() => {
-                setSelectedJobType('すべて')
-                setSelectedEmploymentType('すべて')
+                setSelectedJobType(ALL_FILTER)
+                setSelectedEmploymentType(ALL_FILTER)
               }}
               className="text-sm text-gray-900 border-b border-gray-900 pb-1 hover:text-gray-600 transition-colors"
             >
-              フィルターをReset
+              {t('resetFilters')}
             </button>
           </div>
         )}

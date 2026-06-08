@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
+import { useTranslations } from 'next-intl'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { companySNS } from '@/data/company'
@@ -9,6 +10,7 @@ import toast from 'react-hot-toast'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function ContactSection() {
+  const t = useTranslations('sections.common.contact')
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -26,10 +28,10 @@ export default function ContactSection() {
   const [typedPlaceholders, setTypedPlaceholders] = useState<string[]>(['', '', '', '', ''])
   
   const originalPlaceholders = [
-    "山田太郎",
-    "株式会社XXXX", 
-    "example@email.com",
-    "お問い合わせ内容をご記入ください...",
+    t('placeholders.name'),
+    t('placeholders.company'),
+    t('placeholders.email'),
+    t('placeholders.message'),
     ""
   ]
 
@@ -63,7 +65,7 @@ export default function ContactSection() {
       const data = await response.json()
 
       if (response.ok) {
-        toast.success('お問い合わせを送信しました。ありがとうございます！')
+        toast.success(t('toast.success'))
         // フォームをリセット
         setFormData({
           name: '',
@@ -73,11 +75,11 @@ export default function ContactSection() {
           message: '',
         })
       } else {
-        toast.error(data.error || '送信に失敗しました。もう一度お試しください。')
+        toast.error(data.error || t('toast.error'))
       }
     } catch (error) {
       console.error('送信エラー:', error)
-      toast.error('ネットワークエラーが発生しました。もう一度お試しください。')
+      toast.error(t('toast.networkError'))
     } finally {
       setIsSubmitting(false)
     }
@@ -105,7 +107,7 @@ export default function ContactSection() {
     if (!titleRef.current || !sectionRef.current) return
 
     const titleElement = titleRef.current
-    const text = "Say hello"
+    const text = t('formTitle')
     
     // タイトルの文字を分割
     const chars = text.split('').map((char, i) => 
@@ -147,7 +149,7 @@ export default function ContactSection() {
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill())
     }
-  }, [])
+  }, [t])
 
   return (
     <section ref={sectionRef} id="contact" className="py-12 md:py-20 bg-white relative z-10" data-bg="light">
@@ -158,10 +160,10 @@ export default function ContactSection() {
             {/* Header */}
             <div>
               <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal text-gray-900 mb-6 md:mb-8">
-                Let&apos;s collaborate
+                {t('heading')}
               </h2>
               <p className="text-gray-600 text-base md:text-lg">
-                プロジェクトのご相談や質問はお気軽にお声がけください。
+                {t('lead')}
               </p>
             </div>
 
@@ -169,7 +171,7 @@ export default function ContactSection() {
             <div className="grid grid-cols-2 gap-8 md:gap-12">
               <div>
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
-                  Find us
+                  {t('findUs')}
                 </h3>
                 <div className="flex space-x-4">
                   {/* X (Twitter) */}
@@ -197,10 +199,10 @@ export default function ContactSection() {
               
               <div>
                 <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
-                  Kyoto, Japan
+                  {t('location')}
                 </h3>
                 <p className="text-gray-400 text-sm">
-                  info@starup01.jp
+                  {t('email')}
                 </p>
               </div>
             </div>
@@ -208,14 +210,14 @@ export default function ContactSection() {
 
           {/* Right Section - Contact Form */}
           <div>
-            <h3 ref={titleRef} className="text-xl md:text-2xl text-gray-600 mb-6 md:mb-8">Say hello</h3>
+            <h3 ref={titleRef} className="text-xl md:text-2xl text-gray-600 mb-6 md:mb-8">{t('formTitle')}</h3>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name and Subject Row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                    氏名
+                    {t('labels.name')}
                   </label>
                   <input
                     ref={el => { inputRefs.current[0] = el }}
@@ -230,19 +232,19 @@ export default function ContactSection() {
                 
                 <div>
                   <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                    件名
+                    {t('labels.subject')}
                   </label>
                   <Select
                     name="subject"
                     value={formData.subject}
                     onChange={(value) => handleSelectChange('subject', value)}
                     options={[
-                      { value: 'general', label: 'お問い合わせ' },
-                      { value: 'business', label: 'ビジネスパートナーシップ' },
-                      { value: 'career', label: 'キャリア採用' },
-                      { value: 'support', label: 'サポート' }
+                      { value: 'general', label: t('subjectOptions.general') },
+                      { value: 'business', label: t('subjectOptions.business') },
+                      { value: 'career', label: t('subjectOptions.career') },
+                      { value: 'support', label: t('subjectOptions.support') }
                     ]}
-                    placeholder="件名を選択してください"
+                    placeholder={t('subjectPlaceholder')}
                   />
                 </div>
               </div>
@@ -251,7 +253,7 @@ export default function ContactSection() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                    会社名
+                    {t('labels.company')}
                   </label>
                   <input
                     ref={el => { inputRefs.current[1] = el }}
@@ -266,7 +268,7 @@ export default function ContactSection() {
                 
                 <div>
                   <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                    メールアドレス
+                    {t('labels.email')}
                   </label>
                   <input
                     ref={el => { inputRefs.current[2] = el }}
@@ -283,7 +285,7 @@ export default function ContactSection() {
               {/* Message */}
               <div>
                 <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                  メッセージ
+                  {t('labels.message')}
                 </label>
                 <textarea
                   ref={el => { inputRefs.current[3] = el }}
@@ -304,7 +306,7 @@ export default function ContactSection() {
                   className="group flex items-center text-gray-900 hover:text-gray-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span className="text-base md:text-lg font-medium underline underline-offset-4">
-                    {isSubmitting ? '送信中...' : '送信する'}
+                    {isSubmitting ? t('submitting') : t('submit')}
                   </span>
                   {!isSubmitting && (
                     <svg

@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "title": "STARUP - Redesigning the structures of industry and culture",
+    "description": "Redesigning the structures of industry and culture. A startup creating the future through AI technology and innovation.",
+    "ogDescription": "Redesigning the structures of industry and culture.",
+    "keywords": "startup,AI,technology,innovation,DX,digital transformation"
+  },
+  "nav": {
+    "about": "About",
+    "member": "Member",
+    "service": "Service",
+    "news": "News",
+    "career": "Career",
+    "contact": "Contact",
+    "openMenu": "Open menu"
+  },
+  "breadcrumb": {
+    "news": "News",
+    "about": "About",
+    "service": "Service",
+    "member": "Member",
+    "recruit": "Career",
+    "contact": "Contact",
+    "newsDetail": "Article"
+  },
+  "footer": {
+    "infoSecurityPolicy": "Information Security Policy",
+    "recruitmentDisclosure": "Paid Job Placement Business Disclosure"
+  },
+  "data": {
+    "members": {
+      "yuto-ogata": {
+        "name": "Yuto Ogata",
+        "position": "CEO",
+        "description": "Founded an education media company in his first year at Kyoto University. He then worked in sales consulting for manufacturing, as a PM in a trading company's new business division, and in customer success at a staffing company."
+      },
+      "takehiro-kikkawa": {
+        "name": "Takehiro Kikkawa",
+        "position": "Director, CPO/CSO",
+        "description": "Worked on non-financial disclosure and back-office improvement at a data science venture. Also led projects such as creating university environmental reports and disclosing GHG emissions for restaurants."
+      },
+      "yuki-tanaka": {
+        "name": "Yuki Tanaka",
+        "position": "Executive Officer / CTO",
+        "description": "After working as a PM and lead engineer at several companies including major IT firms, he handled dozens of projects as a freelance engineer. He has launched new businesses using generative AI, improved operations, and built systems."
+      },
+      "daigo-fujii": {
+        "name": "Daigo Fujii",
+        "position": "Executive Officer, Head of Corporate",
+        "description": "Graduate of Kyoto University's Faculty of Economics. After doing business development at a Kyoto startup, he handled sourcing and investment/partnership review in the M&A and alliance division of a listed company. At STARUP he leads accounting and finance, including two rounds of bank financing."
+      },
+      "naoki-kadokura": {
+        "name": "Naoki Kadokura",
+        "position": "Head of AI Solutions Division & PM Lead",
+        "description": "Graduate of Kyoto University's Graduate School of Informatics. After founding an engineering club at Kyoto University, he joined STAR UP as an early member. He honed his data analysis skills as a data specialist at Recruit before returning to STAR UP. He now leads the AI Solutions Division, driving the real-world deployment of diverse field data from manufacturing to government."
+      },
+      "haruki-kimura": {
+        "name": "Haruki Kimura",
+        "position": "Executive Officer / CEO of ARCHAIVE Business",
+        "description": "Graduate of Kyoto University's Faculty of Engineering. During his studies he experienced new business development and sales/CS in the staffing business. At STARUP he launched the SaaS business and now leads sales, including building the sales organization and devising sales strategy."
+      },
+      "jiho-ryu": {
+        "name": "Jiho Ryu",
+        "position": "ARCHAIVE Development Lead",
+        "description": "Graduate of the Department of Informatics, Faculty of Engineering, Kyoto University. As ARCHAIVE development lead, he drives everything from product-wide requirements definition and task allocation to engineers, to highly complex implementation."
+      },
+      "shota-yamashita": {
+        "name": "Shota Yamashita",
+        "position": "ARCHAIVE Product Manager",
+        "description": "Graduate of the Department of Architecture, Faculty of Engineering, Kyoto University. He switched from architecture to engineering and joined STARUP after training in India. His strength is the speed of completing both design and implementation single-handedly."
+      },
+      "shunsuke-kimura": {
+        "name": "Shunsuke Kimura",
+        "position": "SEND AI Product Manager",
+        "description": "Graduate of the Department of Informatics, Faculty of Engineering, Kyoto University. Joined as a new graduate in April 2026. As a PM in the AI Solutions Division, he is the product owner of SEND AI (order-optimization AI for the retail industry)."
+      },
+      "namiki-chikusa": {
+        "name": "Namiki Chikusa",
+        "position": "SEND AI Development Lead",
+        "description": "Graduate of the Department of Informatics, Faculty of Engineering, Kyoto University. Joined as a new graduate in April 2026. He handles the backend design and AI implementation of SEND AI (order-optimization AI for the retail industry)."
+      },
+      "sota-nagai": {
+        "name": "Sota Nagai",
+        "position": "ARCHAIVE Sales",
+        "description": "Graduate of Kokugakuin University. Joined STAR UP after reconnecting with Haruki Kimura, and handles sales for ARCHAIVE (an AI platform for manufacturing). Persistently visiting sites mainly across the Kansai region, he is expanding the Kanto market from the Tokyo office scheduled to open in fiscal 2026. His nickname is \"Kevin.\""
+      }
+    }
+  }
+}
