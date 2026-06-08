@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Select from '@/components/ui/Select'
@@ -19,6 +20,7 @@ export default function RecruitApplyFormSection({
   positions = [],
   initialPosition = '',
 }: RecruitApplyFormSectionProps) {
+  const t = useTranslations('sections.recruit.apply')
   const t = useTranslations('sections.recruit.apply')
   const [formData, setFormData] = useState({
     name: '',
@@ -288,7 +290,13 @@ export default function RecruitApplyFormSection({
                     name="position"
                     value={formData.position}
                     onChange={(value) => handleSelectChange('position', value)}
-                    options={positionOptions}
+                    options={[
+                      { value: 'frontend', label: 'フロントエンドエンジニア' },
+                      { value: 'backend', label: 'バックエンドエンジニア' },
+                      { value: 'pm', label: 'プロダクトマネージャー' },
+                      { value: 'designer', label: 'デザイナー' },
+                      { value: 'other', label: 'その他' }
+                    ]}
                     placeholder={t('positionPlaceholder')}
                     required
                   />

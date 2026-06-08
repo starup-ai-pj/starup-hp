@@ -10,6 +10,10 @@ interface RecruitApplyPageProps {
   searchParams: Promise<{ position?: string }>
 }
 
+interface RecruitApplyPageProps {
+  params: Promise<{ locale: string }>
+}
+
 export const metadata: Metadata = {
   title: '採用応募フォーム | STARUP',
   description:
@@ -43,7 +47,6 @@ export default async function RecruitApplyPage({ params, searchParams }: Recruit
   const { position } = await searchParams
   const recruits = await getAllRecruitsForList()
   const positions = recruits.map((r) => r.title)
-
   return (
     <div className="min-h-screen">
       <Header />
