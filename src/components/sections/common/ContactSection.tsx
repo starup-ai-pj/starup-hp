@@ -4,6 +4,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { companySNS } from '@/data/company'
 import Select from '@/components/ui/Select'
+import { sourceOptions } from '@/data/sourceOptions'
 import toast from 'react-hot-toast'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -14,6 +15,7 @@ export default function ContactSection() {
     company: '',
     subject: '',
     email: '',
+    source: '',
     message: ''
   })
 
@@ -70,6 +72,7 @@ export default function ContactSection() {
           company: '',
           subject: '',
           email: '',
+          source: '',
           message: '',
         })
       } else {
@@ -278,6 +281,20 @@ export default function ContactSection() {
                     className="w-full border-0 border-b border-gray-300 bg-transparent py-3 text-gray-900 placeholder-gray-400 focus:border-gray-600 focus:outline-none focus:ring-0"
                   />
                 </div>
+              </div>
+
+              {/* Source */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                  当社を知ったきっかけ
+                </label>
+                <Select
+                  name="source"
+                  value={formData.source}
+                  onChange={(value) => handleSelectChange('source', value)}
+                  options={sourceOptions}
+                  placeholder="選択してください"
+                />
               </div>
 
               {/* Message */}
