@@ -15,6 +15,7 @@ async function sendSlackNotification(data: {
   company: string
   subject: string
   email: string
+  source: string
   message: string
   notionPageUrl: string
   notionPageId: string
@@ -71,7 +72,7 @@ async function sendSlackNotification(data: {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: `*氏名:* ${data.name}\n\n*会社名:* ${data.company || '未記入'}\n\n*メールアドレス:* ${data.email}\n\n*受信日時:* ${timestamp}`
+          text: `*氏名:* ${data.name}\n\n*会社名:* ${data.company || '未記入'}\n\n*メールアドレス:* ${data.email}\n\n*知ったきっかけ:* ${data.source || '未選択'}\n\n*受信日時:* ${timestamp}`
         }
       },
       {
@@ -134,9 +135,9 @@ async function sendSlackNotification(data: {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, company, subject, email, message } = body
+    const { name, company, subject, email, source, message } = body
 
-    console.log('Received data:', { name, company, subject, email, message })
+    console.log('Received data:', { name, company, subject, email, source, message })
 
     // バリデーション
     if (!name || !email || !message) {
@@ -193,6 +194,15 @@ export async function POST(request: NextRequest) {
             },
           ],
         },
+        source: {
+          rich_text: [
+            {
+              text: {
+                content: source || '',
+              },
+            },
+          ],
+        },
         message: {
           rich_text: [
             {
@@ -216,6 +226,7 @@ export async function POST(request: NextRequest) {
       company,
       subject,
       email,
+      source,
       message,
       notionPageUrl,
       notionPageId: notionResponse.id
