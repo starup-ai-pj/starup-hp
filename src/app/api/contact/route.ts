@@ -135,9 +135,23 @@ async function sendSlackNotification(data: {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, company, subject, email, source, message } = body
+    const { name, company, subject, email, source, message, website, elapsedMs } = body
 
     console.log('Received data:', { name, company, subject, email, source, message })
+
+    // botスパム対策: ハニーポット（人間は入力しない隠しフィールド）に値があれば
+    // 成功を装ってこっそり弾く（Notion保存・Slack通知は行わない）
+    if (website) {
+      console.warn('Honeypot triggered, dropping submission silently')
+      return NextResponse.json({ success: true }, { status: 200 })
+    }
+
+    // botスパム対策: フォーム表示から送信までが短すぎる（3秒未満）場合も弾く
+    const MIN_ELAPSED_MS = 3000
+    if (typeof elapsedMs === 'number' && elapsedMs < MIN_ELAPSED_MS) {
+      console.warn(`Submission too fast (${elapsedMs}ms), dropping submission silently`)
+      return NextResponse.json({ success: true }, { status: 200 })
+    }
 
     // バリデーション
     if (!name || !email || !message) {
