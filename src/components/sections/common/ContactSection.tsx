@@ -16,10 +16,19 @@ export default function ContactSection() {
     subject: '',
     email: '',
     source: '',
-    message: ''
+    message: '',
+    // ハニーポット: 人間は入力しない隠しフィールド（botが埋めると弾く）
+    website: ''
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  // フォーム表示時刻（送信が早すぎる＝botを判定するため）
+  const formLoadedAtRef = useRef<number>(0)
+
+  useEffect(() => {
+    formLoadedAtRef.current = Date.now()
+  }, [])
 
   const titleRef = useRef<HTMLHeadingElement>(null)
   const sectionRef = useRef<HTMLElement>(null)
@@ -54,12 +63,15 @@ export default function ContactSection() {
     setIsSubmitting(true)
 
     try {
+      // フォーム表示からの経過ミリ秒（短すぎる送信はbotとして弾く）
+      const elapsedMs = Date.now() - formLoadedAtRef.current
+
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, elapsedMs }),
       })
 
       const data = await response.json()
@@ -74,6 +86,7 @@ export default function ContactSection() {
           email: '',
           source: '',
           message: '',
+          website: '',
         })
       } else {
         toast.error(data.error || '送信に失敗しました。もう一度お試しください。')
@@ -214,6 +227,20 @@ export default function ContactSection() {
             <h3 ref={titleRef} className="text-xl md:text-2xl text-gray-600 mb-6 md:mb-8">Say hello</h3>
             
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Honeypot: 画面外に隠したbot用トラップ（人間は触れない） */}
+              <div aria-hidden="true" className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden" style={{ pointerEvents: 'none' }}>
+                <label htmlFor="website">Website</label>
+                <input
+                  id="website"
+                  type="text"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleInputChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               {/* Name and Subject Row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
