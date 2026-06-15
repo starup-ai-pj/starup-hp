@@ -10,9 +10,9 @@ const dataSourceId = process.env.NOTION_RECRUIT_DATA_SOURCE_ID
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, email, phone, position, portfolio, message } = body
+    const { name, email, phone, position, portfolio, source, message } = body
 
-    console.log('Received recruit data:', { name, email, phone, position, portfolio, message })
+    console.log('Received recruit data:', { name, email, phone, position, portfolio, source, message })
 
     // バリデーション
     if (!name || !email || !phone || !position || !message) {
@@ -65,6 +65,15 @@ export async function POST(request: NextRequest) {
         },
         portfolio: {
           url: portfolio || null,
+        },
+        source: {
+          rich_text: [
+            {
+              text: {
+                content: source || '',
+              },
+            },
+          ],
         },
         message: {
           rich_text: [

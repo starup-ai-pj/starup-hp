@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Select from '@/components/ui/Select'
+import { sourceOptions } from '@/data/sourceOptions'
 import toast from 'react-hot-toast'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -27,6 +28,7 @@ export default function RecruitApplyFormSection({
     position: initialPosition,
     resume: null as File | null,
     portfolio: '',
+    source: '',
     message: ''
   })
 
@@ -93,6 +95,7 @@ export default function RecruitApplyFormSection({
           phone: formData.phone,
           position: formData.position,
           portfolio: formData.portfolio,
+          source: formData.source,
           message: formData.message,
         }),
       })
@@ -107,6 +110,7 @@ export default function RecruitApplyFormSection({
           position: '',
           resume: null,
           portfolio: '',
+          source: '',
           message: '',
         })
       } else {
@@ -306,6 +310,20 @@ export default function RecruitApplyFormSection({
                   onChange={handleInputChange}
                   placeholder={typedPlaceholders[3]}
                   className="w-full border-0 border-b border-gray-300 bg-transparent py-3 text-gray-900 placeholder-gray-400 focus:border-gray-600 focus:outline-none focus:ring-0"
+                />
+              </div>
+
+              {/* Source */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                  当社の求人を知ったきっかけ
+                </label>
+                <Select
+                  name="source"
+                  value={formData.source}
+                  onChange={(value) => handleSelectChange('source', value)}
+                  options={sourceOptions}
+                  placeholder="選択してください"
                 />
               </div>
 

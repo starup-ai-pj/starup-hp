@@ -5,6 +5,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { companySNS } from '@/data/company'
 import Select from '@/components/ui/Select'
+import { sourceOptions } from '@/data/sourceOptions'
 import toast from 'react-hot-toast'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -16,10 +17,20 @@ export default function ContactSection() {
     company: '',
     subject: '',
     email: '',
-    message: ''
+    source: '',
+    message: '',
+    // ハニーポット: 人間は入力しない隠しフィールド（botが埋めると弾く）
+    website: ''
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  // フォーム表示時刻（送信が早すぎる＝botを判定するため）
+  const formLoadedAtRef = useRef<number>(0)
+
+  useEffect(() => {
+    formLoadedAtRef.current = Date.now()
+  }, [])
 
   const titleRef = useRef<HTMLHeadingElement>(null)
   const sectionRef = useRef<HTMLElement>(null)
@@ -54,12 +65,15 @@ export default function ContactSection() {
     setIsSubmitting(true)
 
     try {
+      // フォーム表示からの経過ミリ秒（短すぎる送信はbotとして弾く）
+      const elapsedMs = Date.now() - formLoadedAtRef.current
+
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, elapsedMs }),
       })
 
       if (response.ok) {
@@ -70,7 +84,9 @@ export default function ContactSection() {
           company: '',
           subject: '',
           email: '',
+          source: '',
           message: '',
+          website: '',
         })
       } else {
         toast.error(t('toast.error'))
@@ -211,6 +227,20 @@ export default function ContactSection() {
             <h3 ref={titleRef} className="text-xl md:text-2xl text-gray-600 mb-6 md:mb-8">{t('formTitle')}</h3>
             
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Honeypot: 画面外に隠したbot用トラップ（人間は触れない） */}
+              <div aria-hidden="true" className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden" style={{ pointerEvents: 'none' }}>
+                <label htmlFor="website">Website</label>
+                <input
+                  id="website"
+                  type="text"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleInputChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               {/* Name and Subject Row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -278,6 +308,20 @@ export default function ContactSection() {
                     className="w-full border-0 border-b border-gray-300 bg-transparent py-3 text-gray-900 placeholder-gray-400 focus:border-gray-600 focus:outline-none focus:ring-0"
                   />
                 </div>
+              </div>
+
+              {/* Source */}
+              <div>
+                <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                  当社を知ったきっかけ
+                </label>
+                <Select
+                  name="source"
+                  value={formData.source}
+                  onChange={(value) => handleSelectChange('source', value)}
+                  options={sourceOptions}
+                  placeholder="選択してください"
+                />
               </div>
 
               {/* Message */}
