@@ -45,7 +45,7 @@ const companyProfileAssets: CompanyProfileAsset[] = [
   { id: 'bank', label: 'Bank', lineCount: 4 },
 ]
 
-const partnerCount = 12
+const partnerCount = 11
 
 /** 指定 locale の会社情報（ラベル + 翻訳済みの行）を返す（Server Component 用） */
 export async function getCompanyProfile(locale: string): Promise<CompanyInfoItem[]> {
