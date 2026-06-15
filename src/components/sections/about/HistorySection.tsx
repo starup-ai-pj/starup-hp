@@ -2,13 +2,15 @@
 
 import { useEffect, useRef, useState } from 'react'
 // import Image from 'next/image' // Historyの画像が揃うまで非表示
+import { useTranslations } from 'next-intl'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { historyData, type HistoryEvent } from '@/data/history'
+import { type HistoryEvent } from '@/data/history'
 
 gsap.registerPlugin(ScrollTrigger)
 
-export default function HistorySection() {
+export default function HistorySection({ events }: { events: HistoryEvent[] }) {
+  const t = useTranslations('sections.about.history')
   const sectionRef = useRef<HTMLElement>(null)
   const timelineRef = useRef<HTMLDivElement>(null)
   const lineRef = useRef<HTMLDivElement>(null)
@@ -105,10 +107,10 @@ export default function HistorySection() {
         {/* Header */}
         <div className="mb-16 md:mb-24">
           <p className="text-sm lg:text-base text-gray-600 mb-2">
-            私たちの歩み
+            {t('lead')}
           </p>
           <p className="text-2xl md:text-3xl lg:text-6xl">
-            History
+            {t('heading')}
           </p>
         </div>
 
@@ -124,7 +126,7 @@ export default function HistorySection() {
             />
           </div>
 
-          {historyData.map((event, index) => {
+          {events.map((event, index) => {
             const isEven = index % 2 === 0
             // Image offset: how much it crosses the center line (in %) — Historyの画像が揃うまで未使用
             // const imageOverlap = [20, 25, 15, 22, 18, 28, 20][index % 7]

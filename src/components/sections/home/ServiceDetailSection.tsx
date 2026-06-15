@@ -1,10 +1,13 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { useTranslations } from "next-intl"
 import TransitionLink from "@/components/ui/TransitionLink"
-import { homeServiceSummaries } from "@/data/services"
+import { homeServiceSummaryAssets } from "@/data/services"
 
 export default function ServiceDetailSection() {
+  const t = useTranslations("data.services.homeServiceSummaries")
+  const tSection = useTranslations("sections.service")
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const mobileIframeRef = useRef<HTMLIFrameElement>(null)
   const articlesRef = useRef<(HTMLElement | null)[]>([])
@@ -40,7 +43,7 @@ export default function ServiceDetailSection() {
         })
 
         // service index → 3D layer index (service 01 = 一番上の層 = l=LAYER-1)
-        const layer = maxIdx === -1 ? -1 : homeServiceSummaries.length - 1 - maxIdx
+        const layer = maxIdx === -1 ? -1 : homeServiceSummaryAssets.length - 1 - maxIdx
         sendFocus(layer)
       },
       { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] }
@@ -104,13 +107,13 @@ export default function ServiceDetailSection() {
             {/* セクションヘッダー: 最初の画面に被せる */}
             <div className="lg:min-h-screen flex flex-col justify-center py-16 lg:py-0">
               <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 mb-4">
-                Services / {String(homeServiceSummaries.length).padStart(2, "0")}
+                Services / {String(homeServiceSummaryAssets.length).padStart(2, "0")}
               </span>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.05] tracking-tight mb-6">
-                AIで、現場の<br />意思決定を変える。
+                {tSection.rich("home.headline", { br: () => <br /> })}
               </h2>
               <p className="text-base md:text-lg text-white/60 leading-relaxed max-w-md">
-                3つのプロダクトで、企業の中で散らばっていたデータを意味あるネットワークに繋ぎ直す。
+                {tSection("home.lead")}
               </p>
               <div className="mt-10 inline-flex items-center gap-3 text-xs font-mono uppercase tracking-[0.3em] text-white/40">
                 <span className="block w-10 h-px bg-white/30" />
@@ -119,7 +122,7 @@ export default function ServiceDetailSection() {
             </div>
 
             {/* 各サービス: 1画面分づつ縦に積む */}
-            {homeServiceSummaries.map((service, idx) => (
+            {homeServiceSummaryAssets.map((service, idx) => (
               <article
                 key={service.index}
                 ref={(el) => {
@@ -129,37 +132,37 @@ export default function ServiceDetailSection() {
               >
                 <div className="flex items-baseline gap-3 mb-6">
                   <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">
-                    {service.index} / {String(homeServiceSummaries.length).padStart(2, "0")}
+                    {service.index} / {String(homeServiceSummaryAssets.length).padStart(2, "0")}
                   </span>
                   <span className="block w-8 h-px bg-white/20" />
                 </div>
 
                 <p className="text-xs md:text-sm uppercase tracking-[0.2em] text-white/50 mb-3">
-                  {service.subtitle}
+                  {t(`${service.id}.subtitle`)}
                 </p>
 
                 <h3 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight mb-6 leading-[0.95]">
-                  {service.title}
+                  {t(`${service.id}.title`)}
                 </h3>
 
                 <p className="text-base md:text-lg text-white/70 leading-relaxed mb-10 max-w-md">
-                  {service.description}
+                  {t(`${service.id}.description`)}
                 </p>
 
                 {/* features */}
                 <div className="space-y-5 mb-10">
-                  {service.features.map((group, j) => (
+                  {Array.from({ length: service.featureGroupCount }, (_, j) => (
                     <div key={j} className="grid grid-cols-12 gap-4 items-baseline">
                       <p className="col-span-3 font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 pt-1">
-                        {group.label}
+                        {t(`${service.id}.features.${j}.label`)}
                       </p>
                       <ul className="col-span-9 space-y-1.5">
-                        {group.items.map((item, k) => (
+                        {Array.from({ length: service.featureItemCounts[j] }, (_, k) => (
                           <li
                             key={k}
                             className="text-sm md:text-base text-white/85 leading-snug"
                           >
-                            {item}
+                            {t(`${service.id}.features.${j}.items.${k}`)}
                           </li>
                         ))}
                       </ul>
@@ -171,7 +174,7 @@ export default function ServiceDetailSection() {
                   href={service.href}
                   className="group inline-flex items-center gap-3 text-sm border-b border-white/80 pb-1.5 hover:gap-5 transition-all duration-300 self-start"
                 >
-                  詳細を見る
+                  {tSection("viewDetails")}
                   <svg
                     className="w-4 h-4"
                     fill="none"

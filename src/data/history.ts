@@ -1,3 +1,5 @@
+import { getTranslations } from 'next-intl/server'
+
 /**
  * 会社沿革（About ページの History セクション）
  */
@@ -9,39 +11,34 @@ export interface HistoryEvent {
   image: string
 }
 
-export const historyData: HistoryEvent[] = [
-  {
-    year: '2023',
-    month: '11',
-    title: '創業',
-    description: '京都にて創業',
-    image: '/images/about/company.jpg',
-  },
-  {
-    year: '2024',
-    month: '03',
-    title: 'AI開発事業開始',
-    description: '受託開発を中心に開発事業をスタート',
-    image: '/images/tech-cards/tech-01.jpg',
-  },
-  {
-    year: '2025',
-    month: '01',
-    title: 'Archaive β版ローンチ',
-    description: '製造業向けAIプロダクトの提供を開始',
-    image: '/images/services/archaive/hero.jpg',
-  },
-  {
-    year: '2026',
-    month: '01',
-    title: 'Send AI ローンチ',
-    description: 'アパレル・小売向けAIプロダクトの提供を開始',
-    image: '/images/services/sendai/thumbnail.jpg',
-  },
-  {
-    year: '2026',
-    month: '04',
-    title: '正社員10名体制へ拡大',
-    image: '/images/recruit/office-history.jpg',
-  },
+/**
+ * 沿革の非翻訳構造（id・年月・画像・description の有無）。
+ * 翻訳対象の title / description はメッセージ data.history.<id> に置く。
+ */
+interface HistoryAsset {
+  id: string
+  year: string
+  month: string
+  image: string
+  hasDescription: boolean
+}
+
+const historyAssets: HistoryAsset[] = [
+  { id: 'founding', year: '2023', month: '11', image: '/images/about/company.jpg', hasDescription: true },
+  { id: 'ai-development', year: '2024', month: '03', image: '/images/tech-cards/tech-01.jpg', hasDescription: true },
+  { id: 'archaive-beta', year: '2025', month: '01', image: '/images/services/archaive/hero.jpg', hasDescription: true },
+  { id: 'sendai-launch', year: '2026', month: '01', image: '/images/services/sendai/thumbnail.jpg', hasDescription: true },
+  { id: 'team-expansion', year: '2026', month: '04', image: '/images/recruit/office-history.jpg', hasDescription: false },
 ]
+
+/** 指定 locale の沿革（年月・画像 + 翻訳済みの title/description）を返す（Server Component 用） */
+export async function getHistory(locale: string): Promise<HistoryEvent[]> {
+  const t = await getTranslations({ locale, namespace: 'data.history' })
+  return historyAssets.map((asset) => ({
+    year: asset.year,
+    month: asset.month,
+    image: asset.image,
+    title: t(`${asset.id}.title`),
+    description: asset.hasDescription ? t(`${asset.id}.description`) : undefined,
+  }))
+}

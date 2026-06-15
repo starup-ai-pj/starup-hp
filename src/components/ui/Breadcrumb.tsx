@@ -1,7 +1,8 @@
 'use client'
 
 import TransitionLink from '@/components/ui/TransitionLink'
-import { usePathname } from 'next/navigation'
+import { usePathname } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 
 interface BreadcrumbItem {
@@ -13,8 +14,12 @@ interface BreadcrumbProps {
   isDarkBackground?: boolean
 }
 
+const KNOWN_SEGMENTS = ['news', 'about', 'service', 'member', 'recruit', 'contact'] as const
+
 export default function Breadcrumb({ isDarkBackground = false }: BreadcrumbProps) {
+  // locale プレフィックスを除いたパスを返す ("/en/about" でも "/about")
   const pathname = usePathname()
+  const t = useTranslations('breadcrumb')
 
   const breadcrumbs = useMemo(() => {
     const pathSegments = pathname.split('/').filter(Boolean)
@@ -22,44 +27,24 @@ export default function Breadcrumb({ isDarkBackground = false }: BreadcrumbProps
 
     // パスからブレッドクラムを生成（Homeは含めない）
     let currentPath = ''
-    pathSegments.forEach((segment) => {
+    pathSegments.forEach((segment, index) => {
       currentPath += `/${segment}`
-      
-      // セグメントをラベルに変換
-      let label = segment
-      switch (segment) {
-        case 'news':
-          label = 'ニュース'
-          break
-        case 'about':
-          label = '会社概要'
-          break
-        case 'service':
-          label = 'サービス'
-          break
-        case 'member':
-          label = 'メンバー'
-          break
-        case 'recruit':
-          label = 'キャリア'
-          break
-        case 'contact':
-          label = 'お問い合わせ'
-          break
-        default:
-          // ニュース詳細ページの場合、簡潔なラベルを表示
-          if (pathSegments[pathSegments.indexOf(segment) - 1] === 'news') {
-            label = '記事詳細'
-          } else {
-            label = segment.charAt(0).toUpperCase() + segment.slice(1)
-          }
+
+      let label: string
+      if ((KNOWN_SEGMENTS as readonly string[]).includes(segment)) {
+        label = t(segment)
+      } else if (pathSegments[index - 1] === 'news') {
+        // ニュース詳細ページの場合、簡潔なラベルを表示
+        label = t('newsDetail')
+      } else {
+        label = segment.charAt(0).toUpperCase() + segment.slice(1)
       }
 
       items.push({ label, href: currentPath })
     })
 
     return items
-  }, [pathname])
+  }, [pathname, t])
 
   // ホームページの場合はパンくずを表示しない
   if (pathname === '/') {

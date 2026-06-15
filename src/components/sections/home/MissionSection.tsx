@@ -1,7 +1,9 @@
+import { getTranslations } from "next-intl/server"
 import TransitionLink from "@/components/ui/TransitionLink"
 import TypingText from "@/components/ui/TypingText"
 
-export default function MissionSection() {
+export default async function MissionSection({ locale }: { locale: string }) {
+    const t = await getTranslations({ locale, namespace: 'sections.home.mission' })
 
     return (
     <section
@@ -9,11 +11,11 @@ export default function MissionSection() {
         data-bg="light"
     >
       <div className="max-w-[1500px] mx-auto px-4">
-        <h2 className="text-4xl md:text-7xl text-gray-900 leading-relaxed">Mission</h2>
+        <h2 className="text-4xl md:text-7xl text-gray-900 leading-relaxed">{t('heading')}</h2>
         <div className="my-8 md:my-16">
-          <p className="text-sm lg:text-base text-gray-600">産業と文化の構造を再構築する。</p>
+          <p className="text-sm lg:text-base text-gray-600">{t('lead')}</p>
           <TypingText
-            text="Redesigning the structures of industry and culture."
+            text={t('statement')}
             className="text-2xl md:text-3xl lg:text-6xl"
           />
         </div>
@@ -31,7 +33,7 @@ export default function MissionSection() {
             href="/about"
             className="text-sm text-gray-800 hover:text-black transition-colors font-medium flex items-center gap-2 border-b border-gray-300 hover:border-black pb-1"
           >
-            Learn More About Us
+            {t('learnMore')}
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>

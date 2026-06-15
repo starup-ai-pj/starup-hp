@@ -1,37 +1,25 @@
+import { getTranslations } from 'next-intl/server'
 import TransitionLink from '@/components/ui/TransitionLink'
 
 const LINKS = [
-  {
-    href: '/recruit/culture',
-    eyebrow: 'Culture',
-    title: 'カルチャーを知る',
-    description: 'Mission・Vision・Valueと、私たちの働き方をご紹介します。',
-  },
-  {
-    href: '/member',
-    eyebrow: 'Member',
-    title: 'メンバーを知る',
-    description: '一緒に働くチームメンバーとインタビュー記事をご覧ください。',
-  },
-  {
-    href: '/recruit/jobs',
-    eyebrow: 'Jobs',
-    title: '募集職種を見る',
-    description: '現在募集中のポジションをご確認ください。',
-  },
-]
+  { href: '/recruit/culture', eyebrow: 'Culture', key: 'culture' },
+  { href: '/member', eyebrow: 'Member', key: 'member' },
+  { href: '/recruit/jobs', eyebrow: 'Jobs', key: 'jobs' },
+] as const
 
-export default function ExploreLinks() {
+export default async function ExploreLinks({ locale }: { locale: string }) {
+  const t = await getTranslations({ locale, namespace: 'sections.news.explore' })
+
   return (
     <section className="py-20 md:py-32">
       <div className="max-w-[1500px] mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 md:mb-16">
           <div className="lg:col-span-2">
-            <span className="text-xs text-gray-400 uppercase tracking-widest">Explore</span>
+            <span className="text-xs text-gray-400 uppercase tracking-widest">{t('eyebrow')}</span>
           </div>
           <div className="lg:col-span-8">
             <h2 className="text-3xl md:text-5xl font-medium text-gray-900">
-              STAR UPをもっと知る
+              {t('heading')}
             </h2>
           </div>
           <div className="lg:col-span-2"></div>
@@ -48,11 +36,11 @@ export default function ExploreLinks() {
                 {link.eyebrow}
               </p>
               <h3 className="text-xl font-medium text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
-                {link.title}
+                {t(`links.${link.key}.title`)}
               </h3>
-              <p className="text-sm text-gray-500 mb-6">{link.description}</p>
+              <p className="text-sm text-gray-500 mb-6">{t(`links.${link.key}.description`)}</p>
               <span className="inline-flex items-center gap-2 text-sm text-gray-900 border-b border-gray-900 pb-1 group-hover:gap-3 transition-all duration-300">
-                View more
+                {t('viewMore')}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"

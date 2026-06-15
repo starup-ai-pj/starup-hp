@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import TransitionLink from '@/components/ui/TransitionLink'
 import type { Member } from '@/data/members'
 import type { Interview } from '@/lib/interview'
@@ -21,10 +22,11 @@ function isInterviewer(speaker: string): boolean {
 }
 
 export default function MemberDetailSection({ member, interview, otherMembers }: MemberDetailSectionProps) {
+  const t = useTranslations('sections.member.detail')
   const profileRows = [
-    { label: '役職', value: member.position },
-    { label: '氏名', value: `${member.name}${member.englishName ? ` / ${member.englishName}` : ''}` },
-    { label: '経歴', value: member.description },
+    { label: t('profileLabels.position'), value: member.position },
+    { label: t('profileLabels.name'), value: `${member.name}${member.englishName ? ` / ${member.englishName}` : ''}` },
+    { label: t('profileLabels.career'), value: member.description },
   ].filter(r => !!r.value)
 
   return (
@@ -35,7 +37,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
           {/* Mobile */}
           <div className="block lg:hidden space-y-4">
             <span className="inline-block text-xs text-gray-500 border border-gray-300 px-3 py-1 rounded">
-              Member
+              {t('badge')}
             </span>
             <h1 className="text-3xl md:text-4xl font-medium text-gray-900 leading-tight">
               {member.name}
@@ -55,7 +57,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
           <div className="hidden lg:grid grid-cols-12 gap-8">
             <div className="col-span-2">
               <span className="text-xs text-gray-500 border border-gray-300 px-3 py-1 rounded">
-                Member
+                {t('badge')}
               </span>
             </div>
             <div className="col-span-8 border-r border-gray-700 pr-8">
@@ -74,8 +76,8 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
             </div>
             <div className="col-span-2">
               <div className="text-right">
-                <div className="text-xs text-gray-400 uppercase tracking-wider">Interview</div>
-                <div className="text-xs text-gray-400 mt-1">{interview ? `${interview.sections.length} chapters` : '—'}</div>
+                <div className="text-xs text-gray-400 uppercase tracking-wider">{t('interviewLabel')}</div>
+                <div className="text-xs text-gray-400 mt-1">{interview ? t('chapters', { count: interview.sections.length }) : '—'}</div>
               </div>
             </div>
           </div>
@@ -96,8 +98,8 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
             />
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-              <span className="text-[10px] uppercase tracking-[0.3em] text-gray-400">Hero image</span>
-              <span className="text-sm text-gray-400">Coming soon</span>
+              <span className="text-[10px] uppercase tracking-[0.3em] text-gray-400">{t('heroAltEyebrow')}</span>
+              <span className="text-sm text-gray-400">{t('heroComingSoon')}</span>
             </div>
           )}
         </div>
@@ -195,7 +197,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-gray-400 text-xs">No Image</span>
+                          <span className="text-gray-400 text-xs">{t('noImage')}</span>
                         </div>
                       )}
                     </div>
@@ -211,7 +213,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
                     href="/member"
                     className="block w-full py-4 bg-gray-900 text-white text-center font-medium hover:bg-gray-800 transition-colors"
                   >
-                    メンバー一覧へ戻る
+                    {t('backToList')}
                   </TransitionLink>
                 </div>
               </div>
@@ -225,7 +227,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
         <div className="max-w-[1500px] mx-auto px-4">
           {/* Mobile */}
           <div className="block lg:hidden">
-            <h2 className="text-2xl font-medium text-gray-900 mb-8">プロフィール</h2>
+            <h2 className="text-2xl font-medium text-gray-900 mb-8">{t('profileHeading')}</h2>
             <dl className="divide-y divide-gray-200">
               {profileRows.map(r => (
                 <div key={r.label} className="py-4">
@@ -239,7 +241,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
           {/* Desktop */}
           <div className="hidden lg:grid grid-cols-12 gap-8">
             <div className="col-span-2">
-              <h2 className="text-sm text-gray-500 sticky top-24">プロフィール</h2>
+              <h2 className="text-sm text-gray-500 sticky top-24">{t('profileHeading')}</h2>
             </div>
             <div className="col-span-8">
               <dl className="divide-y divide-gray-200">
@@ -261,20 +263,20 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
         <div className="max-w-[1500px] mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="lg:col-span-2">
-              <span className="text-xs text-gray-500 uppercase tracking-wider">Join us</span>
+              <span className="text-xs text-gray-500 uppercase tracking-wider">{t('cta.eyebrow')}</span>
             </div>
             <div className="lg:col-span-8">
               <p className="text-4xl md:text-6xl lg:text-7xl font-medium text-gray-900 leading-[1.1] mb-8">
-                Work with us.
+                {t('cta.heading')}
               </p>
               <p className="text-base md:text-lg text-gray-500 max-w-2xl mb-12">
-                一緒に未来をつくる仲間を募集しています。気になるポジションがあれば、お気軽にご応募ください。
+                {t('cta.lead')}
               </p>
               <TransitionLink
                 href="/recruit/jobs"
                 className="group inline-flex items-center gap-3 text-lg md:text-xl text-gray-900 border-b border-gray-900 pb-2 hover:gap-5 transition-all duration-300"
               >
-                募集中のポジションを見る
+                {t('cta.link')}
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -295,15 +297,15 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
                 href="/recruit/culture"
                 className="group block border border-gray-200 p-8 hover:border-gray-400 transition-colors"
               >
-                <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">Culture</p>
+                <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">{t('related.culture.eyebrow')}</p>
                 <h3 className="text-lg font-medium text-gray-900 mb-2 group-hover:text-gray-700 transition-colors">
-                  私たちのカルチャーを知る
+                  {t('related.culture.title')}
                 </h3>
                 <p className="text-sm text-gray-500">
-                  STAR UPが大切にしている価値観やチームの雰囲気をご紹介します。
+                  {t('related.culture.description')}
                 </p>
                 <span className="inline-flex items-center gap-1 text-sm text-gray-800 mt-4 group-hover:gap-2 transition-all">
-                  View more
+                  {t('related.viewMore')}
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
                   </svg>
@@ -313,15 +315,15 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
                 href="/recruit"
                 className="group block border border-gray-200 p-8 hover:border-gray-400 transition-colors"
               >
-                <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">Career</p>
+                <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">{t('related.career.eyebrow')}</p>
                 <h3 className="text-lg font-medium text-gray-900 mb-2 group-hover:text-gray-700 transition-colors">
-                  Careerページを見る
+                  {t('related.career.title')}
                 </h3>
                 <p className="text-sm text-gray-500">
-                  採用情報・働き方・選考フローなど、Careerに関する情報をまとめています。
+                  {t('related.career.description')}
                 </p>
                 <span className="inline-flex items-center gap-1 text-sm text-gray-800 mt-4 group-hover:gap-2 transition-all">
-                  View more
+                  {t('related.viewMore')}
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
                   </svg>
@@ -337,18 +339,18 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
               href="/recruit/culture"
               className="group block border border-gray-200 p-6 hover:border-gray-400 transition-colors"
             >
-              <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Culture</p>
+              <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">{t('related.culture.eyebrow')}</p>
               <h3 className="text-base font-medium text-gray-900 group-hover:text-gray-700 transition-colors">
-                私たちのカルチャーを知る
+                {t('related.culture.title')}
               </h3>
             </TransitionLink>
             <TransitionLink
               href="/recruit"
               className="group block border border-gray-200 p-6 hover:border-gray-400 transition-colors"
             >
-              <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Career</p>
+              <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">{t('related.career.eyebrow')}</p>
               <h3 className="text-base font-medium text-gray-900 group-hover:text-gray-700 transition-colors">
-                Careerページを見る
+                {t('related.career.title')}
               </h3>
             </TransitionLink>
           </div>
@@ -360,8 +362,8 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
         <section className="py-12 md:py-16 bg-gray-50">
           <div className="w-full max-w-[1500px] mx-auto px-4">
             <div className="my-6 md:my-8">
-              <p className="text-sm lg:text-base text-gray-600">他のメンバーのインタビューもぜひご覧ください。</p>
-              <p className="text-3xl lg:text-6xl">Meet other members.</p>
+              <p className="text-sm lg:text-base text-gray-600">{t('others.lead')}</p>
+              <p className="text-3xl lg:text-6xl">{t('others.heading')}</p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6">
               {otherMembers.map(({ member: m, preview }) => (
@@ -380,7 +382,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
                       />
                     ) : (
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-gray-400 text-xs">No Image</span>
+                        <span className="text-gray-400 text-xs">{t('others.noImage')}</span>
                       </div>
                     )}
                   </div>
@@ -392,7 +394,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
                         <p className="text-xs text-gray-400 mb-3">{m.englishName}</p>
                       )}
                       <span className="inline-flex items-center gap-1 text-xs text-gray-900 border-b border-gray-900 pb-0.5 transition-all duration-300">
-                        Read more
+                        {t('others.readMore')}
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
@@ -403,7 +405,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
                         aria-hidden="true"
                         className="absolute inset-0 flex flex-col justify-center opacity-0 translate-y-2 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0"
                       >
-                        <span className="text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-2">From the interview</span>
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-2">{t('others.fromInterview')}</span>
                         <p className="text-sm lg:text-[15px] text-gray-800 italic leading-[1.9] line-clamp-3 pl-4 border-l-2 border-gray-900">
                           &ldquo;{preview}&rdquo;
                         </p>

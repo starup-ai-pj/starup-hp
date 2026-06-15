@@ -1,12 +1,14 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { useTranslations } from "next-intl"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function VisionSection() {
+    const t = useTranslations('sections.home.vision')
     const sectionRef = useRef<HTMLElement>(null)
     const containerRef = useRef<HTMLDivElement>(null)
     const lineRef = useRef<HTMLSpanElement>(null)
@@ -141,7 +143,7 @@ export default function VisionSection() {
                     <polyline points="7 13 12 18 17 13" />
                     <polyline points="7 6 12 11 17 6" />
                 </svg>
-                <span className="text-sm text-gray-600 uppercase tracking-wider">Scroll to explore</span>
+                <span className="text-sm text-gray-600 uppercase tracking-wider">{t('scrollPrompt')}</span>
             </div>
         </section>
     )

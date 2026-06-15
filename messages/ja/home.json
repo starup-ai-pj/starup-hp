@@ -1,0 +1,270 @@
+{
+  "sections": {
+    "home": {
+      "mission": {
+        "heading": "Mission",
+        "lead": "産業と文化の構造を再構築する。",
+        "statement": "Redesigning the structures of industry and culture.",
+        "learnMore": "Learn More About Us"
+      },
+      "vision": {
+        "scrollPrompt": "Scroll to explore"
+      },
+      "news": {
+        "eyebrow": "News",
+        "heading": "Latest Updates",
+        "viewAll": "すべて見る"
+      }
+    },
+    "common": {
+      "contact": {
+        "heading": "Let's collaborate",
+        "lead": "プロジェクトのご相談や質問はお気軽にお声がけください。",
+        "findUs": "Find us",
+        "location": "Kyoto, Japan",
+        "email": "info@starup01.jp",
+        "formTitle": "Say hello",
+        "labels": {
+          "name": "氏名",
+          "subject": "件名",
+          "company": "会社名",
+          "email": "メールアドレス",
+          "message": "メッセージ"
+        },
+        "placeholders": {
+          "name": "山田太郎",
+          "company": "株式会社XXXX",
+          "email": "example@email.com",
+          "message": "お問い合わせ内容をご記入ください..."
+        },
+        "subjectPlaceholder": "件名を選択してください",
+        "subjectOptions": {
+          "general": "お問い合わせ",
+          "business": "ビジネスパートナーシップ",
+          "career": "キャリア採用",
+          "support": "サポート"
+        },
+        "source": {
+          "label": "当社を知ったきっかけ",
+          "placeholder": "選択してください"
+        },
+        "submit": "送信する",
+        "submitting": "送信中...",
+        "toast": {
+          "success": "お問い合わせを送信しました。ありがとうございます！",
+          "error": "送信に失敗しました。もう一度お試しください。",
+          "networkError": "ネットワークエラーが発生しました。もう一度お試しください。"
+        }
+      },
+      "joinUs": {
+        "eyebrow": "Careers",
+        "heading": "Join Us",
+        "lead": "日本発のNo.1AIメーカーを作る仲間を探しています。",
+        "ctaEyebrow": "採用情報",
+        "ctaText": "一緒に未来をつくる仲間を募集中。",
+        "ctaLink": "募集中のポジションを見る"
+      }
+    },
+    "news": {
+      "list": {
+        "eyebrow": "News",
+        "heading": "Stories",
+        "lead": "STAR UPの最新の取り組みとお知らせ。",
+        "countLabel": "stories",
+        "readArticle": "Read article",
+        "empty": "記事はまだありません。"
+      },
+      "detail": {
+        "share": "Share",
+        "articleInfo": "Article Info"
+      },
+      "explore": {
+        "eyebrow": "Explore",
+        "heading": "STAR UPをもっと知る",
+        "viewMore": "View more",
+        "links": {
+          "culture": {
+            "title": "カルチャーを知る",
+            "description": "Mission・Vision・Valueと、私たちの働き方をご紹介します。"
+          },
+          "member": {
+            "title": "メンバーを知る",
+            "description": "一緒に働くチームメンバーとインタビュー記事をご覧ください。"
+          },
+          "jobs": {
+            "title": "募集職種を見る",
+            "description": "現在募集中のポジションをご確認ください。"
+          }
+        }
+      }
+    },
+    "member": {
+      "list": {
+        "eyebrow": "Team",
+        "heading": "Our Team",
+        "tagline": "Where brilliant minds converge to create the future.",
+        "groupPhotoAlt": "STARUP メンバー集合写真",
+        "allMembers": "All Members",
+        "countLabel": "members",
+        "noImage": "No Image",
+        "interview": "Interview",
+        "readMore": "Read more",
+        "fromInterview": "From the interview",
+        "career": {
+          "eyebrow": "Career",
+          "heading": "Join our team.",
+          "lead": "一緒に働きませんか。私たちは常に新しい仲間を探しています。",
+          "cta": "募集中のポジションを見る"
+        }
+      },
+      "detail": {
+        "badge": "Member",
+        "interviewLabel": "Interview",
+        "chapters": "{count} chapters",
+        "heroAltEyebrow": "Hero image",
+        "heroComingSoon": "Coming soon",
+        "noImage": "No Image",
+        "backToList": "メンバー一覧へ戻る",
+        "profileHeading": "プロフィール",
+        "profileLabels": {
+          "position": "役職",
+          "name": "氏名",
+          "career": "経歴"
+        },
+        "cta": {
+          "eyebrow": "Join us",
+          "heading": "Work with us.",
+          "lead": "一緒に未来をつくる仲間を募集しています。気になるポジションがあれば、お気軽にご応募ください。",
+          "link": "募集中のポジションを見る"
+        },
+        "related": {
+          "viewMore": "View more",
+          "culture": {
+            "eyebrow": "Culture",
+            "title": "私たちのカルチャーを知る",
+            "description": "STAR UPが大切にしている価値観やチームの雰囲気をご紹介します。"
+          },
+          "career": {
+            "eyebrow": "Career",
+            "title": "Careerページを見る",
+            "description": "採用情報・働き方・選考フローなど、Careerに関する情報をまとめています。"
+          }
+        },
+        "others": {
+          "lead": "他のメンバーのインタビューもぜひご覧ください。",
+          "heading": "Meet other members.",
+          "fromInterview": "From the interview",
+          "readMore": "Read more",
+          "noImage": "No Image"
+        }
+      }
+    },
+    "legal": {
+      "infoSecurity": {
+        "eyebrow": "情報セキュリティ基本方針",
+        "heading": "Information Security Policy",
+        "isms": {
+          "certified": "ISMS Certified",
+          "standard": "ISO/IEC<br></br>27001:2022",
+          "subtitle": "情報セキュリティマネジメントシステム",
+          "statement": "株式会社STAR UPは、お客様の情報資産を適切に保護し、信頼される事業運営を実現するため、情報セキュリティマネジメントシステム（ISMS）の国際規格である ISO/IEC 27001:2022 の認証を取得しています。",
+          "facts": {
+            "certificationBody": "Certification Body",
+            "accreditation": "Accreditation",
+            "certificateNo": "Certificate No.",
+            "soa": "Statement of Applicability",
+            "initialCertification": "Initial Certification",
+            "validUntil": "Valid Until",
+            "scope": "Scope of Certification"
+          },
+          "scopeValue": "AIを活用した共同開発・新規事業開発／AIプロダクトの開発／製造業向けAI SaaS事業／人材紹介事業"
+        },
+        "policyHeading": "情報セキュリティ基本方針",
+        "guidelinesHeading": "行動指針",
+        "guidelines": {
+          "1": "情報資産の機密性、完全性、可用性を確実に保護するために組織的、技術的に適切な対策を講じ、変化する情報技術や新たな脅威に対応する。",
+          "2": "全社員に情報セキュリティ教育の実施と方針の周知徹底をはかり、意識の向上・維持に努める。",
+          "3": "マネジメントシステム及び、情報セキュリティに関する目的を設定し、定期的にレビューし、継続的に改善を実施し、維持する。",
+          "4": "マネジメントシステムを実行・維持・改善して行くために管理責任者に責任と権限を委譲する。"
+        },
+        "enactedDate": "2025年11月19日 制定",
+        "companyName": "株式会社 STAR UP",
+        "representativeTitle": "代表取締役",
+        "representativeName": "緒方 勇斗"
+      },
+      "recruitmentDisclosure": {
+        "eyebrow": "有料職業紹介事業に基づく情報公開",
+        "heading": "Recruitment Business Disclosure",
+        "preamble": "当社は、職業安定法第32条の13および同法施行規則第24条の5に基づき、以下の項目を公開いたします。",
+        "section1": {
+          "heading": "1. 業務の運営に関する規程",
+          "scope": {
+            "heading": "■ 取扱職種の範囲等",
+            "occupation": "・取扱職種：全職種",
+            "region": "・取扱地域：日本国内"
+          },
+          "privacy": {
+            "heading": "■ 個人情報の保護に関する事項",
+            "manager": "・個人情報保護責任者：代表取締役　緒方勇斗",
+            "statement": "・当社は、求職者および求人者の個人情報を適切に管理し、本人の同意なく第三者に開示・提供することはありません。また、個人情報の開示、訂正、削除の求めには迅速に対応いたします。"
+          },
+          "purpose": {
+            "heading": "■ 個人情報の利用目的について",
+            "intro": "当社は、職業紹介業務において取得した個人情報を以下の目的で利用いたします。",
+            "item1": "・求職者への最適な求人情報の提供および進捗管理",
+            "item2": "・求人企業への紹介、選考の実施",
+            "item3": "・就業後のアフターフォローおよびアンケート実施",
+            "item4": "・法令（職業安定法等）に基づく情報の管理"
+          },
+          "fee": {
+            "heading": "■ 手数料の徴収に関する事項",
+            "statement": "・求人者（採用企業）より、あらかじめ締結した契約書に基づき手数料を徴収いたします。"
+          },
+          "complaint": {
+            "heading": "■ 苦情の処理に関する事項",
+            "manager": "・苦情処理責任者：代表取締役　緒方勇斗",
+            "statement": "・苦情の申出があった場合は、誠意をもって迅速かつ適切に処理いたします。"
+          },
+          "refund": {
+            "heading": "■ 返戻金制度に関する事項",
+            "statement": "・紹介した労働者が早期に退職した場合、手数料を返還する制度を設けています。詳細は「3. 返戻金制度」をご参照ください。"
+          },
+          "pdfLink": "・業務の運営に関する規程の詳細はこちら",
+          "pdfLabel": "（PDF）"
+        },
+        "section2": {
+          "heading": "2. 手数料表",
+          "intro": "当社が求人者（採用企業）より申し受ける手数料は、以下の通りです。",
+          "notified": {
+            "heading": "■ 届出制手数料",
+            "amount": "・手数料の額：採用決定者の想定年収の 35％（別途消費税）",
+            "note": "※想定年収とは、本採用から1年間に支払われると見込まれる賃金（基本給、諸手当、賞与を含む）の合計額を指します。"
+          },
+          "pdfLink": "・手数料表の詳細はこちら",
+          "pdfLabel": "（PDF）"
+        },
+        "section3": {
+          "heading": "3. 返戻金制度に関する事項",
+          "intro": "当社では、ご紹介した候補者が入社後に早期退職した場合、受領した紹介手数料の一部を返還する制度を設けています。",
+          "rateHeading": "■ 返還の割合（自己都合退職の場合）",
+          "rate1": "・入社後 1ヶ月以内の退職：紹介手数料の 80％",
+          "rate2": "・入社後 1ヶ月超〜3ヶ月以内の退職：紹介手数料の 50％",
+          "rate3": "・入社後 3ヶ月超〜6ヶ月以内の退職：紹介手数料の 10％",
+          "note": "※解雇、倒産、求人者の責に帰すべき事由による退職、または事前に合意した条件と著しく異なることによる退職の場合は、本制度の対象外となります。"
+        },
+        "section4": {
+          "heading": "4. 事業者情報",
+          "license": "・許可番号：26-ユ-300728",
+          "name": "・事業所名：株式会社STARUP",
+          "address": "・所在地：京都府京都市上京区甲斐守町97西陣産業創造會舘109",
+          "licenseDate": "・許可年月日：令和6年8月1日"
+        }
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "lead": "お探しのページは宇宙の彼方に消えてしまったようです。",
+    "description": "右側のポータルをクリックして、安全な場所へ帰還しましょう。"
+  }
+}

@@ -22,7 +22,7 @@ export default function Select({
   value,
   onChange,
   options,
-  placeholder = '選択してください',
+  placeholder = '',
   required = false,
   className = ''
 }: SelectProps) {

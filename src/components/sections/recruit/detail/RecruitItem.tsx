@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { RecruitListItem } from '@/lib/recruit'
 import TransitionLink from '@/components/ui/TransitionLink'
 import Image from 'next/image'
@@ -10,6 +11,7 @@ interface RecruitItemProps {
 }
 
 export default function RecruitItem({ item, showDivider = false }: RecruitItemProps) {
+  const t = useTranslations('sections.recruit.detail')
   return (
     <div>
       {/* Mobile Layout */}
@@ -59,7 +61,7 @@ export default function RecruitItem({ item, showDivider = false }: RecruitItemPr
               ))}
             </div>
             <span className="text-xs text-gray-800 group-hover:text-black transition-all duration-300 font-medium flex items-center gap-1 whitespace-nowrap">
-              READ MORE
+              {t('readMore')}
               <svg className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>

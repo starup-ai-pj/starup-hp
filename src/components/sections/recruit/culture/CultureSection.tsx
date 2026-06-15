@@ -1,20 +1,27 @@
+import { getTranslations } from 'next-intl/server'
 import TransitionLink from '@/components/ui/TransitionLink'
-import { philosophyBody, values, workStyles } from '@/data/culture'
+import { getCulture } from '@/data/culture'
 
-export default function CultureSection() {
+interface CultureSectionProps {
+  locale: string
+}
+
+export default async function CultureSection({ locale }: CultureSectionProps) {
+  const t = await getTranslations({ locale, namespace: 'sections.recruit.culture' })
+  const { philosophyBody, values, workStyles } = await getCulture(locale)
+
   return (
     <div className="bg-white">
       {/* ━━━ Opening (hero-as-text) ━━━ */}
       <section className="pt-40 pb-32 md:pt-56 md:pb-40 lg:pt-64 lg:pb-56" data-bg="light">
         <SplitLayout
-          left={<Marker label="Culture" jaLabel="カルチャー" />}
+          left={<Marker label={t('opening.label')} jaLabel={t('opening.jaLabel')} />}
         >
           <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-medium text-gray-900 leading-[0.95] tracking-tight">
-            What we<br />believe in.
+            {t.rich('opening.heading', { br: () => <br /> })}
           </h1>
           <p className="mt-10 md:mt-14 text-base md:text-lg text-gray-500 italic max-w-md leading-relaxed">
-            STARUPの文化、思想、判断軸。<br />
-            私たちがどう動き、何を選び、何を残していくか。
+            {t.rich('opening.lead', { br: () => <br /> })}
           </p>
         </SplitLayout>
       </section>
@@ -22,11 +29,13 @@ export default function CultureSection() {
       {/* ━━━ Philosophy ━━━ */}
       <section className="py-32 md:py-48 lg:py-56" data-bg="light">
         <SplitLayout
-          left={<Marker num="01" label="Philosophy" jaLabel="わたしたちの思想" />}
+          left={<Marker num="01" label={t('philosophy.label')} jaLabel={t('philosophy.jaLabel')} />}
         >
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium text-gray-900 leading-[1.15] tracking-tight mb-12 md:mb-16 max-w-[18ch]">
-            産業の意思決定を変えるための、<br />
-            <span className="text-gray-400">インフラとして。</span>
+            {t.rich('philosophy.heading', {
+              br: () => <br />,
+              span: (chunks) => <span className="text-gray-400">{chunks}</span>,
+            })}
           </h2>
           <div className="space-y-5 text-sm md:text-base text-gray-700 leading-[2] max-w-2xl">
             {philosophyBody.map((p, i) => (
@@ -39,10 +48,10 @@ export default function CultureSection() {
       {/* ━━━ Values (4 deep) ━━━ */}
       <section className="py-32 md:py-48 lg:py-56" data-bg="light">
         <SplitLayout
-          left={<Marker num="02" label="Values" jaLabel="4つの行動指針" />}
+          left={<Marker num="02" label={t('values.label')} jaLabel={t('values.jaLabel')} />}
         >
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium text-gray-900 leading-[1.15] tracking-tight mb-20 md:mb-32">
-            4 Values.
+            {t('values.heading')}
           </h2>
           <div className="space-y-24 md:space-y-32">
             {values.map((v) => (
@@ -68,11 +77,13 @@ export default function CultureSection() {
       {/* ━━━ Work Style ━━━ */}
       <section className="py-32 md:py-48 lg:py-56" data-bg="light">
         <SplitLayout
-          left={<Marker num="03" label="Work Style" jaLabel="わたしたちの働き方" />}
+          left={<Marker num="03" label={t('workStyle.label')} jaLabel={t('workStyle.jaLabel')} />}
         >
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium text-gray-900 leading-[1.15] tracking-tight mb-16 md:mb-24">
-            少数精鋭で、<br />
-            <span className="text-gray-400">本質的に。</span>
+            {t.rich('workStyle.heading', {
+              br: () => <br />,
+              span: (chunks) => <span className="text-gray-400">{chunks}</span>,
+            })}
           </h2>
           <div className="space-y-14 md:space-y-20">
             {workStyles.map((w) => (
@@ -98,13 +109,13 @@ export default function CultureSection() {
               href="/member"
               className="group block border border-gray-200 p-8 md:p-12 hover:border-gray-400 transition-colors"
             >
-              <p className="text-[10px] text-gray-400 uppercase tracking-[0.3em] mb-12 md:mb-16">Member</p>
+              <p className="text-[10px] text-gray-400 uppercase tracking-[0.3em] mb-12 md:mb-16">{t('cta.member.label')}</p>
               <h3 className="text-2xl md:text-3xl font-medium text-gray-900 mb-3 group-hover:text-gray-600 transition-colors">
-                メンバーを見る
+                {t('cta.member.title')}
               </h3>
-              <p className="text-sm text-gray-500 mb-8">一緒に働くチームメンバーを紹介します。</p>
+              <p className="text-sm text-gray-500 mb-8">{t('cta.member.body')}</p>
               <span className="inline-flex items-center gap-2 text-sm text-gray-900 border-b border-gray-900 pb-1 group-hover:gap-3 transition-all duration-300">
-                View more
+                {t('cta.viewMore')}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -115,13 +126,13 @@ export default function CultureSection() {
               href="/recruit/jobs"
               className="group block border border-gray-200 p-8 md:p-12 hover:border-gray-400 transition-colors"
             >
-              <p className="text-[10px] text-gray-400 uppercase tracking-[0.3em] mb-12 md:mb-16">Jobs</p>
+              <p className="text-[10px] text-gray-400 uppercase tracking-[0.3em] mb-12 md:mb-16">{t('cta.jobs.label')}</p>
               <h3 className="text-2xl md:text-3xl font-medium text-gray-900 mb-3 group-hover:text-gray-600 transition-colors">
-                募集中のポジション
+                {t('cta.jobs.title')}
               </h3>
-              <p className="text-sm text-gray-500 mb-8">現在募集中のポジションをご覧ください。</p>
+              <p className="text-sm text-gray-500 mb-8">{t('cta.jobs.body')}</p>
               <span className="inline-flex items-center gap-2 text-sm text-gray-900 border-b border-gray-900 pb-1 group-hover:gap-3 transition-all duration-300">
-                View more
+                {t('cta.viewMore')}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -180,4 +191,3 @@ function Marker({
     </div>
   )
 }
-

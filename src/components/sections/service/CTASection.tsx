@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { useTranslations } from "next-intl"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import TransitionLink from "@/components/ui/TransitionLink"
@@ -8,6 +9,7 @@ import TransitionLink from "@/components/ui/TransitionLink"
 gsap.registerPlugin(ScrollTrigger)
 
 export default function ServiceCTASection() {
+  const t = useTranslations("sections.service.cta")
   const sectionRef = useRef<HTMLElement>(null)
   const lineRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
@@ -41,10 +43,10 @@ export default function ServiceCTASection() {
 
         <div ref={textRef}>
           <p className="text-2xl md:text-4xl lg:text-5xl font-bold text-white leading-[1.2] tracking-tight mb-4">
-            AIの可能性を、ともに。
+            {t("headline")}
           </p>
           <p className="text-sm md:text-base text-gray-500 mb-12 md:mb-16 max-w-[400px]">
-            サービスに関するご相談・お問い合わせはこちらから。
+            {t("description")}
           </p>
           <TransitionLink
             href="/contact"

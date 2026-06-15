@@ -1,4 +1,5 @@
 import TransitionLink from '@/components/ui/TransitionLink'
+import { useTranslations } from 'next-intl'
 import { companySNS } from '@/data/company'
 
 const COMPANY_LINKS = [
@@ -20,11 +21,6 @@ const SNS_LINKS = [
   { name: 'X (Twitter)', href: companySNS.twitter },
   { name: 'note', href: companySNS.note },
   { name: 'LinkedIn', href: companySNS.linkedin },
-]
-
-const LEGAL_LINKS = [
-  { name: '情報セキュリティ基本方針', href: '/information-security-policy' },
-  { name: '有料職業紹介事業情報公開', href: '/recruitment-disclosure' },
 ]
 
 const ArrowRight = ({ className = 'w-5 h-5 md:w-6 md:h-6' }: { className?: string }) => (
@@ -56,6 +52,11 @@ const ExternalIcon = () => (
 )
 
 export default function Footer() {
+  const t = useTranslations('footer')
+  const legalLinks = [
+    { name: t('infoSecurityPolicy'), href: '/information-security-policy' },
+    { name: t('recruitmentDisclosure'), href: '/recruitment-disclosure' },
+  ]
   return (
     <footer className="relative z-10 bg-black text-white" data-bg="dark">
       <div className="max-w-[1500px] mx-auto px-4 md:px-8">
@@ -161,7 +162,7 @@ export default function Footer() {
           <div>
             <p className="text-[10px] text-gray-500 uppercase tracking-[0.3em] mb-5">Legal</p>
             <ul className="space-y-3">
-              {LEGAL_LINKS.map((link) => (
+              {legalLinks.map((link) => (
                 <li key={link.name}>
                   <TransitionLink
                     href={link.href}
