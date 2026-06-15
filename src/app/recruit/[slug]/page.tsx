@@ -25,15 +25,15 @@ export async function generateMetadata({ params }: RecruitPostPageProps): Promis
   const title = `${post.title} | STARUP 採用情報`
   const description =
     post.summary ||
-    `STARUPの${post.jobType || post.title}の募集詳細。勤務地: ${post.location || '—'}。あなたのスキルと情熱を私たちのチームで活かしませんか。`
+    `STARUPの${post.jobType[0] || post.title}の募集詳細。勤務地: ${post.location || '—'}。あなたのスキルと情熱を私たちのチームで活かしませんか。`
   const url = `/recruit/${post.id}`
   const image = post.thumbnail || '/images/recruit/hero.jpg'
 
   const keywords = [
     'STARUP 採用',
     post.title,
-    post.jobType,
-    post.category,
+    ...post.jobType,
+    ...post.category,
     post.location,
     ...(post.employmentType || []),
   ].filter(Boolean) as string[]
@@ -100,7 +100,7 @@ export default async function RecruitPostPage({ params }: RecruitPostPageProps) 
       },
     },
     ...(post.salary && { baseSalary: post.salary }),
-    ...(post.jobType && { occupationalCategory: post.jobType }),
+    ...(post.jobType.length > 0 && { occupationalCategory: post.jobType.join(', ') }),
     image: imageUrl,
     url: `${SITE_URL}/recruit/${post.id}`,
     identifier: {

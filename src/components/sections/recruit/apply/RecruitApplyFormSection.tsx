@@ -8,17 +8,34 @@ import toast from 'react-hot-toast'
 
 gsap.registerPlugin(ScrollTrigger)
 
-export default function RecruitApplyFormSection() {
+interface RecruitApplyFormSectionProps {
+  /** 応募職種の選択肢（公開中の求人タイトル一覧） */
+  positions?: string[]
+  /** 詳細ページから渡される初期選択職種 */
+  initialPosition?: string
+}
+
+export default function RecruitApplyFormSection({
+  positions = [],
+  initialPosition = '',
+}: RecruitApplyFormSectionProps) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    position: '',
+    position: initialPosition,
     resume: null as File | null,
     portfolio: '',
     source: '',
     message: ''
   })
+
+  // 求人一覧 + その他。詳細ページ由来の職種が一覧に無い場合（非公開化など）も先頭に補う。
+  const positionOptions = [
+    ...(initialPosition && !positions.includes(initialPosition) ? [initialPosition] : []),
+    ...positions,
+    'その他',
+  ].map((p) => ({ value: p, label: p }))
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -273,13 +290,7 @@ export default function RecruitApplyFormSection() {
                     name="position"
                     value={formData.position}
                     onChange={(value) => handleSelectChange('position', value)}
-                    options={[
-                      { value: 'frontend', label: 'フロントエンドエンジニア' },
-                      { value: 'backend', label: 'バックエンドエンジニア' },
-                      { value: 'pm', label: 'プロダクトマネージャー' },
-                      { value: 'designer', label: 'デザイナー' },
-                      { value: 'other', label: 'その他' }
-                    ]}
+                    options={positionOptions}
                     placeholder="選択してください"
                     required
                   />

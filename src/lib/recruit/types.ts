@@ -11,10 +11,10 @@ export interface RecruitPost {
   id: string
   title: string
   date: string
-  category: string
+  category: string[]
   summary: string
   blocks: NotionBlock[]
-  jobType: string
+  jobType: string[]
   location: string
   employmentType: string[]
   salary: string

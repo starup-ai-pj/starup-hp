@@ -14,7 +14,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const { slug } = await params
   const post = await getRecruitPostById(slug)
   const title = post?.title || '採用情報'
-  const subtitle = post?.jobType || post?.category || ''
+  const subtitle = post?.jobType?.[0] || post?.category?.[0] || ''
   const location = post?.location || ''
   const employment = (post?.employmentType || []).join(' / ')
 

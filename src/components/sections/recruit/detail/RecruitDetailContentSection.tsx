@@ -21,7 +21,10 @@ const SELECTION_STEPS = [
 
 export default function RecruitDetailContentSection({ post, allRecruits }: RecruitDetailContentSectionProps) {
   const relatedRecruits = allRecruits
-    .filter(recruit => recruit.jobType === post.jobType && recruit.id !== post.id)
+    .filter(recruit =>
+      recruit.id !== post.id &&
+      recruit.jobType.some(t => post.jobType.includes(t))
+    )
     .slice(0, 4)
 
   const badges = [
@@ -46,9 +49,15 @@ export default function RecruitDetailContentSection({ post, allRecruits }: Recru
         <div className="max-w-[1500px] mx-auto px-4">
           {/* Mobile */}
           <div className="block lg:hidden space-y-4">
-            <span className="inline-block text-xs text-gray-500 border border-gray-300 px-3 py-1 rounded">
-              {post.category}
-            </span>
+            {post.category.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {post.category.map(c => (
+                  <span key={c} className="inline-block text-xs text-gray-500 border border-gray-300 px-3 py-1 rounded">
+                    {c}
+                  </span>
+                ))}
+              </div>
+            )}
             <h1 className="text-3xl md:text-4xl font-medium text-gray-900 leading-tight">
               {post.title}
             </h1>
@@ -69,9 +78,13 @@ export default function RecruitDetailContentSection({ post, allRecruits }: Recru
           {/* Desktop */}
           <div className="hidden lg:grid grid-cols-12 gap-8">
             <div className="col-span-2">
-              <span className="text-xs text-gray-500 border border-gray-300 px-3 py-1 rounded">
-                {post.category}
-              </span>
+              <div className="flex flex-wrap gap-2">
+                {post.category.map(c => (
+                  <span key={c} className="text-xs text-gray-500 border border-gray-300 px-3 py-1 rounded">
+                    {c}
+                  </span>
+                ))}
+              </div>
             </div>
             <div className="col-span-8 border-r border-gray-700 pr-8">
               <h1 className="text-4xl lg:text-5xl font-medium text-gray-900 mb-4 leading-tight">
@@ -168,7 +181,7 @@ export default function RecruitDetailContentSection({ post, allRecruits }: Recru
 
                 {/* 応募ボタン */}
                 <TransitionLink
-                  href="/recruit/apply"
+                  href={`/recruit/apply?position=${encodeURIComponent(post.title)}`}
                   className="block w-full py-4 bg-gray-900 text-white text-center font-medium hover:bg-gray-800 transition-colors"
                 >
                   この職種に応募する
@@ -232,7 +245,7 @@ export default function RecruitDetailContentSection({ post, allRecruits }: Recru
                 私たちは常に新しい仲間を探しています。あなたのスキルと情熱で、チームに新しい風を吹き込んでください。
               </p>
               <TransitionLink
-                href="/recruit/apply"
+                href={`/recruit/apply?position=${encodeURIComponent(post.title)}`}
                 className="group inline-flex items-center gap-3 text-lg md:text-xl text-gray-900 border-b border-gray-900 pb-2 hover:gap-5 transition-all duration-300"
               >
                 この職種に応募する

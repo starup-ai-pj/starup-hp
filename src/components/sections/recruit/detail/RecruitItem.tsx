@@ -44,9 +44,11 @@ export default function RecruitItem({ item, showDivider = false }: RecruitItemPr
           {/* Tags and Read More */}
           <div className="flex justify-between items-end whitespace-nowrap">
             <div className="flex flex-wrap gap-2">
-              <span className="text-xs text-gray-500 font-medium">
-                #{item.jobType}
-              </span>
+              {item.jobType.map(t => (
+                <span key={t} className="text-xs text-gray-500 font-medium">
+                  #{t}
+                </span>
+              ))}
               <span className="text-xs text-gray-500 font-medium">
                 #{item.location}
               </span>
@@ -95,15 +97,19 @@ export default function RecruitItem({ item, showDivider = false }: RecruitItemPr
             </div>
             <div className="flex justify-between items-end whitespace-nowrap">
               <div className="flex flex-wrap gap-2">
-                <span className="text-xs text-gray-500 font-medium">
-                  #{item.jobType}
-                </span>
+                {item.jobType.map(t => (
+                  <span key={t} className="text-xs text-gray-500 font-medium">
+                    #{t}
+                  </span>
+                ))}
                 <span className="text-xs text-gray-500 font-medium">
                   #{item.location}
                 </span>
-                <span className="text-xs text-gray-500 font-medium">
-                  #{item.employmentType}
-                </span>
+                {item.employmentType.map(t => (
+                  <span key={t} className="text-xs text-gray-500 font-medium">
+                    #{t}
+                  </span>
+                ))}
               </div>
               <span className="text-xs text-gray-800 group-hover:text-black transition-all duration-300 font-medium flex items-center gap-1 whitespace-nowrap">
                 READ MORE

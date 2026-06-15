@@ -36,6 +36,25 @@ export function getMultiSelect(page: NotionPage, property: string): string[] {
   )
 }
 
+/**
+ * select / multi_select のどちらでも配列で取得する後方互換ヘルパー
+ * Notion 側でプロパティ型を単一選択→複数選択へ移行している最中でも値を失わない。
+ * - multi_select: 選択名の配列をそのまま返す
+ * - select: 選択名を要素1つの配列にして返す（未選択は空配列）
+ */
+export function getSelectOrMultiSelect(
+  page: NotionPage,
+  property: string
+): string[] {
+  const prop = page.properties[property]
+  if (!prop) return []
+  if (Array.isArray(prop.multi_select)) {
+    return prop.multi_select.map((item: { name: string }) => item.name)
+  }
+  if (prop.select?.name) return [prop.select.name]
+  return []
+}
+
 /** date プロパティ → 開始日（YYYY-MM-DD） */
 export function getDate(page: NotionPage, property: string): string {
   return page.properties[property]?.date?.start || ''

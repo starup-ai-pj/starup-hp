@@ -13,7 +13,7 @@ export default function JobListSection({ recruits }: JobListSectionProps) {
   const [selectedEmploymentType, setSelectedEmploymentType] = useState<string>('すべて')
 
   const jobTypes = useMemo(() => {
-    const types = new Set(recruits.map(r => r.jobType))
+    const types = new Set(recruits.flatMap(r => r.jobType))
     return ['すべて', ...Array.from(types)]
   }, [recruits])
 
@@ -24,7 +24,7 @@ export default function JobListSection({ recruits }: JobListSectionProps) {
 
   const filteredRecruits = useMemo(() => {
     return recruits.filter((recruit) => {
-      const matchesJobType = selectedJobType === 'すべて' || recruit.jobType === selectedJobType
+      const matchesJobType = selectedJobType === 'すべて' || recruit.jobType.includes(selectedJobType)
       const matchesEmploymentType = selectedEmploymentType === 'すべて' || recruit.employmentType.includes(selectedEmploymentType)
       return matchesJobType && matchesEmploymentType
     })
