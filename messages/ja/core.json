@@ -85,5 +85,19 @@
         "description": "國學院大学卒。木村遥輝との再会をきっかけにSTAR UPへ参画し、ARCHAIVE（製造業向けAIプラットフォーム）の営業を担当。関西を中心に泥臭く現場へ足を運び続け、2026年度開設予定の東京オフィスを拠点に関東圏の市場開拓を進める。ニックネームは「ケヴィン」。"
       }
     }
+  },
+  "sourceOptions": {
+    "bizreach": "ビズリーチ",
+    "wantedly": "Wantedly",
+    "otherJobSite": "その他求人サイト",
+    "referral": "社員・知人からの紹介",
+    "x": "X",
+    "linkedin": "LinkedIn",
+    "note": "note",
+    "mediaArticle": "各種メディア掲載記事",
+    "event": "就活イベント・合同説明会・ミートアップ",
+    "alumni": "アルムナイコミュニティ案内",
+    "searchEngine": "Google・Yahoo!等の検索エンジン",
+    "other": "その他"
   }
 }

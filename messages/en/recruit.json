@@ -318,6 +318,10 @@
           "designer": "Designer",
           "other": "Other"
         },
+        "source": {
+          "label": "How did you hear about this position?",
+          "placeholder": "Please select"
+        },
         "portfolioLabel": "Portfolio URL (optional)",
         "portfolioPlaceholder": "https://portfolio.example.com",
         "messageLabel": "About you & motivation",

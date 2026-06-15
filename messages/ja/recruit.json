@@ -318,6 +318,10 @@
           "designer": "デザイナー",
           "other": "その他"
         },
+        "source": {
+          "label": "当社の求人を知ったきっかけ",
+          "placeholder": "選択してください"
+        },
         "portfolioLabel": "ポートフォリオURL（任意）",
         "portfolioPlaceholder": "https://portfolio.example.com",
         "messageLabel": "自己PR・志望動機",

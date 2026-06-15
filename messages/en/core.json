@@ -85,5 +85,19 @@
         "description": "Graduate of Kokugakuin University. Joined STAR UP after reconnecting with Haruki Kimura, and handles sales for ARCHAIVE (an AI platform for manufacturing). Persistently visiting sites mainly across the Kansai region, he is expanding the Kanto market from the Tokyo office scheduled to open in fiscal 2026. His nickname is \"Kevin.\""
       }
     }
+  },
+  "sourceOptions": {
+    "bizreach": "BizReach",
+    "wantedly": "Wantedly",
+    "otherJobSite": "Other job-posting site",
+    "referral": "Referral from an employee or acquaintance",
+    "x": "X",
+    "linkedin": "LinkedIn",
+    "note": "note",
+    "mediaArticle": "Media coverage / article",
+    "event": "Job event, joint info session, or meetup",
+    "alumni": "Alumni community invitation",
+    "searchEngine": "Search engine (Google, Yahoo!, etc.)",
+    "other": "Other"
   }
 }

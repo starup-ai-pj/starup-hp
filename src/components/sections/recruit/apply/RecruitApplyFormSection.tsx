@@ -21,6 +21,11 @@ export default function RecruitApplyFormSection({
   initialPosition = '',
 }: RecruitApplyFormSectionProps) {
   const t = useTranslations('sections.recruit.apply')
+  const tSource = useTranslations('sourceOptions')
+  const localizedSourceOptions = sourceOptions.map((o) => ({
+    value: o.value,
+    label: tSource(o.key),
+  }))
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -316,14 +321,14 @@ export default function RecruitApplyFormSection({
               {/* Source */}
               <div>
                 <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                  当社の求人を知ったきっかけ
+                  {t('source.label')}
                 </label>
                 <Select
                   name="source"
                   value={formData.source}
                   onChange={(value) => handleSelectChange('source', value)}
-                  options={sourceOptions}
-                  placeholder="選択してください"
+                  options={localizedSourceOptions}
+                  placeholder={t('source.placeholder')}
                 />
               </div>
 

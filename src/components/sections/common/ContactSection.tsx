@@ -12,6 +12,11 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function ContactSection() {
   const t = useTranslations('sections.common.contact')
+  const tSource = useTranslations('sourceOptions')
+  const localizedSourceOptions = sourceOptions.map((o) => ({
+    value: o.value,
+    label: tSource(o.key),
+  }))
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -313,14 +318,14 @@ export default function ContactSection() {
               {/* Source */}
               <div>
                 <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-                  当社を知ったきっかけ
+                  {t('source.label')}
                 </label>
                 <Select
                   name="source"
                   value={formData.source}
                   onChange={(value) => handleSelectChange('source', value)}
-                  options={sourceOptions}
-                  placeholder="選択してください"
+                  options={localizedSourceOptions}
+                  placeholder={t('source.placeholder')}
                 />
               </div>
 

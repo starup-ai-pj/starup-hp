@@ -44,6 +44,10 @@
           "career": "キャリア採用",
           "support": "サポート"
         },
+        "source": {
+          "label": "当社を知ったきっかけ",
+          "placeholder": "選択してください"
+        },
         "submit": "送信する",
         "submitting": "送信中...",
         "toast": {
