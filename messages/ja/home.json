@@ -110,6 +110,11 @@
         "interview": "Interview",
         "readMore": "Read more",
         "fromInterview": "From the interview",
+        "advisors": {
+          "eyebrow": "Advisor",
+          "heading": "顧問",
+          "countLabel": "顧問"
+        },
         "career": {
           "eyebrow": "Career",
           "heading": "Join our team.",

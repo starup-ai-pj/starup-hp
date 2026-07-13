@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import TypingText from "@/components/ui/TypingText"
 import TransitionLink from "@/components/ui/TransitionLink"
 import type { Member } from "@/data/members"
+import type { Advisor } from "@/data/advisors"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -19,6 +20,7 @@ interface MemberListItem {
 
 interface MemberListSectionProps {
   members: MemberListItem[]
+  advisors?: Advisor[]
 }
 
 function shuffle<T>(arr: readonly T[]): T[] {
@@ -30,7 +32,7 @@ function shuffle<T>(arr: readonly T[]): T[] {
   return a
 }
 
-export default function MemberListSection({ members }: MemberListSectionProps) {
+export default function MemberListSection({ members, advisors = [] }: MemberListSectionProps) {
   const t = useTranslations('sections.member.list')
   const [ordered, setOrdered] = useState<MemberListItem[]>(members)
   const listRef = useRef<HTMLDivElement>(null)
@@ -229,6 +231,82 @@ export default function MemberListSection({ members }: MemberListSectionProps) {
             </div>
           </div>
         </div>
+
+        {/* ──── 顧問 ──── */}
+        {advisors.length > 0 && (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-20 md:mt-32 border-t border-gray-200 pt-16 md:pt-20">
+            <div className="lg:col-span-2">
+              <span className="text-xs text-gray-500 uppercase tracking-wider">{t('advisors.eyebrow')}</span>
+              <p className="text-3xl font-medium text-gray-900 mt-2">{advisors.length}</p>
+              <p className="text-xs text-gray-500 mt-1">{t('advisors.countLabel')}</p>
+            </div>
+            <div className="lg:col-span-10">
+              <h2 className="text-3xl md:text-5xl font-medium text-gray-900 leading-[1.1] mb-10 md:mb-12">
+                {t('advisors.heading')}
+              </h2>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-0">
+                {advisors.map((advisor) => (
+                  <div
+                    key={advisor.id}
+                    className="block border-t border-gray-200 py-8"
+                  >
+                    {/* Mobile: 縦並び */}
+                    <div className="lg:hidden space-y-4">
+                      <div className="relative w-full aspect-[4/3] overflow-hidden">
+                        {advisor.image ? (
+                          <Image
+                            src={advisor.image}
+                            alt={advisor.name}
+                            fill
+                            className="object-cover object-top"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                            <span className="text-gray-400 text-sm">{t('noImage')}</span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="space-y-2">
+                        <p className="text-xs text-gray-500">{advisor.position}</p>
+                        <h3 className="text-xl font-medium text-gray-900">{advisor.name}</h3>
+                        {advisor.englishName && (
+                          <p className="text-xs text-gray-400">{advisor.englishName}</p>
+                        )}
+                        <p className="text-xs text-gray-500 leading-relaxed">{advisor.description}</p>
+                      </div>
+                    </div>
+
+                    {/* Desktop: 画像+テキスト横並び */}
+                    <div className="hidden lg:grid grid-cols-2 gap-5">
+                      <div className="relative aspect-[3/4] overflow-hidden">
+                        {advisor.image ? (
+                          <Image
+                            src={advisor.image}
+                            alt={advisor.name}
+                            fill
+                            className="object-cover object-top"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                            <span className="text-gray-400 text-sm">{t('noImage')}</span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col">
+                        <p className="text-xs text-gray-500 mb-1">{advisor.position}</p>
+                        <h3 className="text-lg font-medium text-gray-900 mb-1">{advisor.name}</h3>
+                        {advisor.englishName && (
+                          <p className="text-xs text-gray-400 mb-2">{advisor.englishName}</p>
+                        )}
+                        <p className="text-xs text-gray-500 leading-relaxed">{advisor.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* ──── Career CTA ──── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-20 md:mt-32 border-t border-gray-200 pt-16 md:pt-20">

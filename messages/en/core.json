@@ -28,6 +28,13 @@
     "recruitmentDisclosure": "Paid Job Placement Business Disclosure"
   },
   "data": {
+    "advisors": {
+      "tokutaro-nakai": {
+        "name": "Tokutaro Nakai",
+        "position": "Advisor",
+        "description": "After graduating from the University of Tokyo, Faculty of Law in 1985, he joined the Ministry of Finance. He served in roles including Director of the Public Relations Office, Professor at the Institute of Medical Science at the University of Tokyo, and Budget Examiner in the Budget Bureau, before moving to the Ministry of the Environment in 2011. There he held posts such as Director of the General Affairs Division of the Environmental Policy Bureau, Director of the Accounting and Personnel Divisions of the Minister's Secretariat, Director-General of the Waste Management and Recycling Department, and Vice-Minister for Global Environmental Affairs, and was appointed Administrative Vice-Minister of the Environment in July 2020. After retiring in July 2022, he has served as an advisor to Nippon Steel, Representative Director of the Millennium Future Council Foundation, and Specially Appointed Professor at Japan University of Economics. He brings deep expertise in environmental policy, decarbonization, the Regional Circular and Ecological Sphere, and social implementation across industry and government. At STARUP, he supports DX in the industrial and public sectors leveraging AI and data infrastructure, GHG emissions visualization, sustainability initiatives including Scope 3, and business development aimed at solving regional and social challenges."
+      }
+    },
     "members": {
       "yuto-ogata": {
         "name": "Yuto Ogata",
