@@ -2,6 +2,7 @@ import Header from "@/components/layout/Header"
 import MemberListSection from "@/components/sections/member/MemberListSection"
 import Footer from "@/components/layout/Footer"
 import { getMembers } from "@/data/members"
+import { getAdvisors } from "@/data/advisors"
 import { getInterviewPreview, hasInterview } from "@/lib/interview"
 import { setRequestLocale } from "next-intl/server"
 
@@ -19,10 +20,11 @@ export default async function MemberPage({ params }: MemberPageProps) {
     preview: getInterviewPreview(m.id),
     hasInterview: hasInterview(m.id),
   }))
+  const advisors = await getAdvisors(locale)
   return (
     <div className="relative">
       <Header />
-      <MemberListSection members={members} />
+      <MemberListSection members={members} advisors={advisors} />
       <Footer />
     </div>
   );
