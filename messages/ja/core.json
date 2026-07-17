@@ -106,5 +106,11 @@
     "alumni": "アルムナイコミュニティ案内",
     "searchEngine": "Google・Yahoo!等の検索エンジン",
     "other": "その他"
+  },
+  "techBlogCta": {
+    "eyebrow": "Tech Blog",
+    "heading": "開発の裏側を、のぞいてみる。",
+    "body": "技術選定の意思決定やプロダクト開発で得た知見、開発カルチャーを、エンジニア自身が発信しています。",
+    "cta": "Read the Tech Blog"
   }
 }
