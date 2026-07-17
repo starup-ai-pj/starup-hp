@@ -8,6 +8,7 @@ import ContactSection from "@/components/sections/common/ContactSection"
 import JoinUsSection from "@/components/sections/common/JoinUsSection"
 import MissionSection from "@/components/sections/home/MissionSection"
 import NewsSection from "@/components/sections/home/NewsSection"
+import TechBlogCta from "@/components/sections/common/TechBlogCta"
 
 interface HomeProps {
   params: Promise<{ locale: string }>
@@ -27,6 +28,7 @@ export default async function Home({ params }: HomeProps) {
       </div>
       <ServiceDetailSection />
       <NewsSection locale={locale} />
+      <TechBlogCta locale={locale} />
       <JoinUsSection />
       <ContactSection />
       <Footer />

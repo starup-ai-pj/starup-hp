@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 import TransitionLink from '@/components/ui/TransitionLink'
 import { getCulture } from '@/data/culture'
+import TechBlogCta from '@/components/sections/common/TechBlogCta'
 
 interface CultureSectionProps {
   locale: string
@@ -141,6 +142,9 @@ export default async function CultureSection({ locale }: CultureSectionProps) {
           </div>
         </div>
       </section>
+
+      {/* ━━━ Tech Blog CTA ━━━ */}
+      <TechBlogCta locale={locale} />
     </div>
   )
 }

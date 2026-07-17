@@ -106,5 +106,11 @@
     "alumni": "Alumni community invitation",
     "searchEngine": "Search engine (Google, Yahoo!, etc.)",
     "other": "Other"
+  },
+  "techBlogCta": {
+    "eyebrow": "Tech Blog",
+    "heading": "See how we build.",
+    "body": "Our engineers share the decisions behind our tech choices, hands-on product-development insights, and our engineering culture.",
+    "cta": "Read the Tech Blog"
   }
 }

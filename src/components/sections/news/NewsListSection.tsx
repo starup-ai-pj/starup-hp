@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { getAllNewsForList } from '@/lib/news'
 import TransitionLink from '@/components/ui/TransitionLink'
 import ExploreLinks from '@/components/sections/news/ExploreLinks'
+import TechBlogCta from '@/components/sections/common/TechBlogCta'
 
 export default async function NewsListSection({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: 'sections.news.list' })
@@ -100,6 +101,7 @@ export default async function NewsListSection({ locale }: { locale: string }) {
         </div>
       </div>
     </section>
+    <TechBlogCta locale={locale} />
     <ExploreLinks locale={locale} />
     </>
   )

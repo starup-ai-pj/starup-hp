@@ -12,6 +12,9 @@ export const companySNS: CompanySNS = {
   linkedin: "https://www.linkedin.com/company/%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BEstar-up/",
 }
 
+/** エンジニアチームによる技術ブログ（別サブドメインの外部サイト） */
+export const techBlogUrl = "https://tech.starup01.jp/"
+
 /**
  * 会社概要（About ページの Information セクション）
  * value は行配列。描画側で改行（<br/>）として展開する。
