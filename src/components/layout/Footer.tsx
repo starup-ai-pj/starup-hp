@@ -1,12 +1,13 @@
 import TransitionLink from '@/components/ui/TransitionLink'
 import { useTranslations } from 'next-intl'
-import { companySNS } from '@/data/company'
+import { companySNS, techBlogUrl } from '@/data/company'
 
 const COMPANY_LINKS = [
   { name: 'About', href: '/about' },
   { name: 'Service', href: '/service' },
   { name: 'Member', href: '/member' },
   { name: 'News', href: '/news' },
+  { name: 'Tech Blog', href: techBlogUrl, external: true },
   { name: 'Contact', href: '/contact' },
 ]
 
@@ -110,12 +111,24 @@ export default function Footer() {
             <ul className="space-y-3">
               {COMPANY_LINKS.map((link) => (
                 <li key={link.name}>
-                  <TransitionLink
-                    href={link.href}
-                    className="text-base text-gray-300 hover:text-white transition-colors"
-                  >
-                    {link.name}
-                  </TransitionLink>
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center gap-1.5 text-base text-gray-300 hover:text-white transition-colors"
+                    >
+                      {link.name}
+                      <ExternalIcon />
+                    </a>
+                  ) : (
+                    <TransitionLink
+                      href={link.href}
+                      className="text-base text-gray-300 hover:text-white transition-colors"
+                    >
+                      {link.name}
+                    </TransitionLink>
+                  )}
                 </li>
               ))}
             </ul>
