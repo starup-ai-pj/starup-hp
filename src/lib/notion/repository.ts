@@ -25,6 +25,12 @@ interface RepositoryOptions {
    * データセット全体を見た判定ができる。未指定なら全件公開。
    */
   filterVisible?: (pages: NotionPage[]) => NotionPage[]
+  /**
+   * 一覧の並べ替え（Notion の sorts 取得後にアプリ側で適用）。
+   * 手動並び順など、プロパティ未追加でも壊れない後方互換な並べ替えをドメイン側に閉じる。
+   * 安定ソート前提で、sorts の結果を二次キーとして活かす想定。未指定なら sorts のまま。
+   */
+  orderListItems?: (pages: NotionPage[]) => NotionPage[]
 }
 
 export function createContentRepository<TListItem, TPost>(
@@ -34,11 +40,12 @@ export function createContentRepository<TListItem, TPost>(
   options?: RepositoryOptions
 ) {
   const filterVisible = options?.filterVisible ?? ((pages) => pages)
+  const orderListItems = options?.orderListItems ?? ((pages) => pages)
 
-  /** 一覧を取得（sorts・公開フィルタ適用済み） */
+  /** 一覧を取得（sorts・公開フィルタ・並べ替え適用済み） */
   async function getAllForList(): Promise<TListItem[]> {
     const pages = await queryDatabase(databaseId, { sorts })
-    return filterVisible(pages).map(mappers.toListItem)
+    return orderListItems(filterVisible(pages)).map(mappers.toListItem)
   }
 
   /** unique_id で詳細を取得（非公開・見つからなければ null） */

@@ -6,6 +6,7 @@
 
 import { requireEnv } from '@/lib/notion/client'
 import { createContentRepository } from '@/lib/notion/repository'
+import { byManualOrder } from '@/lib/notion/ordering'
 import {
   getUniqueId,
   getTitle,
@@ -42,6 +43,10 @@ const repository = createContentRepository<NewsListItem, NewsPost>(
       blocks,
       thumbnail: getFileUrl(page, 'Thumbnail') || DEFAULT_IMAGE,
     }),
+  },
+  {
+    // 手動並び順（Order 昇順）を優先。未設定は Date 降順のまま最後尾へ。
+    orderListItems: byManualOrder('Order'),
   }
 )
 

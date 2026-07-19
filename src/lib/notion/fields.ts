@@ -60,6 +60,12 @@ export function getDate(page: NotionPage, property: string): string {
   return page.properties[property]?.date?.start || ''
 }
 
+/** number プロパティ → 数値（未設定 / プロパティ未追加は null） */
+export function getNumber(page: NotionPage, property: string): number | null {
+  const value = page.properties[property]?.number
+  return typeof value === 'number' ? value : null
+}
+
 /** files プロパティ → 先頭ファイルのURL（file / external 両対応） */
 export function getFileUrl(page: NotionPage, property: string): string {
   const files = page.properties[property]?.files
