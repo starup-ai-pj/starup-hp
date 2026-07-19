@@ -6,6 +6,7 @@
 
 import { requireEnv } from '@/lib/notion/client'
 import { createContentRepository } from '@/lib/notion/repository'
+import { byManualOrder } from '@/lib/notion/ordering'
 import { NotionPage } from '@/lib/notion/types'
 import {
   getUniqueId,
@@ -76,7 +77,11 @@ const repository = createContentRepository<RecruitListItem, RecruitPost>(
       blocks,
     }),
   },
-  { filterVisible: filterPublished }
+  {
+    filterVisible: filterPublished,
+    // 手動並び順（Order 昇順）を優先。未設定は Date 降順のまま最後尾へ。
+    orderListItems: byManualOrder('Order'),
+  }
 )
 
 /** 採用情報一覧を取得（日付降順） */
