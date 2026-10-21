@@ -19,24 +19,14 @@
           "manifestoTitle": "産業に眠るデータを、<br></br><span>人間の意思決定を変える</span>AIへ。",
           "manifestoBody1": "私たちはAIカンパニーとして、AI業界の<span>No.1 AIメーカー</span>を目指します。各企業・各業界に眠るデータをAI Readyな形に基盤化し、人間の意思決定に関与するところまで品質と顧客体験を仕上げ、届ける会社です。",
           "manifestoBody2": "作る製品が「当たり前に使える」ことは前提として、顧客に<span>ワクワクという顧客体験</span>までを届けます。",
-          "manifestoBody3": "その手段として、AIソリューション開発基盤「Flowerium」を中核に、ARCHAIVE・SEND AIのような業界特化AIプロダクトを連続的に生み出し、産業の意思決定を最適化していきます。",
+          "manifestoBody3": "その手段として、ARCHAIVEのような業界特化AIプロダクトを連続的に生み出し、産業の意思決定を最適化していきます。",
           "lineLabel": "Manufacturing Line",
           "lineLead": "STARUPの製品ライン",
           "lines": {
-            "flowerium": {
-              "tag": "Platform / 開発基盤",
-              "name": "Flowerium",
-              "body": "AIソリューションを生み出す土台。データ整備〜AIエージェント実行までを一体で提供する開発基盤。"
-            },
             "archaive": {
               "tag": "Product / 業界特化",
               "name": "ARCHAIVE",
               "body": "製造業・建設・設計業の図面データをAIで一元化。類似検索からチャット型データ抽出まで。"
-            },
-            "sendAi": {
-              "tag": "Product / 業界特化",
-              "name": "SEND AI",
-              "body": "サプライチェーンの分断データを統合し、需要予測・発注最適化・在庫管理を一気通貫で支援。"
             }
           },
           "serviceLink": "Serviceページで詳しく見る"
@@ -84,14 +74,14 @@
           "roles": {
             "product": {
               "name": "Product",
-              "subtitle": "ARCHAIVE / SEND AI",
-              "body": "業界の意思決定を変える、業界特化AIプロダクトをつくる。図面・サプライチェーンなど、業界のコアデータをAIで再設計していく仕事。",
+              "subtitle": "ARCHAIVE",
+              "body": "業界の意思決定を変える、業界特化AIプロダクトをつくる。図面をはじめとする業界のコアデータを、AIで再設計していく仕事。",
               "roleNames": "PdM / Engineer / Designer"
             },
             "aiSolution": {
               "name": "AI Solution",
-              "subtitle": "Flowerium / 現場とAIをつなぐ",
-              "body": "現場に入り、顧客のデータと業務を解きほぐしてAIにする。Flowerium基盤を使い、コンサルティングと開発の境目で動く仕事。",
+              "subtitle": "現場とAIをつなぐ",
+              "body": "現場に入り、顧客のデータと業務を解きほぐしてAIにする。コンサルティングと開発の境目で動く仕事。",
               "roleNames": "AI Engineer / Solution Architect"
             },
             "bizDev": {

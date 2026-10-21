@@ -82,7 +82,7 @@ public/                    # 画像・フォント・iframe 演出 HTML・規程
 |---|---|
 | `/` | トップ |
 | `/about` | 会社紹介・沿革・会社情報 |
-| `/service` | サービス（ARCHAIVE / SEND AI / Flowerium） |
+| `/service` | サービス（ARCHAIVE） |
 | `/member`, `/member/[id]` | メンバー一覧・詳細（インタビュー付き） |
 | `/news`, `/news/[slug]` | お知らせ一覧・詳細（Notion） |
 | `/recruit` | 採用トップ |

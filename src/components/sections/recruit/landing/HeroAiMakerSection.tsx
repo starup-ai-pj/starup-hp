@@ -63,7 +63,7 @@ const COL_RANGE: [number, number][] = [
 ]
 
 // 製品ラインの順序（テキストは sections.recruit.landing.aiMaker.lines に置く）
-const MANUFACTURING_LINE_IDS = ['flowerium', 'archaive', 'sendAi'] as const
+const MANUFACTURING_LINE_IDS = ['archaive'] as const
 
 export default function HeroAiMakerSection() {
   const t = useTranslations('sections.recruit.landing')

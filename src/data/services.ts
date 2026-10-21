@@ -62,33 +62,6 @@ export const serviceAssets: ServiceAsset[] = [
     diorama: "/html/archaive-diorama.html",
     href: "https://archaive.net",
   },
-  {
-    id: "send-ai",
-    number: "02",
-    pillarLabelCount: 3,
-    featureCounts: [3, 2, 2],
-    previewImages: [
-      "/images/services/sendai/product-master.png",
-      "/images/services/sendai/dashboard.png",
-      "/images/services/sendai/ai-suggestion.png",
-    ],
-    image: "/images/services/sendai/hero.png",
-    diorama: "/html/retail-diorama.html",
-    href: "https://send-ai.co.jp/",
-  },
-  {
-    id: "flowerium",
-    number: "03",
-    pillarLabelCount: 3,
-    featureCounts: [1, 1, 1],
-    previewImages: [
-      "/images/services/flowerium/custom-app-builder.png",
-      "/images/services/flowerium/workflow.png",
-      "/images/services/flowerium/erd.png",
-    ],
-    image: "/images/services/flowerium/hero.png",
-    diorama: "/html/ontology-diorama.html",
-  },
 ]
 
 /** 指定 locale の全サービス（assets + 翻訳テキスト）を返す（Server Component 用） */
@@ -154,8 +127,6 @@ export interface HomeServiceSummaryAsset {
 
 export const homeServiceSummaryAssets: HomeServiceSummaryAsset[] = [
   { id: "archaive", index: "01", featureGroupCount: 2, featureItemCounts: [3, 2], href: "/service#archaive" },
-  { id: "send-ai", index: "02", featureGroupCount: 2, featureItemCounts: [3, 2], href: "/service#send-ai" },
-  { id: "flowerium", index: "03", featureGroupCount: 3, featureItemCounts: [1, 1, 1], href: "/service#flowerium" },
 ]
 
 /** 指定 locale のホーム要約（assets + 翻訳テキスト）を返す（Server Component 用） */
