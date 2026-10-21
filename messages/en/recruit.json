@@ -19,24 +19,14 @@
           "manifestoTitle": "Turning data buried in industry<br></br>into AI that <span>transforms human decisions</span>.",
           "manifestoBody1": "As an AI company, we aim to be the <span>No.1 AI maker</span> in the industry. We turn the data buried within each company and sector into an AI-ready foundation, then refine the quality and customer experience all the way to where it shapes human decision-making, and deliver it.",
           "manifestoBody2": "Taking it for granted that our products simply work, we go further to deliver customers <span>an experience that sparks excitement</span>.",
-          "manifestoBody3": "To achieve this, we build continuously on our AI solution development platform \"Flowerium,\" creating industry-specific AI products like ARCHAIVE and SEND AI to optimize decision-making across industries.",
+          "manifestoBody3": "To achieve this, we continuously create industry-specific AI products like ARCHAIVE to optimize decision-making across industries.",
           "lineLabel": "Manufacturing Line",
           "lineLead": "The STARUP product line",
           "lines": {
-            "flowerium": {
-              "tag": "Platform / Development Foundation",
-              "name": "Flowerium",
-              "body": "The foundation that generates AI solutions. A development platform delivering everything from data preparation to AI-agent execution in one place."
-            },
             "archaive": {
               "tag": "Product / Industry-Specific",
               "name": "ARCHAIVE",
               "body": "Unifies drawing data across manufacturing, construction, and design with AI, from similarity search to chat-based data extraction."
-            },
-            "sendAi": {
-              "tag": "Product / Industry-Specific",
-              "name": "SEND AI",
-              "body": "Integrates fragmented supply-chain data to support demand forecasting, order optimization, and inventory management end to end."
             }
           },
           "serviceLink": "Learn more on the Service page"
@@ -84,14 +74,14 @@
           "roles": {
             "product": {
               "name": "Product",
-              "subtitle": "ARCHAIVE / SEND AI",
-              "body": "Build industry-specific AI products that transform how industries make decisions. Work that redesigns core industry data, from drawings to supply chains, with AI.",
+              "subtitle": "ARCHAIVE",
+              "body": "Build industry-specific AI products that transform how industries make decisions. Work that redesigns core industry data, starting with engineering drawings, with AI.",
               "roleNames": "PdM / Engineer / Designer"
             },
             "aiSolution": {
               "name": "AI Solution",
-              "subtitle": "Flowerium / Connecting the field with AI",
-              "body": "Go on-site, untangle customers' data and operations, and turn them into AI. Work at the intersection of consulting and development, powered by the Flowerium platform.",
+              "subtitle": "Connecting the field with AI",
+              "body": "Go on-site, untangle customers' data and operations, and turn them into AI. Work at the intersection of consulting and development.",
               "roleNames": "AI Engineer / Solution Architect"
             },
             "bizDev": {

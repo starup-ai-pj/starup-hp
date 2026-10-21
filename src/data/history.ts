@@ -27,7 +27,6 @@ const historyAssets: HistoryAsset[] = [
   { id: 'founding', year: '2023', month: '11', image: '/images/about/company.jpg', hasDescription: true },
   { id: 'ai-development', year: '2024', month: '03', image: '/images/tech-cards/tech-01.jpg', hasDescription: true },
   { id: 'archaive-beta', year: '2025', month: '01', image: '/images/services/archaive/hero.jpg', hasDescription: true },
-  { id: 'sendai-launch', year: '2026', month: '01', image: '/images/services/sendai/thumbnail.jpg', hasDescription: true },
   { id: 'team-expansion', year: '2026', month: '04', image: '/images/recruit/office-history.jpg', hasDescription: false },
 ]
 

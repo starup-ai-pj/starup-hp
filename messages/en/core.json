@@ -79,12 +79,12 @@
       "shunsuke-kimura": {
         "name": "Shunsuke Kimura",
         "position": "Manager, Implementation Group",
-        "description": "Graduate of the Department of Informatics, Faculty of Engineering, Kyoto University. Joined as a new graduate in April 2026. As a PM in the AI Solutions Division, he is the product owner of SEND AI (order-optimization AI for the retail industry)."
+        "description": "Graduate of the Department of Informatics, Faculty of Engineering, Kyoto University. Joined as a new graduate in April 2026. As manager of the Implementation Group, he leads the deployment and implementation of AI solutions at customer sites."
       },
       "namiki-chikusa": {
         "name": "Namiki Chikusa",
         "position": "Manager, Architect Group",
-        "description": "Graduate of the Department of Informatics, Faculty of Engineering, Kyoto University. Joined as a new graduate in April 2026. He handles the backend design and AI implementation of SEND AI (order-optimization AI for the retail industry)."
+        "description": "Graduate of the Department of Informatics, Faculty of Engineering, Kyoto University. Joined as a new graduate in April 2026. As manager of the Architect Group, he handles system architecture design and AI implementation."
       },
       "sota-nagai": {
         "name": "Sota Nagai",
