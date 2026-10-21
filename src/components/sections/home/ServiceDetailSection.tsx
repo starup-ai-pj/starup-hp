@@ -5,6 +5,9 @@ import { useTranslations } from "next-intl"
 import TransitionLink from "@/components/ui/TransitionLink"
 import { homeServiceSummaryAssets } from "@/data/services"
 
+// network-background-4layer.html の LAYER_COUNT と一致させること
+const NETWORK_LAYER_COUNT = 3
+
 export default function ServiceDetailSection() {
   const t = useTranslations("data.services.homeServiceSummaries")
   const tSection = useTranslations("sections.service")
@@ -43,7 +46,7 @@ export default function ServiceDetailSection() {
         })
 
         // service index → 3D layer index (service 01 = 一番上の層 = l=LAYER-1)
-        const layer = maxIdx === -1 ? -1 : homeServiceSummaryAssets.length - 1 - maxIdx
+        const layer = maxIdx === -1 ? -1 : NETWORK_LAYER_COUNT - 1 - maxIdx
         sendFocus(layer)
       },
       { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] }
