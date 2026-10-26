@@ -33,6 +33,9 @@ export const memberAssets: MemberAsset[] = [
   { id: "shunsuke-kimura", englishName: "Shunsuke Kimura", image: "/images/member/kimura-shunsuke.jpg", heroImage: "/images/member/kimura-shunsuke-hero.jpg" },
   { id: "namiki-chikusa", englishName: "Namiki Chikusa", image: "/images/member/chikusa-namiki.jpg", heroImage: "/images/member/chikusa-namiki-hero.jpg" },
   { id: "sota-nagai", englishName: "Sota Nagai", image: "/images/member/nagai-sota.jpg", heroImage: "/images/member/nagai-sota-hero.jpg" },
+  { id: "sho-takada", englishName: "Sho Takada" },
+  { id: "hisashi-netsu", englishName: "Hisashi Netsu" },
+  { id: "goki-tokumoto", englishName: "Goki Tokumoto" },
 ]
 
 /** 指定 locale の全メンバー（assets + 翻訳テキスト）を返す（Server Component 用） */
