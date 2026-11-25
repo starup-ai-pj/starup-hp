@@ -1,0 +1,290 @@
+{
+  "/ mobile": {
+    "median": {
+      "idleTopCpu": 25.31,
+      "idleTopFps": 59.99,
+      "scrollCpu": 36.75,
+      "scrollFps": 60.04,
+      "idleBottomCpu": 10.4,
+      "idleBottomFps": 59.99
+    },
+    "runs": [
+      {
+        "idleTopCpu": 25.31,
+        "idleTopFps": 59.99,
+        "scrollCpu": 36.75,
+        "scrollFps": 60.1,
+        "idleBottomCpu": 11.08,
+        "idleBottomFps": 59.98
+      },
+      {
+        "idleTopCpu": 25.87,
+        "idleTopFps": 59.99,
+        "scrollCpu": 37.47,
+        "scrollFps": 60,
+        "idleBottomCpu": 10.4,
+        "idleBottomFps": 60.18
+      },
+      {
+        "idleTopCpu": 23.96,
+        "idleTopFps": 59.99,
+        "scrollCpu": 32.46,
+        "scrollFps": 60.04,
+        "idleBottomCpu": 9.95,
+        "idleBottomFps": 59.99
+      }
+    ]
+  },
+  "/ desktop": {
+    "median": {
+      "idleTopCpu": 26.28,
+      "idleTopFps": 59.99,
+      "scrollCpu": 36.94,
+      "scrollFps": 60.02,
+      "idleBottomCpu": 12.26,
+      "idleBottomFps": 60
+    },
+    "runs": [
+      {
+        "idleTopCpu": 26.28,
+        "idleTopFps": 59.99,
+        "scrollCpu": 28.78,
+        "scrollFps": 59.94,
+        "idleBottomCpu": 8.16,
+        "idleBottomFps": 60.19
+      },
+      {
+        "idleTopCpu": 24.14,
+        "idleTopFps": 59.79,
+        "scrollCpu": 36.94,
+        "scrollFps": 60.02,
+        "idleBottomCpu": 12.26,
+        "idleBottomFps": 59.99
+      },
+      {
+        "idleTopCpu": 31.11,
+        "idleTopFps": 59.99,
+        "scrollCpu": 46.07,
+        "scrollFps": 60.06,
+        "idleBottomCpu": 12.81,
+        "idleBottomFps": 60
+      }
+    ]
+  },
+  "/about mobile": {
+    "median": {
+      "idleTopCpu": 30.63,
+      "idleTopFps": 59.99,
+      "scrollCpu": 21.55,
+      "scrollFps": 60.01,
+      "idleBottomCpu": 6.76,
+      "idleBottomFps": 59.99
+    },
+    "runs": [
+      {
+        "idleTopCpu": 30.5,
+        "idleTopFps": 59.99,
+        "scrollCpu": 21.33,
+        "scrollFps": 60.04,
+        "idleBottomCpu": 6.13,
+        "idleBottomFps": 60
+      },
+      {
+        "idleTopCpu": 30.63,
+        "idleTopFps": 59.98,
+        "scrollCpu": 21.55,
+        "scrollFps": 60,
+        "idleBottomCpu": 7.25,
+        "idleBottomFps": 59.99
+      },
+      {
+        "idleTopCpu": 31.28,
+        "idleTopFps": 59.99,
+        "scrollCpu": 23.27,
+        "scrollFps": 60.01,
+        "idleBottomCpu": 6.76,
+        "idleBottomFps": 59.99
+      }
+    ]
+  },
+  "/about desktop": {
+    "median": {
+      "idleTopCpu": 5.95,
+      "idleTopFps": 59.99,
+      "scrollCpu": 24.26,
+      "scrollFps": 59.94,
+      "idleBottomCpu": 7.83,
+      "idleBottomFps": 60.19
+    },
+    "runs": [
+      {
+        "idleTopCpu": 5.86,
+        "idleTopFps": 59.99,
+        "scrollCpu": 22.17,
+        "scrollFps": 60.05,
+        "idleBottomCpu": 7.44,
+        "idleBottomFps": 59.99
+      },
+      {
+        "idleTopCpu": 6.48,
+        "idleTopFps": 60,
+        "scrollCpu": 24.26,
+        "scrollFps": 59.92,
+        "idleBottomCpu": 8.37,
+        "idleBottomFps": 60.2
+      },
+      {
+        "idleTopCpu": 5.95,
+        "idleTopFps": 59.99,
+        "scrollCpu": 26.42,
+        "scrollFps": 59.94,
+        "idleBottomCpu": 7.83,
+        "idleBottomFps": 60.19
+      }
+    ]
+  },
+  "/service mobile": {
+    "median": {
+      "idleTopCpu": 6.8,
+      "idleTopFps": 59.99,
+      "scrollCpu": 26.92,
+      "scrollFps": 59.14,
+      "idleBottomCpu": 9.31,
+      "idleBottomFps": 59.99
+    },
+    "runs": [
+      {
+        "idleTopCpu": 6.8,
+        "idleTopFps": 60,
+        "scrollCpu": 28.77,
+        "scrollFps": 59.17,
+        "idleBottomCpu": 9.42,
+        "idleBottomFps": 59.99
+      },
+      {
+        "idleTopCpu": 5.93,
+        "idleTopFps": 59.99,
+        "scrollCpu": 24.89,
+        "scrollFps": 59.12,
+        "idleBottomCpu": 8.88,
+        "idleBottomFps": 59.99
+      },
+      {
+        "idleTopCpu": 6.91,
+        "idleTopFps": 59.99,
+        "scrollCpu": 26.92,
+        "scrollFps": 59.14,
+        "idleBottomCpu": 9.31,
+        "idleBottomFps": 60
+      }
+    ]
+  },
+  "/service desktop": {
+    "median": {
+      "idleTopCpu": 13.17,
+      "idleTopFps": 59.99,
+      "scrollCpu": 33.31,
+      "scrollFps": 60.02,
+      "idleBottomCpu": 13.77,
+      "idleBottomFps": 60
+    },
+    "runs": [
+      {
+        "idleTopCpu": 12.89,
+        "idleTopFps": 59.98,
+        "scrollCpu": 33.31,
+        "scrollFps": 60.03,
+        "idleBottomCpu": 14.32,
+        "idleBottomFps": 60
+      },
+      {
+        "idleTopCpu": 13.27,
+        "idleTopFps": 59.99,
+        "scrollCpu": 29.63,
+        "scrollFps": 59.97,
+        "idleBottomCpu": 12.09,
+        "idleBottomFps": 60.2
+      },
+      {
+        "idleTopCpu": 13.17,
+        "idleTopFps": 60,
+        "scrollCpu": 33.92,
+        "scrollFps": 60.02,
+        "idleBottomCpu": 13.77,
+        "idleBottomFps": 59.98
+      }
+    ]
+  },
+  "/recruit mobile": {
+    "median": {
+      "idleTopCpu": 8.51,
+      "idleTopFps": 59.98,
+      "scrollCpu": 23.69,
+      "scrollFps": 60.01,
+      "idleBottomCpu": 10,
+      "idleBottomFps": 59.99
+    },
+    "runs": [
+      {
+        "idleTopCpu": 8.6,
+        "idleTopFps": 59.98,
+        "scrollCpu": 24.23,
+        "scrollFps": 60.01,
+        "idleBottomCpu": 10.18,
+        "idleBottomFps": 60.19
+      },
+      {
+        "idleTopCpu": 8.51,
+        "idleTopFps": 60,
+        "scrollCpu": 23.69,
+        "scrollFps": 60,
+        "idleBottomCpu": 10,
+        "idleBottomFps": 59.99
+      },
+      {
+        "idleTopCpu": 8.23,
+        "idleTopFps": 59.79,
+        "scrollCpu": 23.6,
+        "scrollFps": 60.03,
+        "idleBottomCpu": 9.84,
+        "idleBottomFps": 59.99
+      }
+    ]
+  },
+  "/recruit desktop": {
+    "median": {
+      "idleTopCpu": 7.21,
+      "idleTopFps": 60,
+      "scrollCpu": 21.19,
+      "scrollFps": 60.02,
+      "idleBottomCpu": 9.27,
+      "idleBottomFps": 59.99
+    },
+    "runs": [
+      {
+        "idleTopCpu": 8.49,
+        "idleTopFps": 59.98,
+        "scrollCpu": 28.43,
+        "scrollFps": 60,
+        "idleBottomCpu": 10.57,
+        "idleBottomFps": 59.98
+      },
+      {
+        "idleTopCpu": 6.95,
+        "idleTopFps": 60,
+        "scrollCpu": 20.6,
+        "scrollFps": 60.05,
+        "idleBottomCpu": 8.44,
+        "idleBottomFps": 59.99
+      },
+      {
+        "idleTopCpu": 7.21,
+        "idleTopFps": 60,
+        "scrollCpu": 21.19,
+        "scrollFps": 60.02,
+        "idleBottomCpu": 9.27,
+        "idleBottomFps": 60
+      }
+    ]
+  }
+}

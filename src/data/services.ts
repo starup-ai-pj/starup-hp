@@ -43,7 +43,8 @@ export interface ServiceAsset {
   featureCounts: number[]
   previewImages: string[]
   image: string
-  diorama?: string
+  /** 画像の代わりに出すジオラマ（"archaive" = components/sections/service/ArchaiveDiorama） */
+  diorama?: "archaive"
   href?: string
 }
 
@@ -59,7 +60,7 @@ export const serviceAssets: ServiceAsset[] = [
       "/images/services/archaive/project-management.jpg",
     ],
     image: "/images/services/archaive/hero.jpg",
-    diorama: "/html/archaive-diorama.html",
+    diorama: "archaive",
     href: "https://archaive.net",
   },
 ]

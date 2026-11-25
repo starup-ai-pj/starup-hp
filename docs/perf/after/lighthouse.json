@@ -1,0 +1,418 @@
+{
+  "/ mobile": {
+    "median": {
+      "score": 89,
+      "fcpMs": 1056.37,
+      "lcpMs": 3540.91,
+      "tbtMs": 53.5,
+      "cls": 0,
+      "speedIndexMs": 3842.15,
+      "totalBytes": 1904694,
+      "jsBytes": 363257,
+      "requests": 36,
+      "mainThreadMs": 1755.36
+    },
+    "runs": [
+      {
+        "score": 89,
+        "fcpMs": 1056.3652,
+        "lcpMs": 3540.9130000000005,
+        "tbtMs": 58,
+        "cls": 0,
+        "speedIndexMs": 3842.1453871236304,
+        "totalBytes": 1899993,
+        "jsBytes": 363257,
+        "requests": 36,
+        "mainThreadMs": 1809.2920000000045
+      },
+      {
+        "score": 90,
+        "fcpMs": 1054.244,
+        "lcpMs": 3385.6100000000006,
+        "tbtMs": 53.5,
+        "cls": 0,
+        "speedIndexMs": 3764.7879303944146,
+        "totalBytes": 2092516,
+        "jsBytes": 363257,
+        "requests": 36,
+        "mainThreadMs": 1683.5439999999983
+      },
+      {
+        "score": 88,
+        "fcpMs": 1058.4513,
+        "lcpMs": 3546.128249999999,
+        "tbtMs": 41.5,
+        "cls": 0,
+        "speedIndexMs": 4431.738069529023,
+        "totalBytes": 1904694,
+        "jsBytes": 363257,
+        "requests": 36,
+        "mainThreadMs": 1755.3599999999954
+      }
+    ]
+  },
+  "/ desktop": {
+    "median": {
+      "score": 99,
+      "fcpMs": 285.11,
+      "lcpMs": 750.22,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 1193.35,
+      "totalBytes": 1197514,
+      "jsBytes": 392665,
+      "requests": 46,
+      "mainThreadMs": 536.01
+    },
+    "runs": [
+      {
+        "score": 97,
+        "fcpMs": 285.1105,
+        "lcpMs": 750.221,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1640.0569864562035,
+        "totalBytes": 1197514,
+        "jsBytes": 392665,
+        "requests": 46,
+        "mainThreadMs": 537.129999999998
+      },
+      {
+        "score": 99,
+        "fcpMs": 285.6355,
+        "lcpMs": 751.2710000000002,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1193.3466001898407,
+        "totalBytes": 1197480,
+        "jsBytes": 392665,
+        "requests": 46,
+        "mainThreadMs": 536.0129999999971
+      },
+      {
+        "score": 99,
+        "fcpMs": 285.0067,
+        "lcpMs": 750.0133999999998,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1026.2635047029971,
+        "totalBytes": 1197518,
+        "jsBytes": 392665,
+        "requests": 46,
+        "mainThreadMs": 528.9909999999971
+      }
+    ]
+  },
+  "/about mobile": {
+    "median": {
+      "score": 76,
+      "fcpMs": 1054,
+      "lcpMs": 7954.82,
+      "tbtMs": 1,
+      "cls": 0.04,
+      "speedIndexMs": 1673.34,
+      "totalBytes": 1756487,
+      "jsBytes": 210478,
+      "requests": 32,
+      "mainThreadMs": 1825.17
+    },
+    "runs": [
+      {
+        "score": 89,
+        "fcpMs": 1054.5897,
+        "lcpMs": 3690.3268250000006,
+        "tbtMs": 0.5,
+        "cls": 0.03639294936434141,
+        "speedIndexMs": 2237.658159243904,
+        "totalBytes": 1756487,
+        "jsBytes": 210478,
+        "requests": 32,
+        "mainThreadMs": 2003.1040000000035
+      },
+      {
+        "score": 76,
+        "fcpMs": 1053.2138,
+        "lcpMs": 7954.820699999999,
+        "tbtMs": 1,
+        "cls": 0.03639294936434141,
+        "speedIndexMs": 1665.2312123317943,
+        "totalBytes": 1756487,
+        "jsBytes": 210478,
+        "requests": 32,
+        "mainThreadMs": 1789.412
+      },
+      {
+        "score": 76,
+        "fcpMs": 1054.0013,
+        "lcpMs": 8031.00195,
+        "tbtMs": 3,
+        "cls": 0.03639294936434141,
+        "speedIndexMs": 1673.3415358054438,
+        "totalBytes": 1756487,
+        "jsBytes": 210478,
+        "requests": 32,
+        "mainThreadMs": 1825.1719999999991
+      }
+    ]
+  },
+  "/about desktop": {
+    "median": {
+      "score": 99,
+      "fcpMs": 284.31,
+      "lcpMs": 756.27,
+      "tbtMs": 0,
+      "cls": 0.04,
+      "speedIndexMs": 492.09,
+      "totalBytes": 1895125,
+      "jsBytes": 233642,
+      "requests": 43,
+      "mainThreadMs": 279.85
+    },
+    "runs": [
+      {
+        "score": 99,
+        "fcpMs": 284.3082,
+        "lcpMs": 756.2704999999999,
+        "tbtMs": 0,
+        "cls": 0.0439038366824271,
+        "speedIndexMs": 612.4143658175822,
+        "totalBytes": 1895125,
+        "jsBytes": 233642,
+        "requests": 43,
+        "mainThreadMs": 339.3440000000012
+      },
+      {
+        "score": 99,
+        "fcpMs": 284.6318,
+        "lcpMs": 751.5795,
+        "tbtMs": 0,
+        "cls": 0.0439038366824271,
+        "speedIndexMs": 492.09388944733837,
+        "totalBytes": 1895125,
+        "jsBytes": 233642,
+        "requests": 43,
+        "mainThreadMs": 279.8450000000012
+      },
+      {
+        "score": 95,
+        "fcpMs": 283.8704,
+        "lcpMs": 1445.8056000000001,
+        "tbtMs": 0,
+        "cls": 0.0439038366824271,
+        "speedIndexMs": 474.376190322527,
+        "totalBytes": 1895125,
+        "jsBytes": 233642,
+        "requests": 43,
+        "mainThreadMs": 270.5190000000007
+      }
+    ]
+  },
+  "/service mobile": {
+    "median": {
+      "score": 89,
+      "fcpMs": 1054.09,
+      "lcpMs": 3800.17,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 1717.57,
+      "totalBytes": 442817,
+      "jsBytes": 211347,
+      "requests": 26,
+      "mainThreadMs": 1030.99
+    },
+    "runs": [
+      {
+        "score": 89,
+        "fcpMs": 1054.0852,
+        "lcpMs": 3800.170399999999,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1684.0921168748037,
+        "totalBytes": 442817,
+        "jsBytes": 211347,
+        "requests": 26,
+        "mainThreadMs": 885.8680000000013
+      },
+      {
+        "score": 89,
+        "fcpMs": 1054.087,
+        "lcpMs": 3801.673999999999,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1717.574234453993,
+        "totalBytes": 442817,
+        "jsBytes": 211347,
+        "requests": 26,
+        "mainThreadMs": 1030.9920000000034
+      },
+      {
+        "score": 89,
+        "fcpMs": 1053.5016,
+        "lcpMs": 3786.5031999999997,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1771.8364399799016,
+        "totalBytes": 442817,
+        "jsBytes": 211347,
+        "requests": 26,
+        "mainThreadMs": 1071.8920000000023
+      }
+    ]
+  },
+  "/service desktop": {
+    "median": {
+      "score": 97,
+      "fcpMs": 284.61,
+      "lcpMs": 1314.2,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 559.18,
+      "totalBytes": 1653358,
+      "jsBytes": 229419,
+      "requests": 129,
+      "mainThreadMs": 926.85
+    },
+    "runs": [
+      {
+        "score": 97,
+        "fcpMs": 283.947,
+        "lcpMs": 1314.1985000000004,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 558.3493112668826,
+        "totalBytes": 1669063,
+        "jsBytes": 229419,
+        "requests": 129,
+        "mainThreadMs": 926.8499999999989
+      },
+      {
+        "score": 99,
+        "fcpMs": 284.9123,
+        "lcpMs": 917.1930499999999,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 592.7511989291105,
+        "totalBytes": 1653358,
+        "jsBytes": 229419,
+        "requests": 129,
+        "mainThreadMs": 1049.7589999999875
+      },
+      {
+        "score": 96,
+        "fcpMs": 284.6051,
+        "lcpMs": 1346.18795,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 559.1837613908058,
+        "totalBytes": 1387203,
+        "jsBytes": 229419,
+        "requests": 102,
+        "mainThreadMs": 585.6660000000005
+      }
+    ]
+  },
+  "/recruit mobile": {
+    "median": {
+      "score": 88,
+      "fcpMs": 1053.38,
+      "lcpMs": 3833.45,
+      "tbtMs": 2,
+      "cls": 0,
+      "speedIndexMs": 2193.47,
+      "totalBytes": 1060747,
+      "jsBytes": 205665,
+      "requests": 26,
+      "mainThreadMs": 1010.76
+    },
+    "runs": [
+      {
+        "score": 77,
+        "fcpMs": 1053.462,
+        "lcpMs": 6303.462000000001,
+        "tbtMs": 2,
+        "cls": 0,
+        "speedIndexMs": 2193.4688095541533,
+        "totalBytes": 1060751,
+        "jsBytes": 205665,
+        "requests": 26,
+        "mainThreadMs": 1010.7600000000023
+      },
+      {
+        "score": 88,
+        "fcpMs": 1053.3785,
+        "lcpMs": 3833.44625,
+        "tbtMs": 2,
+        "cls": 0,
+        "speedIndexMs": 2179.034814135597,
+        "totalBytes": 1060747,
+        "jsBytes": 205665,
+        "requests": 26,
+        "mainThreadMs": 1030.8040000000026
+      },
+      {
+        "score": 92,
+        "fcpMs": 1053.357,
+        "lcpMs": 3381.714,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 2202.8259267270187,
+        "totalBytes": 1060747,
+        "jsBytes": 205665,
+        "requests": 26,
+        "mainThreadMs": 870.6880000000019
+      }
+    ]
+  },
+  "/recruit desktop": {
+    "median": {
+      "score": 99,
+      "fcpMs": 285.17,
+      "lcpMs": 969.43,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 684.73,
+      "totalBytes": 1959226,
+      "jsBytes": 235073,
+      "requests": 57,
+      "mainThreadMs": 250.82
+    },
+    "runs": [
+      {
+        "score": 99,
+        "fcpMs": 286.552,
+        "lcpMs": 969.4319999999999,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 622.7237771305777,
+        "totalBytes": 1959264,
+        "jsBytes": 235073,
+        "requests": 57,
+        "mainThreadMs": 235.72000000000023
+      },
+      {
+        "score": 99,
+        "fcpMs": 284.846,
+        "lcpMs": 965.384,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 684.7341229272411,
+        "totalBytes": 1959226,
+        "jsBytes": 235073,
+        "requests": 57,
+        "mainThreadMs": 250.82100000000077
+      },
+      {
+        "score": 98,
+        "fcpMs": 285.17,
+        "lcpMs": 1024.5950000000003,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 847.6610425766445,
+        "totalBytes": 1959226,
+        "jsBytes": 235073,
+        "requests": 57,
+        "mainThreadMs": 259.87300000000056
+      }
+    ]
+  }
+}

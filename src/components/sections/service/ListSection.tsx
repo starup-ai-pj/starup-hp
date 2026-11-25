@@ -6,6 +6,7 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { serviceAssets, ServiceAsset } from "@/data/services"
 import TransitionLink from "@/components/ui/TransitionLink"
+import ArchaiveDiorama from "./ArchaiveDiorama"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -13,33 +14,13 @@ function ServiceSpread({ service, index }: { service: ServiceAsset; index: numbe
   const t = useTranslations("data.services")
   const tSection = useTranslations("sections.service")
   const ref = useRef<HTMLElement>(null)
-  const iframeRef = useRef<HTMLIFrameElement>(null)
   const [activeFeature, setActiveFeature] = useState(0)
   const [isInteracting, setIsInteracting] = useState(false)
+  // ジオラマに表示させたい画面（null の間はジオラマ側で自動切り替え）
+  const [requestedScreen, setRequestedScreen] = useState<number | null>(null)
 
-  // Sync active-feature indicator with the diorama's own auto-rotation
-  useEffect(() => {
-    const onMessage = (e: MessageEvent) => {
-      if (!iframeRef.current) return
-      if (e.source !== iframeRef.current.contentWindow) return
-      const d = e.data as { type?: string; index?: number } | null
-      if (d?.type === "screen-changed" && typeof d.index === "number") {
-        setActiveFeature(d.index)
-      }
-    }
-    window.addEventListener("message", onMessage)
-    return () => window.removeEventListener("message", onMessage)
-  }, [])
-
-  const sendScreenIndex = (idx: number) => {
-    iframeRef.current?.contentWindow?.postMessage(
-      { type: "set-screen", index: idx },
-      "*"
-    )
-  }
-  const sendResume = () => {
-    iframeRef.current?.contentWindow?.postMessage({ type: "resume" }, "*")
-  }
+  const sendScreenIndex = (idx: number) => setRequestedScreen(idx)
+  const sendResume = () => setRequestedScreen(null)
 
   // Scroll-triggered reveal
   useEffect(() => {
@@ -157,13 +138,11 @@ function ServiceSpread({ service, index }: { service: ServiceAsset; index: numbe
           >
             <div className="lg:sticky lg:top-24">
               <div className="relative w-full aspect-[16/10] lg:aspect-auto lg:h-[72vh] lg:min-h-[360px]">
-                {service.diorama ? (
-                  <iframe
-                    ref={iframeRef}
-                    src={service.diorama}
-                    title={t(`${service.id}.title`)}
-                    className="absolute inset-0 w-full h-full border-0"
-                    loading="lazy"
+                {service.diorama === "archaive" ? (
+                  <ArchaiveDiorama
+                    requestedIndex={requestedScreen}
+                    onScreenChange={setActiveFeature}
+                    className="absolute inset-0"
                   />
                 ) : (
                   <img
