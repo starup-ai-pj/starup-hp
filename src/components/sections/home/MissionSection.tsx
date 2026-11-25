@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server"
 import TransitionLink from "@/components/ui/TransitionLink"
 import TypingText from "@/components/ui/TypingText"
+import { ScanLine } from "@/components/visuals/Visuals"
 
 export default async function MissionSection({ locale }: { locale: string }) {
     const t = await getTranslations({ locale, namespace: 'sections.home.mission' })
@@ -21,12 +22,7 @@ export default async function MissionSection({ locale }: { locale: string }) {
         </div>
       </div>
         <div className="w-full mb-8 md:mb-16" style={{ height: 400 }}>
-            <iframe
-              src="/html/scan-line.html"
-              className="w-full h-full block"
-              style={{ border: 0 }}
-              aria-hidden="true"
-            />
+            <ScanLine className="w-full h-full" />
         </div>
         <div className="flex justify-center">
           <TransitionLink

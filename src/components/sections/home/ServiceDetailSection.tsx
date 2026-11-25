@@ -1,32 +1,38 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useTranslations } from "next-intl"
 import TransitionLink from "@/components/ui/TransitionLink"
 import { homeServiceSummaryAssets } from "@/data/services"
+import { LayeredNetworkBackground } from "@/components/visuals/Visuals"
 
-// network-background-4layer.html の LAYER_COUNT と一致させること
+// layeredNetworkScene.ts の LAYER_COUNT と一致させること
 const NETWORK_LAYER_COUNT = 3
+
+// PC(lg 以上)とスマホで 3D の置き場所が違う。両方置くと 3D が 2 つ動くので、
+// 画面幅に合う方だけを描画する。
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState<boolean | null>(null)
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)")
+    const update = () => setIsDesktop(mq.matches)
+    update()
+    mq.addEventListener("change", update)
+    return () => mq.removeEventListener("change", update)
+  }, [])
+  return isDesktop
+}
 
 export default function ServiceDetailSection() {
   const t = useTranslations("data.services.homeServiceSummaries")
   const tSection = useTranslations("sections.service")
-  const iframeRef = useRef<HTMLIFrameElement>(null)
-  const mobileIframeRef = useRef<HTMLIFrameElement>(null)
   const articlesRef = useRef<(HTMLElement | null)[]>([])
-  const focusRef = useRef<number>(-1) // 最後に送った layer idx
+  const [focusLayer, setFocusLayer] = useState(-1)
+  const isDesktop = useIsDesktop()
 
-  // 表示中の service を検出 → 対応する slab を iframe にフォーカス指示
+  // 表示中の service を検出 → 対応する slab をフォーカス
   useEffect(() => {
     const visibility = articlesRef.current.map(() => 0)
-
-    const sendFocus = (layer: number) => {
-      if (layer === focusRef.current) return
-      focusRef.current = layer
-      const msg = { type: "focusLayer", layer }
-      iframeRef.current?.contentWindow?.postMessage(msg, "*")
-      mobileIframeRef.current?.contentWindow?.postMessage(msg, "*")
-    }
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -46,8 +52,7 @@ export default function ServiceDetailSection() {
         })
 
         // service index → 3D layer index (service 01 = 一番上の層 = l=LAYER-1)
-        const layer = maxIdx === -1 ? -1 : NETWORK_LAYER_COUNT - 1 - maxIdx
-        sendFocus(layer)
+        setFocusLayer(maxIdx === -1 ? -1 : NETWORK_LAYER_COUNT - 1 - maxIdx)
       },
       { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] }
     )
@@ -56,51 +61,34 @@ export default function ServiceDetailSection() {
     return () => observer.disconnect()
   }, [])
 
-  // iframe ロード完了時に最後の focus 状態を再送（マウント直後に決まっていた場合の保険）
-  const handleIframeLoad = () => {
-    const msg = { type: "focusLayer", layer: focusRef.current }
-    iframeRef.current?.contentWindow?.postMessage(msg, "*")
-  }
-  const handleMobileIframeLoad = () => {
-    const msg = { type: "focusLayer", layer: focusRef.current }
-    mobileIframeRef.current?.contentWindow?.postMessage(msg, "*")
-  }
-
   return (
     <section className="relative bg-black text-white">
-      {/* ━━━ モバイル用: 背景に常駐する sticky な iframe ━━━ */}
+      {/* ━━━ モバイル用: 背景に常駐する sticky な 3D ━━━ */}
       <div className="lg:hidden absolute inset-0 z-0">
         <div className="sticky top-0 h-screen w-full">
-          <iframe
-            ref={mobileIframeRef}
-            src="/html/network-background-4layer.html"
-            title="Network Visualization"
-            loading="lazy"
-            scrolling="no"
-            onLoad={handleMobileIframeLoad}
-            aria-hidden="true"
-            className="block w-full h-full border-0 bg-black"
-          />
+          {isDesktop === false && (
+            <LayeredNetworkBackground
+              focusLayer={focusLayer}
+              className="block w-full h-full bg-black"
+            />
+          )}
           {/* テキスト可読性のための黒オーバーレイ */}
           <div className="absolute inset-0 bg-black/55 pointer-events-none" />
         </div>
       </div>
 
       <div className="flex relative z-10">
-        {/* ━━━ 左: sticky な iframe (PCのみ表示) ━━━ */}
+        {/* ━━━ 左: sticky な 3D (PCのみ表示) ━━━ */}
         <div className="hidden lg:block w-[58%] xl:w-[60%] shrink-0">
           <div className="sticky top-0 h-screen w-full bg-black">
-            {/* iframeはviewport分の3Dを描画するので、高さを少し短くして上に寄せると
+            {/* 3D は置き場所いっぱいに描画するので、高さを少し短くして上に寄せると
                 スラブの中心が画面の上の方に来る。下の余白はbg-blackで馴染ませる */}
-            <iframe
-              ref={iframeRef}
-              src="/html/network-background-4layer.html"
-              title="Network Visualization"
-              loading="lazy"
-              scrolling="no"
-              onLoad={handleIframeLoad}
-              className="block w-full h-[90vh] border-0 bg-black"
-            />
+            {isDesktop === true && (
+              <LayeredNetworkBackground
+                focusLayer={focusLayer}
+                className="block w-full h-[90vh] bg-black"
+              />
+            )}
           </div>
         </div>
 

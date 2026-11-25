@@ -1,11 +1,14 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { NetworkBackground } from '@/components/visuals/Visuals'
 
 export default function HeroSection() {
     const bgRef = useRef<HTMLDivElement>(null)
+    // 背景が隠れている間は 3D の描画も止める（opacity で隠すだけだと裏で描き続ける）
+    const [bgVisible, setBgVisible] = useState(true)
 
-    // Vision section の下端がビューポート上端より上に来たら背景iframeを非表示にする
+    // Vision section の下端がビューポート上端より上に来たら背景を非表示にする
     // （fixed背景が Mission 以降に透けるのを防ぐ）
     useEffect(() => {
         const heroSection = bgRef.current?.closest('section')
@@ -25,6 +28,7 @@ export default function HeroSection() {
             const visible = rect.bottom > 0
             bgRef.current.style.opacity = visible ? '1' : '0'
             bgRef.current.style.visibility = visible ? 'visible' : 'hidden'
+            setBgVisible(visible)
         }
         const onScroll = () => {
             cancelAnimationFrame(raf)
@@ -42,11 +46,7 @@ export default function HeroSection() {
         <section className="relative h-screen min-h-[100dvh] overflow-hidden" data-bg="dark">
             {/* Background */}
             <div ref={bgRef} className="fixed inset-0 transition-opacity duration-200">
-                <iframe
-                    src="/html/network-background.html"
-                    className="w-full h-full border-0"
-                    aria-hidden="true"
-                />
+                <NetworkBackground className="w-full h-full bg-black" active={bgVisible} />
             </div>
 
             {/* 下半分のタッチイベントをブロックするオーバーレイ */}
