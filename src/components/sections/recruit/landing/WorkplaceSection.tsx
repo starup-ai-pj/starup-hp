@@ -104,8 +104,7 @@ export default function WorkplaceSection() {
             alt={t('officeImageAlt')}
             fill
             className="object-cover"
-            sizes="(min-width: 768px) 100vw, 100vw"
-            unoptimized
+            sizes="100vw"
           />
           <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 text-right text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
             <p className="text-[10px] uppercase tracking-[0.3em] opacity-80">{t('officeLabel')}</p>

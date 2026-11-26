@@ -193,6 +193,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
                           src={member.image}
                           alt={member.name}
                           fill
+                          sizes="(min-width: 1500px) 220px, 15vw"
                           className="object-cover"
                         />
                       ) : (
@@ -378,6 +379,7 @@ export default function MemberDetailSection({ member, interview, otherMembers }:
                         src={m.image}
                         alt={m.name}
                         fill
+                        sizes="112px"
                         className="object-cover transition-all duration-500"
                       />
                     ) : (

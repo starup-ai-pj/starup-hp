@@ -119,7 +119,7 @@ export default function HeroAiMakerSection() {
               alt={t('hero.heroImageAlt')}
               fill
               priority
-              unoptimized
+              sizes="(min-width: 1024px) 58vw, 100vw"
               className="object-cover object-center"
             />
             {/* 可読性のための白フェード(下を強めに) */}

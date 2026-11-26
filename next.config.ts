@@ -5,6 +5,9 @@ const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
   images: {
+    // 変換済み画像のキャッシュ時間。既定の 60 秒だと頻繁に変換し直すので 1 日にする。
+    // 同じファイル名で画像を差し替えたときは、最大 1 日は古い画像が出ることがある。
+    minimumCacheTTL: 86400,
     remotePatterns: [
       {
         protocol: 'https',
