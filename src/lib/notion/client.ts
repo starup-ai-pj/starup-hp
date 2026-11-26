@@ -162,3 +162,17 @@ export async function getPageBlocks(pageId: string): Promise<NotionBlock[]> {
     throw error
   }
 }
+
+/**
+ * 1 ブロックを取得（画像プロキシで最新の署名付き URL を取り直すのに使う）
+ */
+export async function retrieveBlock(blockId: string) {
+  return getNotionClient().blocks.retrieve({ block_id: blockId })
+}
+
+/**
+ * 1 ページを取得（画像プロキシで最新の署名付き URL を取り直すのに使う）
+ */
+export async function retrievePage(pageId: string) {
+  return getNotionClient().pages.retrieve({ page_id: pageId })
+}

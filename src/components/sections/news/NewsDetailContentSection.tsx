@@ -100,7 +100,6 @@ export default function NewsDetailContentSection({ post }: NewsDetailContentSect
             className="object-cover"
             loading="lazy"
             quality={80}
-            unoptimized
           />
         </div>
       </section>

@@ -13,9 +13,9 @@ import {
   NotionListItemBlock,
   NotionQuoteBlock,
   NotionCodeBlock,
-  NotionImageBlock,
 } from '@/lib/notion/types'
 import CodeBlock from './CodeBlock'
+import { getImageBlockSrc } from '@/lib/notion/image'
 
 /**
  * Notionの実際の色に合わせたテキスト色のマッピング（Light Mode）
@@ -246,14 +246,7 @@ function renderDivider(block: NotionBlock): ReactNode {
 function renderImage(block: NotionBlock): ReactNode {
   if (block.type !== 'image') return null
 
-  const imageBlock = block as NotionImageBlock
-  let url = ''
-  if (imageBlock.image.type === 'file' && imageBlock.image.file) {
-    url = imageBlock.image.file.url
-  } else if (imageBlock.image.type === 'external' && imageBlock.image.external) {
-    url = imageBlock.image.external.url
-  }
-
+  const url = getImageBlockSrc(block)
   if (!url) return null
 
   return (
@@ -263,9 +256,10 @@ function renderImage(block: NotionBlock): ReactNode {
         alt="image"
         width={1200}
         height={675}
+        // 本文の幅（PC は最大 1500px の 8/12 ≒ 1000px、スマホは画面幅）
+        sizes="(max-width: 1024px) 100vw, 1000px"
         className="w-full h-auto rounded-sm shadow-sm"
         style={{ objectFit: 'cover' }}
-        unoptimized
       />
     </div>
   )

@@ -1,0 +1,418 @@
+{
+  "/news mobile": {
+    "median": {
+      "score": 81,
+      "fcpMs": 1054.53,
+      "lcpMs": 5163.69,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 1964.74,
+      "totalBytes": 3146201,
+      "jsBytes": 158976,
+      "requests": 30,
+      "mainThreadMs": 3043.14
+    },
+    "runs": [
+      {
+        "score": 80,
+        "fcpMs": 1056.374,
+        "lcpMs": 5256.844499999999,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1966.7372379956005,
+        "totalBytes": 3059247,
+        "jsBytes": 158976,
+        "requests": 30,
+        "mainThreadMs": 1841.2199999999787
+      },
+      {
+        "score": 82,
+        "fcpMs": 1054.2585,
+        "lcpMs": 4937.959375,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1964.740350007677,
+        "totalBytes": 3146201,
+        "jsBytes": 158976,
+        "requests": 30,
+        "mainThreadMs": 3043.143999999959
+      },
+      {
+        "score": 81,
+        "fcpMs": 1054.534,
+        "lcpMs": 5163.6925,
+        "tbtMs": 7,
+        "cls": 0,
+        "speedIndexMs": 1921.9559359965083,
+        "totalBytes": 3415158,
+        "jsBytes": 158976,
+        "requests": 30,
+        "mainThreadMs": 3441.079999999992
+      }
+    ]
+  },
+  "/news desktop": {
+    "median": {
+      "score": 100,
+      "fcpMs": 285.86,
+      "lcpMs": 701.12,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 796.58,
+      "totalBytes": 4032584,
+      "jsBytes": 232401,
+      "requests": 48,
+      "mainThreadMs": 690.13
+    },
+    "runs": [
+      {
+        "score": 100,
+        "fcpMs": 285.1523,
+        "lcpMs": 702.3046,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 811.8447825782803,
+        "totalBytes": 3938932,
+        "jsBytes": 232401,
+        "requests": 48,
+        "mainThreadMs": 690.1259999999913
+      },
+      {
+        "score": 100,
+        "fcpMs": 285.864,
+        "lcpMs": 663.796,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 796.5785930016368,
+        "totalBytes": 4479591,
+        "jsBytes": 232401,
+        "requests": 48,
+        "mainThreadMs": 697.1799999999895
+      },
+      {
+        "score": 100,
+        "fcpMs": 286.082,
+        "lcpMs": 701.1229999999999,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 674.3426180809726,
+        "totalBytes": 4032584,
+        "jsBytes": 232401,
+        "requests": 48,
+        "mainThreadMs": 663.0179999999937
+      }
+    ]
+  },
+  "/news/9 mobile": {
+    "median": {
+      "score": 83,
+      "fcpMs": 903.91,
+      "lcpMs": 3203.52,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 14552.63,
+      "totalBytes": 3210584,
+      "jsBytes": 163281,
+      "requests": 24,
+      "mainThreadMs": 7040.69
+    },
+    "runs": [
+      {
+        "score": 83,
+        "fcpMs": 904.4567,
+        "lcpMs": 3204.9134000000004,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 16359.735252017965,
+        "totalBytes": 3209546,
+        "jsBytes": 163281,
+        "requests": 24,
+        "mainThreadMs": 6913.231999999752
+      },
+      {
+        "score": 85,
+        "fcpMs": 903.906,
+        "lcpMs": 2900.859,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 14552.63143200942,
+        "totalBytes": 3210584,
+        "jsBytes": 163281,
+        "requests": 24,
+        "mainThreadMs": 7040.68799999981
+      },
+      {
+        "score": 83,
+        "fcpMs": 903.6829,
+        "lcpMs": 3203.5243500000006,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 14017.1425579727,
+        "totalBytes": 3210639,
+        "jsBytes": 163281,
+        "requests": 24,
+        "mainThreadMs": 7617.247999999768
+      }
+    ]
+  },
+  "/news/9 desktop": {
+    "median": {
+      "score": 90,
+      "fcpMs": 243.69,
+      "lcpMs": 661.3,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 11114.82,
+      "totalBytes": 3018789,
+      "jsBytes": 236706,
+      "requests": 40,
+      "mainThreadMs": 2137.85
+    },
+    "runs": [
+      {
+        "score": 90,
+        "fcpMs": 243.3988,
+        "lcpMs": 658.7975999999999,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 11993.01099240772,
+        "totalBytes": 3018789,
+        "jsBytes": 236706,
+        "requests": 40,
+        "mainThreadMs": 2038.190999999922
+      },
+      {
+        "score": 90,
+        "fcpMs": 244.65109999999999,
+        "lcpMs": 661.3022,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 10128.92078507861,
+        "totalBytes": 2983921,
+        "jsBytes": 236706,
+        "requests": 40,
+        "mainThreadMs": 2165.327999999955
+      },
+      {
+        "score": 90,
+        "fcpMs": 243.69240000000002,
+        "lcpMs": 698.3847999999998,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 11114.815424007711,
+        "totalBytes": 3174488,
+        "jsBytes": 236706,
+        "requests": 40,
+        "mainThreadMs": 2137.8549999999364
+      }
+    ]
+  },
+  "/recruit/jobs mobile": {
+    "median": {
+      "score": 75,
+      "fcpMs": 904.3,
+      "lcpMs": 16129.3,
+      "tbtMs": 3,
+      "cls": 0,
+      "speedIndexMs": 1298.87,
+      "totalBytes": 2947766,
+      "jsBytes": 160340,
+      "requests": 25,
+      "mainThreadMs": 855.95
+    },
+    "runs": [
+      {
+        "score": 75,
+        "fcpMs": 904.4942000000001,
+        "lcpMs": 16129.494200000001,
+        "tbtMs": 4,
+        "cls": 0,
+        "speedIndexMs": 1298.871915972226,
+        "totalBytes": 2947766,
+        "jsBytes": 160340,
+        "requests": 25,
+        "mainThreadMs": 795.0640000000012
+      },
+      {
+        "score": 75,
+        "fcpMs": 904.3027999999999,
+        "lcpMs": 16129.302800000001,
+        "tbtMs": 3,
+        "cls": 0,
+        "speedIndexMs": 1316.0625500138358,
+        "totalBytes": 2947766,
+        "jsBytes": 160340,
+        "requests": 25,
+        "mainThreadMs": 906.7640000000016
+      },
+      {
+        "score": 75,
+        "fcpMs": 903.3641,
+        "lcpMs": 16055.046149999998,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1153.735686006322,
+        "totalBytes": 2947766,
+        "jsBytes": 160340,
+        "requests": 25,
+        "mainThreadMs": 855.9520000000024
+      }
+    ]
+  },
+  "/recruit/jobs desktop": {
+    "median": {
+      "score": 85,
+      "fcpMs": 244.45,
+      "lcpMs": 2726.68,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 471.19,
+      "totalBytes": 3175421,
+      "jsBytes": 233765,
+      "requests": 43,
+      "mainThreadMs": 225.87
+    },
+    "runs": [
+      {
+        "score": 85,
+        "fcpMs": 245.40089999999998,
+        "lcpMs": 2728.10135,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 478.7994537631469,
+        "totalBytes": 3175421,
+        "jsBytes": 233765,
+        "requests": 43,
+        "mainThreadMs": 241.60800000000157
+      },
+      {
+        "score": 85,
+        "fcpMs": 244.454,
+        "lcpMs": 2726.6810000000005,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 471.19122734214415,
+        "totalBytes": 3175421,
+        "jsBytes": 233765,
+        "requests": 43,
+        "mainThreadMs": 225.87200000000098
+      },
+      {
+        "score": 85,
+        "fcpMs": 243.926,
+        "lcpMs": 2725.889,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 435.78229133955585,
+        "totalBytes": 3175421,
+        "jsBytes": 233765,
+        "requests": 43,
+        "mainThreadMs": 219.96200000000084
+      }
+    ]
+  },
+  "/recruit/9 mobile": {
+    "median": {
+      "score": 73,
+      "fcpMs": 903.03,
+      "lcpMs": 16054.55,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 4362.47,
+      "totalBytes": 2956766,
+      "jsBytes": 163249,
+      "requests": 23,
+      "mainThreadMs": 916.53
+    },
+    "runs": [
+      {
+        "score": 72,
+        "fcpMs": 902.7698,
+        "lcpMs": 16054.1547,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 4409.359848020417,
+        "totalBytes": 2956766,
+        "jsBytes": 163249,
+        "requests": 23,
+        "mainThreadMs": 916.5280000000037
+      },
+      {
+        "score": 73,
+        "fcpMs": 903.0301999999999,
+        "lcpMs": 16054.545300000002,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 4277.201499984161,
+        "totalBytes": 2956766,
+        "jsBytes": 163249,
+        "requests": 23,
+        "mainThreadMs": 866.660000000001
+      },
+      {
+        "score": 73,
+        "fcpMs": 903.2375999999999,
+        "lcpMs": 16054.8564,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 4362.473787973621,
+        "totalBytes": 2956766,
+        "jsBytes": 163249,
+        "requests": 23,
+        "mainThreadMs": 941.064
+      }
+    ]
+  },
+  "/recruit/9 desktop": {
+    "median": {
+      "score": 83,
+      "fcpMs": 243.93,
+      "lcpMs": 2725.9,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 1635.09,
+      "totalBytes": 3182742,
+      "jsBytes": 236674,
+      "requests": 39,
+      "mainThreadMs": 284.94
+    },
+    "runs": [
+      {
+        "score": 83,
+        "fcpMs": 243.219,
+        "lcpMs": 2724.8284999999996,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1698.6039174964899,
+        "totalBytes": 3182742,
+        "jsBytes": 236674,
+        "requests": 39,
+        "mainThreadMs": 239.5270000000011
+      },
+      {
+        "score": 83,
+        "fcpMs": 244.51260000000002,
+        "lcpMs": 2726.7689,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1630.2861560068718,
+        "totalBytes": 3182742,
+        "jsBytes": 236674,
+        "requests": 39,
+        "mainThreadMs": 288.9170000000001
+      },
+      {
+        "score": 83,
+        "fcpMs": 243.93189999999998,
+        "lcpMs": 2725.89785,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1635.0949439275007,
+        "totalBytes": 3182742,
+        "jsBytes": 236674,
+        "requests": 39,
+        "mainThreadMs": 284.94100000000026
+      }
+    ]
+  }
+}

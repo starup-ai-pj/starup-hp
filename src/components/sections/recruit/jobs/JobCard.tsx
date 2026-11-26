@@ -32,7 +32,6 @@ export default function JobCard({ item }: JobCardProps) {
             sizes="100vw"
             className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
             loading="lazy"
-            unoptimized
           />
         </div>
         <h3 className="text-xl font-medium text-gray-900 group-hover:text-gray-600 transition-colors">
@@ -71,7 +70,6 @@ export default function JobCard({ item }: JobCardProps) {
             sizes="33vw"
             className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
             loading="lazy"
-            unoptimized
           />
         </div>
 
