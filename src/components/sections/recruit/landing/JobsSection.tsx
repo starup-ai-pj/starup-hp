@@ -22,7 +22,6 @@ export default async function JobsSection() {
                   fill
                   className="object-cover"
                   sizes="(min-width: 1024px) 40vw, 100vw"
-                  unoptimized
                 />
 
                 {/* Top-right stamp */}

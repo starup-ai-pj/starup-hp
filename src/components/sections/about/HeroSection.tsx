@@ -9,9 +9,9 @@ export default function HeroSection() {
         src="/images/about/about-hero.jpg"
         alt="About"
         fill
+        sizes="100vw"
         className="object-cover"
         priority
-        unoptimized
       />
       <div className="absolute inset-0 bg-black/40" />
       <div className="absolute bottom-12 md:bottom-20 left-0 w-full px-4">

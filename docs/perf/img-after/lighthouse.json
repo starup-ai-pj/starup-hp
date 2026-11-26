@@ -1,0 +1,626 @@
+{
+  "/ mobile": {
+    "median": {
+      "score": 88,
+      "fcpMs": 1053.99,
+      "lcpMs": 3534.97,
+      "tbtMs": 42.5,
+      "cls": 0,
+      "speedIndexMs": 4442.63,
+      "totalBytes": 1849522,
+      "jsBytes": 363257,
+      "requests": 36,
+      "mainThreadMs": 1805.62
+    },
+    "runs": [
+      {
+        "score": 68,
+        "fcpMs": 2158.488,
+        "lcpMs": 3858.836000000001,
+        "tbtMs": 603,
+        "cls": 0,
+        "speedIndexMs": 4506.669466684865,
+        "totalBytes": 1849522,
+        "jsBytes": 363257,
+        "requests": 36,
+        "mainThreadMs": 3870.147999999949
+      },
+      {
+        "score": 88,
+        "fcpMs": 1053.2279,
+        "lcpMs": 3533.0697499999997,
+        "tbtMs": 34,
+        "cls": 0,
+        "speedIndexMs": 4442.62524867273,
+        "totalBytes": 2092530,
+        "jsBytes": 363257,
+        "requests": 36,
+        "mainThreadMs": 1805.615999999995
+      },
+      {
+        "score": 89,
+        "fcpMs": 1053.9868,
+        "lcpMs": 3534.9669999999983,
+        "tbtMs": 42.5,
+        "cls": 0,
+        "speedIndexMs": 3685.9104377597187,
+        "totalBytes": 1817684,
+        "jsBytes": 363257,
+        "requests": 36,
+        "mainThreadMs": 1394.9320000000068
+      }
+    ]
+  },
+  "/ desktop": {
+    "median": {
+      "score": 99,
+      "fcpMs": 283.86,
+      "lcpMs": 737.78,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 1030.81,
+      "totalBytes": 1197516,
+      "jsBytes": 392685,
+      "requests": 46,
+      "mainThreadMs": 510.44
+    },
+    "runs": [
+      {
+        "score": 96,
+        "fcpMs": 284.805,
+        "lcpMs": 699.2074999999999,
+        "tbtMs": 122,
+        "cls": 0,
+        "speedIndexMs": 1489.7683284151603,
+        "totalBytes": 1197516,
+        "jsBytes": 392685,
+        "requests": 46,
+        "mainThreadMs": 1052.2479999999837
+      },
+      {
+        "score": 99,
+        "fcpMs": 283.7402,
+        "lcpMs": 747.4803999999999,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1030.8072043877305,
+        "totalBytes": 1197540,
+        "jsBytes": 392685,
+        "requests": 46,
+        "mainThreadMs": 510.4359999999967
+      },
+      {
+        "score": 99,
+        "fcpMs": 283.8562,
+        "lcpMs": 737.7842999999999,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 944.383995956359,
+        "totalBytes": 1197505,
+        "jsBytes": 392685,
+        "requests": 46,
+        "mainThreadMs": 464.35699999999883
+      }
+    ]
+  },
+  "/about mobile": {
+    "median": {
+      "score": 88,
+      "fcpMs": 1054.24,
+      "lcpMs": 3739.09,
+      "tbtMs": 1,
+      "cls": 0.04,
+      "speedIndexMs": 1643.63,
+      "totalBytes": 937200,
+      "jsBytes": 210478,
+      "requests": 32,
+      "mainThreadMs": 1536.35
+    },
+    "runs": [
+      {
+        "score": 87,
+        "fcpMs": 1054.2381,
+        "lcpMs": 4115.595250000001,
+        "tbtMs": 0,
+        "cls": 0.03639294936434141,
+        "speedIndexMs": 1643.6329529608083,
+        "totalBytes": 937201,
+        "jsBytes": 210478,
+        "requests": 32,
+        "mainThreadMs": 1365.4680000000053
+      },
+      {
+        "score": 88,
+        "fcpMs": 2005.152,
+        "lcpMs": 3739.092,
+        "tbtMs": 1,
+        "cls": 0.03639294936434141,
+        "speedIndexMs": 2172.3633843734096,
+        "totalBytes": 937200,
+        "jsBytes": 210478,
+        "requests": 32,
+        "mainThreadMs": 1536.3520000000046
+      },
+      {
+        "score": 90,
+        "fcpMs": 1053.7823,
+        "lcpMs": 3683.5101749999994,
+        "tbtMs": 2,
+        "cls": 0.03639294936434141,
+        "speedIndexMs": 1632.390791108394,
+        "totalBytes": 937200,
+        "jsBytes": 210478,
+        "requests": 32,
+        "mainThreadMs": 1661.5719999999997
+      }
+    ]
+  },
+  "/about desktop": {
+    "median": {
+      "score": 99,
+      "fcpMs": 284.3,
+      "lcpMs": 751.52,
+      "tbtMs": 0,
+      "cls": 0.04,
+      "speedIndexMs": 468.58,
+      "totalBytes": 1358401,
+      "jsBytes": 233662,
+      "requests": 43,
+      "mainThreadMs": 303.56
+    },
+    "runs": [
+      {
+        "score": 98,
+        "fcpMs": 284.3,
+        "lcpMs": 1006.4499999999998,
+        "tbtMs": 0,
+        "cls": 0.0439038366824271,
+        "speedIndexMs": 460.80041308444174,
+        "totalBytes": 1358401,
+        "jsBytes": 233662,
+        "requests": 43,
+        "mainThreadMs": 303.5640000000009
+      },
+      {
+        "score": 99,
+        "fcpMs": 284.6075,
+        "lcpMs": 751.51875,
+        "tbtMs": 0,
+        "cls": 0.0439038366824271,
+        "speedIndexMs": 468.57594848555965,
+        "totalBytes": 1358401,
+        "jsBytes": 233662,
+        "requests": 43,
+        "mainThreadMs": 291.16100000000114
+      },
+      {
+        "score": 99,
+        "fcpMs": 284.0855,
+        "lcpMs": 750.21375,
+        "tbtMs": 0,
+        "cls": 0.0439038366824271,
+        "speedIndexMs": 473.0134317290204,
+        "totalBytes": 1358401,
+        "jsBytes": 233662,
+        "requests": 43,
+        "mainThreadMs": 317.4220000000013
+      }
+    ]
+  },
+  "/member mobile": {
+    "median": {
+      "score": 86,
+      "fcpMs": 904.44,
+      "lcpMs": 4057.48,
+      "tbtMs": 32,
+      "cls": 0.08,
+      "speedIndexMs": 1950.49,
+      "totalBytes": 824565,
+      "jsBytes": 210425,
+      "requests": 35,
+      "mainThreadMs": 1361.46
+    },
+    "runs": [
+      {
+        "score": 82,
+        "fcpMs": 904.4373,
+        "lcpMs": 4579.4373,
+        "tbtMs": 43.999999999999545,
+        "cls": 0.07614855020119218,
+        "speedIndexMs": 2131.275216301309,
+        "totalBytes": 824565,
+        "jsBytes": 210425,
+        "requests": 35,
+        "mainThreadMs": 1441.3360000000046
+      },
+      {
+        "score": 86,
+        "fcpMs": 904.2717,
+        "lcpMs": 4057.4754749999993,
+        "tbtMs": 30,
+        "cls": 0.07614855020119218,
+        "speedIndexMs": 1950.4924567006194,
+        "totalBytes": 878033,
+        "jsBytes": 210425,
+        "requests": 36,
+        "mainThreadMs": 1338.5160000000046
+      },
+      {
+        "score": 87,
+        "fcpMs": 904.5116,
+        "lcpMs": 3836.278999999999,
+        "tbtMs": 32,
+        "cls": 0.07614855020119218,
+        "speedIndexMs": 1891.0865571174165,
+        "totalBytes": 818584,
+        "jsBytes": 210425,
+        "requests": 35,
+        "mainThreadMs": 1361.460000000005
+      }
+    ]
+  },
+  "/member desktop": {
+    "median": {
+      "score": 96,
+      "fcpMs": 244.97,
+      "lcpMs": 1364.57,
+      "tbtMs": 0,
+      "cls": 0.02,
+      "speedIndexMs": 568.66,
+      "totalBytes": 1394696,
+      "jsBytes": 234666,
+      "requests": 51,
+      "mainThreadMs": 358.06
+    },
+    "runs": [
+      {
+        "score": 100,
+        "fcpMs": 245.074,
+        "lcpMs": 795.6480000000001,
+        "tbtMs": 0,
+        "cls": 0.01719943262411348,
+        "speedIndexMs": 570.7929662408487,
+        "totalBytes": 1394696,
+        "jsBytes": 234666,
+        "requests": 51,
+        "mainThreadMs": 384.18200000000127
+      },
+      {
+        "score": 96,
+        "fcpMs": 244.96800000000002,
+        "lcpMs": 1364.9680000000003,
+        "tbtMs": 0,
+        "cls": 0.01719943262411348,
+        "speedIndexMs": 568.6558316182264,
+        "totalBytes": 1394696,
+        "jsBytes": 234666,
+        "requests": 51,
+        "mainThreadMs": 358.0580000000016
+      },
+      {
+        "score": 96,
+        "fcpMs": 244.57279999999997,
+        "lcpMs": 1364.5728,
+        "tbtMs": 0,
+        "cls": 0.01719943262411348,
+        "speedIndexMs": 552.8175860700034,
+        "totalBytes": 1340997,
+        "jsBytes": 229439,
+        "requests": 48,
+        "mainThreadMs": 338.5130000000004
+      }
+    ]
+  },
+  "/member/yuto-ogata mobile": {
+    "median": {
+      "score": 93,
+      "fcpMs": 903.14,
+      "lcpMs": 3272.64,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 903.14,
+      "totalBytes": 375260,
+      "jsBytes": 161221,
+      "requests": 23,
+      "mainThreadMs": 726.42
+    },
+    "runs": [
+      {
+        "score": 91,
+        "fcpMs": 904.8379,
+        "lcpMs": 3502.2568499999998,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 904.8379,
+        "totalBytes": 374885,
+        "jsBytes": 161221,
+        "requests": 23,
+        "mainThreadMs": 726.4160000000019
+      },
+      {
+        "score": 93,
+        "fcpMs": 903.0947000000001,
+        "lcpMs": 3272.6420500000004,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 903.0947000000001,
+        "totalBytes": 375260,
+        "jsBytes": 161221,
+        "requests": 23,
+        "mainThreadMs": 777.7560000000005
+      },
+      {
+        "score": 93,
+        "fcpMs": 903.1396,
+        "lcpMs": 3201.8489999999993,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 903.1396,
+        "totalBytes": 375260,
+        "jsBytes": 161221,
+        "requests": 23,
+        "mainThreadMs": 716.8880000000003
+      }
+    ]
+  },
+  "/member/yuto-ogata desktop": {
+    "median": {
+      "score": 100,
+      "fcpMs": 244.5,
+      "lcpMs": 685.36,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 294.08,
+      "totalBytes": 690634,
+      "jsBytes": 234666,
+      "requests": 40,
+      "mainThreadMs": 209.28
+    },
+    "runs": [
+      {
+        "score": 100,
+        "fcpMs": 244.5043,
+        "lcpMs": 806.7564499999999,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 294.22677790749526,
+        "totalBytes": 694064,
+        "jsBytes": 234666,
+        "requests": 40,
+        "mainThreadMs": 209.28200000000072
+      },
+      {
+        "score": 100,
+        "fcpMs": 245.18099999999998,
+        "lcpMs": 685.3620000000001,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 283.3481732471704,
+        "totalBytes": 690634,
+        "jsBytes": 234666,
+        "requests": 40,
+        "mainThreadMs": 197.76200000000026
+      },
+      {
+        "score": 100,
+        "fcpMs": 243.8139,
+        "lcpMs": 679.6278,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 294.07839799495366,
+        "totalBytes": 690634,
+        "jsBytes": 234666,
+        "requests": 40,
+        "mainThreadMs": 211.5950000000004
+      }
+    ]
+  },
+  "/recruit mobile": {
+    "median": {
+      "score": 89,
+      "fcpMs": 1053.55,
+      "lcpMs": 3831.76,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 2054.61,
+      "totalBytes": 584854,
+      "jsBytes": 205661,
+      "requests": 26,
+      "mainThreadMs": 918.9
+    },
+    "runs": [
+      {
+        "score": 88,
+        "fcpMs": 1053.5513,
+        "lcpMs": 3912.8269499999997,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 2225.3483132233723,
+        "totalBytes": 581585,
+        "jsBytes": 205661,
+        "requests": 26,
+        "mainThreadMs": 833.9240000000017
+      },
+      {
+        "score": 89,
+        "fcpMs": 1053.257,
+        "lcpMs": 3755.6997499999998,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 2054.611788030409,
+        "totalBytes": 584854,
+        "jsBytes": 205661,
+        "requests": 26,
+        "mainThreadMs": 918.9000000000013
+      },
+      {
+        "score": 89,
+        "fcpMs": 1053.8615,
+        "lcpMs": 3831.757625,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1935.7113883780871,
+        "totalBytes": 584854,
+        "jsBytes": 205661,
+        "requests": 26,
+        "mainThreadMs": 919.4160000000003
+      }
+    ]
+  },
+  "/recruit desktop": {
+    "median": {
+      "score": 99,
+      "fcpMs": 284.31,
+      "lcpMs": 962.77,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 595,
+      "totalBytes": 1458722,
+      "jsBytes": 235089,
+      "requests": 57,
+      "mainThreadMs": 252.08
+    },
+    "runs": [
+      {
+        "score": 99,
+        "fcpMs": 284.4697,
+        "lcpMs": 987.5265250000002,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 661.7839564734156,
+        "totalBytes": 1481987,
+        "jsBytes": 235089,
+        "requests": 57,
+        "mainThreadMs": 250.02000000000024
+      },
+      {
+        "score": 99,
+        "fcpMs": 284.31,
+        "lcpMs": 962.7749999999999,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 588.8224651132159,
+        "totalBytes": 1458722,
+        "jsBytes": 235089,
+        "requests": 57,
+        "mainThreadMs": 252.07500000000124
+      },
+      {
+        "score": 99,
+        "fcpMs": 284.2157,
+        "lcpMs": 942.53925,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 595.0041650585722,
+        "totalBytes": 1458722,
+        "jsBytes": 235089,
+        "requests": 57,
+        "mainThreadMs": 258.5610000000007
+      }
+    ]
+  },
+  "/recruit/culture mobile": {
+    "median": {
+      "score": 93,
+      "fcpMs": 902.88,
+      "lcpMs": 3198.32,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 902.88,
+      "totalBytes": 341284,
+      "jsBytes": 158976,
+      "requests": 22,
+      "mainThreadMs": 817.41
+    },
+    "runs": [
+      {
+        "score": 93,
+        "fcpMs": 903.0243,
+        "lcpMs": 3198.53645,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 903.0243,
+        "totalBytes": 341284,
+        "jsBytes": 158976,
+        "requests": 22,
+        "mainThreadMs": 829.2120000000015
+      },
+      {
+        "score": 93,
+        "fcpMs": 902.8353,
+        "lcpMs": 3197.252949999999,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 902.8353,
+        "totalBytes": 341284,
+        "jsBytes": 158976,
+        "requests": 22,
+        "mainThreadMs": 805.8600000000016
+      },
+      {
+        "score": 93,
+        "fcpMs": 902.8786,
+        "lcpMs": 3198.3179,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 902.8786,
+        "totalBytes": 341284,
+        "jsBytes": 158976,
+        "requests": 22,
+        "mainThreadMs": 817.4120000000011
+      }
+    ]
+  },
+  "/recruit/culture desktop": {
+    "median": {
+      "score": 100,
+      "fcpMs": 243.7,
+      "lcpMs": 658.39,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 282.3,
+      "totalBytes": 567271,
+      "jsBytes": 232421,
+      "requests": 38,
+      "mainThreadMs": 234.23
+    },
+    "runs": [
+      {
+        "score": 100,
+        "fcpMs": 243.3868,
+        "lcpMs": 657.7736,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 282.2985044148461,
+        "totalBytes": 567271,
+        "jsBytes": 232421,
+        "requests": 38,
+        "mainThreadMs": 249.6700000000008
+      },
+      {
+        "score": 100,
+        "fcpMs": 243.69619999999998,
+        "lcpMs": 658.3924000000002,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 278.6042498342408,
+        "totalBytes": 567271,
+        "jsBytes": 232421,
+        "requests": 38,
+        "mainThreadMs": 209.1120000000004
+      },
+      {
+        "score": 100,
+        "fcpMs": 243.74579999999997,
+        "lcpMs": 658.4915999999998,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 284.54620299690725,
+        "totalBytes": 567271,
+        "jsBytes": 232421,
+        "requests": 38,
+        "mainThreadMs": 234.2250000000006
+      }
+    ]
+  }
+}

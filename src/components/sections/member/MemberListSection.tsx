@@ -100,9 +100,8 @@ export default function MemberListSection({ members, advisors = [] }: MemberList
               alt={t('groupPhotoAlt')}
               fill
               priority
-              sizes="(min-width: 1024px) 1500px, 100vw"
+              sizes="(min-width: 1500px) 1468px, 100vw"
               className="object-cover object-[center_60%]"
-              unoptimized
             />
           </div>
           <figcaption className="mt-3 md:mt-4 flex items-center justify-between gap-4 text-[10px] text-gray-400 uppercase tracking-[0.3em]">
@@ -140,6 +139,7 @@ export default function MemberListSection({ members, advisors = [] }: MemberList
                           src={member.image}
                           alt={member.name}
                           fill
+                          sizes="(min-width: 1500px) 734px, (min-width: 1024px) 50vw, 100vw"
                           className="object-cover object-top transition-all duration-500"
                         />
                       ) : (
@@ -174,6 +174,7 @@ export default function MemberListSection({ members, advisors = [] }: MemberList
                           src={member.image}
                           alt={member.name}
                           fill
+                          sizes="(min-width: 1500px) 360px, 25vw"
                           className="object-cover transition-all duration-500"
                         />
                       ) : (
@@ -258,6 +259,7 @@ export default function MemberListSection({ members, advisors = [] }: MemberList
                             src={advisor.image}
                             alt={advisor.name}
                             fill
+                            sizes="(min-width: 1500px) 734px, (min-width: 1024px) 50vw, 100vw"
                             className="object-cover object-top"
                           />
                         ) : (
@@ -284,6 +286,7 @@ export default function MemberListSection({ members, advisors = [] }: MemberList
                             src={advisor.image}
                             alt={advisor.name}
                             fill
+                            sizes="(min-width: 1500px) 360px, 25vw"
                             className="object-cover object-top"
                           />
                         ) : (
