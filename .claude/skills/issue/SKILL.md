@@ -8,7 +8,7 @@ allowed-tools: Bash(gh issue *), Bash(gh project *), Bash(gh api *), Bash(gh lab
 
 ## リポジトリ・プロジェクト設定
 
-- **リポジトリ**: `ShotaGhoona/starup-hp`
+- **リポジトリ**: `starup-ai-pj/starup-hp`
 - **プロジェクト**: `STARUP HP` (番号 `1`, owner `ShotaGhoona` — user project)
 - **プロジェクトID**: `PVT_kwHOC-n7rs4BTLoM`
 - **Statusフィールド**: フィールドID `PVTSSF_lAHOC-n7rs4BTLoMzhAf0Bo`
@@ -40,7 +40,7 @@ allowed-tools: Bash(gh issue *), Bash(gh project *), Bash(gh api *), Bash(gh lab
    - 不明な部分は無理に埋めない
 
 4. Milestoneを選択する:
-   - `gh api repos/ShotaGhoona/starup-hp/milestones --jq '.[].title'` で一覧を取得
+   - `gh api repos/starup-ai-pj/starup-hp/milestones --jq '.[].title'` で一覧を取得
    - 内容から最も適切なMilestoneを1つ選ぶ（該当がなければ省略可）
 
 5. AskUserQuestion で確認する:
@@ -50,7 +50,7 @@ allowed-tools: Bash(gh issue *), Bash(gh project *), Bash(gh api *), Bash(gh lab
 6. 確認後、**1回のBash呼び出し**で Issue作成 → Project追加 → Status=Todo 設定をすべて実行する:
 
    ```bash
-   ISSUE_URL=$(gh issue create --repo ShotaGhoona/starup-hp \
+   ISSUE_URL=$(gh issue create --repo starup-ai-pj/starup-hp \
      --title "{タイトル}" \
      --milestone "{Milestone名}" \
      --assignee ShotaGhoona \
@@ -75,4 +75,4 @@ allowed-tools: Bash(gh issue *), Bash(gh project *), Bash(gh api *), Bash(gh lab
 - 説明文が曖昧な場合は、わかる範囲で書いて「要件の詳細化が必要」と本文に記載する
 - 1つの説明文に複数のIssueが含まれる場合は分割して作成する
 - 関連するIssueがあれば本文で `#番号` で参照する
-- 既存Issueに重複がないか、作成前に `gh issue list --repo ShotaGhoona/starup-hp --state open` で軽く確認すると良い
+- 既存Issueに重複がないか、作成前に `gh issue list --repo starup-ai-pj/starup-hp --state open` で軽く確認すると良い

@@ -14,8 +14,8 @@ PR番号を受け取り、コードレビューを行う。
 
 1. **PRの情報を取得する**
    ```
-   gh pr view {番号} --repo starup-ai-pj/archaive-flowerium
-   gh pr diff {番号} --repo starup-ai-pj/archaive-flowerium
+   gh pr view {番号} --repo starup-ai-pj/starup-hp
+   gh pr diff {番号} --repo starup-ai-pj/starup-hp
    ```
 
 2. **差分を分析する**
@@ -68,7 +68,7 @@ PR番号を受け取り、コードレビューを行う。
 
 5. **特定の行にコメントが必要な場合**
    ```
-   gh api repos/starup-ai-pj/archaive-flowerium/pulls/{番号}/comments \
+   gh api repos/starup-ai-pj/starup-hp/pulls/{番号}/comments \
      -f body="コメント" -f path="ファイルパス" -F line=行番号 \
      -f commit_id="$(gh pr view {番号} --json headRefOid -q .headRefOid)"
    ```

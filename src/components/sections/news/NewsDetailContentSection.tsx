@@ -98,7 +98,8 @@ export default function NewsDetailContentSection({ post }: NewsDetailContentSect
             fill
             sizes="(max-width: 1500px) 100vw, 1500px"
             className="object-cover"
-            loading="lazy"
+            // ページの LCP 要素なので先読みする（lazy だと読み込み開始が遅れる）
+            priority
             quality={80}
           />
         </div>

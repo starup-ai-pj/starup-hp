@@ -52,6 +52,12 @@ allowed-tools: Bash(vercel *), Bash(npm i -g vercel), Bash(git checkout *), Bash
    - `preview` 指定時は `vercel --yes`（`--prod` なし）。
    - 出力の `readyState: READY` と Production URL を確認。
 
+   - **CLI にログインできないとき**（Vercel のメール認証が届かない等）: このセッションにつながっている Vercel MCP（`plugin:vercel:vercel`）から、GitHub の main を直接ビルドできる。
+     - `create_deployment` に `teamId: team_r4qhJszDks8HXXujc1JZ5qdq`、`requestBody: { name: "starup-hp", project: "prj_IqYEd33YpXXZObxKV8GcgbxXc7gY", target: "production", gitSource: { type: "github", org: "starup-ai-pj", repo: "starup-hp", ref: "main", sha: <main の先頭コミット> } }`
+     - 403（スコープの権限なし）が返ったら `authorize_team_access` で承認リンクを出し、ユーザーに承認してもらってから再実行する
+     - `get_deployment` で `readyState: READY` と、エイリアスに `www.starup01.jp` が付いたことを確認する
+     - ローカルの未コミット変更は含まれない（GitHub の main がそのままビルドされる）
+
 5. **完了報告**
    - 本番URL（`https://www.starup01.jp`）と、反映したコミット（`git log` の先頭）を簡潔に報告。
    - 数分で反映される旨を添える。
