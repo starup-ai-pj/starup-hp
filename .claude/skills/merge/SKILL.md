@@ -14,14 +14,14 @@ PR番号を受け取り、マージしてIssueのステータスを更新する�
 
 1. **PRの情報を取得する**
    ```
-   gh pr view {番号} --repo starup-ai-pj/archaive-flowerium --json title,state,body,headRefName,baseRefName
+   gh pr view {番号} --repo starup-ai-pj/starup-hp --json title,state,body,headRefName,baseRefName
    ```
    - PRがOpenであることを確認
    - 本文から `Closes #N` や `Fixes #N` で紐づくIssue番号を抽出
 
 2. **PRをマージする**
    ```
-   gh pr merge {番号} --repo starup-ai-pj/archaive-flowerium --merge
+   gh pr merge {番号} --repo starup-ai-pj/starup-hp --merge
    ```
 
 3. **関連IssueのプロジェクトステータスをDoneに変更する**

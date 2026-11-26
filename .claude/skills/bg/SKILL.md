@@ -21,7 +21,7 @@ Issue番号を受け取り、worktree上でバックグラウンド実行し、�
 ### 1. Issueの内容を取得
 
 ```
-gh issue view {番号} --repo starup-ai-pj/archaive-flowerium
+gh issue view {番号} --repo starup-ai-pj/starup-hp
 ```
 
 ### 2. ブランチを切る
@@ -56,7 +56,7 @@ gh issue view {番号} --repo starup-ai-pj/archaive-flowerium
 
 - `git push -u origin {ブランチ名}`
 - `gh pr create` でPR作成:
-  - `--repo starup-ai-pj/archaive-flowerium`
+  - `--repo starup-ai-pj/starup-hp`
   - `--base main`
   - `--title "{prefix}: {タイトル日本語}"`
   - `--body` に以下を含める:

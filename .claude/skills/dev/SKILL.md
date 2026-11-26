@@ -14,7 +14,7 @@ Issue番号を受け取り、ブランチを切って実装を行う。
 
 1. **Issueの内容を取得する**
    ```
-   gh issue view {番号} --repo starup-ai-pj/archaive-flowerium
+   gh issue view {番号} --repo starup-ai-pj/starup-hp
    ```
 
 2. **ブランチを切る**

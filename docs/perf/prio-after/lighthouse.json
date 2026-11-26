@@ -1,0 +1,306 @@
+{
+  "/news/9 mobile": {
+    "median": {
+      "score": 92,
+      "fcpMs": 903.84,
+      "lcpMs": 3428.28,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 2054.85,
+      "totalBytes": 415984,
+      "jsBytes": 163354,
+      "requests": 24,
+      "mainThreadMs": 826.66
+    },
+    "runs": [
+      {
+        "score": 92,
+        "fcpMs": 903.8861999999999,
+        "lcpMs": 3434.7724,
+        "tbtMs": 1,
+        "cls": 0,
+        "speedIndexMs": 1772.7582880285786,
+        "totalBytes": 415987,
+        "jsBytes": 163354,
+        "requests": 24,
+        "mainThreadMs": 825.5720000000015
+      },
+      {
+        "score": 93,
+        "fcpMs": 903.825,
+        "lcpMs": 3201.7374999999997,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 2400.3283419721715,
+        "totalBytes": 415984,
+        "jsBytes": 163354,
+        "requests": 24,
+        "mainThreadMs": 818.9960000000013
+      },
+      {
+        "score": 91,
+        "fcpMs": 903.1379999999999,
+        "lcpMs": 3428.276,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 2054.8510479862216,
+        "totalBytes": 415995,
+        "jsBytes": 163354,
+        "requests": 24,
+        "mainThreadMs": 826.6600000000019
+      },
+      {
+        "score": 92,
+        "fcpMs": 903.8391999999999,
+        "lcpMs": 3357.7588000000005,
+        "tbtMs": 1,
+        "cls": 0,
+        "speedIndexMs": 2155.9039619873092,
+        "totalBytes": 415979,
+        "jsBytes": 163354,
+        "requests": 24,
+        "mainThreadMs": 926.2360000000012
+      },
+      {
+        "score": 92,
+        "fcpMs": 904.7563,
+        "lcpMs": 3430.5126,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1872.0154880139428,
+        "totalBytes": 415983,
+        "jsBytes": 163354,
+        "requests": 24,
+        "mainThreadMs": 894.0800000000032
+      }
+    ]
+  },
+  "/news/9 desktop": {
+    "median": {
+      "score": 100,
+      "fcpMs": 244.3,
+      "lcpMs": 717.56,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 803.95,
+      "totalBytes": 785567,
+      "jsBytes": 236799,
+      "requests": 40,
+      "mainThreadMs": 236.69
+    },
+    "runs": [
+      {
+        "score": 100,
+        "fcpMs": 244.2747,
+        "lcpMs": 719.480725,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 803.9536435044939,
+        "totalBytes": 785576,
+        "jsBytes": 236799,
+        "requests": 40,
+        "mainThreadMs": 235.35400000000098
+      },
+      {
+        "score": 100,
+        "fcpMs": 244.1562,
+        "lcpMs": 719.2733499999998,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 775.7726312453113,
+        "totalBytes": 785565,
+        "jsBytes": 236799,
+        "requests": 40,
+        "mainThreadMs": 248.9570000000004
+      },
+      {
+        "score": 100,
+        "fcpMs": 244.3041,
+        "lcpMs": 699.5321749999998,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 750.8069967563257,
+        "totalBytes": 785571,
+        "jsBytes": 236799,
+        "requests": 40,
+        "mainThreadMs": 236.6920000000008
+      },
+      {
+        "score": 98,
+        "fcpMs": 245.041,
+        "lcpMs": 702.8217500000002,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1604.3886851814007,
+        "totalBytes": 785566,
+        "jsBytes": 236799,
+        "requests": 40,
+        "mainThreadMs": 231.53000000000048
+      },
+      {
+        "score": 99,
+        "fcpMs": 244.37580000000003,
+        "lcpMs": 717.5637000000002,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1146.714695757692,
+        "totalBytes": 785567,
+        "jsBytes": 236799,
+        "requests": 40,
+        "mainThreadMs": 244.0630000000008
+      }
+    ]
+  },
+  "/recruit/9 mobile": {
+    "median": {
+      "score": 91,
+      "fcpMs": 904.17,
+      "lcpMs": 3276.32,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 4347.29,
+      "totalBytes": 377728,
+      "jsBytes": 163339,
+      "requests": 23,
+      "mainThreadMs": 845.05
+    },
+    "runs": [
+      {
+        "score": 93,
+        "fcpMs": 904.174,
+        "lcpMs": 2707.3045,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 4623.9379460069895,
+        "totalBytes": 377728,
+        "jsBytes": 163339,
+        "requests": 23,
+        "mainThreadMs": 845.0480000000005
+      },
+      {
+        "score": 91,
+        "fcpMs": 903.546,
+        "lcpMs": 3276.3189999999995,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 3975.9834240094665,
+        "totalBytes": 377728,
+        "jsBytes": 163339,
+        "requests": 23,
+        "mainThreadMs": 790.3280000000015
+      },
+      {
+        "score": 90,
+        "fcpMs": 904.5352,
+        "lcpMs": 3283.8027999999995,
+        "tbtMs": 1,
+        "cls": 0,
+        "speedIndexMs": 4147.952211998241,
+        "totalBytes": 377728,
+        "jsBytes": 163339,
+        "requests": 23,
+        "mainThreadMs": 908.3280000000012
+      },
+      {
+        "score": 90,
+        "fcpMs": 903.692,
+        "lcpMs": 3279.538,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 4347.286557978678,
+        "totalBytes": 377728,
+        "jsBytes": 163339,
+        "requests": 23,
+        "mainThreadMs": 793.0040000000015
+      },
+      {
+        "score": 93,
+        "fcpMs": 904.537,
+        "lcpMs": 2784.074,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 4541.3405420017125,
+        "totalBytes": 377728,
+        "jsBytes": 163339,
+        "requests": 23,
+        "mainThreadMs": 878.9360000000014
+      }
+    ]
+  },
+  "/recruit/9 desktop": {
+    "median": {
+      "score": 97,
+      "fcpMs": 244.08,
+      "lcpMs": 700.14,
+      "tbtMs": 0,
+      "cls": 0,
+      "speedIndexMs": 1775.97,
+      "totalBytes": 663018,
+      "jsBytes": 236784,
+      "requests": 39,
+      "mainThreadMs": 239.93
+    },
+    "runs": [
+      {
+        "score": 97,
+        "fcpMs": 243.92200000000003,
+        "lcpMs": 698.8635,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1668.810054409575,
+        "totalBytes": 663018,
+        "jsBytes": 236784,
+        "requests": 39,
+        "mainThreadMs": 231.45900000000097
+      },
+      {
+        "score": 97,
+        "fcpMs": 243.49509999999998,
+        "lcpMs": 698.1164249999999,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1847.4909534183246,
+        "totalBytes": 663018,
+        "jsBytes": 236784,
+        "requests": 39,
+        "mainThreadMs": 233.78300000000144
+      },
+      {
+        "score": 97,
+        "fcpMs": 244.5383,
+        "lcpMs": 700.9420250000002,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1775.971741337115,
+        "totalBytes": 663018,
+        "jsBytes": 236784,
+        "requests": 39,
+        "mainThreadMs": 247.1670000000014
+      },
+      {
+        "score": 98,
+        "fcpMs": 244.10590000000002,
+        "lcpMs": 719.185325,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1617.2292124212609,
+        "totalBytes": 663018,
+        "jsBytes": 236784,
+        "requests": 39,
+        "mainThreadMs": 253.60700000000114
+      },
+      {
+        "score": 96,
+        "fcpMs": 244.0775,
+        "lcpMs": 700.1356249999999,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 2086.6445188442435,
+        "totalBytes": 663018,
+        "jsBytes": 236784,
+        "requests": 39,
+        "mainThreadMs": 239.93400000000148
+      }
+    ]
+  }
+}
