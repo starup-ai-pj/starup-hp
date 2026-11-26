@@ -66,13 +66,3 @@ export function getNumber(page: NotionPage, property: string): number | null {
   return typeof value === 'number' ? value : null
 }
 
-/** files プロパティ → 先頭ファイルのURL（file / external 両対応） */
-export function getFileUrl(page: NotionPage, property: string): string {
-  const files = page.properties[property]?.files
-  if (!files || files.length === 0) return ''
-
-  const file = files[0]
-  if (file.type === 'file' && file.file) return file.file.url
-  if (file.type === 'external' && file.external) return file.external.url
-  return ''
-}

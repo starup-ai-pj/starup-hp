@@ -7,13 +7,13 @@
 import { requireEnv } from '@/lib/notion/client'
 import { createContentRepository } from '@/lib/notion/repository'
 import { byManualOrder } from '@/lib/notion/ordering'
+import { getPageFileSrc } from '@/lib/notion/image'
 import {
   getUniqueId,
   getTitle,
   getDate,
   getMultiSelect,
   getRichText,
-  getFileUrl,
 } from '@/lib/notion/fields'
 import { NewsPost, NewsListItem } from './types'
 
@@ -32,7 +32,7 @@ const repository = createContentRepository<NewsListItem, NewsPost>(
       date: getDate(page, 'Date'),
       tags: getMultiSelect(page, 'Tags'),
       summary: getRichText(page, 'Description'),
-      thumbnail: getFileUrl(page, 'Thumbnail') || DEFAULT_IMAGE,
+      thumbnail: getPageFileSrc(page, 'Thumbnail') || DEFAULT_IMAGE,
     }),
     toPost: (page, blocks) => ({
       id: getUniqueId(page, 'ID'),
@@ -41,7 +41,7 @@ const repository = createContentRepository<NewsListItem, NewsPost>(
       tags: getMultiSelect(page, 'Tags'),
       summary: getRichText(page, 'Description'),
       blocks,
-      thumbnail: getFileUrl(page, 'Thumbnail') || DEFAULT_IMAGE,
+      thumbnail: getPageFileSrc(page, 'Thumbnail') || DEFAULT_IMAGE,
     }),
   },
   {

@@ -84,7 +84,6 @@ export default async function NewsListSection({ locale }: { locale: string }) {
                         fill
                         sizes="(max-width: 768px) 100vw, 25vw"
                         className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                        unoptimized
                       />
                     </div>
                   </div>

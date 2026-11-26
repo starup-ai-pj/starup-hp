@@ -7,6 +7,7 @@
 import { requireEnv } from '@/lib/notion/client'
 import { createContentRepository } from '@/lib/notion/repository'
 import { byManualOrder } from '@/lib/notion/ordering'
+import { getPageFileSrc } from '@/lib/notion/image'
 import { NotionPage } from '@/lib/notion/types'
 import {
   getUniqueId,
@@ -16,7 +17,6 @@ import {
   getSelectOrMultiSelect,
   getMultiSelect,
   getRichText,
-  getFileUrl,
 } from '@/lib/notion/fields'
 import { RecruitPost, RecruitListItem } from './types'
 
@@ -58,7 +58,7 @@ const repository = createContentRepository<RecruitListItem, RecruitPost>(
       location: getRichText(page, 'Location'),
       employmentType: getMultiSelect(page, 'EmploymentType'),
       salary: getRichText(page, 'Salary'),
-      thumbnail: getFileUrl(page, 'Thumbnail') || DEFAULT_IMAGE,
+      thumbnail: getPageFileSrc(page, 'Thumbnail') || DEFAULT_IMAGE,
     }),
     toPost: (page, blocks) => ({
       id: getUniqueId(page, 'ID'),
@@ -73,7 +73,7 @@ const repository = createContentRepository<RecruitListItem, RecruitPost>(
       workingHours: getRichText(page, 'WorkingHours'),
       holidays: getRichText(page, 'Holidays'),
       benefits: getRichText(page, 'Benefits'),
-      thumbnail: getFileUrl(page, 'Thumbnail') || DEFAULT_IMAGE,
+      thumbnail: getPageFileSrc(page, 'Thumbnail') || DEFAULT_IMAGE,
       blocks,
     }),
   },
